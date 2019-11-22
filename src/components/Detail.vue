@@ -1,13 +1,14 @@
 <template>
     <div>
+        {{ annotation }}
     </div>    
 </template>
 <script>
 export default {
     props: ["annotation"],
     watch: {
-        annotation: function() {
-            
+        annotation: function(data) {
+
         }
     }
 

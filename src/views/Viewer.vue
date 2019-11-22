@@ -7,12 +7,13 @@
                     v-bind:key="index" 
                     :annotation="item"
                     :id="index" 
-                    v-on:detail="showDetail" >
-                    {{ item }}
+                    @detail="showDetail"
+                    >
+                    {{ item }}                            
                     </app-annotation>
             </ul>
         </div>
-        <app-chart :annotations="annotations"></app-chart>
+        <app-chart :annotations="annotations" :annotationSelected="annotation"></app-chart>
         <app-detail :annotation="annotation"></app-detail>
     </div>
 </template>
@@ -27,12 +28,13 @@ export default {
         return {
             annotations: [],
             annotation: null,
-            test: [1,2,3]
+            test: [1,2,3],
         }
     },
     methods: {
         showDetail: function(data) {
             window.console.log("showDetail",data)
+            this.annotation = data
         }
     },
     components: {
@@ -49,5 +51,6 @@ export default {
 }
 </script>
 <style scoped lang="sass">
-
+    .active 
+        background-color: red
 </style>
