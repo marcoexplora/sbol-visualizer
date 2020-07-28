@@ -1,0 +1,132 @@
+<template>
+  <div>
+    <div class="search">
+      <input type="text" class="search-input" placeholder="Search in annotations" v-model="filter" />
+    </div>
+    <ul class="search-list">
+      <li v-if="selectedItems.length == 0">No Sbol component found</li>
+      <li v-for="(item, index) in selectedItems" :key="index" @click="detailItem(item.index)">
+        <div>
+          <ul>
+            <li>
+              <b>Sequence Ontology:</b>
+              <span>{{ item.SBOL }}</span>
+            </li>
+            <li>
+              <b>Name:</b>
+              <span>{{ item.name }}</span>
+            </li>
+            <li>
+              <b>Direction:</b>
+              <span>{{ item.direction }}</span>
+            </li>
+          </ul>
+        </div>
+        <span>{{ item.start }}…{{ item.end }}</span>
+      </li>
+    </ul>
+  </div>
+</template>
+<script>
+export default {
+  /*
+    
+        :class="{ active: hover }"
+        @mouseover="hover = true"
+        @mouseleave="hover = false"
+    
+    */
+
+  props: ["annotations"],
+  data() {
+    return {
+      filter: ""
+    };
+  },
+  computed: {
+    selectedItems() {
+      // let filters = [];
+      return this.annotations.filter(so => {
+        if (this.filter === "") {
+          return so;
+        }
+        return (
+          so.name.toLowerCase().includes(this.filter.toLowerCase()) ||
+          so.start.toString().includes(this.filter.toString()) ||
+          so.SBOL.toString().includes(this.filter.toString()) ||
+          so.end.toString().includes(this.filter.toString()) ||
+          so.direction.toLowerCase().includes(this.filter.toString())
+        );
+      });
+    }
+  },
+  methods: {
+    detailItem(so) {
+      window.console.log(
+        "detailItem from ListAnnotations",
+        this.annotations[so]
+      );
+      this.$emit("selectedAnnotation", so);
+    }
+  }
+};
+</script>
+<style scoped>
+.search {
+  margin: 0;
+  padding: 0 7px 0 0;
+  font-size: 10px;
+  height: 40px;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 0.25rem;
+  background-color: #f0f2f5;
+}
+
+.search-input {
+  width: 96%;
+  height: 3em;
+  font-size: 1.2em;
+  border: none;
+  background-color: #f0f2f5;
+  padding-left: 10px;
+  border-radius: 3px;
+}
+
+.search-list {
+  list-style: none;
+  padding: 0;
+  text-align: left;
+  margin-top: 5px;
+}
+
+.search-list > li:first-child {
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
+}
+.search-list > li {
+  position: relative;
+  display: block;
+  padding: 0.75rem 10px;
+  margin-bottom: -1px;
+  background-color: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  display: flex !important;
+  -webkit-box-pack: justify !important;
+  justify-content: space-between !important;
+  -webkit-box-align: center !important;
+  align-items: center !important;
+}
+.search-list > li b {
+  padding-right: 5px;
+}
+.search-list > li ul {
+  padding-left: 0;
+  list-style: none;
+}
+.search-list > li div {
+  display: flex !important;
+}
+.search-list > li span {
+  font-size: 0.9em;
+}
+</style>

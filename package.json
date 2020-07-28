@@ -6,19 +6,31 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "build-lib": "vue-cli-service build --target lib src/main.js",
-    "test:unit": "vue-cli-service test:unit"
+    "build-wc": "vue-cli-service build  --target wc --name sbol-viewer ./src/views/Viewer.vue",
+    "eslint": "eslint 'src /**/*.{js,vue}'",
+    "test:unit": "vue-cli-service test:unit",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "dependencies": {
+    "axios": "^0.19.2",
     "core-js": "^3.3.2",
-    "d3": "^5.14.2",
-    "vue": "^2.6.10"
+    "vue": "^2.6.10",
+    "vue-axios": "^2.1.5"
   },
   "devDependencies": {
+    "@babel/core": "^7.7.7",
+    "@storybook/addon-actions": "^5.2.8",
+    "@storybook/addon-links": "^5.2.8",
+    "@storybook/addons": "^5.2.8",
+    "@storybook/vue": "^5.3.10",
     "@vue/cli-plugin-babel": "^4.0.0",
     "@vue/cli-plugin-unit-jest": "^4.0.0",
-    "@vue/cli-service": "^4.0.0",
+    "@vue/cli-service": "^4.5.0",
     "@vue/test-utils": "1.0.0-beta.29",
-    "node-sass": "^4.12.0",
+    "babel-loader": "^8.0.6",
+    "babel-preset-vue": "^2.0.2",
+    "node-sass": "^4.13.1",
     "sass-loader": "^8.0.0",
     "vue-template-compiler": "^2.6.10"
   },
