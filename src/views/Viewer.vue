@@ -8,18 +8,17 @@
     </div>
     <div v-if="!empty" class="SBOLwidget">
       <nav>
-        <Header :header="header" />
-        <list-annotations :annotations="annotations" @selectedAnnotation="showDetail" />
+        <sbol-header :header="header" />
+        <sbol-list-annotations :annotations="annotations" @selectedAnnotation="showDetail" />
       </nav>
       <div class="main" ref="chartsContainer">
-        <chart
+        <sbol-chart
           :annotations="annotations"
           :annotation="annotation"
           @selectedAnnotation="showDetail"
           :mainWidth="chartsWidth"
         />
-
-        <detail :annotation="annotation" />
+        <sbol-detail :annotation="annotation" />
       </div>
     </div>
   </div>
@@ -28,10 +27,10 @@
 <script>
 import axios from "axios";
 
-import Header from "../components/Header";
-import ListAnnotations from "../components/ListAnnotations";
-import Chart from "../components/Chart";
-import Detail from "../components/Detail";
+import SbolHeader from "../components/SbolHeader";
+import SbolListAnnotations from "../components/SbolListAnnotations";
+import SbolChart from "../components/SbolChart";
+import SbolDetail from "../components/SbolDetail";
 
 import SbolLogo from "../components/SbolLogo";
 
@@ -58,10 +57,10 @@ export default {
     }
   },
   components: {
-    Chart,
-    Detail,
-    ListAnnotations,
-    Header,
+    SbolChart,
+    SbolDetail,
+    SbolListAnnotations,
+    SbolHeader,
     SbolLogo
   },
   mounted: function() {

@@ -1,5 +1,5 @@
 <template>
-  <div id="chartSbol" v-bind:style="{ width: mainWidth } + 'px'" :ref="'chartSbol'">
+  <div id="sbolChart" v-bind:style="{ width: mainWidth } + 'px'" :ref="'sbolChart'">
     <div v-bind:style="{ width: computedContainerWidth + 'px' }">
       <div
         v-for="(item, index) in computedGlyphAnnotations"
@@ -73,7 +73,7 @@ export default {
           this.$refs.glyphs[a.index].offsetLeft > this.mainWidth
             ? this.$refs.glyphs[a.index].offsetLeft - this.mainWidth
             : 0;
-        this.$refs.chartSbol.scrollLeft = offset;
+        this.$refs.sbolChart.scrollLeft = offset;
       }, 100);
     }
   },
@@ -86,7 +86,7 @@ export default {
 </script>
 
 <style scoped>
-#chartSbol {
+#sbolChart {
   height: 8em;
   padding-top: 5em;
   padding-left: 1em;
@@ -97,16 +97,16 @@ export default {
   border-radius: 0.5rem;
 }
 
-#chartSbol::-webkit-scrollbar {
+#sbolChart::-webkit-scrollbar {
   height: 10px;
 }
 
-#chartSbol::-webkit-scrollbar-thumb {
+#sbolChart::-webkit-scrollbar-thumb {
   border-radius: 10px;
   background-color: #c0c0c0;
 }
 
-#chartSbol::-webkit-scrollbar-track {
+#sbolChart::-webkit-scrollbar-track {
   background-color: #d0d0d0;
 }
 

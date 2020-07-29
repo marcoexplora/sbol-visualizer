@@ -1,16 +1,7 @@
-/*import Vue from 'vue'
-import App from './App.vue'
-
-Vue.config.productionTip = false
-
-new Vue({
-  render: h => h(App),
-}).$mount('#app')*/
-
 import Vue from 'vue';
 import wrap from '@vue/web-component-wrapper';
-import MyWebComponent from './views/Viewer';
+import SbolViewer from './views/Viewer';
 
-const WrappedElement = wrap(Vue, MyWebComponent);
+const WrappedElement = wrap(Vue, SbolViewer);
 
 window.customElements.define('sbol-viewer', WrappedElement);
