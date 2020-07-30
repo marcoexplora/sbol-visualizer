@@ -10,15 +10,16 @@
         @click="detailItem(index)"
       >
         <div class="tooltiptext">{{ item.name }}</div>
-        <img :src="item.path" />
+
+        <img style="width:100%" :src="item.path" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import sbolcomponents from "../SBOLcomponents.json";
-import settings from "../visulizer_setting.json";
+// import sbolcomponents from "../SBOLcomponents.json";
+// import settings from "../visulizer_setting.json";
 
 export default {
   props: ["annotations", "annotation", "mainWidth"],
@@ -36,23 +37,38 @@ export default {
     computedGlyphAnnotations() {
       if (this.annotations) {
         this.annotations.map((key, index) => {
-          const sbolPath =
-            sbolcomponents[this.annotations[index].SBOL].rappresentation
-              .imagePath;
-          const externalImage = settings.imageExternalSource;
+          // const sbolPath =
+          //   sbolcomponents[this.annotations[index].SBOL].rappresentation
+          //     .imagePath;
+          // const externalImage = settings.imageExternalSource;
 
-          if (settings.imageExternalSource.indexOf("${path}")) {
-            this.annotations[index].path = externalImage.replace(
-              "${path}",
-              sbolPath
-            );
-          } else {
-            this.annotations[index].path =
-              sbolcomponents[
-                this.annotations[index].SBOL
-              ].rappresentation.imagePath;
-          }
+          // if (settings.imageExternalSource.indexOf("${path}")) {
+          //   this.annotations[index].path = externalImage.replace(
+          //     "${path}",
+          //     sbolPath
+          //   );
+          // } else {
+          //   this.annotations[index].path =
+          //     sbolcomponents[
+          //       this.annotations[index].SBOL
+          //     ].rappresentation.imagePath;
+          // }
+          console.log(
+            "this.annotations[index].SBOL " + this.annotations[index].SBOL
+          );
+          // this.annotations[index].path =
+          //   sbolcomponents[
+          //     this.annotations[index].SBOL
+          //   ].rappresentation.imagePath;
+          // https://vows.sbolstandard.org/glyph/SO:0000031/png
 
+          this.annotations[
+            index
+          ].path = `https://vows.sbolstandard.org/glyph/${this.annotations[index].SBOL}/png`;
+          console.log(`
+          index ${index}
+          this.annotations[index].SBOL ${this.annotations[index].SBOL}
+          https://vows.sbolstandard.org/glyph/${this.annotations[index].SBOL}/png`);
           this.annotations[index].index = index;
         });
 
