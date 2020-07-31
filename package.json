@@ -1,12 +1,11 @@
 {
   "name": "sbolviewer",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "build-lib": "vue-cli-service build --target lib src/main.js",
-    "build-wc": "vue-cli-service build  --target wc --name sbol-viewer ./src/views/Viewer.vue",
+    "build-wc": "vue-cli-service build  --target wc --inline-vue --name sbol-viewer ./src/views/Viewer.vue",
     "eslint": "eslint 'src /**/*.{js,vue}'",
     "test:unit": "vue-cli-service test:unit",
     "storybook": "start-storybook -p 6006",
@@ -20,18 +19,12 @@
   },
   "devDependencies": {
     "@babel/core": "^7.10.5",
-    "@storybook/addon-actions": "^5.3.19",
-    "@storybook/addon-links": "^5.3.19",
-    "@storybook/addons": "^5.3.19",
-    "@storybook/vue": "^5.3.19",
     "@vue/cli-plugin-babel": "^4.4.6",
     "@vue/cli-plugin-unit-jest": "^4.4.6",
     "@vue/cli-service": "^4.5.0",
     "@vue/test-utils": "1.0.3",
     "babel-loader": "^8.1.0",
     "babel-preset-vue": "^2.0.2",
-    "node-sass": "^4.14.1",
-    "sass-loader": "^9.0.2",
     "vue-template-compiler": "^2.6.11"
   },
   "postcss": {

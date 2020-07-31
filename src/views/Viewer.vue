@@ -1,14 +1,14 @@
 <template>
-  <sbol>
-    <div v-if="empty === true" class="SbolVisualizer empty" ref="sbolVisualizer">
+  <div>
+    <div v-if="empty === true" class="sbolMain empty" ref="sbolVisualizer">
       <a href="https://sbolstandard.org/">
         <sbol-logo />
         <small>https://sbolstandard.org/</small>
       </a>
     </div>
-    <div v-if="!empty" class="SbolVisualizer" ref="sbolVisualizer">
-      <div class="SBOLcontainer">
-        <nav>
+    <div v-else ref="sbolVisualizer">
+      <div v-bind:class="[flavourClass]">
+        <nav v-if="!flavourMini">
           <sbol-header :header="sbolDataLayer.header" />
           <sbol-list-annotations
             :annotations="sbolDataLayer.annotations"
@@ -22,11 +22,11 @@
             @selectedAnnotation="showDetail"
             :mainWidth="chartsWidth"
           />
-          <sbol-detail :annotation="annotation" />
+          <sbol-detail v-if="!flavourMini" :annotation="annotation" />
         </div>
       </div>
     </div>
-  </sbol>
+  </div>
 </template>
 
 <script>
@@ -36,30 +36,29 @@ import SbolHeader from "../components/SbolHeader";
 import SbolListAnnotations from "../components/SbolListAnnotations";
 import SbolChart from "../components/SbolChart";
 import SbolDetail from "../components/SbolDetail";
-
 import SbolLogo from "../components/SbolLogo";
 
 export default {
-  props: ["source", "format", "data"],
+  props: ["source", "format", "data", "flavour"],
   data() {
     return {
       sbolDataLayer: {},
       annotation: null,
       filter: "",
       empty: true,
-      chartsWidth: 0
+      chartsWidth: 0,
+      flavourClass: "SBOLcontainer"
     };
   },
   methods: {
     showDetail: function(data) {
-      window.console.log("showDetail from viewer", data);
       this.annotation = this.sbolDataLayer.annotations[data];
     },
-    // is this used somewhere???
-    // matchWidth: function() {
-    //   const main = this.$refs.test;
-    //   this.mainWidth = main.clientWidth + "px";
-    // },
+    matchWidth: function() {
+      const main = this.$refs;
+      this.mainWidth = main.clientWidth + "px";
+      console.log("this.mainWidth " + this.mainWidth);
+    },
     genericLoad: function(dataFormat, data) {
       if (dataFormat == "json") {
         if (typeof data == "string") {
@@ -94,10 +93,6 @@ export default {
       this.empty = false;
       this.$nextTick(function() {
         this.chartsWidth = this.$refs.chartsContainer.clientWidth - 50;
-        // console.log(`this.chartsWidth ${this.chartsWidth}`);
-        // console.log(
-        //   `this.$refs.sbolVisualizer.clientWidth ${this.$refs.sbolVisualizer.clientWidth}`
-        // );
       });
     },
     loadXml: function(xml) {
@@ -112,6 +107,10 @@ export default {
     SbolLogo
   },
   mounted: function() {
+    if (this.flavour == "mini") {
+      this.flavourClass = "mini";
+      this.flavourMini = true;
+    }
     if (this.format) {
       // Inline data
       const dataFormat = this.format == "json" ? "json" : "xml";
@@ -128,7 +127,7 @@ export default {
 </script>
 
 <style scoped>
-.SbolVisualizer {
+.sbolMain {
   font-family: Helvetica;
   overflow: scroll;
   font-size: 0.875rem;

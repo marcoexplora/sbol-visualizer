@@ -54,3 +54,5 @@ Web Coponents need to be lighweight in order to be easy to download.
 https://canvas.synbioks.org/canvas/
 https://synbiohub.github.io/api-docs/#about-synbiohub
 https://vows.sbolstandard.org
+
+http://synbiodex.github.io/SBOL-visual/Ontology/v2/sbol-vo.html
