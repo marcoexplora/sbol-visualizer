@@ -1,0 +1,553 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:RDF xmlns="http://sbols.org/v1#" xmlns:ns2="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+    <DnaComponent ns2:about="http://partsregistry.org/part/BBa_R0011">
+        <ns2:type ns2:resource="http://purl.obolibrary.org/obo/SO_0000167"/>
+        <displayId>BBa_R0011</displayId>
+        <name>lacI+pL</name>
+        <description>Promoter (lacI regulated, lambda pL hybrid)</description>
+        <dnaSequence>
+            <DnaSequence ns2:about="http://partsregistry.org/seq/partseq_186">
+                <nucleotides>aattgtgagcggataacaattgacattgtgagcggataacaagatactgagcaca</nucleotides>
+            </DnaSequence>
+        </dnaSequence>
+    </DnaComponent>
+    <DnaComponent ns2:about="http://partsregistry.org/part/BBa_C0012">
+        <ns2:type ns2:resource="http://purl.obolibrary.org/obo/SO_0000316"/>
+        <displayId>BBa_C0012</displayId>
+        <name>lacI</name>
+        <description>lacI repressor from E. coli (+LVA)</description>
+        <dnaSequence>
+            <DnaSequence ns2:about="http://partsregistry.org/seq/partseq_153">
+                <nucleotides>atggtgaatgtgaaaccagtaacgttatacgatgtcgcagagtatgccggtgtctcttatcagaccgtttcccgcgtggtgaaccaggccagccacgtttctgcgaaaacgcgggaaaaagtggaagcggcgatggcggagctgaattacattcccaaccgcgtggcacaacaactggcgggcaaacagtcgttgctgattggcgttgccacctccagtctggccctgcacgcgccgtcgcaaattgtcgcggcgattaaatctcgcgccgatcaactgggtgccagcgtggtggtgtcgatggtagaacgaagcggcgtcgaagcctgtaaagcggcggtgcacaatcttctcgcgcaacgcgtcagtgggctgatcattaactatccgctggatgaccaggatgccattgctgtggaagctgcctgcactaatgttccggcgttatttcttgatgtctctgaccagacacccatcaacagtattattttctcccatgaagacggtacgcgactgggcgtggagcatctggtcgcattgggtcaccagcaaatcgcgctgttagcgggcccattaagttctgtctcggcgcgtctgcgtctggctggctggcataaatatctcactcgcaatcaaattcagccgatagcggaacgggaaggcgactggagtgccatgtccggttttcaacaaaccatgcaaatgctgaatgagggcatcgttcccactgcgatgctggttgccaacgatcagatggcgctgggcgcaatgcgcgccattaccgagtccgggctgcgcgttggtgcggatatctcggtagtgggatacgacgataccgaagacagctcatgttatatcccgccgttaaccaccatcaaacaggattttcgcctgctggggcaaaccagcgtggaccgcttgctgcaactctctcagggccaggcggtgaagggcaatcagctgttgcccgtctcactggtgaaaagaaaaaccaccctggcgcccaatacgcaaaccgcctctccccgcgcgttggccgattcattaatgcagctggcacgacaggtttcccgactggaaagcgggcaggctgcaaacgacgaaaactacgctttagtagcttaataactctgatagtgctagtgtagatctc</nucleotides>
+            </DnaSequence>
+        </dnaSequence>
+    </DnaComponent>
+    <DnaComponent ns2:about="http://partsregistry.org/part/BBa_B0034">
+        <ns2:type ns2:resource="http://purl.obolibrary.org/obo/SO_0000139"/>
+        <displayId>BBa_B0034</displayId>
+        <name>B0034</name>
+        <description>RBS (Elowitz 1999) -- defines RBS efficiency</description>
+        <dnaSequence>
+            <DnaSequence ns2:about="http://partsregistry.org/seq/partseq_151">
+                <nucleotides>aaagaggagaaa</nucleotides>
+            </DnaSequence>
+        </dnaSequence>
+    </DnaComponent>
+    <DnaComponent ns2:about="http://partsregistry.org/part/BBa_B0015">
+        <ns2:type ns2:resource="http://purl.obolibrary.org/obo/SO_0000141"/>
+        <displayId>BBa_B0015</displayId>
+        <name>B0015</name>
+        <description>double terminator (B0010-B0012)</description>
+        <dnaSequence>
+            <DnaSequence ns2:about="http://partsregistry.org/seq/partseq_202">
+                <nucleotides>ccaggcatcaaataaaacgaaaggctcagtcgaaagactgggcctttcgttttatctgttgtttgtcggtgaacgctctctactagagtcacactggctcaccttcgggtgggcctttctgcgtttata</nucleotides>
+            </DnaSequence>
+        </dnaSequence>
+    </DnaComponent>
+    <DnaComponent ns2:about="http://partsregistry.org/part/BBa_R0040">
+        <ns2:type ns2:resource="http://purl.obolibrary.org/obo/SO_0000167"/>
+        <displayId>BBa_R0040</displayId>
+        <name>p(tetR)</name>
+        <description>TetR repressible promoter</description>
+        <dnaSequence>
+            <DnaSequence ns2:about="http://partsregistry.org/seq/partseq_187">
+                <nucleotides>tccctatcagtgatagagattgacatccctatcagtgatagagatactgagcac</nucleotides>
+            </DnaSequence>
+        </dnaSequence>
+    </DnaComponent>
+    <DnaComponent ns2:about="http://partsregistry.org/part/BBa_E0040">
+        <ns2:type ns2:resource="http://purl.obolibrary.org/obo/SO_0000316"/>
+        <displayId>BBa_E0040</displayId>
+        <name>GFP</name>
+        <description>green fluorescent protein derived from jellyfish Aequeora victoria wild-type GFP (SwissProt: P42212</description>
+        <dnaSequence>
+            <DnaSequence ns2:about="http://partsregistry.org/seq/partseq_5309">
+                <nucleotides>atgcgtaaaggagaagaacttttcactggagttgtcccaattcttgttgaattagatggtgatgttaatgggcacaaattttctgtcagtggagagggtgaaggtgatgcaacatacggaaaacttacccttaaatttatttgcactactggaaaactacctgttccatggccaacacttgtcactactttcggttatggtgttcaatgctttgcgagatacccagatcatatgaaacagcatgactttttcaagagtgccatgcccgaaggttatgtacaggaaagaactatatttttcaaagatgacgggaactacaagacacgtgctgaagtcaagtttgaaggtgatacccttgttaatagaatcgagttaaaaggtattgattttaaagaagatggaaacattcttggacacaaattggaatacaactataactcacacaatgtatacatcatggcagacaaacaaaagaatggaatcaaagttaacttcaaaattagacacaacattgaagatggaagcgttcaactagcagaccattatcaacaaaatactccaattggcgatggccctgtccttttaccagacaaccattacctgtccacacaatctgccctttcgaaagatcccaacgaaaagagagaccacatggtccttcttgagtttgtaacagctgctgggattacacatggcatggatgaactatacaaataataa</nucleotides>
+            </DnaSequence>
+        </dnaSequence>
+    </DnaComponent>
+    <DnaComponent ns2:about="http://partsregistry.org/part/BBa_C0040">
+        <ns2:type ns2:resource="http://purl.obolibrary.org/obo/SO_0000316"/>
+        <displayId>BBa_C0040</displayId>
+        <name>tetR</name>
+        <description>tetracycline repressor from transposon Tn10 (+LVA)</description>
+        <dnaSequence>
+            <DnaSequence ns2:about="http://partsregistry.org/seq/partseq_154">
+                <nucleotides>atgtccagattagataaaagtaaagtgattaacagcgcattagagctgcttaatgaggtcggaatcgaaggtttaacaacccgtaaactcgcccagaagctaggtgtagagcagcctacattgtattggcatgtaaaaaataagcgggctttgctcgacgccttagccattgagatgttagataggcaccatactcacttttgccctttagaaggggaaagctggcaagattttttacgtaataacgctaaaagttttagatgtgctttactaagtcatcgcgatggagcaaaagtacatttaggtacacggcctacagaaaaacagtatgaaactctcgaaaatcaattagcctttttatgccaacaaggtttttcactagagaatgcattatatgcactcagcgctgtggggcattttactttaggttgcgtattggaagatcaagagcatcaagtcgctaaagaagaaagggaaacacctactactgatagtatgccgccattattacgacaagctatcgaattatttgatcaccaaggtgcagagccagccttcttattcggccttgaattgatcatatgcggattagaaaaacaacttaaatgtgaaagtgggtccgctgcaaacgacgaaaactacgctttagtagcttaataacactgatagtgctagtgtagatcac</nucleotides>
+            </DnaSequence>
+        </dnaSequence>
+    </DnaComponent>
+    <DnaComponent ns2:about="http://www.async.ece.utah.edu#comp_4_29_2013_17_18_25_849_iBioSim">
+        <ns2:type ns2:resource="http://purl.obolibrary.org/obo/SO_0000804"/>
+        <displayId>UU_I0002</displayId>
+        <name>TetR Inverter</name>
+        <description>This gene is repressed by TetR and codes for LacI.</description>
+        <dnaSequence>
+            <DnaSequence ns2:about="http://www.async.ece.utah.edu#seq_4_29_2013_17_18_25_849_iBioSim">
+                <nucleotides>tccctatcagtgatagagattgacatccctatcagtgatagagatactgagcacaaagaggagaaaatggtgaatgtgaaaccagtaacgttatacgatgtcgcagagtatgccggtgtctcttatcagaccgtttcccgcgtggtgaaccaggccagccacgtttctgcgaaaacgcgggaaaaagtggaagcggcgatggcggagctgaattacattcccaaccgcgtggcacaacaactggcgggcaaacagtcgttgctgattggcgttgccacctccagtctggccctgcacgcgccgtcgcaaattgtcgcggcgattaaatctcgcgccgatcaactgggtgccagcgtggtggtgtcgatggtagaacgaagcggcgtcgaagcctgtaaagcggcggtgcacaatcttctcgcgcaacgcgtcagtgggctgatcattaactatccgctggatgaccaggatgccattgctgtggaagctgcctgcactaatgttccggcgttatttcttgatgtctctgaccagacacccatcaacagtattattttctcccatgaagacggtacgcgactgggcgtggagcatctggtcgcattgggtcaccagcaaatcgcgctgttagcgggcccattaagttctgtctcggcgcgtctgcgtctggctggctggcataaatatctcactcgcaatcaaattcagccgatagcggaacgggaaggcgactggagtgccatgtccggttttcaacaaaccatgcaaatgctgaatgagggcatcgttcccactgcgatgctggttgccaacgatcagatggcgctgggcgcaatgcgcgccattaccgagtccgggctgcgcgttggtgcggatatctcggtagtgggatacgacgataccgaagacagctcatgttatatcccgccgttaaccaccatcaaacaggattttcgcctgctggggcaaaccagcgtggaccgcttgctgcaactctctcagggccaggcggtgaagggcaatcagctgttgcccgtctcactggtgaaaagaaaaaccaccctggcgcccaatacgcaaaccgcctctccccgcgcgttggccgattcattaatgcagctggcacgacaggtttcccgactggaaagcgggcaggctgcaaacgacgaaaactacgctttagtagcttaataactctgatagtgctagtgtagatctcccaggcatcaaataaaacgaaaggctcagtcgaaagactgggcctttcgttttatctgttgtttgtcggtgaacgctctctactagagtcacactggctcaccttcgggtgggcctttctgcgtttata</nucleotides>
+            </DnaSequence>
+        </dnaSequence>
+        <annotation>
+            <SequenceAnnotation ns2:about="http://www.async.ece.utah.edu#anno0_4_29_2013_17_18_25_849_iBioSim">
+                <bioStart>1</bioStart>
+                <bioEnd>54</bioEnd>
+                <strand>+</strand>
+                <subComponent>
+                    <DnaComponent ns2:about="http://partsregistry.org/part/BBa_R0040">
+                        <ns2:type ns2:resource="http://purl.obolibrary.org/obo/SO_0000167"/>
+                        <displayId>BBa_R0040</displayId>
+                        <name>p(tetR)</name>
+                        <description>TetR repressible promoter</description>
+                        <dnaSequence>
+                            <DnaSequence ns2:about="http://partsregistry.org/seq/partseq_187">
+<nucleotides>tccctatcagtgatagagattgacatccctatcagtgatagagatactgagcac</nucleotides>
+                            </DnaSequence>
+                        </dnaSequence>
+                    </DnaComponent>
+                </subComponent>
+            </SequenceAnnotation>
+        </annotation>
+        <annotation>
+            <SequenceAnnotation ns2:about="http://www.async.ece.utah.edu#anno1_4_29_2013_17_18_25_849_iBioSim">
+                <bioStart>55</bioStart>
+                <bioEnd>66</bioEnd>
+                <strand>+</strand>
+                <subComponent>
+                    <DnaComponent ns2:about="http://partsregistry.org/part/BBa_B0034">
+                        <ns2:type ns2:resource="http://purl.obolibrary.org/obo/SO_0000139"/>
+                        <displayId>BBa_B0034</displayId>
+                        <name>B0034</name>
+                        <description>RBS (Elowitz 1999) -- defines RBS efficiency</description>
+                        <dnaSequence>
+                            <DnaSequence ns2:about="http://partsregistry.org/seq/partseq_151">
+<nucleotides>aaagaggagaaa</nucleotides>
+                            </DnaSequence>
+                        </dnaSequence>
+                    </DnaComponent>
+                </subComponent>
+            </SequenceAnnotation>
+        </annotation>
+        <annotation>
+            <SequenceAnnotation ns2:about="http://www.async.ece.utah.edu#anno2_4_29_2013_17_18_25_849_iBioSim">
+                <bioStart>67</bioStart>
+                <bioEnd>1219</bioEnd>
+                <strand>+</strand>
+                <subComponent>
+                    <DnaComponent ns2:about="http://partsregistry.org/part/BBa_C0012">
+                        <ns2:type ns2:resource="http://purl.obolibrary.org/obo/SO_0000316"/>
+                        <displayId>BBa_C0012</displayId>
+                        <name>lacI</name>
+                        <description>lacI repressor from E. coli (+LVA)</description>
+                        <dnaSequence>
+                            <DnaSequence ns2:about="http://partsregistry.org/seq/partseq_153">
+<nucleotides>atggtgaatgtgaaaccagtaacgttatacgatgtcgcagagtatgccggtgtctcttatcagaccgtttcccgcgtggtgaaccaggccagccacgtttctgcgaaaacgcgggaaaaagtggaagcggcgatggcggagctgaattacattcccaaccgcgtggcacaacaactggcgggcaaacagtcgttgctgattggcgttgccacctccagtctggccctgcacgcgccgtcgcaaattgtcgcggcgattaaatctcgcgccgatcaactgggtgccagcgtggtggtgtcgatggtagaacgaagcggcgtcgaagcctgtaaagcggcggtgcacaatcttctcgcgcaacgcgtcagtgggctgatcattaactatccgctggatgaccaggatgccattgctgtggaagctgcctgcactaatgttccggcgttatttcttgatgtctctgaccagacacccatcaacagtattattttctcccatgaagacggtacgcgactgggcgtggagcatctggtcgcattgggtcaccagcaaatcgcgctgttagcgggcccattaagttctgtctcggcgcgtctgcgtctggctggctggcataaatatctcactcgcaatcaaattcagccgatagcggaacgggaaggcgactggagtgccatgtccggttttcaacaaaccatgcaaatgctgaatgagggcatcgttcccactgcgatgctggttgccaacgatcagatggcgctgggcgcaatgcgcgccattaccgagtccgggctgcgcgttggtgcggatatctcggtagtgggatacgacgataccgaagacagctcatgttatatcccgccgttaaccaccatcaaacaggattttcgcctgctggggcaaaccagcgtggaccgcttgctgcaactctctcagggccaggcggtgaagggcaatcagctgttgcccgtctcactggtgaaaagaaaaaccaccctggcgcccaatacgcaaaccgcctctccccgcgcgttggccgattcattaatgcagctggcacgacaggtttcccgactggaaagcgggcaggctgcaaacgacgaaaactacgctttagtagcttaataactctgatagtgctagtgtagatctc</nucleotides>
+                            </DnaSequence>
+                        </dnaSequence>
+                    </DnaComponent>
+                </subComponent>
+            </SequenceAnnotation>
+        </annotation>
+        <annotation>
+            <SequenceAnnotation ns2:about="http://www.async.ece.utah.edu#anno3_4_29_2013_17_18_25_849_iBioSim">
+                <bioStart>1220</bioStart>
+                <bioEnd>1348</bioEnd>
+                <strand>+</strand>
+                <subComponent>
+                    <DnaComponent ns2:about="http://partsregistry.org/part/BBa_B0015">
+                        <ns2:type ns2:resource="http://purl.obolibrary.org/obo/SO_0000141"/>
+                        <displayId>BBa_B0015</displayId>
+                        <name>B0015</name>
+                        <description>double terminator (B0010-B0012)</description>
+                        <dnaSequence>
+                            <DnaSequence ns2:about="http://partsregistry.org/seq/partseq_202">
+<nucleotides>ccaggcatcaaataaaacgaaaggctcagtcgaaagactgggcctttcgttttatctgttgtttgtcggtgaacgctctctactagagtcacactggctcaccttcgggtgggcctttctgcgtttata</nucleotides>
+                            </DnaSequence>
+                        </dnaSequence>
+                    </DnaComponent>
+                </subComponent>
+            </SequenceAnnotation>
+        </annotation>
+    </DnaComponent>
+    <DnaComponent ns2:about="http://www.async.ece.utah.edu#comp_4_30_2013_9_34_0_215_iBioSim">
+        <ns2:type ns2:resource="http://purl.obolibrary.org/obo/SO_0000804"/>
+        <displayId>UU_I0001</displayId>
+        <name>LacI Inverter</name>
+        <description>This gene is repressed by LacI and codes for TetR and a GFP reporter</description>
+        <dnaSequence>
+            <DnaSequence ns2:about="http://www.async.ece.utah.edu#seq_4_30_2013_9_34_0_215_iBioSim">
+                <nucleotides>aattgtgagcggataacaattgacattgtgagcggataacaagatactgagcacaaaagaggagaaaatgtccagattagataaaagtaaagtgattaacagcgcattagagctgcttaatgaggtcggaatcgaaggtttaacaacccgtaaactcgcccagaagctaggtgtagagcagcctacattgtattggcatgtaaaaaataagcgggctttgctcgacgccttagccattgagatgttagataggcaccatactcacttttgccctttagaaggggaaagctggcaagattttttacgtaataacgctaaaagttttagatgtgctttactaagtcatcgcgatggagcaaaagtacatttaggtacacggcctacagaaaaacagtatgaaactctcgaaaatcaattagcctttttatgccaacaaggtttttcactagagaatgcattatatgcactcagcgctgtggggcattttactttaggttgcgtattggaagatcaagagcatcaagtcgctaaagaagaaagggaaacacctactactgatagtatgccgccattattacgacaagctatcgaattatttgatcaccaaggtgcagagccagccttcttattcggccttgaattgatcatatgcggattagaaaaacaacttaaatgtgaaagtgggtccgctgcaaacgacgaaaactacgctttagtagcttaataacactgatagtgctagtgtagatcacaaagaggagaaaatgcgtaaaggagaagaacttttcactggagttgtcccaattcttgttgaattagatggtgatgttaatgggcacaaattttctgtcagtggagagggtgaaggtgatgcaacatacggaaaacttacccttaaatttatttgcactactggaaaactacctgttccatggccaacacttgtcactactttcggttatggtgttcaatgctttgcgagatacccagatcatatgaaacagcatgactttttcaagagtgccatgcccgaaggttatgtacaggaaagaactatatttttcaaagatgacgggaactacaagacacgtgctgaagtcaagtttgaaggtgatacccttgttaatagaatcgagttaaaaggtattgattttaaagaagatggaaacattcttggacacaaattggaatacaactataactcacacaatgtatacatcatggcagacaaacaaaagaatggaatcaaagttaacttcaaaattagacacaacattgaagatggaagcgttcaactagcagaccattatcaacaaaatactccaattggcgatggccctgtccttttaccagacaaccattacctgtccacacaatctgccctttcgaaagatcccaacgaaaagagagaccacatggtccttcttgagtttgtaacagctgctgggattacacatggcatggatgaactatacaaataataaccaggcatcaaataaaacgaaaggctcagtcgaaagactgggcctttcgttttatctgttgtttgtcggtgaacgctctctactagagtcacactggctcaccttcgggtgggcctttctgcgtttata</nucleotides>
+            </DnaSequence>
+        </dnaSequence>
+        <annotation>
+            <SequenceAnnotation ns2:about="http://www.async.ece.utah.edu#anno0_4_30_2013_9_34_0_215_iBioSim">
+                <bioStart>1</bioStart>
+                <bioEnd>55</bioEnd>
+                <strand>+</strand>
+                <subComponent>
+                    <DnaComponent ns2:about="http://partsregistry.org/part/BBa_R0011">
+                        <ns2:type ns2:resource="http://purl.obolibrary.org/obo/SO_0000167"/>
+                        <displayId>BBa_R0011</displayId>
+                        <name>lacI+pL</name>
+                        <description>Promoter (lacI regulated, lambda pL hybrid)</description>
+                        <dnaSequence>
+                            <DnaSequence ns2:about="http://partsregistry.org/seq/partseq_186">
+<nucleotides>aattgtgagcggataacaattgacattgtgagcggataacaagatactgagcaca</nucleotides>
+                            </DnaSequence>
+                        </dnaSequence>
+                    </DnaComponent>
+                </subComponent>
+            </SequenceAnnotation>
+        </annotation>
+        <annotation>
+            <SequenceAnnotation ns2:about="http://www.async.ece.utah.edu#anno1_4_30_2013_9_34_0_215_iBioSim">
+                <bioStart>56</bioStart>
+                <bioEnd>67</bioEnd>
+                <strand>+</strand>
+                <subComponent>
+                    <DnaComponent ns2:about="http://partsregistry.org/part/BBa_B0034">
+                        <ns2:type ns2:resource="http://purl.obolibrary.org/obo/SO_0000139"/>
+                        <displayId>BBa_B0034</displayId>
+                        <name>B0034</name>
+                        <description>RBS (Elowitz 1999) -- defines RBS efficiency</description>
+                        <dnaSequence>
+                            <DnaSequence ns2:about="http://partsregistry.org/seq/partseq_151">
+<nucleotides>aaagaggagaaa</nucleotides>
+                            </DnaSequence>
+                        </dnaSequence>
+                    </DnaComponent>
+                </subComponent>
+            </SequenceAnnotation>
+        </annotation>
+        <annotation>
+            <SequenceAnnotation ns2:about="http://www.async.ece.utah.edu#anno2_4_30_2013_9_34_0_215_iBioSim">
+                <bioStart>68</bioStart>
+                <bioEnd>752</bioEnd>
+                <strand>+</strand>
+                <subComponent>
+                    <DnaComponent ns2:about="http://partsregistry.org/part/BBa_C0040">
+                        <ns2:type ns2:resource="http://purl.obolibrary.org/obo/SO_0000316"/>
+                        <displayId>BBa_C0040</displayId>
+                        <name>tetR</name>
+                        <description>tetracycline repressor from transposon Tn10 (+LVA)</description>
+                        <dnaSequence>
+                            <DnaSequence ns2:about="http://partsregistry.org/seq/partseq_154">
+<nucleotides>atgtccagattagataaaagtaaagtgattaacagcgcattagagctgcttaatgaggtcggaatcgaaggtttaacaacccgtaaactcgcccagaagctaggtgtagagcagcctacattgtattggcatgtaaaaaataagcgggctttgctcgacgccttagccattgagatgttagataggcaccatactcacttttgccctttagaaggggaaagctggcaagattttttacgtaataacgctaaaagttttagatgtgctttactaagtcatcgcgatggagcaaaagtacatttaggtacacggcctacagaaaaacagtatgaaactctcgaaaatcaattagcctttttatgccaacaaggtttttcactagagaatgcattatatgcactcagcgctgtggggcattttactttaggttgcgtattggaagatcaagagcatcaagtcgctaaagaagaaagggaaacacctactactgatagtatgccgccattattacgacaagctatcgaattatttgatcaccaaggtgcagagccagccttcttattcggccttgaattgatcatatgcggattagaaaaacaacttaaatgtgaaagtgggtccgctgcaaacgacgaaaactacgctttagtagcttaataacactgatagtgctagtgtagatcac</nucleotides>
+                            </DnaSequence>
+                        </dnaSequence>
+                    </DnaComponent>
+                </subComponent>
+            </SequenceAnnotation>
+        </annotation>
+        <annotation>
+            <SequenceAnnotation ns2:about="http://www.async.ece.utah.edu#anno3_4_30_2013_9_34_0_215_iBioSim">
+                <bioStart>753</bioStart>
+                <bioEnd>764</bioEnd>
+                <strand>+</strand>
+                <subComponent>
+                    <DnaComponent ns2:about="http://partsregistry.org/part/BBa_B0034">
+                        <ns2:type ns2:resource="http://purl.obolibrary.org/obo/SO_0000139"/>
+                        <displayId>BBa_B0034</displayId>
+                        <name>B0034</name>
+                        <description>RBS (Elowitz 1999) -- defines RBS efficiency</description>
+                        <dnaSequence>
+                            <DnaSequence ns2:about="http://partsregistry.org/seq/partseq_151">
+<nucleotides>aaagaggagaaa</nucleotides>
+                            </DnaSequence>
+                        </dnaSequence>
+                    </DnaComponent>
+                </subComponent>
+            </SequenceAnnotation>
+        </annotation>
+        <annotation>
+            <SequenceAnnotation ns2:about="http://www.async.ece.utah.edu#anno4_4_30_2013_9_34_0_215_iBioSim">
+                <bioStart>765</bioStart>
+                <bioEnd>1484</bioEnd>
+                <strand>+</strand>
+                <subComponent>
+                    <DnaComponent ns2:about="http://partsregistry.org/part/BBa_E0040">
+                        <ns2:type ns2:resource="http://purl.obolibrary.org/obo/SO_0000316"/>
+                        <displayId>BBa_E0040</displayId>
+                        <name>GFP</name>
+                        <description>green fluorescent protein derived from jellyfish Aequeora victoria wild-type GFP (SwissProt: P42212</description>
+                        <dnaSequence>
+                            <DnaSequence ns2:about="http://partsregistry.org/seq/partseq_5309">
+<nucleotides>atgcgtaaaggagaagaacttttcactggagttgtcccaattcttgttgaattagatggtgatgttaatgggcacaaattttctgtcagtggagagggtgaaggtgatgcaacatacggaaaacttacccttaaatttatttgcactactggaaaactacctgttccatggccaacacttgtcactactttcggttatggtgttcaatgctttgcgagatacccagatcatatgaaacagcatgactttttcaagagtgccatgcccgaaggttatgtacaggaaagaactatatttttcaaagatgacgggaactacaagacacgtgctgaagtcaagtttgaaggtgatacccttgttaatagaatcgagttaaaaggtattgattttaaagaagatggaaacattcttggacacaaattggaatacaactataactcacacaatgtatacatcatggcagacaaacaaaagaatggaatcaaagttaacttcaaaattagacacaacattgaagatggaagcgttcaactagcagaccattatcaacaaaatactccaattggcgatggccctgtccttttaccagacaaccattacctgtccacacaatctgccctttcgaaagatcccaacgaaaagagagaccacatggtccttcttgagtttgtaacagctgctgggattacacatggcatggatgaactatacaaataataa</nucleotides>
+                            </DnaSequence>
+                        </dnaSequence>
+                    </DnaComponent>
+                </subComponent>
+            </SequenceAnnotation>
+        </annotation>
+        <annotation>
+            <SequenceAnnotation ns2:about="http://www.async.ece.utah.edu#anno5_4_30_2013_9_34_0_215_iBioSim">
+                <bioStart>1485</bioStart>
+                <bioEnd>1613</bioEnd>
+                <strand>+</strand>
+                <subComponent>
+                    <DnaComponent ns2:about="http://partsregistry.org/part/BBa_B0015">
+                        <ns2:type ns2:resource="http://purl.obolibrary.org/obo/SO_0000141"/>
+                        <displayId>BBa_B0015</displayId>
+                        <name>B0015</name>
+                        <description>double terminator (B0010-B0012)</description>
+                        <dnaSequence>
+                            <DnaSequence ns2:about="http://partsregistry.org/seq/partseq_202">
+<nucleotides>ccaggcatcaaataaaacgaaaggctcagtcgaaagactgggcctttcgttttatctgttgtttgtcggtgaacgctctctactagagtcacactggctcaccttcgggtgggcctttctgcgtttata</nucleotides>
+                            </DnaSequence>
+                        </dnaSequence>
+                    </DnaComponent>
+                </subComponent>
+            </SequenceAnnotation>
+        </annotation>
+    </DnaComponent>
+    <DnaComponent ns2:about="http://www.async.ece.utah.edu#comp_4_30_2013_9_37_17_701_iBioSim">
+        <ns2:type ns2:resource="http://purl.obolibrary.org/obo/SO_0000804"/>
+        <displayId>UU_T0001</displayId>
+        <name>Toggle Switch</name>
+        <description>This is a TetR/LacI toggle switch similar to those originally designed by Gardener et al.</description>
+        <dnaSequence>
+            <DnaSequence ns2:about="http://www.async.ece.utah.edu#seq_4_30_2013_9_37_17_701_iBioSim">
+                <nucleotides>aattgtgagcggataacaattgacattgtgagcggataacaagatactgagcacaaaagaggagaaaatgtccagattagataaaagtaaagtgattaacagcgcattagagctgcttaatgaggtcggaatcgaaggtttaacaacccgtaaactcgcccagaagctaggtgtagagcagcctacattgtattggcatgtaaaaaataagcgggctttgctcgacgccttagccattgagatgttagataggcaccatactcacttttgccctttagaaggggaaagctggcaagattttttacgtaataacgctaaaagttttagatgtgctttactaagtcatcgcgatggagcaaaagtacatttaggtacacggcctacagaaaaacagtatgaaactctcgaaaatcaattagcctttttatgccaacaaggtttttcactagagaatgcattatatgcactcagcgctgtggggcattttactttaggttgcgtattggaagatcaagagcatcaagtcgctaaagaagaaagggaaacacctactactgatagtatgccgccattattacgacaagctatcgaattatttgatcaccaaggtgcagagccagccttcttattcggccttgaattgatcatatgcggattagaaaaacaacttaaatgtgaaagtgggtccgctgcaaacgacgaaaactacgctttagtagcttaataacactgatagtgctagtgtagatcacaaagaggagaaaatgcgtaaaggagaagaacttttcactggagttgtcccaattcttgttgaattagatggtgatgttaatgggcacaaattttctgtcagtggagagggtgaaggtgatgcaacatacggaaaacttacccttaaatttatttgcactactggaaaactacctgttccatggccaacacttgtcactactttcggttatggtgttcaatgctttgcgagatacccagatcatatgaaacagcatgactttttcaagagtgccatgcccgaaggttatgtacaggaaagaactatatttttcaaagatgacgggaactacaagacacgtgctgaagtcaagtttgaaggtgatacccttgttaatagaatcgagttaaaaggtattgattttaaagaagatggaaacattcttggacacaaattggaatacaactataactcacacaatgtatacatcatggcagacaaacaaaagaatggaatcaaagttaacttcaaaattagacacaacattgaagatggaagcgttcaactagcagaccattatcaacaaaatactccaattggcgatggccctgtccttttaccagacaaccattacctgtccacacaatctgccctttcgaaagatcccaacgaaaagagagaccacatggtccttcttgagtttgtaacagctgctgggattacacatggcatggatgaactatacaaataataaccaggcatcaaataaaacgaaaggctcagtcgaaagactgggcctttcgttttatctgttgtttgtcggtgaacgctctctactagagtcacactggctcaccttcgggtgggcctttctgcgtttatatccctatcagtgatagagattgacatccctatcagtgatagagatactgagcacaaagaggagaaaatggtgaatgtgaaaccagtaacgttatacgatgtcgcagagtatgccggtgtctcttatcagaccgtttcccgcgtggtgaaccaggccagccacgtttctgcgaaaacgcgggaaaaagtggaagcggcgatggcggagctgaattacattcccaaccgcgtggcacaacaactggcgggcaaacagtcgttgctgattggcgttgccacctccagtctggccctgcacgcgccgtcgcaaattgtcgcggcgattaaatctcgcgccgatcaactgggtgccagcgtggtggtgtcgatggtagaacgaagcggcgtcgaagcctgtaaagcggcggtgcacaatcttctcgcgcaacgcgtcagtgggctgatcattaactatccgctggatgaccaggatgccattgctgtggaagctgcctgcactaatgttccggcgttatttcttgatgtctctgaccagacacccatcaacagtattattttctcccatgaagacggtacgcgactgggcgtggagcatctggtcgcattgggtcaccagcaaatcgcgctgttagcgggcccattaagttctgtctcggcgcgtctgcgtctggctggctggcataaatatctcactcgcaatcaaattcagccgatagcggaacgggaaggcgactggagtgccatgtccggttttcaacaaaccatgcaaatgctgaatgagggcatcgttcccactgcgatgctggttgccaacgatcagatggcgctgggcgcaatgcgcgccattaccgagtccgggctgcgcgttggtgcggatatctcggtagtgggatacgacgataccgaagacagctcatgttatatcccgccgttaaccaccatcaaacaggattttcgcctgctggggcaaaccagcgtggaccgcttgctgcaactctctcagggccaggcggtgaagggcaatcagctgttgcccgtctcactggtgaaaagaaaaaccaccctggcgcccaatacgcaaaccgcctctccccgcgcgttggccgattcattaatgcagctggcacgacaggtttcccgactggaaagcgggcaggctgcaaacgacgaaaactacgctttagtagcttaataactctgatagtgctagtgtagatctcccaggcatcaaataaaacgaaaggctcagtcgaaagactgggcctttcgttttatctgttgtttgtcggtgaacgctctctactagagtcacactggctcaccttcgggtgggcctttctgcgtttata</nucleotides>
+            </DnaSequence>
+        </dnaSequence>
+        <annotation>
+            <SequenceAnnotation ns2:about="http://www.async.ece.utah.edu#anno0_4_30_2013_9_37_17_701_iBioSim">
+                <bioStart>1</bioStart>
+                <bioEnd>1613</bioEnd>
+                <strand>+</strand>
+                <subComponent>
+                    <DnaComponent ns2:about="http://www.async.ece.utah.edu#comp_4_30_2013_9_34_0_215_iBioSim">
+                        <ns2:type ns2:resource="http://purl.obolibrary.org/obo/SO_0000804"/>
+                        <displayId>UU_I0001</displayId>
+                        <name>LacI Inverter</name>
+                        <description>This gene is repressed by LacI and codes for TetR and a GFP reporter</description>
+                        <dnaSequence>
+                            <DnaSequence ns2:about="http://www.async.ece.utah.edu#seq_4_30_2013_9_34_0_215_iBioSim">
+<nucleotides>aattgtgagcggataacaattgacattgtgagcggataacaagatactgagcacaaaagaggagaaaatgtccagattagataaaagtaaagtgattaacagcgcattagagctgcttaatgaggtcggaatcgaaggtttaacaacccgtaaactcgcccagaagctaggtgtagagcagcctacattgtattggcatgtaaaaaataagcgggctttgctcgacgccttagccattgagatgttagataggcaccatactcacttttgccctttagaaggggaaagctggcaagattttttacgtaataacgctaaaagttttagatgtgctttactaagtcatcgcgatggagcaaaagtacatttaggtacacggcctacagaaaaacagtatgaaactctcgaaaatcaattagcctttttatgccaacaaggtttttcactagagaatgcattatatgcactcagcgctgtggggcattttactttaggttgcgtattggaagatcaagagcatcaagtcgctaaagaagaaagggaaacacctactactgatagtatgccgccattattacgacaagctatcgaattatttgatcaccaaggtgcagagccagccttcttattcggccttgaattgatcatatgcggattagaaaaacaacttaaatgtgaaagtgggtccgctgcaaacgacgaaaactacgctttagtagcttaataacactgatagtgctagtgtagatcacaaagaggagaaaatgcgtaaaggagaagaacttttcactggagttgtcccaattcttgttgaattagatggtgatgttaatgggcacaaattttctgtcagtggagagggtgaaggtgatgcaacatacggaaaacttacccttaaatttatttgcactactggaaaactacctgttccatggccaacacttgtcactactttcggttatggtgttcaatgctttgcgagatacccagatcatatgaaacagcatgactttttcaagagtgccatgcccgaaggttatgtacaggaaagaactatatttttcaaagatgacgggaactacaagacacgtgctgaagtcaagtttgaaggtgatacccttgttaatagaatcgagttaaaaggtattgattttaaagaagatggaaacattcttggacacaaattggaatacaactataactcacacaatgtatacatcatggcagacaaacaaaagaatggaatcaaagttaacttcaaaattagacacaacattgaagatggaagcgttcaactagcagaccattatcaacaaaatactccaattggcgatggccctgtccttttaccagacaaccattacctgtccacacaatctgccctttcgaaagatcccaacgaaaagagagaccacatggtccttcttgagtttgtaacagctgctgggattacacatggcatggatgaactatacaaataataaccaggcatcaaataaaacgaaaggctcagtcgaaagactgggcctttcgttttatctgttgtttgtcggtgaacgctctctactagagtcacactggctcaccttcgggtgggcctttctgcgtttata</nucleotides>
+                            </DnaSequence>
+                        </dnaSequence>
+                        <annotation>
+                            <SequenceAnnotation ns2:about="http://www.async.ece.utah.edu#anno0_4_30_2013_9_34_0_215_iBioSim">
+<bioStart>1</bioStart>
+<bioEnd>55</bioEnd>
+<strand>+</strand>
+<subComponent>
+    <DnaComponent ns2:about="http://partsregistry.org/part/BBa_R0011">
+        <ns2:type ns2:resource="http://purl.obolibrary.org/obo/SO_0000167"/>
+        <displayId>BBa_R0011</displayId>
+        <name>lacI+pL</name>
+        <description>Promoter (lacI regulated, lambda pL hybrid)</description>
+        <dnaSequence>
+            <DnaSequence ns2:about="http://partsregistry.org/seq/partseq_186">
+                <nucleotides>aattgtgagcggataacaattgacattgtgagcggataacaagatactgagcaca</nucleotides>
+            </DnaSequence>
+        </dnaSequence>
+    </DnaComponent>
+</subComponent>
+                            </SequenceAnnotation>
+                        </annotation>
+                        <annotation>
+                            <SequenceAnnotation ns2:about="http://www.async.ece.utah.edu#anno1_4_30_2013_9_34_0_215_iBioSim">
+<bioStart>56</bioStart>
+<bioEnd>67</bioEnd>
+<strand>+</strand>
+<subComponent>
+    <DnaComponent ns2:about="http://partsregistry.org/part/BBa_B0034">
+        <ns2:type ns2:resource="http://purl.obolibrary.org/obo/SO_0000139"/>
+        <displayId>BBa_B0034</displayId>
+        <name>B0034</name>
+        <description>RBS (Elowitz 1999) -- defines RBS efficiency</description>
+        <dnaSequence>
+            <DnaSequence ns2:about="http://partsregistry.org/seq/partseq_151">
+                <nucleotides>aaagaggagaaa</nucleotides>
+            </DnaSequence>
+        </dnaSequence>
+    </DnaComponent>
+</subComponent>
+                            </SequenceAnnotation>
+                        </annotation>
+                        <annotation>
+                            <SequenceAnnotation ns2:about="http://www.async.ece.utah.edu#anno2_4_30_2013_9_34_0_215_iBioSim">
+<bioStart>68</bioStart>
+<bioEnd>752</bioEnd>
+<strand>+</strand>
+<subComponent>
+    <DnaComponent ns2:about="http://partsregistry.org/part/BBa_C0040">
+        <ns2:type ns2:resource="http://purl.obolibrary.org/obo/SO_0000316"/>
+        <displayId>BBa_C0040</displayId>
+        <name>tetR</name>
+        <description>tetracycline repressor from transposon Tn10 (+LVA)</description>
+        <dnaSequence>
+            <DnaSequence ns2:about="http://partsregistry.org/seq/partseq_154">
+                <nucleotides>atgtccagattagataaaagtaaagtgattaacagcgcattagagctgcttaatgaggtcggaatcgaaggtttaacaacccgtaaactcgcccagaagctaggtgtagagcagcctacattgtattggcatgtaaaaaataagcgggctttgctcgacgccttagccattgagatgttagataggcaccatactcacttttgccctttagaaggggaaagctggcaagattttttacgtaataacgctaaaagttttagatgtgctttactaagtcatcgcgatggagcaaaagtacatttaggtacacggcctacagaaaaacagtatgaaactctcgaaaatcaattagcctttttatgccaacaaggtttttcactagagaatgcattatatgcactcagcgctgtggggcattttactttaggttgcgtattggaagatcaagagcatcaagtcgctaaagaagaaagggaaacacctactactgatagtatgccgccattattacgacaagctatcgaattatttgatcaccaaggtgcagagccagccttcttattcggccttgaattgatcatatgcggattagaaaaacaacttaaatgtgaaagtgggtccgctgcaaacgacgaaaactacgctttagtagcttaataacactgatagtgctagtgtagatcac</nucleotides>
+            </DnaSequence>
+        </dnaSequence>
+    </DnaComponent>
+</subComponent>
+                            </SequenceAnnotation>
+                        </annotation>
+                        <annotation>
+                            <SequenceAnnotation ns2:about="http://www.async.ece.utah.edu#anno3_4_30_2013_9_34_0_215_iBioSim">
+<bioStart>753</bioStart>
+<bioEnd>764</bioEnd>
+<strand>+</strand>
+<subComponent>
+    <DnaComponent ns2:about="http://partsregistry.org/part/BBa_B0034">
+        <ns2:type ns2:resource="http://purl.obolibrary.org/obo/SO_0000139"/>
+        <displayId>BBa_B0034</displayId>
+        <name>B0034</name>
+        <description>RBS (Elowitz 1999) -- defines RBS efficiency</description>
+        <dnaSequence>
+            <DnaSequence ns2:about="http://partsregistry.org/seq/partseq_151">
+                <nucleotides>aaagaggagaaa</nucleotides>
+            </DnaSequence>
+        </dnaSequence>
+    </DnaComponent>
+</subComponent>
+                            </SequenceAnnotation>
+                        </annotation>
+                        <annotation>
+                            <SequenceAnnotation ns2:about="http://www.async.ece.utah.edu#anno4_4_30_2013_9_34_0_215_iBioSim">
+<bioStart>765</bioStart>
+<bioEnd>1484</bioEnd>
+<strand>+</strand>
+<subComponent>
+    <DnaComponent ns2:about="http://partsregistry.org/part/BBa_E0040">
+        <ns2:type ns2:resource="http://purl.obolibrary.org/obo/SO_0000316"/>
+        <displayId>BBa_E0040</displayId>
+        <name>GFP</name>
+        <description>green fluorescent protein derived from jellyfish Aequeora victoria wild-type GFP (SwissProt: P42212</description>
+        <dnaSequence>
+            <DnaSequence ns2:about="http://partsregistry.org/seq/partseq_5309">
+                <nucleotides>atgcgtaaaggagaagaacttttcactggagttgtcccaattcttgttgaattagatggtgatgttaatgggcacaaattttctgtcagtggagagggtgaaggtgatgcaacatacggaaaacttacccttaaatttatttgcactactggaaaactacctgttccatggccaacacttgtcactactttcggttatggtgttcaatgctttgcgagatacccagatcatatgaaacagcatgactttttcaagagtgccatgcccgaaggttatgtacaggaaagaactatatttttcaaagatgacgggaactacaagacacgtgctgaagtcaagtttgaaggtgatacccttgttaatagaatcgagttaaaaggtattgattttaaagaagatggaaacattcttggacacaaattggaatacaactataactcacacaatgtatacatcatggcagacaaacaaaagaatggaatcaaagttaacttcaaaattagacacaacattgaagatggaagcgttcaactagcagaccattatcaacaaaatactccaattggcgatggccctgtccttttaccagacaaccattacctgtccacacaatctgccctttcgaaagatcccaacgaaaagagagaccacatggtccttcttgagtttgtaacagctgctgggattacacatggcatggatgaactatacaaataataa</nucleotides>
+            </DnaSequence>
+        </dnaSequence>
+    </DnaComponent>
+</subComponent>
+                            </SequenceAnnotation>
+                        </annotation>
+                        <annotation>
+                            <SequenceAnnotation ns2:about="http://www.async.ece.utah.edu#anno5_4_30_2013_9_34_0_215_iBioSim">
+<bioStart>1485</bioStart>
+<bioEnd>1613</bioEnd>
+<strand>+</strand>
+<subComponent>
+    <DnaComponent ns2:about="http://partsregistry.org/part/BBa_B0015">
+        <ns2:type ns2:resource="http://purl.obolibrary.org/obo/SO_0000141"/>
+        <displayId>BBa_B0015</displayId>
+        <name>B0015</name>
+        <description>double terminator (B0010-B0012)</description>
+        <dnaSequence>
+            <DnaSequence ns2:about="http://partsregistry.org/seq/partseq_202">
+                <nucleotides>ccaggcatcaaataaaacgaaaggctcagtcgaaagactgggcctttcgttttatctgttgtttgtcggtgaacgctctctactagagtcacactggctcaccttcgggtgggcctttctgcgtttata</nucleotides>
+            </DnaSequence>
+        </dnaSequence>
+    </DnaComponent>
+</subComponent>
+                            </SequenceAnnotation>
+                        </annotation>
+                    </DnaComponent>
+                </subComponent>
+            </SequenceAnnotation>
+        </annotation>
+        <annotation>
+            <SequenceAnnotation ns2:about="http://www.async.ece.utah.edu#anno1_4_30_2013_9_37_17_701_iBioSim">
+                <bioStart>1614</bioStart>
+                <bioEnd>2961</bioEnd>
+                <strand>+</strand>
+                <subComponent>
+                    <DnaComponent ns2:about="http://www.async.ece.utah.edu#comp_4_29_2013_17_18_25_849_iBioSim">
+                        <ns2:type ns2:resource="http://purl.obolibrary.org/obo/SO_0000804"/>
+                        <displayId>UU_I0002</displayId>
+                        <name>TetR Inverter</name>
+                        <description>This gene is repressed by TetR and codes for LacI.</description>
+                        <dnaSequence>
+                            <DnaSequence ns2:about="http://www.async.ece.utah.edu#seq_4_29_2013_17_18_25_849_iBioSim">
+<nucleotides>tccctatcagtgatagagattgacatccctatcagtgatagagatactgagcacaaagaggagaaaatggtgaatgtgaaaccagtaacgttatacgatgtcgcagagtatgccggtgtctcttatcagaccgtttcccgcgtggtgaaccaggccagccacgtttctgcgaaaacgcgggaaaaagtggaagcggcgatggcggagctgaattacattcccaaccgcgtggcacaacaactggcgggcaaacagtcgttgctgattggcgttgccacctccagtctggccctgcacgcgccgtcgcaaattgtcgcggcgattaaatctcgcgccgatcaactgggtgccagcgtggtggtgtcgatggtagaacgaagcggcgtcgaagcctgtaaagcggcggtgcacaatcttctcgcgcaacgcgtcagtgggctgatcattaactatccgctggatgaccaggatgccattgctgtggaagctgcctgcactaatgttccggcgttatttcttgatgtctctgaccagacacccatcaacagtattattttctcccatgaagacggtacgcgactgggcgtggagcatctggtcgcattgggtcaccagcaaatcgcgctgttagcgggcccattaagttctgtctcggcgcgtctgcgtctggctggctggcataaatatctcactcgcaatcaaattcagccgatagcggaacgggaaggcgactggagtgccatgtccggttttcaacaaaccatgcaaatgctgaatgagggcatcgttcccactgcgatgctggttgccaacgatcagatggcgctgggcgcaatgcgcgccattaccgagtccgggctgcgcgttggtgcggatatctcggtagtgggatacgacgataccgaagacagctcatgttatatcccgccgttaaccaccatcaaacaggattttcgcctgctggggcaaaccagcgtggaccgcttgctgcaactctctcagggccaggcggtgaagggcaatcagctgttgcccgtctcactggtgaaaagaaaaaccaccctggcgcccaatacgcaaaccgcctctccccgcgcgttggccgattcattaatgcagctggcacgacaggtttcccgactggaaagcgggcaggctgcaaacgacgaaaactacgctttagtagcttaataactctgatagtgctagtgtagatctcccaggcatcaaataaaacgaaaggctcagtcgaaagactgggcctttcgttttatctgttgtttgtcggtgaacgctctctactagagtcacactggctcaccttcgggtgggcctttctgcgtttata</nucleotides>
+                            </DnaSequence>
+                        </dnaSequence>
+                        <annotation>
+                            <SequenceAnnotation ns2:about="http://www.async.ece.utah.edu#anno0_4_29_2013_17_18_25_849_iBioSim">
+<bioStart>1</bioStart>
+<bioEnd>54</bioEnd>
+<strand>+</strand>
+<subComponent>
+    <DnaComponent ns2:about="http://partsregistry.org/part/BBa_R0040">
+        <ns2:type ns2:resource="http://purl.obolibrary.org/obo/SO_0000167"/>
+        <displayId>BBa_R0040</displayId>
+        <name>p(tetR)</name>
+        <description>TetR repressible promoter</description>
+        <dnaSequence>
+            <DnaSequence ns2:about="http://partsregistry.org/seq/partseq_187">
+                <nucleotides>tccctatcagtgatagagattgacatccctatcagtgatagagatactgagcac</nucleotides>
+            </DnaSequence>
+        </dnaSequence>
+    </DnaComponent>
+</subComponent>
+                            </SequenceAnnotation>
+                        </annotation>
+                        <annotation>
+                            <SequenceAnnotation ns2:about="http://www.async.ece.utah.edu#anno1_4_29_2013_17_18_25_849_iBioSim">
+<bioStart>55</bioStart>
+<bioEnd>66</bioEnd>
+<strand>+</strand>
+<subComponent>
+    <DnaComponent ns2:about="http://partsregistry.org/part/BBa_B0034">
+        <ns2:type ns2:resource="http://purl.obolibrary.org/obo/SO_0000139"/>
+        <displayId>BBa_B0034</displayId>
+        <name>B0034</name>
+        <description>RBS (Elowitz 1999) -- defines RBS efficiency</description>
+        <dnaSequence>
+            <DnaSequence ns2:about="http://partsregistry.org/seq/partseq_151">
+                <nucleotides>aaagaggagaaa</nucleotides>
+            </DnaSequence>
+        </dnaSequence>
+    </DnaComponent>
+</subComponent>
+                            </SequenceAnnotation>
+                        </annotation>
+                        <annotation>
+                            <SequenceAnnotation ns2:about="http://www.async.ece.utah.edu#anno2_4_29_2013_17_18_25_849_iBioSim">
+<bioStart>67</bioStart>
+<bioEnd>1219</bioEnd>
+<strand>+</strand>
+<subComponent>
+    <DnaComponent ns2:about="http://partsregistry.org/part/BBa_C0012">
+        <ns2:type ns2:resource="http://purl.obolibrary.org/obo/SO_0000316"/>
+        <displayId>BBa_C0012</displayId>
+        <name>lacI</name>
+        <description>lacI repressor from E. coli (+LVA)</description>
+        <dnaSequence>
+            <DnaSequence ns2:about="http://partsregistry.org/seq/partseq_153">
+                <nucleotides>atggtgaatgtgaaaccagtaacgttatacgatgtcgcagagtatgccggtgtctcttatcagaccgtttcccgcgtggtgaaccaggccagccacgtttctgcgaaaacgcgggaaaaagtggaagcggcgatggcggagctgaattacattcccaaccgcgtggcacaacaactggcgggcaaacagtcgttgctgattggcgttgccacctccagtctggccctgcacgcgccgtcgcaaattgtcgcggcgattaaatctcgcgccgatcaactgggtgccagcgtggtggtgtcgatggtagaacgaagcggcgtcgaagcctgtaaagcggcggtgcacaatcttctcgcgcaacgcgtcagtgggctgatcattaactatccgctggatgaccaggatgccattgctgtggaagctgcctgcactaatgttccggcgttatttcttgatgtctctgaccagacacccatcaacagtattattttctcccatgaagacggtacgcgactgggcgtggagcatctggtcgcattgggtcaccagcaaatcgcgctgttagcgggcccattaagttctgtctcggcgcgtctgcgtctggctggctggcataaatatctcactcgcaatcaaattcagccgatagcggaacgggaaggcgactggagtgccatgtccggttttcaacaaaccatgcaaatgctgaatgagggcatcgttcccactgcgatgctggttgccaacgatcagatggcgctgggcgcaatgcgcgccattaccgagtccgggctgcgcgttggtgcggatatctcggtagtgggatacgacgataccgaagacagctcatgttatatcccgccgttaaccaccatcaaacaggattttcgcctgctggggcaaaccagcgtggaccgcttgctgcaactctctcagggccaggcggtgaagggcaatcagctgttgcccgtctcactggtgaaaagaaaaaccaccctggcgcccaatacgcaaaccgcctctccccgcgcgttggccgattcattaatgcagctggcacgacaggtttcccgactggaaagcgggcaggctgcaaacgacgaaaactacgctttagtagcttaataactctgatagtgctagtgtagatctc</nucleotides>
+            </DnaSequence>
+        </dnaSequence>
+    </DnaComponent>
+</subComponent>
+                            </SequenceAnnotation>
+                        </annotation>
+                        <annotation>
+                            <SequenceAnnotation ns2:about="http://www.async.ece.utah.edu#anno3_4_29_2013_17_18_25_849_iBioSim">
+<bioStart>1220</bioStart>
+<bioEnd>1348</bioEnd>
+<strand>+</strand>
+<subComponent>
+    <DnaComponent ns2:about="http://partsregistry.org/part/BBa_B0015">
+        <ns2:type ns2:resource="http://purl.obolibrary.org/obo/SO_0000141"/>
+        <displayId>BBa_B0015</displayId>
+        <name>B0015</name>
+        <description>double terminator (B0010-B0012)</description>
+        <dnaSequence>
+            <DnaSequence ns2:about="http://partsregistry.org/seq/partseq_202">
+                <nucleotides>ccaggcatcaaataaaacgaaaggctcagtcgaaagactgggcctttcgttttatctgttgtttgtcggtgaacgctctctactagagtcacactggctcaccttcgggtgggcctttctgcgtttata</nucleotides>
+            </DnaSequence>
+        </dnaSequence>
+    </DnaComponent>
+</subComponent>
+                            </SequenceAnnotation>
+                        </annotation>
+                    </DnaComponent>
+                </subComponent>
+            </SequenceAnnotation>
+        </annotation>
+    </DnaComponent>
+</ns2:RDF>

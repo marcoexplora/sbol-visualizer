@@ -56,7 +56,7 @@ export default {
         this.$refs.glyphs[a.index].scrollIntoView({
           behavior: "smooth",
           block: "nearest",
-          inline: "end"
+          inline: "center"
         });
       }, 100);
     }

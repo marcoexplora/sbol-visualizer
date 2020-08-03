@@ -4,12 +4,9 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
     "build-wc": "vue-cli-service build  --target wc --inline-vue --name sbol-viewer ./src/views/Viewer.vue",
     "eslint": "eslint 'src /**/*.{js,vue}'",
-    "test:unit": "vue-cli-service test:unit",
-    "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
     "axios": "^0.19.2",
