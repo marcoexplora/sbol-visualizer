@@ -22,21 +22,14 @@
             </li>
           </ul>
         </div>
-        <span>{{ item.start }}…{{ item.end }}</span>
+
+        <span v-if="item.end > 0">{{ item.start }}…{{ item.end }}</span>
       </li>
     </ul>
   </div>
 </template>
 <script>
 export default {
-  /*
-    
-        :class="{ active: hover }"
-        @mouseover="hover = true"
-        @mouseleave="hover = false"
-    
-    */
-
   props: ["annotations"],
   data() {
     return {
@@ -45,7 +38,6 @@ export default {
   },
   computed: {
     selectedItems() {
-      // let filters = [];
       return this.annotations.filter(so => {
         if (this.filter === "") {
           return so;

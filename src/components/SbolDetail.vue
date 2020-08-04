@@ -34,7 +34,6 @@ export default {
   },
   watch: {
     annotation: function(data) {
-      window.console.log("watch from detail", data);
       if (typeof data !== "undefined") {
         this.detail = this.annotation;
         this.detail.href = `http://identifiers.org/so/${this.detail.SBOL}`;

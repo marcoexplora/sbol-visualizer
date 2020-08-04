@@ -48,10 +48,13 @@ export default {
   },
   methods: {
     detailItem(a) {
+      console.log("detailItem : " + a);
       this.$emit("selectedAnnotation", a);
     },
     selectedAnnotation(a) {
+      console.log("selectedAnnotation");
       this.activeAnnotation = "glyph_" + a.pk;
+      console.log("this.activeAnnotation " + this.activeAnnotation);
       setTimeout(() => {
         this.$refs.glyphs[a.index].scrollIntoView({
           behavior: "smooth",
