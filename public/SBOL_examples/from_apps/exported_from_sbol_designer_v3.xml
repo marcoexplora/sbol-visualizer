@@ -1,0 +1,363 @@
+<?xml version="1.0" ?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:sbol="http://sbols.org/v2#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:prov="http://www.w3.org/ns/prov#" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <sbol:ComponentDefinition rdf:about="http://www.dummy.org/gRNA/1">
+    <sbol:persistentIdentity rdf:resource="http://www.dummy.org/gRNA"/>
+    <sbol:displayId>gRNA</sbol:displayId>
+    <sbol:version>1</sbol:version>
+    <prov:wasGeneratedBy rdf:resource="http://www.dummy.org/DisplayID_part_SBOLDesignerActivity/1"/>
+    <sbol:type rdf:resource="http://www.biopax.org/release/biopax-level3.owl#DnaRegion"/>
+    <sbol:role rdf:resource="http://identifiers.org/so/SO:0001263"/>
+  </sbol:ComponentDefinition>
+  <sbol:ComponentDefinition rdf:about="http://www.dummy.org/Ter/1">
+    <sbol:persistentIdentity rdf:resource="http://www.dummy.org/Ter"/>
+    <sbol:displayId>Ter</sbol:displayId>
+    <sbol:version>1</sbol:version>
+    <prov:wasGeneratedBy rdf:resource="http://www.dummy.org/DisplayID_part_SBOLDesignerActivity/1"/>
+    <sbol:type rdf:resource="http://www.biopax.org/release/biopax-level3.owl#DnaRegion"/>
+    <sbol:role rdf:resource="http://identifiers.org/so/SO:0000141"/>
+  </sbol:ComponentDefinition>
+  <sbol:ComponentDefinition rdf:about="http://www.dummy.org/Pro/1">
+    <sbol:persistentIdentity rdf:resource="http://www.dummy.org/Pro"/>
+    <sbol:displayId>Pro</sbol:displayId>
+    <sbol:version>1</sbol:version>
+    <prov:wasGeneratedBy rdf:resource="http://www.dummy.org/DisplayID_part_SBOLDesignerActivity/1"/>
+    <sbol:type rdf:resource="http://www.biopax.org/release/biopax-level3.owl#DnaRegion"/>
+    <sbol:role rdf:resource="http://identifiers.org/so/SO:0000167"/>
+  </sbol:ComponentDefinition>
+  <sbol:ComponentDefinition rdf:about="http://www.dummy.org/CDS/1">
+    <sbol:persistentIdentity rdf:resource="http://www.dummy.org/CDS"/>
+    <sbol:displayId>CDS</sbol:displayId>
+    <sbol:version>1</sbol:version>
+    <prov:wasGeneratedBy rdf:resource="http://www.dummy.org/DisplayID_part_SBOLDesignerActivity/1"/>
+    <sbol:type rdf:resource="http://www.biopax.org/release/biopax-level3.owl#DnaRegion"/>
+    <sbol:role rdf:resource="http://identifiers.org/so/SO:0000316"/>
+  </sbol:ComponentDefinition>
+  <sbol:ComponentDefinition rdf:about="http://www.dummy.org/DisplayID_part/1">
+    <sbol:persistentIdentity rdf:resource="http://www.dummy.org/DisplayID_part"/>
+    <sbol:displayId>DisplayID_part</sbol:displayId>
+    <sbol:version>1</sbol:version>
+    <prov:wasGeneratedBy rdf:resource="http://www.dummy.org/DisplayID_part_SBOLDesignerActivity/1"/>
+    <dcterms:description></dcterms:description>
+    <sbol:type rdf:resource="http://www.biopax.org/release/biopax-level3.owl#DnaRegion"/>
+    <sbol:type rdf:resource="http://identifiers.org/so/SO:0000988"/>
+    <sbol:role rdf:resource="http://identifiers.org/so/SO:0000804"/>
+    <sbol:component>
+      <sbol:Component rdf:about="http://www.dummy.org/DisplayID_part/RBS_Component/1">
+        <sbol:persistentIdentity rdf:resource="http://www.dummy.org/DisplayID_part/RBS_Component"/>
+        <sbol:displayId>RBS_Component</sbol:displayId>
+        <sbol:version>1</sbol:version>
+        <sbol:access rdf:resource="http://sbols.org/v2#public"/>
+        <sbol:definition rdf:resource="http://www.dummy.org/RBS/1"/>
+      </sbol:Component>
+    </sbol:component>
+    <sbol:component>
+      <sbol:Component rdf:about="http://www.dummy.org/DisplayID_part/Pro_Component/1">
+        <sbol:persistentIdentity rdf:resource="http://www.dummy.org/DisplayID_part/Pro_Component"/>
+        <sbol:displayId>Pro_Component</sbol:displayId>
+        <sbol:version>1</sbol:version>
+        <sbol:access rdf:resource="http://sbols.org/v2#public"/>
+        <sbol:definition rdf:resource="http://www.dummy.org/Pro/1"/>
+      </sbol:Component>
+    </sbol:component>
+    <sbol:component>
+      <sbol:Component rdf:about="http://www.dummy.org/DisplayID_part/Ori_Component/1">
+        <sbol:persistentIdentity rdf:resource="http://www.dummy.org/DisplayID_part/Ori_Component"/>
+        <sbol:displayId>Ori_Component</sbol:displayId>
+        <sbol:version>1</sbol:version>
+        <sbol:access rdf:resource="http://sbols.org/v2#public"/>
+        <sbol:definition rdf:resource="http://www.dummy.org/Ori/1"/>
+      </sbol:Component>
+    </sbol:component>
+    <sbol:component>
+      <sbol:Component rdf:about="http://www.dummy.org/DisplayID_part/Cir_Component/1">
+        <sbol:persistentIdentity rdf:resource="http://www.dummy.org/DisplayID_part/Cir_Component"/>
+        <sbol:displayId>Cir_Component</sbol:displayId>
+        <sbol:version>1</sbol:version>
+        <sbol:access rdf:resource="http://sbols.org/v2#public"/>
+        <sbol:definition rdf:resource="http://www.dummy.org/Cir/1"/>
+      </sbol:Component>
+    </sbol:component>
+    <sbol:component>
+      <sbol:Component rdf:about="http://www.dummy.org/DisplayID_part/Gen_Component/1">
+        <sbol:persistentIdentity rdf:resource="http://www.dummy.org/DisplayID_part/Gen_Component"/>
+        <sbol:displayId>Gen_Component</sbol:displayId>
+        <sbol:version>1</sbol:version>
+        <sbol:access rdf:resource="http://sbols.org/v2#public"/>
+        <sbol:definition rdf:resource="http://www.dummy.org/Gen/1"/>
+      </sbol:Component>
+    </sbol:component>
+    <sbol:component>
+      <sbol:Component rdf:about="http://www.dummy.org/DisplayID_part/gRNA_Component/1">
+        <sbol:persistentIdentity rdf:resource="http://www.dummy.org/DisplayID_part/gRNA_Component"/>
+        <sbol:displayId>gRNA_Component</sbol:displayId>
+        <sbol:version>1</sbol:version>
+        <sbol:access rdf:resource="http://sbols.org/v2#public"/>
+        <sbol:definition rdf:resource="http://www.dummy.org/gRNA/1"/>
+      </sbol:Component>
+    </sbol:component>
+    <sbol:component>
+      <sbol:Component rdf:about="http://www.dummy.org/DisplayID_part/CDS_Component/1">
+        <sbol:persistentIdentity rdf:resource="http://www.dummy.org/DisplayID_part/CDS_Component"/>
+        <sbol:displayId>CDS_Component</sbol:displayId>
+        <sbol:version>1</sbol:version>
+        <sbol:access rdf:resource="http://sbols.org/v2#public"/>
+        <sbol:definition rdf:resource="http://www.dummy.org/CDS/1"/>
+      </sbol:Component>
+    </sbol:component>
+    <sbol:component>
+      <sbol:Component rdf:about="http://www.dummy.org/DisplayID_part/Ter_Component/1">
+        <sbol:persistentIdentity rdf:resource="http://www.dummy.org/DisplayID_part/Ter_Component"/>
+        <sbol:displayId>Ter_Component</sbol:displayId>
+        <sbol:version>1</sbol:version>
+        <sbol:access rdf:resource="http://sbols.org/v2#public"/>
+        <sbol:definition rdf:resource="http://www.dummy.org/Ter/1"/>
+      </sbol:Component>
+    </sbol:component>
+    <sbol:sequenceAnnotation>
+      <sbol:SequenceAnnotation rdf:about="http://www.dummy.org/DisplayID_part/DisplayID_part_SequenceAnnotation4/1">
+        <sbol:persistentIdentity rdf:resource="http://www.dummy.org/DisplayID_part/DisplayID_part_SequenceAnnotation4"/>
+        <sbol:displayId>DisplayID_part_SequenceAnnotation4</sbol:displayId>
+        <sbol:version>1</sbol:version>
+        <sbol:location>
+          <sbol:GenericLocation rdf:about="http://www.dummy.org/DisplayID_part/DisplayID_part_SequenceAnnotation4/GenericLocation/1">
+            <sbol:persistentIdentity rdf:resource="http://www.dummy.org/DisplayID_part/DisplayID_part_SequenceAnnotation4/GenericLocation"/>
+            <sbol:displayId>GenericLocation</sbol:displayId>
+            <sbol:version>1</sbol:version>
+            <sbol:orientation rdf:resource="http://sbols.org/v2#inline"/>
+          </sbol:GenericLocation>
+        </sbol:location>
+        <sbol:component rdf:resource="http://www.dummy.org/DisplayID_part/CDS_Component/1"/>
+      </sbol:SequenceAnnotation>
+    </sbol:sequenceAnnotation>
+    <sbol:sequenceAnnotation>
+      <sbol:SequenceAnnotation rdf:about="http://www.dummy.org/DisplayID_part/DisplayID_part_SequenceAnnotation/1">
+        <sbol:persistentIdentity rdf:resource="http://www.dummy.org/DisplayID_part/DisplayID_part_SequenceAnnotation"/>
+        <sbol:displayId>DisplayID_part_SequenceAnnotation</sbol:displayId>
+        <sbol:version>1</sbol:version>
+        <sbol:location>
+          <sbol:GenericLocation rdf:about="http://www.dummy.org/DisplayID_part/DisplayID_part_SequenceAnnotation/GenericLocation/1">
+            <sbol:persistentIdentity rdf:resource="http://www.dummy.org/DisplayID_part/DisplayID_part_SequenceAnnotation/GenericLocation"/>
+            <sbol:displayId>GenericLocation</sbol:displayId>
+            <sbol:version>1</sbol:version>
+            <sbol:orientation rdf:resource="http://sbols.org/v2#inline"/>
+          </sbol:GenericLocation>
+        </sbol:location>
+        <sbol:component rdf:resource="http://www.dummy.org/DisplayID_part/Cir_Component/1"/>
+      </sbol:SequenceAnnotation>
+    </sbol:sequenceAnnotation>
+    <sbol:sequenceAnnotation>
+      <sbol:SequenceAnnotation rdf:about="http://www.dummy.org/DisplayID_part/DisplayID_part_SequenceAnnotation3/1">
+        <sbol:persistentIdentity rdf:resource="http://www.dummy.org/DisplayID_part/DisplayID_part_SequenceAnnotation3"/>
+        <sbol:displayId>DisplayID_part_SequenceAnnotation3</sbol:displayId>
+        <sbol:version>1</sbol:version>
+        <sbol:location>
+          <sbol:GenericLocation rdf:about="http://www.dummy.org/DisplayID_part/DisplayID_part_SequenceAnnotation3/GenericLocation/1">
+            <sbol:persistentIdentity rdf:resource="http://www.dummy.org/DisplayID_part/DisplayID_part_SequenceAnnotation3/GenericLocation"/>
+            <sbol:displayId>GenericLocation</sbol:displayId>
+            <sbol:version>1</sbol:version>
+            <sbol:orientation rdf:resource="http://sbols.org/v2#inline"/>
+          </sbol:GenericLocation>
+        </sbol:location>
+        <sbol:component rdf:resource="http://www.dummy.org/DisplayID_part/RBS_Component/1"/>
+      </sbol:SequenceAnnotation>
+    </sbol:sequenceAnnotation>
+    <sbol:sequenceAnnotation>
+      <sbol:SequenceAnnotation rdf:about="http://www.dummy.org/DisplayID_part/DisplayID_part_SequenceAnnotation2/1">
+        <sbol:persistentIdentity rdf:resource="http://www.dummy.org/DisplayID_part/DisplayID_part_SequenceAnnotation2"/>
+        <sbol:displayId>DisplayID_part_SequenceAnnotation2</sbol:displayId>
+        <sbol:version>1</sbol:version>
+        <sbol:location>
+          <sbol:GenericLocation rdf:about="http://www.dummy.org/DisplayID_part/DisplayID_part_SequenceAnnotation2/GenericLocation/1">
+            <sbol:persistentIdentity rdf:resource="http://www.dummy.org/DisplayID_part/DisplayID_part_SequenceAnnotation2/GenericLocation"/>
+            <sbol:displayId>GenericLocation</sbol:displayId>
+            <sbol:version>1</sbol:version>
+            <sbol:orientation rdf:resource="http://sbols.org/v2#inline"/>
+          </sbol:GenericLocation>
+        </sbol:location>
+        <sbol:component rdf:resource="http://www.dummy.org/DisplayID_part/Pro_Component/1"/>
+      </sbol:SequenceAnnotation>
+    </sbol:sequenceAnnotation>
+    <sbol:sequenceAnnotation>
+      <sbol:SequenceAnnotation rdf:about="http://www.dummy.org/DisplayID_part/DisplayID_part_SequenceAnnotation7/1">
+        <sbol:persistentIdentity rdf:resource="http://www.dummy.org/DisplayID_part/DisplayID_part_SequenceAnnotation7"/>
+        <sbol:displayId>DisplayID_part_SequenceAnnotation7</sbol:displayId>
+        <sbol:version>1</sbol:version>
+        <sbol:location>
+          <sbol:GenericLocation rdf:about="http://www.dummy.org/DisplayID_part/DisplayID_part_SequenceAnnotation7/GenericLocation/1">
+            <sbol:persistentIdentity rdf:resource="http://www.dummy.org/DisplayID_part/DisplayID_part_SequenceAnnotation7/GenericLocation"/>
+            <sbol:displayId>GenericLocation</sbol:displayId>
+            <sbol:version>1</sbol:version>
+            <sbol:orientation rdf:resource="http://sbols.org/v2#inline"/>
+          </sbol:GenericLocation>
+        </sbol:location>
+        <sbol:component rdf:resource="http://www.dummy.org/DisplayID_part/Ori_Component/1"/>
+      </sbol:SequenceAnnotation>
+    </sbol:sequenceAnnotation>
+    <sbol:sequenceAnnotation>
+      <sbol:SequenceAnnotation rdf:about="http://www.dummy.org/DisplayID_part/DisplayID_part_SequenceAnnotation1/1">
+        <sbol:persistentIdentity rdf:resource="http://www.dummy.org/DisplayID_part/DisplayID_part_SequenceAnnotation1"/>
+        <sbol:displayId>DisplayID_part_SequenceAnnotation1</sbol:displayId>
+        <sbol:version>1</sbol:version>
+        <sbol:location>
+          <sbol:GenericLocation rdf:about="http://www.dummy.org/DisplayID_part/DisplayID_part_SequenceAnnotation1/GenericLocation/1">
+            <sbol:persistentIdentity rdf:resource="http://www.dummy.org/DisplayID_part/DisplayID_part_SequenceAnnotation1/GenericLocation"/>
+            <sbol:displayId>GenericLocation</sbol:displayId>
+            <sbol:version>1</sbol:version>
+            <sbol:orientation rdf:resource="http://sbols.org/v2#inline"/>
+          </sbol:GenericLocation>
+        </sbol:location>
+        <sbol:component rdf:resource="http://www.dummy.org/DisplayID_part/Gen_Component/1"/>
+      </sbol:SequenceAnnotation>
+    </sbol:sequenceAnnotation>
+    <sbol:sequenceAnnotation>
+      <sbol:SequenceAnnotation rdf:about="http://www.dummy.org/DisplayID_part/DisplayID_part_SequenceAnnotation6/1">
+        <sbol:persistentIdentity rdf:resource="http://www.dummy.org/DisplayID_part/DisplayID_part_SequenceAnnotation6"/>
+        <sbol:displayId>DisplayID_part_SequenceAnnotation6</sbol:displayId>
+        <sbol:version>1</sbol:version>
+        <sbol:location>
+          <sbol:GenericLocation rdf:about="http://www.dummy.org/DisplayID_part/DisplayID_part_SequenceAnnotation6/GenericLocation/1">
+            <sbol:persistentIdentity rdf:resource="http://www.dummy.org/DisplayID_part/DisplayID_part_SequenceAnnotation6/GenericLocation"/>
+            <sbol:displayId>GenericLocation</sbol:displayId>
+            <sbol:version>1</sbol:version>
+            <sbol:orientation rdf:resource="http://sbols.org/v2#inline"/>
+          </sbol:GenericLocation>
+        </sbol:location>
+        <sbol:component rdf:resource="http://www.dummy.org/DisplayID_part/gRNA_Component/1"/>
+      </sbol:SequenceAnnotation>
+    </sbol:sequenceAnnotation>
+    <sbol:sequenceAnnotation>
+      <sbol:SequenceAnnotation rdf:about="http://www.dummy.org/DisplayID_part/DisplayID_part_SequenceAnnotation5/1">
+        <sbol:persistentIdentity rdf:resource="http://www.dummy.org/DisplayID_part/DisplayID_part_SequenceAnnotation5"/>
+        <sbol:displayId>DisplayID_part_SequenceAnnotation5</sbol:displayId>
+        <sbol:version>1</sbol:version>
+        <sbol:location>
+          <sbol:GenericLocation rdf:about="http://www.dummy.org/DisplayID_part/DisplayID_part_SequenceAnnotation5/GenericLocation/1">
+            <sbol:persistentIdentity rdf:resource="http://www.dummy.org/DisplayID_part/DisplayID_part_SequenceAnnotation5/GenericLocation"/>
+            <sbol:displayId>GenericLocation</sbol:displayId>
+            <sbol:version>1</sbol:version>
+            <sbol:orientation rdf:resource="http://sbols.org/v2#inline"/>
+          </sbol:GenericLocation>
+        </sbol:location>
+        <sbol:component rdf:resource="http://www.dummy.org/DisplayID_part/Ter_Component/1"/>
+      </sbol:SequenceAnnotation>
+    </sbol:sequenceAnnotation>
+    <sbol:sequenceConstraint>
+      <sbol:SequenceConstraint rdf:about="http://www.dummy.org/DisplayID_part/DisplayID_part_SequenceConstraint2/1">
+        <sbol:persistentIdentity rdf:resource="http://www.dummy.org/DisplayID_part/DisplayID_part_SequenceConstraint2"/>
+        <sbol:displayId>DisplayID_part_SequenceConstraint2</sbol:displayId>
+        <sbol:version>1</sbol:version>
+        <sbol:restriction rdf:resource="http://sbols.org/v2#precedes"/>
+        <sbol:subject rdf:resource="http://www.dummy.org/DisplayID_part/Pro_Component/1"/>
+        <sbol:object rdf:resource="http://www.dummy.org/DisplayID_part/RBS_Component/1"/>
+      </sbol:SequenceConstraint>
+    </sbol:sequenceConstraint>
+    <sbol:sequenceConstraint>
+      <sbol:SequenceConstraint rdf:about="http://www.dummy.org/DisplayID_part/DisplayID_part_SequenceConstraint5/1">
+        <sbol:persistentIdentity rdf:resource="http://www.dummy.org/DisplayID_part/DisplayID_part_SequenceConstraint5"/>
+        <sbol:displayId>DisplayID_part_SequenceConstraint5</sbol:displayId>
+        <sbol:version>1</sbol:version>
+        <sbol:restriction rdf:resource="http://sbols.org/v2#precedes"/>
+        <sbol:subject rdf:resource="http://www.dummy.org/DisplayID_part/Ter_Component/1"/>
+        <sbol:object rdf:resource="http://www.dummy.org/DisplayID_part/gRNA_Component/1"/>
+      </sbol:SequenceConstraint>
+    </sbol:sequenceConstraint>
+    <sbol:sequenceConstraint>
+      <sbol:SequenceConstraint rdf:about="http://www.dummy.org/DisplayID_part/DisplayID_part_SequenceConstraint6/1">
+        <sbol:persistentIdentity rdf:resource="http://www.dummy.org/DisplayID_part/DisplayID_part_SequenceConstraint6"/>
+        <sbol:displayId>DisplayID_part_SequenceConstraint6</sbol:displayId>
+        <sbol:version>1</sbol:version>
+        <sbol:restriction rdf:resource="http://sbols.org/v2#precedes"/>
+        <sbol:subject rdf:resource="http://www.dummy.org/DisplayID_part/gRNA_Component/1"/>
+        <sbol:object rdf:resource="http://www.dummy.org/DisplayID_part/Ori_Component/1"/>
+      </sbol:SequenceConstraint>
+    </sbol:sequenceConstraint>
+    <sbol:sequenceConstraint>
+      <sbol:SequenceConstraint rdf:about="http://www.dummy.org/DisplayID_part/DisplayID_part_SequenceConstraint4/1">
+        <sbol:persistentIdentity rdf:resource="http://www.dummy.org/DisplayID_part/DisplayID_part_SequenceConstraint4"/>
+        <sbol:displayId>DisplayID_part_SequenceConstraint4</sbol:displayId>
+        <sbol:version>1</sbol:version>
+        <sbol:restriction rdf:resource="http://sbols.org/v2#precedes"/>
+        <sbol:subject rdf:resource="http://www.dummy.org/DisplayID_part/CDS_Component/1"/>
+        <sbol:object rdf:resource="http://www.dummy.org/DisplayID_part/Ter_Component/1"/>
+      </sbol:SequenceConstraint>
+    </sbol:sequenceConstraint>
+    <sbol:sequenceConstraint>
+      <sbol:SequenceConstraint rdf:about="http://www.dummy.org/DisplayID_part/DisplayID_part_SequenceConstraint/1">
+        <sbol:persistentIdentity rdf:resource="http://www.dummy.org/DisplayID_part/DisplayID_part_SequenceConstraint"/>
+        <sbol:displayId>DisplayID_part_SequenceConstraint</sbol:displayId>
+        <sbol:version>1</sbol:version>
+        <sbol:restriction rdf:resource="http://sbols.org/v2#precedes"/>
+        <sbol:subject rdf:resource="http://www.dummy.org/DisplayID_part/Cir_Component/1"/>
+        <sbol:object rdf:resource="http://www.dummy.org/DisplayID_part/Gen_Component/1"/>
+      </sbol:SequenceConstraint>
+    </sbol:sequenceConstraint>
+    <sbol:sequenceConstraint>
+      <sbol:SequenceConstraint rdf:about="http://www.dummy.org/DisplayID_part/DisplayID_part_SequenceConstraint1/1">
+        <sbol:persistentIdentity rdf:resource="http://www.dummy.org/DisplayID_part/DisplayID_part_SequenceConstraint1"/>
+        <sbol:displayId>DisplayID_part_SequenceConstraint1</sbol:displayId>
+        <sbol:version>1</sbol:version>
+        <sbol:restriction rdf:resource="http://sbols.org/v2#precedes"/>
+        <sbol:subject rdf:resource="http://www.dummy.org/DisplayID_part/Gen_Component/1"/>
+        <sbol:object rdf:resource="http://www.dummy.org/DisplayID_part/Pro_Component/1"/>
+      </sbol:SequenceConstraint>
+    </sbol:sequenceConstraint>
+    <sbol:sequenceConstraint>
+      <sbol:SequenceConstraint rdf:about="http://www.dummy.org/DisplayID_part/DisplayID_part_SequenceConstraint3/1">
+        <sbol:persistentIdentity rdf:resource="http://www.dummy.org/DisplayID_part/DisplayID_part_SequenceConstraint3"/>
+        <sbol:displayId>DisplayID_part_SequenceConstraint3</sbol:displayId>
+        <sbol:version>1</sbol:version>
+        <sbol:restriction rdf:resource="http://sbols.org/v2#precedes"/>
+        <sbol:subject rdf:resource="http://www.dummy.org/DisplayID_part/RBS_Component/1"/>
+        <sbol:object rdf:resource="http://www.dummy.org/DisplayID_part/CDS_Component/1"/>
+      </sbol:SequenceConstraint>
+    </sbol:sequenceConstraint>
+  </sbol:ComponentDefinition>
+  <sbol:ComponentDefinition rdf:about="http://www.dummy.org/Ori/1">
+    <sbol:persistentIdentity rdf:resource="http://www.dummy.org/Ori"/>
+    <sbol:displayId>Ori</sbol:displayId>
+    <sbol:version>1</sbol:version>
+    <prov:wasGeneratedBy rdf:resource="http://www.dummy.org/DisplayID_part_SBOLDesignerActivity/1"/>
+    <sbol:type rdf:resource="http://www.biopax.org/release/biopax-level3.owl#DnaRegion"/>
+    <sbol:role rdf:resource="http://identifiers.org/so/SO:0000296"/>
+  </sbol:ComponentDefinition>
+  <sbol:ComponentDefinition rdf:about="http://www.dummy.org/Gen/1">
+    <sbol:persistentIdentity rdf:resource="http://www.dummy.org/Gen"/>
+    <sbol:displayId>Gen</sbol:displayId>
+    <sbol:version>1</sbol:version>
+    <prov:wasGeneratedBy rdf:resource="http://www.dummy.org/DisplayID_part_SBOLDesignerActivity/1"/>
+    <sbol:type rdf:resource="http://www.biopax.org/release/biopax-level3.owl#DnaRegion"/>
+    <sbol:role rdf:resource="http://identifiers.org/so/SO:0000804"/>
+  </sbol:ComponentDefinition>
+  <sbol:ComponentDefinition rdf:about="http://www.dummy.org/Cir/1">
+    <sbol:persistentIdentity rdf:resource="http://www.dummy.org/Cir"/>
+    <sbol:displayId>Cir</sbol:displayId>
+    <sbol:version>1</sbol:version>
+    <prov:wasGeneratedBy rdf:resource="http://www.dummy.org/DisplayID_part_SBOLDesignerActivity/1"/>
+    <sbol:type rdf:resource="http://www.biopax.org/release/biopax-level3.owl#DnaRegion"/>
+    <sbol:role rdf:resource="http://identifiers.org/so/SO:0000755"/>
+  </sbol:ComponentDefinition>
+  <sbol:ComponentDefinition rdf:about="http://www.dummy.org/RBS/1">
+    <sbol:persistentIdentity rdf:resource="http://www.dummy.org/RBS"/>
+    <sbol:displayId>RBS</sbol:displayId>
+    <sbol:version>1</sbol:version>
+    <prov:wasGeneratedBy rdf:resource="http://www.dummy.org/DisplayID_part_SBOLDesignerActivity/1"/>
+    <sbol:type rdf:resource="http://www.biopax.org/release/biopax-level3.owl#DnaRegion"/>
+    <sbol:role rdf:resource="http://identifiers.org/so/SO:0000139"/>
+  </sbol:ComponentDefinition>
+  <prov:Activity rdf:about="http://www.dummy.org/DisplayID_part_SBOLDesignerActivity/1">
+    <sbol:persistentIdentity rdf:resource="http://www.dummy.org/DisplayID_part_SBOLDesignerActivity"/>
+    <sbol:displayId>DisplayID_part_SBOLDesignerActivity</sbol:displayId>
+    <sbol:version>1</sbol:version>
+    <dc:creator></dc:creator>
+    <prov:endedAtTime>2020-08-04T17:06:25.939+02:00</prov:endedAtTime>
+    <prov:qualifiedAssociation>
+      <prov:Association rdf:about="http://www.dummy.org/DisplayID_part_SBOLDesignerActivity/Association/1">
+        <sbol:persistentIdentity rdf:resource="http://www.dummy.org/DisplayID_part_SBOLDesignerActivity/Association"/>
+        <sbol:displayId>Association</sbol:displayId>
+        <sbol:version>1</sbol:version>
+        <prov:hadRole rdf:resource="http://sbols.org/v2#sequenceEditor"/>
+        <prov:agent rdf:resource="https://synbiohub.org/public/SBOL_Software/SBOLDesigner/3.0"/>
+      </prov:Association>
+    </prov:qualifiedAssociation>
+  </prov:Activity>
+</rdf:RDF>

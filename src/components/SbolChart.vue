@@ -24,7 +24,7 @@ export default {
     return {
       activeAnnotation: "none",
       containerWidth: 0,
-      parentWidth: 0
+      parentWidth: 0,
     };
   },
   computed: {
@@ -44,7 +44,7 @@ export default {
         return this.annotations;
       }
       return [];
-    }
+    },
   },
   methods: {
     detailItem(a) {
@@ -59,16 +59,16 @@ export default {
         this.$refs.glyphs[a.index].scrollIntoView({
           behavior: "smooth",
           block: "nearest",
-          inline: "center"
+          inline: "center",
         });
       }, 100);
-    }
+    },
   },
   watch: {
     annotation(a) {
       this.selectedAnnotation(a);
-    }
-  }
+    },
+  },
 };
 </script>
 

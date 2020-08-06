@@ -50,18 +50,18 @@ export default {
       empty: true,
       chartsWidth: 0,
       flavourClass: "SBOLcontainer",
-      flavourMini: false
+      flavourMini: false,
     };
   },
   methods: {
-    showDetail: function(idx) {
+    showDetail: function (idx) {
       this.annotation = this.sbolDataLayer.annotations[idx];
     },
-    matchWidth: function() {
+    matchWidth: function () {
       const main = this.$refs;
       this.mainWidth = main.clientWidth + "px";
     },
-    genericLoad: function(dataFormat, data) {
+    genericLoad: function (dataFormat, data) {
       if (dataFormat == "json") {
         if (typeof data == "string") {
           data = JSON.parse(data);
@@ -72,7 +72,7 @@ export default {
         this.loadXml(data);
       }
     },
-    loadJson: function(json) {
+    loadJson: function (json) {
       const jsonName = json.name || "";
       const jsonFrindlyID = json.friendly_id || "";
 
@@ -82,10 +82,10 @@ export default {
         alternativeName: "",
         version: "",
         division: "",
-        parentSequence: ""
+        parentSequence: "",
       };
       this.sbolDataLayer.annotations = json.annotations || [];
-      this.sbolDataLayer.annotations.map(a => {
+      this.sbolDataLayer.annotations.map((a) => {
         if (a.direction) {
           a.direction = a.direction === 1 ? "FW" : "RV";
         } else {
@@ -93,11 +93,11 @@ export default {
         }
       });
       this.empty = false;
-      this.$nextTick(function() {
+      this.$nextTick(function () {
         this.chartsWidth = this.$refs.chartsContainer.clientWidth - 50;
       });
     },
-    loadXml: function(xml) {
+    loadXml: function (xml) {
       const parser = new DOMParser();
       const xmlDoc = parser.parseFromString(xml.toLowerCase(), "text/xml");
 
@@ -107,7 +107,7 @@ export default {
         alternativeName: xmlHandler.xmlFind(xmlDoc, "description"),
         version: "",
         division: "",
-        parentSequence: ""
+        parentSequence: "",
       };
       this.sbolDataLayer.annotations = [];
 
@@ -115,12 +115,28 @@ export default {
         "sbol:componentdefinition"
       );
       const annotations = [];
+      const displayids = xmlHandler
+        .xmlFindAll(xmlDoc, "sbol:displayid")
+        .filter((id) => {
+          return /([id]+[\d]+_+[\d]+)/g.test(id);
+        });
 
       for (let i = 0; i < dnaComponents.length; i++) {
         const component = dnaComponents[i];
-
         const role = xmlHandler.xmlFind(component, "sbol:role", "rdf:resource");
         const sbolIndex = xmlHandler.xmlFind(component, "sbol:displayid");
+        const displayIdposition = displayids.filter((id) => {
+          return id.startsWith(`${sbolIndex}_`);
+        });
+        const index = displayIdposition.toString().replace(`${sbolIndex}_`, "");
+
+        // console.log(`
+        // i : ${i},
+        // role : ${role}
+        // sbolIndex : ${sbolIndex}
+        // displayIdposition : ${displayIdposition}
+        // index : ${index}
+        // `);
 
         const dataLayerSingleComponent = {
           SBOL: xmlHandler.extractSO(role),
@@ -130,39 +146,33 @@ export default {
           index: xmlHandler.extractIndexVal(sbolIndex),
           name: xmlHandler.xmlFind(component, "sbol:displayid"),
           notes: "",
-          pk: sbolIndex,
-          role_id: 0
+          pk: index,
+          role_id: 0,
         };
-        /*
-            <sbol:componentdefinition rdf:about="https://sbolcanvas.org/id17"> (_xml_.js, line 719)
-              <sbol:persistentidentity rdf:resource="https://sbolcanvas.org/id17"></sbol:persistentidentity>
-              <sbol:displayid>id17</sbol:displayid>
-              <sbol:type rdf:resource="http://www.biopax.org/release/biopax-level3.owl#dnaregion"></sbol:type>
-              <sbol:role rdf:resource="http://identifiers.org/so/so:0001955"></sbol:role>
-            </sbol:componentdefinition>
-        */
         annotations[i] = dataLayerSingleComponent;
       }
-
-      this.sbolDataLayer.annotations = annotations.sort((a, b) => {
-        return (
-          xmlHandler.extractIndexVal(a.pk) - xmlHandler.extractIndexVal(b.pk)
-        );
-      });
-      console.log("post ");
+      // Sorting by pk values
+      this.sbolDataLayer.annotations = annotations
+        .sort((a, b) => {
+          return (
+            xmlHandler.extractIndexVal(a.pk) - xmlHandler.extractIndexVal(b.pk)
+          );
+        })
+        .filter((item) => {
+          return item.name != "id1"; //todo: discuss with bioteam
+        });
       console.log(this.sbolDataLayer.annotations);
-
       this.empty = false;
-    }
+    },
   },
   components: {
     SbolChart,
     SbolDetail,
     SbolListAnnotations,
     SbolHeader,
-    SbolLogo
+    SbolLogo,
   },
-  mounted: function() {
+  mounted: function () {
     if (this.flavour == "mini") {
       this.flavourClass = "mini";
       this.flavourMini = true;
@@ -174,11 +184,11 @@ export default {
     } else if (this.source) {
       // Load a file
       const dataFormat = this.source.indexOf(".json") != -1 ? "json" : "xml";
-      axios.get(this.source).then(data => {
+      axios.get(this.source).then((data) => {
         this.genericLoad(dataFormat, data.data);
       });
     }
-  }
+  },
 };
 </script>
 

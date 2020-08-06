@@ -45,7 +45,7 @@
             "name": "lacZa*_18_interval_2 4",
             "notes": "",
             "role_id": 37,
-            "SBOL": "SO:0001729"
+            "SBOL": "SO:0000031"
         },
         {
             "pk": 31037,
@@ -75,7 +75,7 @@
             "name": "MIIs C1 (gcga) 7",
             "notes": "Insertion",
             "role_id": 27,
-            "SBOL": "SO:0001729"
+            "SBOL": "SO:0000031"
         },
         {
             "pk": 122354,
@@ -85,7 +85,7 @@
             "name": "F24 primer bind 8",
             "notes": "",
             "role_id": 29,
-            "SBOL": "SO:0001729"
+            "SBOL": "SO:0000031"
         },
         {
             "pk": 131032,
@@ -95,7 +95,7 @@
             "name": "lacZa*_18_interval_1 9",
             "notes": "",
             "role_id": 37,
-            "SBOL": "SO:0001737"
+            "SBOL": "SO:0000627"
         },
         {
             "pk": 131034,
@@ -115,7 +115,7 @@
             "name": "lacZa*_18_interval_2 11",
             "notes": "",
             "role_id": 37,
-            "SBOL": "SO:0001729"
+            "SBOL": "SO:0000031"
         },
         {
             "pk": 131037,
@@ -125,7 +125,7 @@
             "name": "Premature STOP 12 ",
             "notes": "",
             "role_id": 14,
-            "SBOL": "SO:0001737"
+            "SBOL": "SO:0000627"
         },
         {
             "pk": 131038,
@@ -135,7 +135,7 @@
             "name": "R24 primer bind 13",
             "notes": "",
             "role_id": 29,
-            "SBOL": "SO:0001727"
+            "SBOL": "SO:0001953"
         },
         {
             "pk": 131039,
@@ -145,7 +145,7 @@
             "name": "MIIs C1 (gcga) 14",
             "notes": "Insertion",
             "role_id": 27,
-            "SBOL": "SO:0001729"
+            "SBOL": "SO:0000031"
         },
         {
             "pk": 222354,
@@ -155,7 +155,7 @@
             "name": "F24 primer bind 15",
             "notes": "",
             "role_id": 29,
-            "SBOL": "SO:0001729"
+            "SBOL": "SO:0000031"
         },
         {
             "pk": 231032,
@@ -165,7 +165,7 @@
             "name": "lacZa*_18_interval_1 16",
             "notes": "",
             "role_id": 37,
-            "SBOL": "SO:0001737"
+            "SBOL": "SO:0000627"
         },
         {
             "pk": 231034,
@@ -175,7 +175,7 @@
             "name": "MIIs B2 (accc) 17",
             "notes": "",
             "role_id": 27,
-            "SBOL": "SO:0001727"
+            "SBOL": "SO:0001953"
         },
         {
             "pk": 231036,
@@ -185,7 +185,7 @@
             "name": "lacZa*_18_interval_2 18",
             "notes": "",
             "role_id": 37,
-            "SBOL": "SO:0001729"
+            "SBOL": "SO:0000031"
         },
         {
             "pk": 231037,
@@ -195,7 +195,7 @@
             "name": "Premature STOP 19",
             "notes": "",
             "role_id": 14,
-            "SBOL": "SO:0001737"
+            "SBOL": "SO:0000627"
         },
         {
             "pk": 231038,
@@ -205,7 +205,7 @@
             "name": "R24 primer bind 20",
             "notes": "",
             "role_id": 29,
-            "SBOL": "SO:0001727"
+            "SBOL": "SO:0001953"
         },
         {
             "pk": 231039,
@@ -215,7 +215,7 @@
             "name": "MIIs C1 (gcga) 21",
             "notes": "Insertion",
             "role_id": 27,
-            "SBOL": "SO:0001729"
+            "SBOL": "SO:0000031"
         }
     ]
 }
