@@ -23,31 +23,26 @@ OR
 	            {"pk":31032,"start":226,"end":259,"direction":1,"name":"lacZa*_18_interval_1 2","notes":"","role_id":37, "SBOL": "SO:0001737"}, {"pk":231039,"start":312,"end":361,"direction":1,"name":"MIIs C1 (gcga) 21","notes":"Insertion","role_id":27, "SBOL": "SO:0001729"}
 	        ]}'></sbol-viewer>
 
-
-## Important files:
-
-	/public/inc/SBOL-visual
-	        Needs to host PNG images provided by
-	        https://sbolstandard.org/visual/glyphs/ 
-	        actual github is https://github.com/SynBioDex/SBOL-visual
-	        
-	SBOLcomponets.json
-	    We use this file to 1:1 map of annotations with SBOL symbols
-	    - Any components need to be configured here in order to be visible 
-	    	on the visualizer
+	 <sbol-viewer flavour="mini" source='./canvas_synbioks_org.xml'></sbol-viewer>  
 
 
 Web Coponents need to be lighweight in order to be easy to download. 
 
 
 
-## install
+## install (developers)
     $ git clone [repo]
    	 
-   	 $
-    npm install
-    npm run serve
+    $ npm install
+    $ npm run serve
 
+## install in you web pages
+
+	Add this snippets in the head element of the page
+
+	    <script src="sbolvisualizer.wc.js"></script>
+	
+	and thats it, Ready to go!
 
 ## API used 
 
