@@ -38,13 +38,18 @@ import SbolChart from "../components/SbolChart";
 import SbolDetail from "../components/SbolDetail";
 import SbolLogo from "../components/SbolLogo";
 
-import xmlHandler from "@/lib/xml/xmlHandler";
+import jsonHandler from "@/lib/importer/jsonHandler";
+import xmlHandler from "@/lib/importer/xmlHandler";
 
 export default {
   props: ["source", "format", "data", "flavour"],
+
   data() {
     return {
-      sbolDataLayer: {},
+      sbolDataLayer: {
+        header: {},
+        annotations: [],
+      },
       annotation: null,
       filter: "",
       empty: true,
@@ -73,95 +78,15 @@ export default {
       }
     },
     loadJson: function (json) {
-      const jsonName = json.name || "";
-      const jsonFrindlyID = json.friendly_id || "";
+      this.sbolDataLayer = jsonHandler.convertJson(json);
 
-      this.sbolDataLayer.header = {
-        partID: jsonFrindlyID,
-        name: jsonName,
-        alternativeName: "",
-        version: "",
-        division: "",
-        parentSequence: "",
-      };
-      this.sbolDataLayer.annotations = json.annotations || [];
-      this.sbolDataLayer.annotations.map((a) => {
-        if (a.direction) {
-          a.direction = a.direction === 1 ? "FW" : "RV";
-        } else {
-          a.direction = "--";
-        }
-      });
       this.empty = false;
       this.$nextTick(function () {
         this.chartsWidth = this.$refs.chartsContainer.clientWidth - 50;
       });
     },
     loadXml: function (xml) {
-      const parser = new DOMParser();
-      const xmlDoc = parser.parseFromString(xml.toLowerCase(), "text/xml");
-
-      this.sbolDataLayer.header = {
-        partID: xmlHandler.xmlFind(xmlDoc, "sbol:displayId"),
-        name: xmlHandler.xmlFind(xmlDoc, "name"),
-        alternativeName: xmlHandler.xmlFind(xmlDoc, "description"),
-        version: "",
-        division: "",
-        parentSequence: "",
-      };
-      this.sbolDataLayer.annotations = [];
-
-      const dnaComponents = xmlDoc.getElementsByTagName(
-        "sbol:componentdefinition"
-      );
-      const annotations = [];
-      const displayids = xmlHandler
-        .xmlFindAll(xmlDoc, "sbol:displayid")
-        .filter((id) => {
-          return /([id]+[\d]+_+[\d]+)/g.test(id);
-        });
-
-      for (let i = 0; i < dnaComponents.length; i++) {
-        const component = dnaComponents[i];
-        const role = xmlHandler.xmlFind(component, "sbol:role", "rdf:resource");
-        const sbolIndex = xmlHandler.xmlFind(component, "sbol:displayid");
-        const displayIdposition = displayids.filter((id) => {
-          return id.startsWith(`${sbolIndex}_`);
-        });
-        const index = displayIdposition.toString().replace(`${sbolIndex}_`, "");
-
-        // console.log(`
-        // i : ${i},
-        // role : ${role}
-        // sbolIndex : ${sbolIndex}
-        // displayIdposition : ${displayIdposition}
-        // index : ${index}
-        // `);
-
-        const dataLayerSingleComponent = {
-          SBOL: xmlHandler.extractSO(role),
-          direction: "--",
-          start: 0,
-          end: 0,
-          index: xmlHandler.extractIndexVal(sbolIndex),
-          name: xmlHandler.xmlFind(component, "sbol:displayid"),
-          notes: "",
-          pk: index,
-          role_id: 0,
-        };
-        annotations[i] = dataLayerSingleComponent;
-      }
-      // Sorting by pk values
-      this.sbolDataLayer.annotations = annotations
-        .sort((a, b) => {
-          return (
-            xmlHandler.extractIndexVal(a.pk) - xmlHandler.extractIndexVal(b.pk)
-          );
-        })
-        .filter((item) => {
-          return item.name != "id1"; //todo: discuss with bioteam
-        });
-      console.log(this.sbolDataLayer.annotations);
+      this.sbolDataLayer = xmlHandler.convertXml(xml);
       this.empty = false;
     },
   },
