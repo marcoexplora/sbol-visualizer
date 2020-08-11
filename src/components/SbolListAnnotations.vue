@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <section>
     <div class="search">
       <input type="text" class="search-input" placeholder="Search in annotations" v-model="filter" />
     </div>
@@ -26,19 +26,19 @@
         <span v-if="item.end > 0">{{ item.start }}…{{ item.end }}</span>
       </li>
     </ul>
-  </div>
+  </section>
 </template>
 <script>
 export default {
   props: ["annotations"],
   data() {
     return {
-      filter: ""
+      filter: "",
     };
   },
   computed: {
     selectedItems() {
-      return this.annotations.filter(so => {
+      return this.annotations.filter((so) => {
         if (this.filter === "") {
           return so;
         }
@@ -50,7 +50,7 @@ export default {
           so.direction.toLowerCase().includes(this.filter.toString())
         );
       });
-    }
+    },
   },
   methods: {
     detailItem(so) {
@@ -59,8 +59,8 @@ export default {
         this.annotations[so]
       );
       this.$emit("selectedAnnotation", so);
-    }
-  }
+    },
+  },
 };
 </script>
 <style scoped>
@@ -73,7 +73,14 @@ export default {
   border-radius: 0.25rem;
   background-color: #f0f2f5;
 }
-
+section * {
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+    Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji,
+    Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 .search-input {
   width: 96%;
   height: 3em;

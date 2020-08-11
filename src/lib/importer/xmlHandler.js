@@ -5,65 +5,71 @@ const xmlHandler = {
         const xmlDoc = parser.parseFromString(xml.toLowerCase(), "text/xml");
 
         sbolDataLayer.header = {
-            partID: xmlHandler.xmlFind(xmlDoc, "sbol:displayId"),
-            name: xmlHandler.xmlFind(xmlDoc, "name"),
-            alternativeName: xmlHandler.xmlFind(xmlDoc, "description"),
-            version: "",
-            division: "",
-            parentSequence: "",
+            partID: xmlHandler.xmlFind(xmlDoc, "sbol:displayid"),
+            name: xmlHandler.xmlFind(xmlDoc, "dcterms:title"),
+            alternativeName: xmlHandler.xmlFind(xmlDoc, "dcterms:description"),
+            version: xmlHandler.xmlFind(xmlDoc, "sbol:version"),
+            creator: xmlHandler.xmlFind(xmlDoc, "dc:creator"),
+            parentSequence: xmlHandler.xmlFind(xmlDoc, "sbh:mutableprovenance"),
         };
         sbolDataLayer.annotations = [];
 
         const dnaComponents = xmlDoc.getElementsByTagName(
-            "sbol:componentdefinition"
+            "sbol:sequenceannotation"
         );
         const annotations = [];
-        const displayids = xmlHandler
-            .xmlFindAll(xmlDoc, "sbol:displayid")
-            .filter((id) => {
-                return /([id]+[\d]+_+[\d]+)/g.test(id);
-            });
-
+        const ids = []
         for (let i = 0; i < dnaComponents.length; i++) {
             const component = dnaComponents[i];
             const role = xmlHandler.xmlFind(component, "sbol:role", "rdf:resource");
             const sbolIndex = xmlHandler.xmlFind(component, "sbol:displayid");
-            const displayIdposition = displayids.filter((id) => {
-                return id.startsWith(`${sbolIndex}_`);
-            });
-            const index = displayIdposition.toString().replace(`${sbolIndex}_`, "");
+            if (!ids.includes(sbolIndex)) {
+                ids.push(sbolIndex)
 
-            // console.log(`
-            // i : ${i},
-            // role : ${role}
-            // sbolIndex : ${sbolIndex}
-            // displayIdposition : ${displayIdposition}
-            // index : ${index}
-            // `);
+                const directionResource = xmlHandler.xmlFind(component, "sbol:orientation", "rdf:resource")
 
-            const dataLayerSingleComponent = {
-                SBOL: xmlHandler.extractSO(role),
-                direction: "--",
-                start: 0,
-                end: 0,
-                index: xmlHandler.extractIndexVal(sbolIndex),
-                name: xmlHandler.xmlFind(component, "sbol:displayid"),
-                notes: "",
-                pk: index,
-                role_id: 0,
-            };
-            annotations[i] = dataLayerSingleComponent;
+                // https://dissys.github.io/sbol-owl/sbol-owl.html#Orientation
+                // inline c, reverseComplement c
+                // <sbol:orientation rdf:resource="http://sbols.org/v2#inline"/>
+                let direction = "--";
+                if (directionResource == "http://sbols.org/v2#inline") {
+                    direction = 'FW'
+                }
+                if (directionResource == "http://sbols.org/v2#reverseComplement") {
+                    direction = 'BW'
+                }
+                console.log(`directionResource${directionResource}`)
+
+
+                const index = `${i}_${sbolIndex}`;
+
+                console.log(`
+i : ${i},
+role : ${role}
+sbolIndex : ${sbolIndex}
+displayIdposition : 
+index : ${index},
+pd : ${xmlHandler.extractIndexVal(sbolIndex)}
+
+            `);
+
+                const dataLayerSingleComponent = {
+                    SBOL: xmlHandler.extractSO(role),
+                    direction: direction,
+                    start: xmlHandler.xmlFind(component, "sbol:start"),
+                    end: xmlHandler.xmlFind(component, "sbol:end"),
+                    index: xmlHandler.extractIndexVal(sbolIndex),
+                    name: xmlHandler.xmlFind(component, "sbol:displayid"),
+                    notes: "",
+                    pk: xmlHandler.extractIndexVal(sbolIndex),
+                    role_id: 0,
+                };
+                annotations[ids.length - 1] = dataLayerSingleComponent;
+            }
         }
         // Sorting by pk values
         sbolDataLayer.annotations = annotations
-            .sort((a, b) => {
-                return (
-                    xmlHandler.extractIndexVal(a.pk) - xmlHandler.extractIndexVal(b.pk)
-                );
-            })
-            .filter((item) => {
-                return item.name != "id1"; //todo: discuss with bioteam
-            });
+        console.log(annotations)
         return sbolDataLayer
 
     },
@@ -83,7 +89,7 @@ const xmlHandler = {
             ) {
                 parsedElement = parsedElement[0];
             }
-            if (parsedElement.hasAttribute(attribute)) {
+            if (typeof parsedElement != 'undefined' && parsedElement.hasAttribute(attribute)) {
                 return parsedElement.attributes[attribute].value;
             } else {
                 return fallbackString;

@@ -1,6 +1,6 @@
 <template>
   <div class="sbolChart" :ref="'sbolChart'">
-    <div v-bind:style="{ width: computedContainerWidth + 'px' }">
+    <div style="margin: auto;width: fit-content">
       <div
         v-for="(item, index) in computedGlyphAnnotations"
         :ref="'glyphs'"

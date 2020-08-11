@@ -29,17 +29,17 @@ export default {
   props: ["annotation"],
   data() {
     return {
-      detail: {}
+      detail: {},
     };
   },
   watch: {
-    annotation: function(data) {
+    annotation: function (data) {
       if (typeof data !== "undefined") {
         this.detail = this.annotation;
         this.detail.href = `http://identifiers.org/so/${this.detail.SBOL}`;
       }
-    }
-  }
+    },
+  },
 };
 </script>
 <style scoped>
@@ -51,6 +51,13 @@ export default {
   border-radius: 0.5rem;
   font-family: Helvetica;
   word-break: break-all;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+    Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji,
+    Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  width: 100%;
 }
 .card-header {
   background-color: #f1f2f5;
