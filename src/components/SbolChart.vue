@@ -11,7 +11,7 @@
       >
         <div class="tooltiptext">{{ item.name }}</div>
 
-        <img style="width:100%" :src="item.path" />
+        <img :src="item.path" />
       </div>
     </div>
   </div>
@@ -74,10 +74,11 @@ export default {
 
 <style scoped>
 .sbolChart {
-  height: 8em;
-  padding: 5em 1em 0em 1em;
+  height: 9em;
+  padding: 1em;
   white-space: nowrap;
   overflow-x: scroll;
+  overflow-y: hidden;
   background-color: #f1f2f5;
   box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.15);
   border-radius: 0.5rem;
@@ -97,14 +98,11 @@ export default {
 }
 
 div.glyphs {
-  width: 55px;
-  height: 60px;
-  vertical-align: middle;
-  border: 2px solid #f1f2f5;
+  vertical-align: baseline;
 }
 
 img {
-  width: 100%;
+  width: 100px;
 }
 
 .glyphs.active {

@@ -82,13 +82,11 @@ section * {
   -moz-osx-font-smoothing: grayscale;
 }
 .search-input {
-  width: 96%;
+  width: 100%;
   height: 3em;
   font-size: 1.2em;
   border: none;
   background-color: #f0f2f5;
-  padding-left: 10px;
-  border-radius: 3px;
 }
 
 .search-list {

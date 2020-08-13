@@ -1,7 +1,7 @@
 const examples = {
 
-    convas_symbioks_org: {
-        xml: `<?xml version="1.0" ?>
+  convas_symbioks_org: {
+    xml: `<?xml version="1.0" ?>
 <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:sbol="http://sbols.org/v2#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:prov="http://www.w3.org/ns/prov#" xmlns:om="http://www.ontology-of-units-of-measure.org/resource/om-2/" xmlns:SBOLCanvas="https://sbolcanvas.org/">
   <sbol:ModuleDefinition rdf:about="https://sbolcanvas.org/test_from_synbioks_org_canvas">
     <sbol:persistentIdentity rdf:resource="https://sbolcanvas.org/test_from_synbioks_org_canvas"/>
@@ -682,9 +682,127 @@ const examples = {
     </SBOLCanvas:nodeGlyph>
   </SBOLCanvas:Layout>
 </rdf:RDF>`
-        , displayIdvalues: ["test_from_synbioks_org_canvas", "id1_2", "id17", "id11", "id15", "id19", "id7", "id5", "id13", "id3", "id1", "id11_5", "id9_3", "id15_7", "id17_8", "id3_1", "id7_4", "id5_2", "id19_9", "id13_6", "id1annotation7", "location7", "id1annotation4", "location4", "id1annotation6", "location6", "id1annotation2", "location2", "id1annotation5", "location5", "id1annotation8", "location8", "id1annotation1", "location1", "id1annotation3", "location3", "id1annotation0", "location0", "id1constraint3", "id1constraint4", "id1constraint2", "id1constraint5", "id1constraint1", "id1constraint6", "id1constraint7", "id1constraint8", "id9", "id7_layout", "id5_layout", "id15_layout", "test_from_synbioks_org_canvas_layout", "id3_layout", "id1_layout", "id17_layout", "id9_layout", "id13_layout", "id19_layout", "id11_layout"]
+    , displayIdvalues: ["test_from_synbioks_org_canvas", "id1_2", "id17", "id11", "id15", "id19", "id7", "id5", "id13", "id3", "id1", "id11_5", "id9_3", "id15_7", "id17_8", "id3_1", "id7_4", "id5_2", "id19_9", "id13_6", "id1annotation7", "location7", "id1annotation4", "location4", "id1annotation6", "location6", "id1annotation2", "location2", "id1annotation5", "location5", "id1annotation8", "location8", "id1annotation1", "location1", "id1annotation3", "location3", "id1annotation0", "location0", "id1constraint3", "id1constraint4", "id1constraint2", "id1constraint5", "id1constraint1", "id1constraint6", "id1constraint7", "id1constraint8", "id9", "id7_layout", "id5_layout", "id15_layout", "test_from_synbioks_org_canvas_layout", "id3_layout", "id1_layout", "id17_layout", "id9_layout", "id13_layout", "id19_layout", "id11_layout"]
 
-    }
+  },
+  BBa_K1080006: {
+    xml: `<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:prov="http://www.w3.org/ns/prov#" xmlns:sbol="http://sbols.org/v2#" xmlns:xsd="http://www.w3.org/2001/XMLSchema#dateTime/" xmlns:om="http://www.ontology-of-units-of-measure.org/resource/om-2/" xmlns:synbiohub="http://synbiohub.org#" xmlns:sbh="http://wiki.synbiohub.org/wiki/Terms/synbiohub#" xmlns:sybio="http://www.sybio.ncl.ac.uk#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:ncbi="http://www.ncbi.nlm.nih.gov#" xmlns:igem="http://wiki.synbiohub.org/wiki/Terms/igem#" xmlns:genbank="http://www.ncbi.nlm.nih.gov/genbank#" xmlns:gbconv="http://sbols.org/genBankConversion#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:obo="http://purl.obolibrary.org/obo/">
+  <sbol:ComponentDefinition rdf:about="https://synbiohub.org/public/igem/BBa_K1080006/1">
+    <sbol:persistentIdentity rdf:resource="https://synbiohub.org/public/igem/BBa_K1080006"/>
+    <sbol:displayId>BBa_K1080006</sbol:displayId>
+    <sbol:version>1</sbol:version>
+    <prov:wasDerivedFrom rdf:resource="http://parts.igem.org/Part:BBa_K1080006"/>
+    <prov:wasGeneratedBy rdf:resource="https://synbiohub.org/public/igem/igem2sbol/1"/>
+    <dcterms:title>&quot;Plasto&quot;</dcterms:title>
+    <dcterms:description>Plastocyanin</dcterms:description>
+    <dcterms:created>2013-09-11T11:00:00Z</dcterms:created>
+    <dcterms:modified>2016-10-20T07:04:30Z</dcterms:modified>
+    <sbh:mutableProvenance>From genome of Chlamydomonas reinhardtii</sbh:mutableProvenance>
+    <sbh:topLevel rdf:resource="https://synbiohub.org/public/igem/BBa_K1080006/1"/>
+    <sbh:ownedBy rdf:resource="https://synbiohub.org/user/james"/>
+    <sbh:ownedBy rdf:resource="https://synbiohub.org/user/myers"/>
+    <sbh:mutableDescription>Copper binding protein</sbh:mutableDescription>
+    <igem:discontinued>false</igem:discontinued>
+    <igem:dominant>false</igem:dominant>
+    <igem:experience rdf:resource="http://wiki.synbiohub.org/wiki/Terms/igem#experience/None"/>
+    <igem:group_u_list>_1389_</igem:group_u_list>
+    <igem:m_user_id>7708</igem:m_user_id>
+    <igem:owner_id>18463</igem:owner_id>
+    <igem:owning_group_id>9</igem:owning_group_id>
+    <igem:sampleStatus>In stock</igem:sampleStatus>
+    <igem:status rdf:resource="http://wiki.synbiohub.org/wiki/Terms/igem#status/Available"/>
+    <sbh:bookmark>true</sbh:bookmark>
+    <sbh:mutableNotes>Incorporated sequence overlap for Gibson assembly and no GC rich regions or restriction sites within sequence</sbh:mutableNotes>
+    <sbh:star>false</sbh:star>
+    <dc:creator>Macquarie University</dc:creator>
+    <sbol:type rdf:resource="http://www.biopax.org/release/biopax-level3.owl#DnaRegion"/>
+    <sbol:role rdf:resource="http://wiki.synbiohub.org/wiki/Terms/igem#partType/Coding"/>
+    <sbol:role rdf:resource="http://identifiers.org/so/SO:0000316"/>
+    <sbol:sequenceAnnotation>
+      <sbol:SequenceAnnotation rdf:about="https://synbiohub.org/public/igem/BBa_K1080006/annotation2525679/1">
+        <sbol:persistentIdentity rdf:resource="https://synbiohub.org/public/igem/BBa_K1080006/annotation2525679"/>
+        <sbol:displayId>annotation2525679</sbol:displayId>
+        <sbol:version>1</sbol:version>
+        <dcterms:title>RBS</dcterms:title>
+        <sbh:topLevel rdf:resource="https://synbiohub.org/public/igem/BBa_K1080006/1"/>
+        <sbol:location>
+          <sbol:Range rdf:about="https://synbiohub.org/public/igem/BBa_K1080006/annotation2525679/range2525679/1">
+            <sbol:persistentIdentity rdf:resource="https://synbiohub.org/public/igem/BBa_K1080006/annotation2525679/range2525679"/>
+            <sbol:displayId>range2525679</sbol:displayId>
+            <sbol:version>1</sbol:version>
+            <sbh:topLevel rdf:resource="https://synbiohub.org/public/igem/BBa_K1080006/1"/>
+            <igem:direction rdf:resource="http://wiki.synbiohub.org/wiki/Terms/igem#direction/forward"/>
+            <sbol:start>6</sbol:start>
+            <sbol:end>16</sbol:end>
+            <sbol:orientation rdf:resource="http://sbols.org/v2#inline"/>
+          </sbol:Range>
+        </sbol:location>
+        <sbol:role rdf:resource="http://identifiers.org/so/SO:0000139"/>
+        <sbol:role rdf:resource="http://wiki.synbiohub.org/wiki/Terms/igem#feature/rbs"/>
+      </sbol:SequenceAnnotation>
+    </sbol:sequenceAnnotation>
+    <sbol:sequenceAnnotation>
+      <sbol:SequenceAnnotation rdf:about="https://synbiohub.org/public/igem/BBa_K1080006/annotation2525680/1">
+        <sbol:persistentIdentity rdf:resource="https://synbiohub.org/public/igem/BBa_K1080006/annotation2525680"/>
+        <sbol:displayId>annotation2525680</sbol:displayId>
+        <sbol:version>1</sbol:version>
+        <dcterms:title>Plasto</dcterms:title>
+        <sbh:topLevel rdf:resource="https://synbiohub.org/public/igem/BBa_K1080006/1"/>
+        <sbol:location>
+          <sbol:Range rdf:about="https://synbiohub.org/public/igem/BBa_K1080006/annotation2525680/range2525680/1">
+            <sbol:persistentIdentity rdf:resource="https://synbiohub.org/public/igem/BBa_K1080006/annotation2525680/range2525680"/>
+            <sbol:displayId>range2525680</sbol:displayId>
+            <sbol:version>1</sbol:version>
+            <sbh:topLevel rdf:resource="https://synbiohub.org/public/igem/BBa_K1080006/1"/>
+            <igem:direction rdf:resource="http://wiki.synbiohub.org/wiki/Terms/igem#direction/forward"/>
+            <sbol:start>25</sbol:start>
+            <sbol:end>321</sbol:end>
+            <sbol:orientation rdf:resource="http://sbols.org/v2#inline"/>
+          </sbol:Range>
+        </sbol:location>
+        <sbol:role rdf:resource="http://identifiers.org/so/SO:0000316"/>
+        <sbol:role rdf:resource="http://wiki.synbiohub.org/wiki/Terms/igem#feature/cds"/>
+      </sbol:SequenceAnnotation>
+    </sbol:sequenceAnnotation>
+    <sbol:sequence rdf:resource="https://synbiohub.org/public/igem/BBa_K1080006_sequence/1"/>
+  </sbol:ComponentDefinition>
+  <sbol:Sequence rdf:about="https://synbiohub.org/public/igem/BBa_K1080006_sequence/1">
+    <sbol:persistentIdentity rdf:resource="https://synbiohub.org/public/igem/BBa_K1080006_sequence"/>
+    <sbol:displayId>BBa_K1080006_sequence</sbol:displayId>
+    <sbol:version>1</sbol:version>
+    <prov:wasDerivedFrom rdf:resource="http://parts.igem.org/Part:BBa_K1080006"/>
+    <prov:wasGeneratedBy rdf:resource="https://synbiohub.org/public/igem/igem2sbol/1"/>
+    <sbh:topLevel rdf:resource="https://synbiohub.org/public/igem/BBa_K1080006_sequence/1"/>
+    <sbh:ownedBy rdf:resource="https://synbiohub.org/user/james"/>
+    <sbh:ownedBy rdf:resource="https://synbiohub.org/user/myers"/>
+    <sbol:elements>agctttaagaaggagatatacataatggctaccgtcaagctgggtgctgactctggtgctctggagttcgtccctaagaccctgaccatcaagtccggcgagaccgtgaacttcgtgaacaacgctggcttcccacacaacatcgtcttcgacgaggatgccatcccatccggtgtgaacgctgatgccatctcccgcgatgactacctgaacgcacctggtgagacctactcggtgaagctgaccgctgctggtgagtacggctactactgcgaacctcaccagggtgctggcatggtcggcaagatcattgtccagtaataa</sbol:elements>
+    <sbol:encoding rdf:resource="http://www.chem.qmul.ac.uk/iubmb/misc/naseq.html"/>
+  </sbol:Sequence>
+  <prov:Activity rdf:about="https://synbiohub.org/public/igem/igem2sbol/1">
+    <sbol:persistentIdentity rdf:resource="https://synbiohub.org/public/igem/igem2sbol"/>
+    <sbol:displayId>igem2sbol</sbol:displayId>
+    <sbol:version>1</sbol:version>
+    <dcterms:title>iGEM to SBOL conversion</dcterms:title>
+    <dcterms:description>Conversion of the iGEM parts registry to SBOL2.1</dcterms:description>
+    <sbh:topLevel rdf:resource="https://synbiohub.org/public/igem/igem2sbol/1"/>
+    <sbh:ownedBy rdf:resource="https://synbiohub.org/user/james"/>
+    <sbh:ownedBy rdf:resource="https://synbiohub.org/user/myers"/>
+    <dc:creator>Chris J. Myers</dc:creator>
+    <dc:creator>James Alastair McLaughlin</dc:creator>
+    <prov:endedAtTime rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2017-03-06T15:00:00.000Z</prov:endedAtTime>
+  </prov:Activity>
+</rdf:RDF>`
+    , displayIdvalues: [
+      "bba_k1080006",
+      "annotation2525679",
+      "range2525679",
+      "annotation2525680",
+      "range2525680",
+      "bba_k1080006_sequence",
+      "igem2sbol",
+    ]
+  }
 }
 
 export default examples

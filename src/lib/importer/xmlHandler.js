@@ -2,27 +2,27 @@ const xmlHandler = {
     convertXml: (xml) => {
         const sbolDataLayer = {}
         const parser = new DOMParser();
-        const xmlDoc = parser.parseFromString(xml.toLowerCase(), "text/xml");
+        const xmlDoc = parser.parseFromString(xml, "text/xml");
 
         sbolDataLayer.header = {
-            partID: xmlHandler.xmlFind(xmlDoc, "sbol:displayid"),
+            partID: xmlHandler.xmlFind(xmlDoc, "sbol:displayId"),
             name: xmlHandler.xmlFind(xmlDoc, "dcterms:title"),
             alternativeName: xmlHandler.xmlFind(xmlDoc, "dcterms:description"),
             version: xmlHandler.xmlFind(xmlDoc, "sbol:version"),
             creator: xmlHandler.xmlFind(xmlDoc, "dc:creator"),
-            parentSequence: xmlHandler.xmlFind(xmlDoc, "sbh:mutableprovenance"),
+            parentSequence: xmlHandler.xmlFind(xmlDoc, "sbh:mutableProvenance"),
         };
         sbolDataLayer.annotations = [];
 
         const dnaComponents = xmlDoc.getElementsByTagName(
-            "sbol:sequenceannotation"
+            "sbol:SequenceAnnotation"
         );
         const annotations = [];
         const ids = []
         for (let i = 0; i < dnaComponents.length; i++) {
             const component = dnaComponents[i];
             const role = xmlHandler.xmlFind(component, "sbol:role", "rdf:resource");
-            const sbolIndex = xmlHandler.xmlFind(component, "sbol:displayid");
+            const sbolIndex = xmlHandler.xmlFind(component, "sbol:displayId");
             if (!ids.includes(sbolIndex)) {
                 ids.push(sbolIndex)
 
@@ -43,15 +43,15 @@ const xmlHandler = {
 
                 const index = `${i}_${sbolIndex}`;
 
-                console.log(`
-i : ${i},
-role : ${role}
-sbolIndex : ${sbolIndex}
-displayIdposition : 
-index : ${index},
-pd : ${xmlHandler.extractIndexVal(sbolIndex)}
+                //                 console.log(`
+                // i : ${i},
+                // role : ${role}
+                // sbolIndex : ${sbolIndex}
+                // displayIdposition : 
+                // index : ${index},
+                // pd : ${xmlHandler.extractIndexVal(sbolIndex)}
 
-            `);
+                //             `);
 
                 const dataLayerSingleComponent = {
                     SBOL: xmlHandler.extractSO(role),
@@ -59,7 +59,7 @@ pd : ${xmlHandler.extractIndexVal(sbolIndex)}
                     start: xmlHandler.xmlFind(component, "sbol:start"),
                     end: xmlHandler.xmlFind(component, "sbol:end"),
                     index: xmlHandler.extractIndexVal(sbolIndex),
-                    name: xmlHandler.xmlFind(component, "sbol:displayid"),
+                    name: xmlHandler.xmlFind(component, "sbol:displayId"),
                     notes: "",
                     pk: xmlHandler.extractIndexVal(sbolIndex),
                     role_id: 0,
