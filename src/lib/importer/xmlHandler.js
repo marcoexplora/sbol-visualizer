@@ -11,7 +11,11 @@ const xmlHandler = {
             version: xmlHandler.xmlFind(xmlDoc, "sbol:version"),
             creator: xmlHandler.xmlFind(xmlDoc, "dc:creator"),
             parentSequence: xmlHandler.xmlFind(xmlDoc, "sbh:mutableProvenance"),
+            persistentIdentity: xmlHandler.xmlFind(xmlDoc, "sbol:persistentIdentity", "rdf:resource"),
+            wasDerivedFrom: xmlHandler.xmlFind(xmlDoc, "prov:wasDerivedFrom", "rdf:resource"),
+            wasGeneratedBy: xmlHandler.xmlFind(xmlDoc, "prov:wasGeneratedBy", "rdf:resource"),
         };
+        console.log(sbolDataLayer.header)
         sbolDataLayer.annotations = [];
 
         const dnaComponents = xmlDoc.getElementsByTagName(
@@ -36,12 +40,12 @@ const xmlHandler = {
                     direction = 'FW'
                 }
                 if (directionResource == "http://sbols.org/v2#reverseComplement") {
-                    direction = 'BW'
+                    direction = 'RV'
                 }
                 console.log(`directionResource${directionResource}`)
 
 
-                const index = `${i}_${sbolIndex}`;
+                //const index = `${i}_${sbolIndex}`;
 
                 //                 console.log(`
                 // i : ${i},
@@ -69,7 +73,6 @@ const xmlHandler = {
         }
         // Sorting by pk values
         sbolDataLayer.annotations = annotations
-        console.log(annotations)
         return sbolDataLayer
 
     },

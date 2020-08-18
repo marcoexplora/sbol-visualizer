@@ -47,7 +47,7 @@
             <igem:direction rdf:resource="http://wiki.synbiohub.org/wiki/Terms/igem#direction/forward"/>
             <sbol:start>6</sbol:start>
             <sbol:end>16</sbol:end>
-            <sbol:orientation rdf:resource="http://sbols.org/v2#inline"/>
+            <sbol:orientation rdf:resource="http://sbols.org/v2#reverseComplement"/>
           </sbol:Range>
         </sbol:location>
         <sbol:role rdf:resource="http://identifiers.org/so/SO:0000139"/>
@@ -70,14 +70,13 @@
             <igem:direction rdf:resource="http://wiki.synbiohub.org/wiki/Terms/igem#direction/forward"/>
             <sbol:start>25</sbol:start>
             <sbol:end>321</sbol:end>
-            <sbol:orientation rdf:resource="http://sbols.org/v2#inline"/>
+            <sbol:orientation rdf:resource="http://sbols.org/v2#reverseComplement"/>
           </sbol:Range>
         </sbol:location>
         <sbol:role rdf:resource="http://identifiers.org/so/SO:0000316"/>
         <sbol:role rdf:resource="http://wiki.synbiohub.org/wiki/Terms/igem#feature/cds"/>
       </sbol:SequenceAnnotation>
     </sbol:sequenceAnnotation>
-    
     <sbol:sequence rdf:resource="https://synbiohub.org/public/igem/BBa_K1080006_sequence/1"/>
   </sbol:ComponentDefinition>
   <sbol:Sequence rdf:about="https://synbiohub.org/public/igem/BBa_K1080006_sequence/1">
