@@ -66,9 +66,7 @@ export default {
 <style scoped>
 .search {
   margin: 0;
-  padding: 0 7px 0 0;
   font-size: 10px;
-  height: 40px;
   border: 1px solid rgba(0, 0, 0, 0.125);
   border-radius: 0.25rem;
   background-color: #f0f2f5;
@@ -84,6 +82,7 @@ section * {
 .search-input {
   width: 100%;
   height: 3em;
+  padding: 0 5px;
   font-size: 1.2em;
   border: none;
   background-color: #f0f2f5;
@@ -94,6 +93,7 @@ section * {
   padding: 0;
   text-align: left;
   margin-top: 5px;
+  min-height: 400px;
 }
 
 .search-list > li:first-child {

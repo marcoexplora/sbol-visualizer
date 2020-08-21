@@ -63,7 +63,7 @@ const xmlHandler = {
                     start: xmlHandler.xmlFind(component, "sbol:start"),
                     end: xmlHandler.xmlFind(component, "sbol:end"),
                     index: xmlHandler.extractIndexVal(sbolIndex),
-                    name: xmlHandler.xmlFind(component, "sbol:displayId"),
+                    name: xmlHandler.xmlFind(component, "dcterms:title"),
                     notes: "",
                     pk: xmlHandler.extractIndexVal(sbolIndex),
                     role_id: 0,

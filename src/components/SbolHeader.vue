@@ -1,9 +1,23 @@
 <template>
-  <header id="heading">
-    <div>
-      <b>{{ header.name }}</b>
-      <br />
-      <span class="cap">{{ header.alternativeName }}</span>
+  <header class="heading">
+    <div class="title">
+      <div style="float:left">
+        <SbolLink :url="header.persistentIdentity">
+          <b>{{ header.name }}</b>
+          <br />
+          <span class="secondary cap">{{ header.alternativeName }}</span>
+        </SbolLink>
+      </div>
+      <div style="float:right">
+        <div class="secondary">
+          By
+          <span class="cap">{{ header.creator }}</span>
+        </div>
+        <div class="secondary" style="text-align:right">
+          v.
+          <span>{{ header.version }}</span>
+        </div>
+      </div>
     </div>
     <ul>
       <li>
@@ -12,35 +26,29 @@
       </li>
 
       <li>
-        Creator :
-        <span class="cap">{{ header.creator }}</span>
-      </li>
-      <li>
-        Version:
-        <span>{{ header.version }}</span>
-      </li>
-      <li>
         Parent Sequence:
         <span>{{ header.parentSequence }}</span>
       </li>
-      <!--
-      <pre>{{ header }}</pre>
-      -->
     </ul>
   </header>
 </template>
 <script>
+import SbolLink from "../components/SbolLinkText";
+
 export default {
   props: ["header"],
   data() {
     return {};
   },
   methods: {},
+  components: {
+    SbolLink,
+  },
 };
 </script>
 
 <style scoped>
-header {
+.header {
   padding-bottom: 10px;
   min-height: 135px;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
@@ -53,13 +61,23 @@ header {
 span.cap {
   text-transform: capitalize;
 }
-div {
+.secondary {
+  font-size: 0.8em;
+}
+div.title {
+  min-height: 2em;
   margin: 0;
   background-color: #0078b6;
   padding: 10px;
   border: 1px solid #fff;
-  color: #fff;
   border-radius: 5px;
+}
+
+div.title,
+a,
+a:hover {
+  color: #fff;
+  text-decoration: none;
 }
 
 ul {

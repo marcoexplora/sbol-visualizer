@@ -5,14 +5,14 @@
     </div>
     <div class="card-body">
       <ul v-if="!annotation">
-        <li>No Sbol component found</li>
+        <li>No Sbol component selected</li>
       </ul>
       <div v-else>
         <ul class="listDetail">
           <li>
             <b>SO:</b>
             <span>
-              <a target="_blank" :href="this.detail.href">{{this.detail.SBOL}}</a>
+              <SbolLink t :url="this.detail.href">{{this.detail.SBOL}}</SbolLink>
             </span>
           </li>
         </ul>
@@ -25,12 +25,17 @@
 </template>
 
 <script>
+import SbolLink from "../components/SbolLinkText";
+
 export default {
   props: ["annotation"],
   data() {
     return {
       detail: {},
     };
+  },
+  components: {
+    SbolLink,
   },
   watch: {
     annotation: function (data) {
@@ -49,7 +54,7 @@ export default {
   height: calc(100vh - 33vh);
   box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.15);
   border-radius: 0.5rem;
-  font-family: Helvetica;
+
   word-break: break-all;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
     Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji,
@@ -71,7 +76,7 @@ export default {
 
 .card-header h2 {
   margin: 0.5em 1em 0.5em 1em;
-  color: #929fb0;
+  color: #000;
 }
 
 .card-body {
