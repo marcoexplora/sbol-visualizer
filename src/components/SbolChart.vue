@@ -37,10 +37,6 @@ export default {
             index
           ].path = `https://vows.sbolstandard.org/glyph/${this.annotations[index].SBOL}/png`;
 
-          console.log(`this.activeAnnotation ${this.activeAnnotation}`);
-          console.log(
-            `this.annotations[index].pk ${this.annotations[index].pk}`
-          );
           this.annotations[index].selected =
             this.activeAnnotation == this.annotations[index].pk;
 
@@ -51,8 +47,6 @@ export default {
           } glyphs tooltip`;
 
           this.annotations[index].index = index;
-
-          console.log(this.annotations[index]);
         });
 
         return this.annotations;

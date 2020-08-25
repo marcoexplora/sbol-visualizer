@@ -6,7 +6,7 @@
         <small>https://sbolstandard.org/</small>
       </a>
     </div>
-    <div v-else ref="sbolVisualizer">
+    <div v-else ref="sbolVisualizer" :key="flavourClass">
       <div v-bind:class="[flavourClass]">
         <nav v-if="!flavourMini">
           <sbol-header :header="sbolDataLayer.header" />
@@ -54,7 +54,7 @@ export default {
       filter: "",
       empty: true,
       chartsWidth: 0,
-      flavourClass: "SBOLcontainer",
+      flavourClass: "SBOLcontainer XL",
       flavourMini: false,
     };
   },
@@ -65,6 +65,7 @@ export default {
     matchWidth: function () {
       const main = this.$refs;
       this.mainWidth = main.clientWidth + "px";
+      console.log(`this.mainWidth  ${this.mainWidth}`);
     },
     genericLoad: function (dataFormat, data) {
       if (dataFormat == "json") {
@@ -89,6 +90,45 @@ export default {
       this.sbolDataLayer = xmlHandler.convertXml(xml);
       this.empty = false;
     },
+    resizeHandler: function () {
+      const defaultBreakpoints = [
+        {
+          class: "SM",
+          width: 384,
+        },
+        {
+          class: "MD",
+          width: 576,
+        },
+        {
+          class: "LG",
+          width: 768,
+        },
+        {
+          class: "XL",
+          width: 960,
+        },
+      ];
+
+      const widthContainer = this.$refs.sbolVisualizer.offsetWidth;
+      let classBp = "XL";
+      defaultBreakpoints.forEach((bp) => {
+        classBp = bp.width <= widthContainer ? bp.class : classBp;
+      });
+
+      if (["XL", "LG"].indexOf(classBp) == -1) {
+        this.flavourMini = true;
+      } else {
+        this.flavourMini = false;
+      }
+
+      this.flavourClass = `${
+        this.flavourMini ? "mini" : "SBOLcontainer"
+      } ${classBp}`;
+      console.log(
+        `widthContainer ${widthContainer} -- ${this.flavourMini} - ${this.flavourClass}`
+      );
+    },
   },
   components: {
     SbolChart,
@@ -98,10 +138,6 @@ export default {
     SbolLogo,
   },
   mounted: function () {
-    if (this.flavour == "mini") {
-      this.flavourClass = "mini";
-      this.flavourMini = true;
-    }
     if (this.format) {
       // Inline data
       const dataFormat = this.format == "json" ? "json" : "xml";
@@ -113,6 +149,16 @@ export default {
         this.genericLoad(dataFormat, data.data);
       });
     }
+
+    if (this.flavour == "mini") {
+      this.flavourMini = true;
+    }
+
+    window.addEventListener("resize", this.resizeHandler);
+    this.resizeHandler();
+  },
+  destroyed: function () {
+    window.removeEventListener("resize", this.resizeHandler);
   },
 };
 </script>
@@ -141,7 +187,7 @@ export default {
 }
 .SBOLcontainer {
   display: grid;
-  grid-template-columns: repeat(2, minmax(300px, auto));
+  grid-template-columns: repeat(2, minmax(100px, auto));
   grid-template-rows: auto 1fr;
   height: calc(100vh - 7vh);
 }

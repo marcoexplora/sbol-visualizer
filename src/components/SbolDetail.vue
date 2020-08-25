@@ -1,5 +1,5 @@
 <template>
-  <div id="detailAnnotation">
+  <div class="detailAnnotation">
     <div class="card-header">
       <h2>Details</h2>
     </div>
@@ -48,7 +48,7 @@ export default {
 };
 </script>
 <style scoped>
-#detailAnnotation {
+.detailAnnotation {
   margin-top: 5px;
   background-color: #fff;
   height: calc(100vh - 33vh);

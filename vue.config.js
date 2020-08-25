@@ -26,6 +26,6 @@ module.exports = {
       })
   },
   css: {
-    modules: true,
+    requireModuleExtension: false,
   }
 }
