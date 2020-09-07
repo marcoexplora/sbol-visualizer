@@ -3,7 +3,7 @@ const xmlHandler = {
         const sbolDataLayer = {}
         const parser = new DOMParser();
         const xmlDoc = parser.parseFromString(xml, "text/xml");
-
+        window.xmlDoc = xmlDoc;
         sbolDataLayer.header = {
             partID: xmlHandler.xmlFind(xmlDoc, "sbol:displayId"),
             name: xmlHandler.xmlFind(xmlDoc, "dcterms:title"),
@@ -15,7 +15,7 @@ const xmlHandler = {
             wasDerivedFrom: xmlHandler.xmlFind(xmlDoc, "prov:wasDerivedFrom", "rdf:resource"),
             wasGeneratedBy: xmlHandler.xmlFind(xmlDoc, "prov:wasGeneratedBy", "rdf:resource"),
         };
-        console.log(sbolDataLayer.header)
+
         sbolDataLayer.annotations = [];
 
         const dnaComponents = xmlDoc.getElementsByTagName(
@@ -25,16 +25,14 @@ const xmlHandler = {
         const ids = []
         for (let i = 0; i < dnaComponents.length; i++) {
             const component = dnaComponents[i];
-            const role = xmlHandler.xmlFind(component, "sbol:role", "rdf:resource");
+
+            const role = xmlHandler.xmlFind_startWith(component, "sbol:role", "rdf:resource", "http://identifiers.org/so/SO:");
             const sbolIndex = xmlHandler.xmlFind(component, "sbol:displayId");
             if (!ids.includes(sbolIndex)) {
                 ids.push(sbolIndex)
 
                 const directionResource = xmlHandler.xmlFind(component, "sbol:orientation", "rdf:resource")
 
-                // https://dissys.github.io/sbol-owl/sbol-owl.html#Orientation
-                // inline c, reverseComplement c
-                // <sbol:orientation rdf:resource="http://sbols.org/v2#inline"/>
                 let direction = "--";
                 if (directionResource == "http://sbols.org/v2#inline") {
                     direction = 'FW'
@@ -44,18 +42,15 @@ const xmlHandler = {
                 }
                 console.log(`directionResource${directionResource}`)
 
+                console.log(`
+                i : ${i},
+                role : ${role}
+                sbolIndex : ${sbolIndex}
+                displayIdposition : 
+                directionResource : ${directionResource},
+                pd : ${xmlHandler.extractIndexVal(sbolIndex)}
 
-                //const index = `${i}_${sbolIndex}`;
-
-                //                 console.log(`
-                // i : ${i},
-                // role : ${role}
-                // sbolIndex : ${sbolIndex}
-                // displayIdposition : 
-                // index : ${index},
-                // pd : ${xmlHandler.extractIndexVal(sbolIndex)}
-
-                //             `);
+                            `);
 
                 const dataLayerSingleComponent = {
                     SBOL: xmlHandler.extractSO(role),
@@ -68,7 +63,9 @@ const xmlHandler = {
                     pk: xmlHandler.extractIndexVal(sbolIndex),
                     role_id: 0,
                 };
-                annotations[ids.length - 1] = dataLayerSingleComponent;
+                if (xmlHandler.isAvalidSingleComponent(dataLayerSingleComponent)) {
+                    annotations.push(dataLayerSingleComponent);
+                }
             }
         }
         // Sorting by pk values
@@ -76,28 +73,65 @@ const xmlHandler = {
         return sbolDataLayer
 
     },
+    isAvalidSingleComponent: (dataLayerSingleComponent) => {
+        if (dataLayerSingleComponent.SBOL == "") {
+            return false
+        }
+
+        if (typeof dataLayerSingleComponent.SBOL == undefined) {
+            return false
+        }
+        return true
+    },
     xmlFallback: (parsedElement, fallbackString, attribute) => {
-        if (typeof attribute == "undefined") {
+
+        if (
+            Object.prototype.toString.call(parsedElement) == "[object HTMLCollection]"
+        ) {
+            parsedElement = parsedElement[0];
+        }
+
+
+        if (typeof attribute === "undefined") {
             if (
-                typeof parsedElement[0] == "undefined" ||
-                typeof parsedElement[0].childNodes[0] == "undefined"
+                typeof parsedElement === "undefined" ||
+                typeof parsedElement.childNodes[0] === "undefined"
             ) {
                 return fallbackString;
             } else {
-                return parsedElement[0].childNodes[0].nodeValue;
+                return parsedElement.childNodes[0].nodeValue;
             }
         } else {
-            if (
-                Object.prototype.toString.call(parsedElement) == "[object HTMLCollection]"
-            ) {
-                parsedElement = parsedElement[0];
-            }
+
             if (typeof parsedElement != 'undefined' && parsedElement.hasAttribute(attribute)) {
                 return parsedElement.attributes[attribute].value;
             } else {
                 return fallbackString;
             }
         }
+    },
+    xmlFind_startWith: (ParseXml, elementTagName, attribute, startWith) => {
+        return xmlHandler.xmlFindAll_startWith(ParseXml, elementTagName, attribute, startWith)[0]
+    },
+    xmlFindAll_startWith: (ParseXml, elementTagName, attribute, startWith) => {
+
+        const allDOMelement = ParseXml.getElementsByTagName(elementTagName);
+        const result = []
+
+        for (let i = 0; i < allDOMelement.length; i++) {
+            const component = allDOMelement[i];
+            const proposed = xmlHandler.xmlFallback(
+                component,
+                "",
+                attribute
+            );
+            if (proposed.startsWith(startWith)) {
+                result.push(proposed)
+            }
+
+
+        }
+        return result
     },
 
     xmlFind: (ParseXml, elementTagName, attribute) => {
@@ -114,15 +148,17 @@ const xmlHandler = {
 
         for (let i = 0; i < allDOMelement.length; i++) {
             const component = allDOMelement[i];
-            result[i] = xmlHandler.xmlFallback(
-                [component],
+            const proposed = xmlHandler.xmlFallback(
+                component,
                 "",
                 attribute
             );
+            result.push(proposed)
 
         }
         return result
     },
+
     extractSO: (text) => {
         if (typeof text != 'undefined') {
             const match = text.toUpperCase().match(/([so:]+[\d]+)/gi)

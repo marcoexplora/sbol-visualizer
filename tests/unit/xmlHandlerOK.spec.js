@@ -55,7 +55,7 @@ describe('XML parser', () => {
     ).toEqual(examples.convas_symbioks_org['displayIdvalues'])
   })
 
-  it('I Get multiples elements note content [symbiohub]', () => {
+  it('I Get multiples elements note content [symbiohub] xmlFindAll', () => {
     const stringXml = examples.BBa_K1080006['xml'];
 
     const parser = new DOMParser();
@@ -78,6 +78,60 @@ describe('XML parser', () => {
       xmlHandler.xmlFind(xmlDoc, "sbol:direction", "rdf:resource")
     ).toEqual("http://sbols.org/v2#inout")
   })
+
+
+
+  it('I can retrive attribute xmlFindAll', () => {
+    const stringXml = examples.convas_symbioks_org['xml'];
+    //  <sbol:direction rdf:resource="http://sbols.org/v2#inout"/>
+    const parser = new DOMParser();
+    const xmlDoc = parser.parseFromString(stringXml, "text/xml");
+
+    expect(
+      xmlHandler.xmlFindAll(xmlDoc, "sbol:direction", "rdf:resource")
+    ).toEqual(["http://sbols.org/v2#inout"])
+  })
+
+
+  it('I can retrive attribute xmlFindAll', () => {
+    const stringXml = examples.convas_symbioks_org['xml'];
+    //  <sbol:direction rdf:resource="http://sbols.org/v2#inout"/>
+    const parser = new DOMParser();
+    const xmlDoc = parser.parseFromString(stringXml, "text/xml");
+
+    expect(
+      xmlHandler.xmlFindAll_startWith(xmlDoc, "sbol:role", "rdf:resource", "http://identifiers.org/so/")
+    ).toEqual(
+
+      [
+
+        "http://identifiers.org/so/SO:0001955",
+        "http://identifiers.org/so/SO:0000031",
+        "http://identifiers.org/so/SO:0000299",
+        "http://identifiers.org/so/SO:0001687",
+        "http://identifiers.org/so/SO:0000139",
+        "http://identifiers.org/so/SO:0000316",
+        "http://identifiers.org/so/SO:0000553",
+        "http://identifiers.org/so/SO:0000167",
+        "http://identifiers.org/so/SO:0000110",
+        "http://identifiers.org/so/SO:0000627",
+      ]
+    )
+  })
+
+
+  it('I can retrive attribute xmlFindAll', () => {
+    const stringXml = examples.convas_symbioks_org['xml'];
+    //  <sbol:direction rdf:resource="http://sbols.org/v2#inout"/>
+    const parser = new DOMParser();
+    const xmlDoc = parser.parseFromString(stringXml, "text/xml");
+
+    expect(
+      xmlHandler.xmlFind_startWith(xmlDoc, "sbol:role", "rdf:resource", "http://identifiers.org/so/")
+    ).toEqual("http://identifiers.org/so/SO:0001955")
+  })
+
+
 
 
 })

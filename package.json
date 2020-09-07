@@ -2,12 +2,21 @@
   "name": "sbolviewer",
   "version": "0.2.0",
   "private": true,
+  "contributors": [
+    {
+      "name": "Marco Amato"
+    },
+    {
+      "name": "Alex Fontana"
+    }
+  ],
   "scripts": {
     "serve": "vue-cli-service serve",
     "build-wc": "vue-cli-service build  --target wc --inline-vue --name sbol-viewer ./src/views/Viewer.vue",
     "eslint": "eslint 'src /**/*.{js,vue}'",
     "test:unit": "vue-cli-service test:unit",
-    "test:loop": "vue-cli-service test:unit --watch"
+    "test:loop": "vue-cli-service test:unit --watch  --verbose false",
+    "temp": "./tests/xml_simple.js"
   },
   "dependencies": {
     "axios": "^0.19.2",

@@ -1,5 +1,17 @@
 <template>
-  <div>
+  <div @dragover="dragover" @dragleave="dragleave" @drop="drop">
+    <div>
+      <input
+        type="file"
+        multiple
+        name="fields[assetsFieldHandle][]"
+        id="assetsFieldHandle"
+        @change="onChange"
+        ref="file"
+        accept=".json, .xml"
+      />
+    </div>
+
     <div v-if="empty === true" class="sbolMain empty" ref="sbolVisualizer">
       <a href="https://sbolstandard.org/">
         <sbol-logo />
@@ -50,6 +62,8 @@ export default {
         header: {},
         annotations: [],
       },
+      fileObj: {},
+      droppedFile: { type: "", data: "" },
       annotation: null,
       filter: "",
       empty: true,
@@ -59,6 +73,43 @@ export default {
     };
   },
   methods: {
+    drop(event) {
+      event.preventDefault();
+      this.$refs.file.files = event.dataTransfer.files;
+
+      this.onChange();
+
+      console.log("drop");
+    },
+    dragleave(event) {
+      console.log("dragleave" + event);
+    },
+    dragover(event) {
+      event.preventDefault();
+      console.log("dragover");
+    },
+    onChange() {
+      this.fileObj = [...this.$refs.file.files][0];
+
+      const read = new FileReader();
+      read.readAsText(this.fileObj);
+
+      read.onload = (function (theFile, _that) {
+        return function (el) {
+          _that.droppedFile.name = theFile.name;
+          _that.droppedFile.type = theFile.type;
+
+          _that.droppedFile.data = el.target.result;
+
+          const dataFormat =
+            _that.droppedFile["type"] == "text/xml" ? "xml" : "json";
+          _that.genericLoad(dataFormat, _that.droppedFile["data"]);
+        };
+      })(this.fileObj, this);
+    },
+    remove(i) {
+      this.filelist.splice(i, 1);
+    },
     showDetail: function (idx) {
       this.annotation = this.sbolDataLayer.annotations[idx];
     },
@@ -118,16 +169,11 @@ export default {
 
       if (["XL", "LG"].indexOf(classBp) == -1) {
         this.flavourMini = true;
-      } else {
-        this.flavourMini = false;
       }
 
       this.flavourClass = `${
         this.flavourMini ? "mini" : "SBOLcontainer"
       } ${classBp}`;
-      console.log(
-        `widthContainer ${widthContainer} -- ${this.flavourMini} - ${this.flavourClass}`
-      );
     },
   },
   components: {
@@ -175,6 +221,14 @@ export default {
   margin: 0;
   padding: 10px;
 }
+
+.bg-green-300 {
+  background-color: #1c1b41;
+}
+.bg-gray-100 {
+  background-color: #072008;
+}
+
 .hide {
   display: none;
 }

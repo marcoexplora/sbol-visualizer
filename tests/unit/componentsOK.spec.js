@@ -38,7 +38,7 @@ describe('SbolHeader.vue', () => {
         header: _header
       }
     })
-    expect(wrapper.html()).toContain('id="heading"')
+    expect(wrapper.html()).toContain('class="heading"')
   })
 })
 

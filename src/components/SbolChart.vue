@@ -10,8 +10,8 @@
       >
         <div class="tooltiptext">{{ item.name }}</div>
         <div v-if="item.selected" class="selected"></div>
-        <img :src="item.path" />
-      </div>
+          <img :src="item.path" />
+        </div>
     </div>
   </div>
 </template>
@@ -132,21 +132,21 @@ img.RV {
 
 .tooltip .tooltiptext {
   top: -2em;
-  visibility: hidden;
+  opacity: 0;
   background-color: #fff;
   text-align: center;
-  padding: 5px;
+  padding: 5px 10px;
   border: solid 1px #e5e5e5;
-  border-radius: 5px;
   position: absolute;
   z-index: 1;
-  width: 80px;
+
   word-wrap: break-word;
   font-size: 0.8em;
 }
 
 .tooltip:hover .tooltiptext {
-  visibility: visible;
+  opacity: 1;
+  transition: opacity 0.5s;
 }
 
 .BW {
