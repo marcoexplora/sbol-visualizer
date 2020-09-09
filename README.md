@@ -31,12 +31,43 @@ Web Coponents need to be lighweight in order to be easy to download.
 
 
 ## install (developers)
-    $ git clone [repo]
-   	 
-    $ npm install
+
+Requirements:
+
+	Node installed (https://nodejs.org/en/)
+
+Step-by-Step:
+
+    $ git clone git@bitbucket.org:explora-standards/sbol-visualizer.git
+	
+	You should see something like :
+		Cloning into 'sbol-visualizer'..
+		..
+
+    $ cd sbol-visualizer
+	$ npm install
+
+	You are now install all node modules required to run this project
+
     $ npm run serve
 
-## install in you web pages
+	You should see something like
+
+	 	DONE  Compiled successfully in 8637ms                   
+
+		App running at:
+		- Local:   http://localhost:8080/ 
+		- Network: http://172.20.10.7:8080/
+
+		Note that the development build is not optimized.
+		To create a production build, run npm run build.
+
+
+	Now visit http://localhost:8080/ with your browser
+
+
+
+## Install in you web pages
 
 	Add this snippets in the head element of the page
 
@@ -49,5 +80,4 @@ Web Coponents need to be lighweight in order to be easy to download.
 https://canvas.synbioks.org/canvas/
 https://synbiohub.github.io/api-docs/#about-synbiohub
 https://vows.sbolstandard.org
-
 http://synbiodex.github.io/SBOL-visual/Ontology/v2/sbol-vo.html
