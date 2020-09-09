@@ -18,9 +18,30 @@ const xmlHandler = {
 
         sbolDataLayer.annotations = [];
 
-        const dnaComponents = xmlDoc.getElementsByTagName(
+        const ComponentDefinition = xmlDoc.getElementsByTagName(
+            "sbol:ComponentDefinition"
+        )[0];
+
+        sbolDataLayer.annotations = xmlHandler.SequenceAnnotation(ComponentDefinition, xmlDoc)
+
+        return sbolDataLayer
+    },
+    isAvalidSingleComponent: (dataLayerSingleComponent) => {
+        if (dataLayerSingleComponent.SBOL == "") {
+            return false
+        }
+
+        if (typeof dataLayerSingleComponent.SBOL == undefined) {
+            return false
+        }
+        return true
+    },
+    SequenceAnnotation: (ComponentDefinition, xmlDoc) => {
+
+        const dnaComponents = ComponentDefinition.getElementsByTagName(
             "sbol:SequenceAnnotation"
         );
+
         const annotations = [];
         const ids = []
         for (let i = 0; i < dnaComponents.length; i++) {
@@ -28,9 +49,19 @@ const xmlHandler = {
             // <sbol:definition rdf:resource="https://synbiohub.org/public/igem/BBa_B0034/1"/>
             //    -->  <sbol:ComponentDefinition rdf:about="https://synbiohub.org/public/igem/BBa_I20282/1">
             //
-            const sboldetails = xmlHandler.xmlFind_startWith(component, "sbol:definition", "rdf:resource", "https://synbiohub.org/public/igem/");
+            //
 
             const role = xmlHandler.xmlFind_startWith(component, "sbol:role", "rdf:resource", "http://identifiers.org/so/SO:");
+
+            if (typeof role === 'undefined') {
+
+                const definitionID = xmlHandler.xmlFind_startWith(component, "sbol:definition", "rdf:resource", "https://synbiohub.org/public/igem/");
+                const ComponentDefinition = xmlHandler.xmlFindElement_startWith(xmlDoc, "sbol:ComponentDefinition", "rdf:about", definitionID);
+
+                console.log(`component ${i} role : ${role}  ${definitionID} ComponentDefinition: ${ComponentDefinition} ${typeof ComponentDefinition}`)
+            }
+
+
 
             const sbolIndex = xmlHandler.xmlFind(component, "sbol:displayId");
             if (!ids.includes(sbolIndex)) {
@@ -46,16 +77,6 @@ const xmlHandler = {
                     direction = 'RV'
                 }
                 console.log(`directionResource${directionResource}`)
-
-                console.log(`
-                i : ${i},
-                role : ${role}
-                sbolIndex : ${sbolIndex}
-                displayIdposition : 
-                directionResource : ${directionResource},
-                pd : ${xmlHandler.extractIndexVal(sbolIndex)}
-
-                            `);
 
                 const dataLayerSingleComponent = {
                     SBOL: xmlHandler.extractSO(role),
@@ -73,20 +94,8 @@ const xmlHandler = {
                 }
             }
         }
-        // Sorting by pk values
-        sbolDataLayer.annotations = annotations
-        return sbolDataLayer
 
-    },
-    isAvalidSingleComponent: (dataLayerSingleComponent) => {
-        if (dataLayerSingleComponent.SBOL == "") {
-            return false
-        }
-
-        if (typeof dataLayerSingleComponent.SBOL == undefined) {
-            return false
-        }
-        return true
+        return annotations
     },
     xmlFallback: (parsedElement, fallbackString, attribute) => {
 
