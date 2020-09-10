@@ -30,6 +30,7 @@
     "@vue/cli-plugin-unit-jest": "^4.5.4",
     "@vue/cli-service": "^4.5.4",
     "@vue/test-utils": "1.0.5",
+    "autoprefixer": "^9.8.6",
     "babel-loader": "^8.1.0",
     "babel-preset-vue": "^2.0.2",
     "postcss-loader": "^4.0.1",
