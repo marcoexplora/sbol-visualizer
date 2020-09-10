@@ -1,47 +1,83 @@
 <template>
-  <header id="heading">
-    <div>
-      <b>{{ header.name }}</b>
-      (no description found)
+  <header class="heading">
+    <div class="title">
+      <div style="float:left">
+        <SbolLink :url="header.persistentIdentity">
+          <b>{{ header.name }}</b>
+          <br />
+          <span class="secondary cap">{{ header.alternativeName }}</span>
+        </SbolLink>
+      </div>
+      <div style="float:right">
+        <div class="secondary">
+          By
+          <span class="cap">{{ header.creator }}</span>
+        </div>
+        <div class="secondary" style="text-align:right">
+          v.
+          <span>{{ header.version }}</span>
+        </div>
+      </div>
     </div>
     <ul>
       <li>
         Part ID:
         <span>{{ header.partID }}</span>
       </li>
-      <!--
-            <li> Alternative Name: <span>{{ header.alternativeName }}</span>  </li>
-            <li> Version: <span>{{ header.version }}</span> </li>
-            <li> Division: <span>{{ header.division }}</span> </li>
-            <li> Parent Sequence: <span>{{ header.parentSequence }}</span> </li>
-      -->
+
+      <li>
+        Parent Sequence:
+        <span>{{ header.parentSequence }}</span>
+      </li>
     </ul>
   </header>
 </template>
 <script>
+import SbolLink from "../components/SbolLinkText";
+
 export default {
   props: ["header"],
   data() {
     return {};
   },
-  methods: {}
+  methods: {},
+  components: {
+    SbolLink,
+  },
 };
 </script>
 
 <style scoped>
-header {
+.header {
   padding-bottom: 10px;
   min-height: 135px;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+    Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji,
+    Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
-div {
+span.cap {
+  text-transform: capitalize;
+}
+.secondary {
+  font-size: 0.8em;
+}
+div.title {
+  min-height: 2em;
   margin: 0;
-  background-color: #f0f2f5;
+  background-color: #0078b6;
   padding: 10px;
   border: 1px solid #fff;
   border-radius: 5px;
 }
-div b {
-  display: block;
+
+div.title,
+a,
+a:hover {
+  color: #fff;
+  text-decoration: none;
 }
 
 ul {

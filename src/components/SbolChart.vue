@@ -1,32 +1,29 @@
 <template>
-  <div id="sbolChart" v-bind:style="{ width: mainWidth } + 'px'" :ref="'sbolChart'">
-    <div v-bind:style="{ width: computedContainerWidth + 'px' }">
+  <div class="sbolChart" :ref="'sbolChart'">
+    <div style="margin: 20px auto auto auto;width: fit-content">
       <div
         v-for="(item, index) in computedGlyphAnnotations"
         :ref="'glyphs'"
-        class="glyphs tooltip"
-        :class="{ active: activeAnnotation === 'glyph_' + item.pk }"
+        :class="item.class"
         :key="index"
         @click="detailItem(index)"
       >
         <div class="tooltiptext">{{ item.name }}</div>
-        <img :src="item.path" />
-      </div>
+        <div v-if="item.selected" class="selected"></div>
+          <img :src="item.path" />
+        </div>
     </div>
   </div>
 </template>
 
 <script>
-import sbolcomponents from "../SBOLcomponents.json";
-import settings from "../visulizer_setting.json";
-
 export default {
-  props: ["annotations", "annotation", "mainWidth"],
+  props: ["annotations", "annotation"],
   data() {
     return {
       activeAnnotation: "none",
       containerWidth: 0,
-      parentWidth: 0
+      parentWidth: 0,
     };
   },
   computed: {
@@ -36,22 +33,18 @@ export default {
     computedGlyphAnnotations() {
       if (this.annotations) {
         this.annotations.map((key, index) => {
-          const sbolPath =
-            sbolcomponents[this.annotations[index].SBOL].rappresentation
-              .imagePath;
-          const externalImage = settings.imageExternalSource;
+          this.annotations[
+            index
+          ].path = `https://vows.sbolstandard.org/glyph/${this.annotations[index].SBOL}/png`;
 
-          if (settings.imageExternalSource.indexOf("${path}")) {
-            this.annotations[index].path = externalImage.replace(
-              "${path}",
-              sbolPath
-            );
-          } else {
-            this.annotations[index].path =
-              sbolcomponents[
-                this.annotations[index].SBOL
-              ].rappresentation.imagePath;
-          }
+          this.annotations[index].selected =
+            this.activeAnnotation == this.annotations[index].pk;
+
+          this.annotations[index].class = `${this.annotations[
+            index
+          ].SBOL.replace("SO:", "SO_")} ${
+            this.annotations[index].direction
+          } glyphs tooltip`;
 
           this.annotations[index].index = index;
         });
@@ -59,108 +52,161 @@ export default {
         return this.annotations;
       }
       return [];
-    }
+    },
   },
   methods: {
     detailItem(a) {
-      window.console.log("ooo", this.annotations[a]);
       this.$emit("selectedAnnotation", a);
     },
     selectedAnnotation(a) {
-      this.activeAnnotation = "glyph_" + a.pk;
+      this.activeAnnotation = a.pk;
       setTimeout(() => {
-        const offset =
-          this.$refs.glyphs[a.index].offsetLeft > this.mainWidth
-            ? this.$refs.glyphs[a.index].offsetLeft - this.mainWidth
-            : 0;
-        this.$refs.sbolChart.scrollLeft = offset;
+        this.$refs.glyphs[a.index].scrollIntoView({
+          behavior: "smooth",
+          block: "nearest",
+          inline: "center",
+        });
       }, 100);
-    }
+    },
   },
   watch: {
     annotation(a) {
       this.selectedAnnotation(a);
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style scoped>
-#sbolChart {
-  height: 8em;
-  padding-top: 5em;
-  padding-left: 1em;
+.sbolChart {
+  height: 9em;
+  padding: 1em;
   white-space: nowrap;
   overflow-x: scroll;
-  background-color: #f1f2f5;
+  overflow-y: hidden;
+
   box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.15);
   border-radius: 0.5rem;
 }
 
-#sbolChart::-webkit-scrollbar {
-  height: 10px;
-}
-
-#sbolChart::-webkit-scrollbar-thumb {
-  border-radius: 10px;
-  background-color: #c0c0c0;
-}
-
-#sbolChart::-webkit-scrollbar-track {
-  background-color: #d0d0d0;
-}
-
 div.glyphs {
-  width: 55px;
-  height: 60px;
-  vertical-align: middle;
-  border: 2px solid #f1f2f5;
+  position: relative;
 }
-
+.glyphs {
+  /* border: 1px solid red; */
+  width: 75px;
+  height: 75px;
+}
 img {
-  width: 100%;
+  width: 75px;
+  /* border-bottom: 2px solid green; */
+  position: absolute;
+  bottom: 0px;
 }
 
-.glyphs.active {
-  border-bottom: 2px solid red;
+img.RV {
+  transform: scaleX(-1);
+}
+
+.glyphs .selected {
+  background: #dee5ea;
+  width: 75px;
+  height: 9em;
+  position: absolute;
+  top: -2em;
 }
 
 .active .tooltip {
   visibility: visible !important;
 }
 
-/* Tooltip container */
 .tooltip {
   position: relative;
   display: inline-block;
-  border-bottom: 1px dotted #fff; /* If you want dots under the hoverable text */
+  border-bottom: 1px dotted #fff;
 }
 
 .glyph.active {
   background-color: red;
 }
-/* Tooltip text */
-.tooltip .tooltiptext {
-  top: 0;
-  visibility: hidden;
-  background-color: #fff;
-  /* color: #000; */
-  text-align: center;
-  padding: 5px;
-  border: solid 1px #e5e5e5;
-  border-radius: 5px;
-  /* Position the tooltip text - see examples below! */
 
+.tooltip .tooltiptext {
+  top: -2em;
+  opacity: 0;
+  background-color: #fff;
+  text-align: center;
+  padding: 5px 10px;
+  border: solid 1px #e5e5e5;
   position: absolute;
-  top: -4em;
-  left: -50px;
   z-index: 1;
-  width: 12em;
+
+  word-wrap: break-word;
   font-size: 0.8em;
 }
 
-/* Show the tooltip text when you mouse over the tooltip container */
 .tooltip:hover .tooltiptext {
-  visibility: visible;
+  opacity: 1;
+  transition: opacity 0.5s;
+}
+
+.BW {
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+}
+.SO_0000699 img,
+.SO_0001236 img,
+.SO_0001237 img,
+.SO_0001688 img,
+.SO_0001687 img,
+.SO_0001977 img,
+.SO_0001956 img,
+.SO_0000699 img,
+.SO_0001236 img,
+.SO_0001688 img,
+.SO_0001687 img,
+.SO_0000804 img,
+.SO_0000627 img,
+.SO_0001263 img,
+.SO_0000834 img,
+.SO_0001955 img,
+.SO_0001546 img,
+.SO_0001979 img,
+.SO_0000616 img,
+.SO_0000319 img,
+.SO_0000327 img,
+.SO_0000616 img,
+.SO_0000319 img,
+.SO_0000327 img,
+.SO_0000110 img {
+  bottom: 10px;
+}
+.SO_0001691 img,
+.SO_0000830 img,
+.SO_0002211 img {
+  bottom: calc(-35%);
+}
+.SO_0000553 img,
+.SO_0000316 img,
+.SO_0001975 img,
+.SO_0001976 img {
+  bottom: calc(-18%);
+}
+.SO_0000316 img,
+.SO_0000188 img,
+.SO_0000296 img,
+.SO_0000724 img,
+.SO_0000839 img {
+  bottom: calc(-15%);
+}
+.SO_0005850 img {
+  bottom: calc(-50% + 25px);
+}
+.SO_0000057 img,
+.SO_0000409 img,
+.SO_0000299 img {
+  bottom: -11px;
+}
+.SO_0000139 img {
+  bottom: -7px;
 }
 </style>
