@@ -3,25 +3,24 @@ const xmlHandler = {
         const sbolDataLayer = {}
         const parser = new DOMParser();
         const xmlDoc = parser.parseFromString(xml, "text/xml");
-        window.xmlDoc = xmlDoc;
-        sbolDataLayer.header = {
-            partID: xmlHandler.xmlFind(xmlDoc, "sbol:displayId"),
-            name: xmlHandler.xmlFind(xmlDoc, "dcterms:title"),
-            alternativeName: xmlHandler.xmlFind(xmlDoc, "dcterms:description"),
-            version: xmlHandler.xmlFind(xmlDoc, "sbol:version"),
-            creator: xmlHandler.xmlFind(xmlDoc, "dc:creator"),
-            parentSequence: xmlHandler.xmlFind(xmlDoc, "sbh:mutableProvenance"),
-            persistentIdentity: xmlHandler.xmlFind(xmlDoc, "sbol:persistentIdentity", "rdf:resource"),
-            wasDerivedFrom: xmlHandler.xmlFind(xmlDoc, "prov:wasDerivedFrom", "rdf:resource"),
-            wasGeneratedBy: xmlHandler.xmlFind(xmlDoc, "prov:wasGeneratedBy", "rdf:resource"),
-        };
-
-        sbolDataLayer.annotations = [];
 
         const ComponentDefinition = xmlDoc.getElementsByTagName(
             "sbol:ComponentDefinition"
         )[0];
 
+        sbolDataLayer.header = {
+            partID: xmlHandler.xmlFind(ComponentDefinition, "sbol:displayId"),
+            name: xmlHandler.xmlFind(ComponentDefinition, "dcterms:title"),
+            alternativeName: xmlHandler.xmlFind(ComponentDefinition, "dcterms:description"),
+            version: xmlHandler.xmlFind(ComponentDefinition, "sbol:version"),
+            creator: xmlHandler.xmlFind(ComponentDefinition, "dc:creator"),
+            parentSequence: xmlHandler.xmlFind(ComponentDefinition, "sbh:mutableProvenance"),
+            persistentIdentity: xmlHandler.xmlFind(ComponentDefinition, "sbol:persistentIdentity", "rdf:resource"),
+            wasDerivedFrom: xmlHandler.xmlFind(ComponentDefinition, "prov:wasDerivedFrom", "rdf:resource"),
+            wasGeneratedBy: xmlHandler.xmlFind(ComponentDefinition, "prov:wasGeneratedBy", "rdf:resource"),
+        };
+
+        sbolDataLayer.annotations = [];
         sbolDataLayer.annotations = xmlHandler.SequenceAnnotation(ComponentDefinition, xmlDoc)
 
         return sbolDataLayer
@@ -37,33 +36,48 @@ const xmlHandler = {
         return true
     },
     SequenceAnnotation: (ComponentDefinition, xmlDoc) => {
+        const annotations = [];
+        const ids = [];
 
-        const dnaComponents = ComponentDefinition.getElementsByTagName(
+        const SequenceAnnotation = ComponentDefinition.getElementsByTagName(
             "sbol:SequenceAnnotation"
         );
 
-        const annotations = [];
-        const ids = []
+        const dnaComponents = ComponentDefinition.getElementsByTagName(
+            "sbol:Component"
+        );
+
+        // <sbol:definition rdf:resource="https://synbiohub.org/public/igem/BBa_B0034/1"/>
+        //    -->  <sbol:ComponentDefinition rdf:about="https://synbiohub.org/public/igem/BBa_I20282/1">
+        //
+        //
+        const ExternalData = []
+        console.log(dnaComponents.length)
         for (let i = 0; i < dnaComponents.length; i++) {
-            const component = dnaComponents[i];
-            // <sbol:definition rdf:resource="https://synbiohub.org/public/igem/BBa_B0034/1"/>
-            //    -->  <sbol:ComponentDefinition rdf:about="https://synbiohub.org/public/igem/BBa_I20282/1">
-            //
-            //
+            const definition_id = xmlHandler.xmlFind_startWith(dnaComponents[i], "sbol:definition", "rdf:resource", "https://synbiohub.org/public/igem/");
+            const ElemComponentDefinition = xmlHandler.xmlFindElement_startWith(xmlDoc, "sbol:ComponentDefinition", "rdf:about", definition_id);
+            const ExternalSO = xmlHandler.xmlFind_startWith(ElemComponentDefinition, "sbol:role", "rdf:resource", "http://identifiers.org/so/SO:")
+            const ExternalIndex = xmlHandler.xmlFind(ElemComponentDefinition, "sbol:displayId");
 
-            const role = xmlHandler.xmlFind_startWith(component, "sbol:role", "rdf:resource", "http://identifiers.org/so/SO:");
+            ExternalData[ExternalIndex] = ({
+                'displayId': ExternalIndex,
+                'role': ExternalSO,
+                'sbol': xmlHandler.extractSO(ExternalSO)
+            });
+        }
 
-            if (typeof role === 'undefined') {
+        for (let i = 0; i < SequenceAnnotation.length; i++) {
+            const component = SequenceAnnotation[i];
 
-                const definitionID = xmlHandler.xmlFind_startWith(component, "sbol:definition", "rdf:resource", "https://synbiohub.org/public/igem/");
-                const ComponentDefinition = xmlHandler.xmlFindElement_startWith(xmlDoc, "sbol:ComponentDefinition", "rdf:about", definitionID);
 
-                console.log(`component ${i} role : ${role}  ${definitionID} ComponentDefinition: ${ComponentDefinition} ${typeof ComponentDefinition}`)
+            let role = xmlHandler.xmlFind_startWith(component, "sbol:role", "rdf:resource", "http://identifiers.org/so/SO:");
+            const sbolIndex = xmlHandler.xmlFind(component, "sbol:displayId");
+            const sbolTitle = xmlHandler.xmlFind(component, "dcterms:title")
+            if (typeof role == 'undefined' && typeof ExternalData[sbolTitle].role === 'string') {
+                role = ExternalData[sbolTitle].role
             }
 
 
-
-            const sbolIndex = xmlHandler.xmlFind(component, "sbol:displayId");
             if (!ids.includes(sbolIndex)) {
                 ids.push(sbolIndex)
 
@@ -76,7 +90,6 @@ const xmlHandler = {
                 if (directionResource == "http://sbols.org/v2#reverseComplement") {
                     direction = 'RV'
                 }
-                console.log(`directionResource${directionResource}`)
 
                 const dataLayerSingleComponent = {
                     SBOL: xmlHandler.extractSO(role),
@@ -84,7 +97,7 @@ const xmlHandler = {
                     start: xmlHandler.xmlFind(component, "sbol:start"),
                     end: xmlHandler.xmlFind(component, "sbol:end"),
                     index: xmlHandler.extractIndexVal(sbolIndex),
-                    name: xmlHandler.xmlFind(component, "dcterms:title"),
+                    name: sbolTitle,
                     notes: "",
                     pk: xmlHandler.extractIndexVal(sbolIndex),
                     role_id: 0,
