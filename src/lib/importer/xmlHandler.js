@@ -39,20 +39,15 @@ const xmlHandler = {
         const annotations = [];
         const ids = [];
 
-        const SequenceAnnotation = ComponentDefinition.getElementsByTagName(
-            "sbol:SequenceAnnotation"
-        );
 
+
+        // Handle sbol:Component
         const dnaComponents = ComponentDefinition.getElementsByTagName(
             "sbol:Component"
         );
 
-        // <sbol:definition rdf:resource="https://synbiohub.org/public/igem/BBa_B0034/1"/>
-        //    -->  <sbol:ComponentDefinition rdf:about="https://synbiohub.org/public/igem/BBa_I20282/1">
-        //
-        //
         const ExternalData = []
-        console.log(dnaComponents.length)
+
         for (let i = 0; i < dnaComponents.length; i++) {
             const definition_id = xmlHandler.xmlFind_startWith(dnaComponents[i], "sbol:definition", "rdf:resource", "https://synbiohub.org/public/igem/");
             const ElemComponentDefinition = xmlHandler.xmlFindElement_startWith(xmlDoc, "sbol:ComponentDefinition", "rdf:about", definition_id);
@@ -66,15 +61,24 @@ const xmlHandler = {
             });
         }
 
+        // handle sbol:SequenceAnnotation
+        const SequenceAnnotation = ComponentDefinition.getElementsByTagName(
+            "sbol:SequenceAnnotation"
+        );
+
         for (let i = 0; i < SequenceAnnotation.length; i++) {
             const component = SequenceAnnotation[i];
 
+            let role = "SO:0000110";
+            const seqAnnRole = xmlHandler.xmlFind_startWith(component, "sbol:role", "rdf:resource", "http://identifiers.org/so/SO:");
 
-            let role = xmlHandler.xmlFind_startWith(component, "sbol:role", "rdf:resource", "http://identifiers.org/so/SO:");
             const sbolIndex = xmlHandler.xmlFind(component, "sbol:displayId");
-            const sbolTitle = xmlHandler.xmlFind(component, "dcterms:title")
-            if (typeof role == 'undefined' && typeof ExternalData[sbolTitle].role === 'string') {
+            const sbolTitle = xmlHandler.xmlFind(component, "dcterms:title");
+
+            if (typeof seqAnnRole == 'undefined' && typeof ExternalData[sbolTitle].role === 'string') {
                 role = ExternalData[sbolTitle].role
+            } else if (typeof seqAnnRole == 'string') {
+                role = seqAnnRole;
             }
 
 
@@ -107,8 +111,11 @@ const xmlHandler = {
                 }
             }
         }
-
-        return annotations
+        // sorted by start
+        const sortedAnnotations = annotations.sort((a, b) => {
+            return a.start - b.start
+        })
+        return sortedAnnotations
     },
     xmlFallback: (parsedElement, fallbackString, attribute) => {
 
