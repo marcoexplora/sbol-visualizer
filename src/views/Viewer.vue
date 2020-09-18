@@ -160,8 +160,10 @@ export default {
           width: 960,
         },
       ];
-
-      const widthContainer = this.$refs.sbolVisualizer.offsetWidth;
+      const widthContainer =
+        window.innerWidth ||
+        document.documentElement.clientWidth ||
+        document.body.clientWidth;
       let classBp = "XL";
       defaultBreakpoints.forEach((bp) => {
         classBp = bp.width <= widthContainer ? bp.class : classBp;
@@ -183,6 +185,9 @@ export default {
     SbolHeader,
     SbolLogo,
   },
+  created: function () {
+    this.resizeHandler();
+  },
   mounted: function () {
     if (this.format) {
       // Inline data
@@ -199,9 +204,7 @@ export default {
     if (this.flavour == "mini") {
       this.flavourMini = true;
     }
-
     window.addEventListener("resize", this.resizeHandler);
-    this.resizeHandler();
   },
   destroyed: function () {
     window.removeEventListener("resize", this.resizeHandler);
