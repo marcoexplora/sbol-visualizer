@@ -11,8 +11,8 @@
         accept=".json, .xml"
       />
     </div>
-
-    <div v-if="empty === true" class="sbolMain empty" ref="sbolVisualizer">
+    <sbol-errors v-if="errors" class="sbolMain empty"></sbol-errors>
+    <div v-else-if="empty === true" class="sbolMain empty" ref="sbolVisualizer">
       <a href="https://sbolstandard.org/">
         <sbol-logo />
         <small>https://sbolstandard.org/</small>
@@ -44,6 +44,7 @@
 <script>
 import axios from "axios";
 
+import SbolErrors from "../components/SbolErrors";
 import SbolHeader from "../components/SbolHeader";
 import SbolListAnnotations from "../components/SbolListAnnotations";
 import SbolChart from "../components/SbolChart";
@@ -66,6 +67,7 @@ export default {
       droppedFile: { type: "", data: "" },
       annotation: null,
       filter: "",
+      errors: false,
       empty: true,
       chartsWidth: 0,
       flavourClass: "SBOLcontainer XL",
@@ -119,14 +121,21 @@ export default {
       console.log(`this.mainWidth  ${this.mainWidth}`);
     },
     genericLoad: function (dataFormat, data) {
-      if (dataFormat == "json") {
-        if (typeof data == "string") {
-          data = JSON.parse(data);
+      try {
+        if (dataFormat == "json") {
+          if (typeof data == "string") {
+            data = JSON.parse(data);
+          }
+          this.loadJson(data);
         }
-        this.loadJson(data);
-      }
-      if (dataFormat == "xml") {
-        this.loadXml(data);
+        if (dataFormat == "xml") {
+          this.loadXml(data);
+        }
+      } catch (error) {
+        //console.error(error);
+        this.errors = true;
+        // expected output: ReferenceError: nonExistentFunction is not defined
+        // Note - error messages will vary depending on browser
       }
     },
     loadJson: function (json) {
@@ -184,6 +193,7 @@ export default {
     SbolListAnnotations,
     SbolHeader,
     SbolLogo,
+    SbolErrors,
   },
   created: function () {
     this.resizeHandler();
