@@ -51,13 +51,16 @@ const xmlHandler = {
         for (let i = 0; i < dnaComponents.length; i++) {
             const definition_id = xmlHandler.xmlFind_startWith(dnaComponents[i], "sbol:definition", "rdf:resource", "https://synbiohub.org/public/igem/");
             const ElemComponentDefinition = xmlHandler.xmlFindElement_startWith(xmlDoc, "sbol:ComponentDefinition", "rdf:about", definition_id);
+
             const ExternalSO = xmlHandler.xmlFind_startWith(ElemComponentDefinition, "sbol:role", "rdf:resource", "http://identifiers.org/so/SO:")
             const ExternalIndex = xmlHandler.xmlFind(ElemComponentDefinition, "sbol:displayId");
+            const ExternalName = xmlHandler.xmlFind(ElemComponentDefinition, "dcterms:title");
 
             ExternalData[ExternalIndex] = ({
                 'displayId': ExternalIndex,
                 'role': ExternalSO,
-                'sbol': xmlHandler.extractSO(ExternalSO)
+                'sbol': xmlHandler.extractSO(ExternalSO),
+                'name': ExternalName
             });
         }
 
@@ -73,10 +76,11 @@ const xmlHandler = {
             const seqAnnRole = xmlHandler.xmlFind_startWith(component, "sbol:role", "rdf:resource", "http://identifiers.org/so/SO:");
 
             const sbolIndex = xmlHandler.xmlFind(component, "sbol:displayId");
-            const sbolTitle = xmlHandler.xmlFind(component, "dcterms:title");
+            let sbolTitle = xmlHandler.xmlFind(component, "dcterms:title");
 
             if (typeof seqAnnRole == 'undefined' && typeof ExternalData[sbolTitle].role === 'string') {
                 role = ExternalData[sbolTitle].role
+                sbolTitle = ExternalData[sbolTitle].name
             } else if (typeof seqAnnRole == 'string') {
                 role = seqAnnRole;
             }
