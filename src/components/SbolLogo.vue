@@ -12,7 +12,7 @@
       y="0px"
       width="140px"
       height="100px"
-      viewBox="0 0 200 110"
+      viewBox="20 30 240 90"
       enable-background="new 0 0 200 110"
       xml:space="preserve"
     >

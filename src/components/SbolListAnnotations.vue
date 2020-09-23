@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <section>
     <div class="search">
       <input type="text" class="search-input" placeholder="Search in annotations" v-model="filter" />
     </div>
@@ -22,43 +22,41 @@
             </li>
           </ul>
         </div>
-        <span>{{ item.start }}…{{ item.end }}</span>
+
+        <span v-if="item.end > 0">{{ item.start }}…{{ item.end }}</span>
       </li>
     </ul>
-  </div>
+  </section>
 </template>
 <script>
 export default {
-  /*
-    
-        :class="{ active: hover }"
-        @mouseover="hover = true"
-        @mouseleave="hover = false"
-    
-    */
-
   props: ["annotations"],
   data() {
     return {
-      filter: ""
+      filter: "",
     };
   },
   computed: {
     selectedItems() {
-      // let filters = [];
-      return this.annotations.filter(so => {
+      return this.annotations.filter((so) => {
         if (this.filter === "") {
           return so;
         }
-        return (
-          so.name.toLowerCase().includes(this.filter.toLowerCase()) ||
-          so.start.toString().includes(this.filter.toString()) ||
-          so.SBOL.toString().includes(this.filter.toString()) ||
-          so.end.toString().includes(this.filter.toString()) ||
-          so.direction.toLowerCase().includes(this.filter.toString())
-        );
+
+        if (/^\d+$/.test(this.filter)) {
+          const loc = parseInt(this.filter);
+          return so.start <= loc && so.end >= loc;
+        } else {
+          return (
+            so.name.toLowerCase().includes(this.filter.toLowerCase()) ||
+            so.start.toString().includes(this.filter.toString()) ||
+            so.SBOL.toString().includes(this.filter.toString()) ||
+            so.end.toString().includes(this.filter.toString()) ||
+            so.direction.toLowerCase().includes(this.filter.toString())
+          );
+        }
       });
-    }
+    },
   },
   methods: {
     detailItem(so) {
@@ -67,29 +65,33 @@ export default {
         this.annotations[so]
       );
       this.$emit("selectedAnnotation", so);
-    }
-  }
+    },
+  },
 };
 </script>
 <style scoped>
 .search {
   margin: 0;
-  padding: 0 7px 0 0;
   font-size: 10px;
-  height: 40px;
   border: 1px solid rgba(0, 0, 0, 0.125);
   border-radius: 0.25rem;
   background-color: #f0f2f5;
 }
-
+section * {
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+    Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji,
+    Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 .search-input {
-  width: 96%;
+  width: 100%;
   height: 3em;
+  padding: 0 5px;
   font-size: 1.2em;
   border: none;
   background-color: #f0f2f5;
-  padding-left: 10px;
-  border-radius: 3px;
 }
 
 .search-list {
@@ -97,6 +99,7 @@ export default {
   padding: 0;
   text-align: left;
   margin-top: 5px;
+  min-height: 400px;
 }
 
 .search-list > li:first-child {

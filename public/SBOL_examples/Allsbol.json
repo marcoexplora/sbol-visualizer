@@ -1,0 +1,621 @@
+{
+    "pk": 3911,
+    "friendly_id": "M3GC5GR",
+    "num_collaborators": null,
+    "name": "LacZalpha-pUC18-IIs sites up (SEVA# - - 3X)",
+    "sequence": "GAAGCGGAAGAGCGCCCAATACGCAAACCGCCTCTCCCCGCGCGTTGGCCGATTCATTAATGCAGCTGGCACGACAGGTTTCCCGACTGGAAAGCGGGCAGTGAGCGCAACGCAATTAATGTGAGTTAGCTCACTCATTAGGCACCCCAGGCTTTACACTTTATGCTTCCGGCTCGTATGTTGTGTGGAATTGTGAGCGGATAACAATTTCACACAGGAAACAGCTATGACCATGATTACGAATTCGAGCTCGGTACCCGGTCTCAACCCACCTGCGATGACCCGTCTCTACCCGAAGACTTACCCGATATCGCGATTGTCTTCGCGACGAGACGCGACATCGCAGGTGCGACGAGACCAAGGGGATCCTCTAGAGTCGACCTGCAGGCATGCAAGCTTGGCACTGGCCGTCGTTTTACAACGTCGTGACTGGGAAAACCCTGGCGTTACCCAACTTAATCGCCTTGCAGCACATCCCCCTTTCGCCAGCTGGCGTAATAGCGAAGAGGCCCGCACCGATCGCCCTTCCCAACAGTTGCGCAGCCTGAATGGCGAATGGCGCCTGATGCGGTATTTTCTCCTTACGCATCTGTGCGGTATTTCACACCGCATATGATGCACTCTCAGTACAATCTGCTCTGATGCCGCATAGTTAAGCCAGCCCCGACACCCGCCAACACCCGCTGA",
+    "public": true,
+    "obsolete": false,
+    "annotations": [
+        {
+            "pk": 0,
+            "start": 0,
+            "end": 0,
+            "direction": 1,
+            "name": "SO:0000031",
+            "notes": "SO:0000031",
+            "role_id": 0,
+            "SBOL": "SO:0000031"
+        },
+        {
+            "pk": 1,
+            "start": 1,
+            "end": 1,
+            "direction": 1,
+            "name": "SO:0001953",
+            "notes": "SO:0001953",
+            "role_id": 1,
+            "SBOL": "SO:0001953"
+        },
+        {
+            "pk": 2,
+            "start": 2,
+            "end": 2,
+            "direction": 1,
+            "name": "SO:0000699",
+            "notes": "SO:0000699",
+            "role_id": 2,
+            "SBOL": "SO:0000699"
+        },
+        {
+            "pk": 3,
+            "start": 3,
+            "end": 3,
+            "direction": 1,
+            "name": "SO:0001236",
+            "notes": "SO:0001236",
+            "role_id": 3,
+            "SBOL": "SO:0001236"
+        },
+        {
+            "pk": 4,
+            "start": 4,
+            "end": 4,
+            "direction": 1,
+            "name": "SO:0001237",
+            "notes": "SO:0001237",
+            "role_id": 4,
+            "SBOL": "SO:0001237"
+        },
+        {
+            "pk": 5,
+            "start": 5,
+            "end": 5,
+            "direction": 1,
+            "name": "SO:0001691",
+            "notes": "SO:0001691",
+            "role_id": 5,
+            "SBOL": "SO:0001691"
+        },
+        {
+            "pk": 6,
+            "start": 6,
+            "end": 6,
+            "direction": 1,
+            "name": "SO:0000316",
+            "notes": "SO:0000316",
+            "role_id": 6,
+            "SBOL": "SO:0000316"
+        },
+        {
+            "pk": 9,
+            "start": 9,
+            "end": 9,
+            "direction": 1,
+            "name": "SO:0001688",
+            "notes": "SO:0001688",
+            "role_id": 9,
+            "SBOL": "SO:0001688"
+        },
+        {
+            "pk": 10,
+            "start": 10,
+            "end": 10,
+            "direction": 1,
+            "name": "SO:0001687",
+            "notes": "SO:0001687",
+            "role_id": 10,
+            "SBOL": "SO:0001687"
+        },
+        {
+            "pk": 11,
+            "start": 11,
+            "end": 11,
+            "direction": 1,
+            "name": "SO:0001977",
+            "notes": "SO:0001977",
+            "role_id": 11,
+            "SBOL": "SO:0001977"
+        },
+        {
+            "pk": 12,
+            "start": 12,
+            "end": 12,
+            "direction": 1,
+            "name": "SO:0001956",
+            "notes": "SO:0001956",
+            "role_id": 12,
+            "SBOL": "SO:0001956"
+        },
+        {
+            "pk": 13,
+            "start": 13,
+            "end": 13,
+            "direction": 1,
+            "name": "SO:0000699",
+            "notes": "SO:0000699",
+            "role_id": 13,
+            "SBOL": "SO:0000699"
+        },
+        {
+            "pk": 14,
+            "start": 14,
+            "end": 14,
+            "direction": 1,
+            "name": "SO:0001236",
+            "notes": "SO:0001236",
+            "role_id": 14,
+            "SBOL": "SO:0001236"
+        },
+        {
+            "pk": 15,
+            "start": 15,
+            "end": 15,
+            "direction": 1,
+            "name": "SO:0001688",
+            "notes": "SO:0001688",
+            "role_id": 15,
+            "SBOL": "SO:0001688"
+        },
+        {
+            "pk": 16,
+            "start": 16,
+            "end": 16,
+            "direction": 1,
+            "name": "SO:0001687",
+            "notes": "SO:0001687",
+            "role_id": 16,
+            "SBOL": "SO:0001687"
+        },
+        {
+            "pk": 17,
+            "start": 17,
+            "end": 17,
+            "direction": 1,
+            "name": "SO:0000804",
+            "notes": "SO:0000804",
+            "role_id": 17,
+            "SBOL": "SO:0000804"
+        },
+        {
+            "pk": 18,
+            "start": 18,
+            "end": 18,
+            "direction": 1,
+            "name": "SO:0001932",
+            "notes": "SO:0001932",
+            "role_id": 18,
+            "SBOL": "SO:0001932"
+        },
+        {
+            "pk": 19,
+            "start": 19,
+            "end": 19,
+            "direction": 1,
+            "name": "SO:0001975",
+            "notes": "SO:0001975",
+            "role_id": 19,
+            "SBOL": "SO:0001975"
+        },
+        {
+            "pk": 20,
+            "start": 20,
+            "end": 20,
+            "direction": 1,
+            "name": "SO:0000627",
+            "notes": "SO:0000627",
+            "role_id": 20,
+            "SBOL": "SO:0000627"
+        },
+        {
+            "pk": 21,
+            "start": 21,
+            "end": 21,
+            "direction": 1,
+            "name": "SO:0000188",
+            "notes": "SO:0000188",
+            "role_id": 21,
+            "SBOL": "SO:0000188"
+        },
+        {
+            "pk": 22,
+            "start": 22,
+            "end": 22,
+            "direction": 1,
+            "name": "SO:0001263",
+            "notes": "SO:0001263",
+            "role_id": 22,
+            "SBOL": "SO:0001263"
+        },
+        {
+            "pk": 23,
+            "start": 23,
+            "end": 23,
+            "direction": 1,
+            "name": "SO:0000834",
+            "notes": "SO:0000834",
+            "role_id": 23,
+            "SBOL": "SO:0000834"
+        },
+        {
+            "pk": 24,
+            "start": 24,
+            "end": 24,
+            "direction": 1,
+            "name": "SO:0000057",
+            "notes": "SO:0000057",
+            "role_id": 24,
+            "SBOL": "SO:0000057"
+        },
+        {
+            "pk": 25,
+            "start": 25,
+            "end": 25,
+            "direction": 1,
+            "name": "SO:0000409",
+            "notes": "SO:0000409",
+            "role_id": 25,
+            "SBOL": "SO:0000409"
+        },
+        {
+            "pk": 26,
+            "start": 26,
+            "end": 26,
+            "direction": 1,
+            "name": "SO:0000296",
+            "notes": "SO:0000296",
+            "role_id": 26,
+            "SBOL": "SO:0000296"
+        },
+        {
+            "pk": 27,
+            "start": 27,
+            "end": 27,
+            "direction": 1,
+            "name": "SO:0000724",
+            "notes": "SO:0000724",
+            "role_id": 27,
+            "SBOL": "SO:0000724"
+        },
+        {
+            "pk": 28,
+            "start": 28,
+            "end": 28,
+            "direction": 1,
+            "name": "SO:0001932",
+            "notes": "SO:0001932",
+            "role_id": 28,
+            "SBOL": "SO:0001932"
+        },
+        {
+            "pk": 29,
+            "start": 29,
+            "end": 29,
+            "direction": 1,
+            "name": "SO:0001933",
+            "notes": "SO:0001933",
+            "role_id": 29,
+            "SBOL": "SO:0001933"
+        },
+        {
+            "pk": 30,
+            "start": 30,
+            "end": 30,
+            "direction": 1,
+            "name": "SO:0000553",
+            "notes": "SO:0000553",
+            "role_id": 30,
+            "SBOL": "SO:0000553"
+        },
+        {
+            "pk": 31,
+            "start": 31,
+            "end": 31,
+            "direction": 1,
+            "name": "SO:0000839",
+            "notes": "SO:0000839",
+            "role_id": 31,
+            "SBOL": "SO:0000839"
+        },
+        {
+            "pk": 32,
+            "start": 32,
+            "end": 32,
+            "direction": 1,
+            "name": "SO:0005850",
+            "notes": "SO:0005850",
+            "role_id": 32,
+            "SBOL": "SO:0005850"
+        },
+        {
+            "pk": 33,
+            "start": 33,
+            "end": 33,
+            "direction": 1,
+            "name": "SO:0000167",
+            "notes": "SO:0000167",
+            "role_id": 33,
+            "SBOL": "SO:0000167"
+        },
+        {
+            "pk": 34,
+            "start": 34,
+            "end": 34,
+            "direction": 1,
+            "name": "SO:0000699",
+            "notes": "SO:0000699",
+            "role_id": 34,
+            "SBOL": "SO:0000699"
+        },
+        {
+            "pk": 35,
+            "start": 35,
+            "end": 35,
+            "direction": 1,
+            "name": "SO:0001237",
+            "notes": "SO:0001237",
+            "role_id": 35,
+            "SBOL": "SO:0001237"
+        },
+        {
+            "pk": 36,
+            "start": 36,
+            "end": 36,
+            "direction": 1,
+            "name": "SO:0001956",
+            "notes": "SO:0001956",
+            "role_id": 36,
+            "SBOL": "SO:0001956"
+        },
+        {
+            "pk": 37,
+            "start": 37,
+            "end": 37,
+            "direction": 1,
+            "name": "SO:0001955",
+            "notes": "SO:0001955",
+            "role_id": 37,
+            "SBOL": "SO:0001955"
+        },
+        {
+            "pk": 38,
+            "start": 38,
+            "end": 38,
+            "direction": 1,
+            "name": "SO:0001546",
+            "notes": "SO:0001546",
+            "role_id": 38,
+            "SBOL": "SO:0001546"
+        },
+        {
+            "pk": 39,
+            "start": 39,
+            "end": 39,
+            "direction": 1,
+            "name": "SO:0000139",
+            "notes": "SO:0000139",
+            "role_id": 39,
+            "SBOL": "SO:0000139"
+        },
+        {
+            "pk": 40,
+            "start": 40,
+            "end": 40,
+            "direction": 1,
+            "name": "SO:0000699",
+            "notes": "SO:0000699",
+            "role_id": 40,
+            "SBOL": "SO:0000699"
+        },
+        {
+            "pk": 41,
+            "start": 41,
+            "end": 41,
+            "direction": 1,
+            "name": "SO:0001236",
+            "notes": "SO:0001236",
+            "role_id": 41,
+            "SBOL": "SO:0001236"
+        },
+        {
+            "pk": 42,
+            "start": 42,
+            "end": 42,
+            "direction": 1,
+            "name": "SO:0001977",
+            "notes": "SO:0001977",
+            "role_id": 42,
+            "SBOL": "SO:0001977"
+        },
+        {
+            "pk": 43,
+            "start": 43,
+            "end": 43,
+            "direction": 1,
+            "name": "SO:0001979",
+            "notes": "SO:0001979",
+            "role_id": 43,
+            "SBOL": "SO:0001979"
+        },
+        {
+            "pk": 44,
+            "start": 44,
+            "end": 44,
+            "direction": 1,
+            "name": "SO:0001978",
+            "notes": "SO:0001978",
+            "role_id": 44,
+            "SBOL": "SO:0001978"
+        },
+        {
+            "pk": 45,
+            "start": 45,
+            "end": 45,
+            "direction": 1,
+            "name": "SO:0000299",
+            "notes": "SO:0000299",
+            "role_id": 45,
+            "SBOL": "SO:0000299"
+        },
+        {
+            "pk": 46,
+            "start": 46,
+            "end": 46,
+            "direction": 1,
+            "name": "SO:0001979",
+            "notes": "SO:0001979",
+            "role_id": 46,
+            "SBOL": "SO:0001979"
+        },
+        {
+            "pk": 47,
+            "start": 47,
+            "end": 47,
+            "direction": 1,
+            "name": "SO:0001955",
+            "notes": "SO:0001955",
+            "role_id": 47,
+            "SBOL": "SO:0001955"
+        },
+        {
+            "pk": 48,
+            "start": 48,
+            "end": 48,
+            "direction": 1,
+            "name": "SO:0001546",
+            "notes": "SO:0001546",
+            "role_id": 48,
+            "SBOL": "SO:0001546"
+        },
+        {
+            "pk": 49,
+            "start": 49,
+            "end": 49,
+            "direction": 1,
+            "name": "SO:0001975",
+            "notes": "SO:0001975",
+            "role_id": 49,
+            "SBOL": "SO:0001975"
+        },
+        {
+            "pk": 50,
+            "start": 50,
+            "end": 50,
+            "direction": 1,
+            "name": "SO:0001976",
+            "notes": "SO:0001976",
+            "role_id": 50,
+            "SBOL": "SO:0001976"
+        },
+        {
+            "pk": 51,
+            "start": 51,
+            "end": 51,
+            "direction": 1,
+            "name": "SO:0000616",
+            "notes": "SO:0000616",
+            "role_id": 51,
+            "SBOL": "SO:0000616"
+        },
+        {
+            "pk": 52,
+            "start": 52,
+            "end": 52,
+            "direction": 1,
+            "name": "SO:0000319",
+            "notes": "SO:0000319",
+            "role_id": 52,
+            "SBOL": "SO:0000319"
+        },
+        {
+            "pk": 53,
+            "start": 53,
+            "end": 53,
+            "direction": 1,
+            "name": "SO:0000327",
+            "notes": "SO:0000327",
+            "role_id": 53,
+            "SBOL": "SO:0000327"
+        },
+        {
+            "pk": 54,
+            "start": 54,
+            "end": 54,
+            "direction": 1,
+            "name": "SO:0000141",
+            "notes": "SO:0000141",
+            "role_id": 54,
+            "SBOL": "SO:0000141"
+        },
+        {
+            "pk": 55,
+            "start": 55,
+            "end": 55,
+            "direction": 1,
+            "name": "SO:0001933",
+            "notes": "SO:0001933",
+            "role_id": 55,
+            "SBOL": "SO:0001933"
+        },
+        {
+            "pk": 56,
+            "start": 56,
+            "end": 56,
+            "direction": 1,
+            "name": "SO:0001976",
+            "notes": "SO:0001976",
+            "role_id": 56,
+            "SBOL": "SO:0001976"
+        },
+        {
+            "pk": 57,
+            "start": 57,
+            "end": 57,
+            "direction": 1,
+            "name": "SO:0000616",
+            "notes": "SO:0000616",
+            "role_id": 57,
+            "SBOL": "SO:0000616"
+        },
+        {
+            "pk": 58,
+            "start": 58,
+            "end": 58,
+            "direction": 1,
+            "name": "SO:0000319",
+            "notes": "SO:0000319",
+            "role_id": 58,
+            "SBOL": "SO:0000319"
+        },
+        {
+            "pk": 59,
+            "start": 59,
+            "end": 59,
+            "direction": 1,
+            "name": "SO:0000327",
+            "notes": "SO:0000327",
+            "role_id": 59,
+            "SBOL": "SO:0000327"
+        },
+        {
+            "pk": 60,
+            "start": 60,
+            "end": 60,
+            "direction": 1,
+            "name": "SO:0000110",
+            "notes": "SO:0000110",
+            "role_id": 60,
+            "SBOL": "SO:0000110"
+        },
+        {
+            "pk": 7,
+            "start": 7,
+            "end": 7,
+            "direction": 1,
+            "name": "SO:0000830",
+            "notes": "SO:0000830",
+            "role_id": 7,
+            "SBOL": "SO:0000830"
+        },
+        {
+            "pk": 8,
+            "start": 8,
+            "end": 8,
+            "direction": 1,
+            "name": "SO:0002211",
+            "notes": "SO:0002211",
+            "role_id": 8,
+            "SBOL": "SO:0002211"
+        }
+    ]
+}
