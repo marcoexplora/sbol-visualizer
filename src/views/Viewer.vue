@@ -1,6 +1,7 @@
 <template>
   <div @dragover="dragover" @dragleave="dragleave" @drop="drop">
-    <div v-if="allowDragFile">
+    {{enabledropfile}}
+    <div v-if="enabledropfile">
       <input
         type="file"
         multiple
@@ -44,12 +45,12 @@
 <script>
 import axios from "axios";
 
-import SbolErrors from "../components/SbolErrors";
-import SbolHeader from "../components/SbolHeader";
-import SbolListAnnotations from "../components/SbolListAnnotations";
-import SbolChart from "../components/SbolChart";
-import SbolDetail from "../components/SbolDetail";
-import SbolLogo from "../components/SbolLogo";
+import SbolErrors from "@/components/SbolErrors";
+import SbolHeader from "@/components/SbolHeader";
+import SbolListAnnotations from "@/components/SbolListAnnotations";
+import SbolChart from "@/components/SbolChart";
+import SbolDetail from "@/components/SbolDetail";
+import SbolLogo from "@/components/SbolLogo";
 
 import jsonHandler from "@/lib/importer/jsonHandler";
 import xmlHandler from "@/lib/importer/xmlHandler";
@@ -63,7 +64,7 @@ export default {
         header: {},
         annotations: [],
       },
-      allowDragFile: false,
+      enabledropfile: false,
       fileObj: {},
       droppedFile: { type: "", data: "" },
       annotation: null,
@@ -77,20 +78,18 @@ export default {
   },
   methods: {
     drop(event) {
-      if(this.allowDragFile){
+      if(this.enabledropfile){
         event.preventDefault();
         this.$refs.file.files = event.dataTransfer.files;
 
         this.onChange();
       }
-      //console.log("drop");
     },
     dragleave(event) {
-      //console.log("dragleave" + event);
+      // keep this for future reference
     },
     dragover(event) {
       event.preventDefault();
-      //console.log("dragover");
     },
     onChange() {
       this.fileObj = [...this.$refs.file.files][0];
@@ -134,10 +133,7 @@ export default {
           this.loadXml(data);
         }
       } catch (error) {
-        //console.error(error);
         this.errors = true;
-        // expected output: ReferenceError: nonExistentFunction is not defined
-        // Note - error messages will vary depending on browser
       }
     },
     loadJson: function (json) {
@@ -201,9 +197,9 @@ export default {
     this.resizeHandler();
   },
   mounted: function () {
-
-    if(this.dropafile){
-      this.allowDragFile == true;
+    console.log(` this.dropafile ${this.dropafile}`)
+    if(typeof this.dropafile != 'undefined'){
+      this.enabledropfile = true;
     }
     if (this.format) {
       // Inline data
