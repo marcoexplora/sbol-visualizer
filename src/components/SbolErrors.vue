@@ -16,23 +16,34 @@
           d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"
         />
       </svg>
-      Sorry, something went wrong!
+      {{title}}
     </h1>
     <h2>
-      We are in the early stages of this project,
-      Please send us feedback on how to reproduce this error ( if possible include the file imported )
+     {{message}}
     </h2>
+
     <slot></slot>
   </div>
 </template>
 
 <script>
+
+import settings from "../settings"
+
 export default {
   props: [],
   data() {
-    return {};
+    return {
+      title : "Sorry, something went wrong!",
+      message : ""
+    };
   },
   methods: {},
+  mounted: function() {
+
+    this.title = settings.messages.error_page.title;
+    this.message = settings.messages.error_page.message;
+  }
 };
 </script>
 

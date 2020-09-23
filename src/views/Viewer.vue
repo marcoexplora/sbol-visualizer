@@ -1,6 +1,6 @@
 <template>
   <div @dragover="dragover" @dragleave="dragleave" @drop="drop">
-    <div>
+    <div v-if="allowDragFile">
       <input
         type="file"
         multiple
@@ -55,7 +55,7 @@ import jsonHandler from "@/lib/importer/jsonHandler";
 import xmlHandler from "@/lib/importer/xmlHandler";
 
 export default {
-  props: ["source", "format", "data", "flavour"],
+  props: ["source", "format", "data", "flavour","dropafile"],
 
   data() {
     return {
@@ -63,6 +63,7 @@ export default {
         header: {},
         annotations: [],
       },
+      allowDragFile: false,
       fileObj: {},
       droppedFile: { type: "", data: "" },
       annotation: null,
@@ -76,19 +77,20 @@ export default {
   },
   methods: {
     drop(event) {
-      event.preventDefault();
-      this.$refs.file.files = event.dataTransfer.files;
+      if(this.allowDragFile){
+        event.preventDefault();
+        this.$refs.file.files = event.dataTransfer.files;
 
-      this.onChange();
-
-      console.log("drop");
+        this.onChange();
+      }
+      //console.log("drop");
     },
     dragleave(event) {
-      console.log("dragleave" + event);
+      //console.log("dragleave" + event);
     },
     dragover(event) {
       event.preventDefault();
-      console.log("dragover");
+      //console.log("dragover");
     },
     onChange() {
       this.fileObj = [...this.$refs.file.files][0];
@@ -199,6 +201,10 @@ export default {
     this.resizeHandler();
   },
   mounted: function () {
+
+    if(this.dropafile){
+      this.allowDragFile == true;
+    }
     if (this.format) {
       // Inline data
       const dataFormat = this.format == "json" ? "json" : "xml";
