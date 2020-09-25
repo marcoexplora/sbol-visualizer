@@ -26,14 +26,12 @@ const xmlHandler = {
         return sbolDataLayer
     },
     isAvalidSingleComponent: (dataLayerSingleComponent) => {
-        if (dataLayerSingleComponent.SBOL == "") {
+        if (dataLayerSingleComponent.SBOL === "") {
             return false
         }
 
-        if (typeof dataLayerSingleComponent.SBOL == undefined) {
-            return false
-        }
-        return true
+        return typeof dataLayerSingleComponent.SBOL !== undefined;
+
     },
     SequenceAnnotation: (ComponentDefinition, xmlDoc) => {
         const annotations = [];
@@ -92,10 +90,8 @@ const xmlHandler = {
                 const directionResource = xmlHandler.xmlFind(component, "sbol:orientation", "rdf:resource")
 
                 let direction = "--";
-                if (directionResource == "http://sbols.org/v2#inline") {
-                    direction = 'FW'
-                }
-                if (directionResource == "http://sbols.org/v2#reverseComplement") {
+                if (directionResource === "http://sbols.org/v2#inline") direction = 'FW'
+                if (directionResource === "http://sbols.org/v2#reverseComplement") {
                     direction = 'RV'
                 }
 
@@ -124,7 +120,7 @@ const xmlHandler = {
     xmlFallback: (parsedElement, fallbackString, attribute) => {
 
         if (
-            Object.prototype.toString.call(parsedElement) == "[object HTMLCollection]"
+            Object.prototype.toString.call(parsedElement) === "[object HTMLCollection]"
         ) {
             parsedElement = parsedElement[0];
         }
@@ -151,28 +147,17 @@ const xmlHandler = {
     testElement: (parsedElement, attribute) => {
 
         if (
-            Object.prototype.toString.call(parsedElement) == "[object HTMLCollection]"
+            Object.prototype.toString.call(parsedElement) === "[object HTMLCollection]"
         ) {
             parsedElement = parsedElement[0];
         }
 
 
         if (typeof attribute === "undefined") {
-            if (
-                typeof parsedElement === "undefined" ||
-                typeof parsedElement.childNodes[0] === "undefined"
-            ) {
-                return false
-            } else {
-                return true
-            }
+            return !(typeof parsedElement === "undefined" ||
+                typeof parsedElement.childNodes[0] === "undefined");
         } else {
-
-            if (typeof parsedElement != 'undefined' && parsedElement.hasAttribute(attribute)) {
-                return true
-            } else {
-                return false
-            }
+            return !!(typeof parsedElement != 'undefined' && parsedElement.hasAttribute(attribute));
         }
     },
     xmlFind_startWith: (ParseXml, elementTagName, attribute, startWith) => {

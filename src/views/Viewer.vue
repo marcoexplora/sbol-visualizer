@@ -1,6 +1,5 @@
 <template>
   <div @dragover="dragover" @dragleave="dragleave" @drop="drop">
-    {{enabledropfile}}
     <div v-if="enabledropfile">
       <input
         type="file"
@@ -256,14 +255,13 @@ export default {
 }
 .SBOLcontainer {
   display: grid;
-  grid-template-columns: repeat(2, minmax(100px, auto));
-  grid-template-rows: auto 1fr;
+  grid-template-columns: 1fr 2fr;
+  /* grid-template-rows: auto 1fr;*/
   height: calc(100vh - 7vh);
 }
 
 nav {
   height: calc(100vh - 13vh);
-  overflow-y: scroll;
   padding: 0 12px 0 0;
 }
 </style>

@@ -57,6 +57,8 @@ export default {
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  height: calc(30vh);
+  overflow-y: scroll;
 }
 span.cap {
   text-transform: capitalize;

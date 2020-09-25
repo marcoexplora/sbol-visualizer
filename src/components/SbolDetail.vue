@@ -12,7 +12,10 @@
           <li>
             <b>SO:</b>
             <span>
-              <SbolLink t :url="this.detail.href">{{this.detail.SBOL}}</SbolLink>
+              <a :href="this.detail.href">
+                {{this.detail.SBOL}}
+              </a>
+
             </span>
           </li>
         </ul>
