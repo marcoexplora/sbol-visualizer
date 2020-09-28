@@ -2,12 +2,10 @@
   <header class="blue-container">
 
       <div style="float:left">
-        <h2 class="text-muted">Part id: {{header.partID}}</h2>
+        <h2 class="text-muted-white">Part id: {{header.partID}}</h2>
         <h1>{{header.name}}</h1>
-        <h2 class="text-muted" style="padding-bottom: 24px">Version no.: {{ header.version }}</h2>
-
-        <h2 class="text-muted" >Created by: {{header.creator}}</h2>
-
+        <h2 class="text-muted-white" style="padding-bottom: 24px">Version no.: {{ header.version }}</h2>
+        <h2 class="text-muted-white" >Created by: {{header.creator}}</h2>
       </div>
       <div style="float:right">
       </div>
@@ -30,41 +28,24 @@ export default {
 </script>
 
 <style scoped>
-header *{
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
-  Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji,
-  Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+@import "scss/global.scss";
 
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+
 header {
   overflow: hidden;
   height: calc(14vh);
   margin: 0 0 5px 0;
   padding:10px;
   border: 1px solid #fff;
+}
 
-}
-.blue-container{
-  border-radius: 5px;
-  background-color: #0078b6;
-}
 header h2,h1{
   margin: 0px
 }
 h1,.h1 {
   font-size: 24px
 }
-h2,.h2{
-  font-size: 14px;
 
-}
-
-.text-muted{
-  color: #e0e9f3;
-  font-weight: 500;
-}
 header *,
 a,
 a:hover {

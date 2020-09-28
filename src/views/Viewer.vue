@@ -37,6 +37,7 @@
           <sbol-detail v-if="!flavourMini" :annotation="annotation" />
         </div>
       </div>
+      <Sbol-footer/>
     </div>
   </div>
 </template>
@@ -50,6 +51,8 @@ import SbolListAnnotations from "@/components/SbolListAnnotations";
 import SbolChart from "@/components/SbolChart";
 import SbolDetail from "@/components/SbolDetail";
 import SbolLogo from "@/components/SbolLogo";
+import SbolFooter from "@/components/SbolFooter";
+
 
 import jsonHandler from "@/lib/importer/jsonHandler";
 import xmlHandler from "@/lib/importer/xmlHandler";
@@ -197,6 +200,7 @@ export default {
     SbolHeader,
     SbolLogo,
     SbolErrors,
+    SbolFooter
   },
   created: function () {
     this.resizeHandler();
