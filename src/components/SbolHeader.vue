@@ -1,35 +1,17 @@
 <template>
   <header class="heading">
-    <div class="title">
+
       <div style="float:left">
-        <SbolLink :url="header.persistentIdentity">
-          <b>{{ header.name }}</b>
-          <br />
-          <span class="secondary cap">{{ header.alternativeName }}</span>
-        </SbolLink>
+        <h2 class="text-muted">Part id: {{header.partID}}</h2>
+        <h1>{{header.name}}</h1>
+        <h2 class="text-muted" style="padding-bottom: 24px">Version no.: {{ header.version }}</h2>
+
+        <h2 class="text-muted" >Created by: {{header.creator}}</h2>
+
       </div>
       <div style="float:right">
-        <div class="secondary">
-          By
-          <span class="cap">{{ header.creator }}</span>
-        </div>
-        <div class="secondary" style="text-align:right">
-          v.
-          <span>{{ header.version }}</span>
-        </div>
       </div>
-    </div>
-    <ul>
-      <li>
-        Part ID:
-        <span>{{ header.partID }}</span>
-      </li>
 
-      <li>
-        Parent Sequence:
-        <span>{{ header.parentSequence }}</span>
-      </li>
-    </ul>
   </header>
 </template>
 <script>
@@ -48,34 +30,41 @@ export default {
 </script>
 
 <style scoped>
-.header {
-  padding-bottom: 10px;
-  min-height: 135px;
+header *{
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
-    Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji,
-    Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
-  overflow-x: hidden;
+  Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji,
+  Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  height: calc(30vh);
-  overflow-y: scroll;
 }
-span.cap {
-  text-transform: capitalize;
-}
-.secondary {
-  font-size: 0.8em;
-}
-div.title {
-  min-height: 2em;
-  margin: 0;
+header {
+  overflow-x: hidden;
+  height: calc(14vh);
+  overflow-y: hidden;
+
+  margin: 0 0 5px 0;
   background-color: #0078b6;
-  padding: 10px;
+  padding:10px;
   border: 1px solid #fff;
   border-radius: 5px;
 }
 
-div.title,
+header h2,h1{
+  margin: 0px
+}
+h1,.h1 {
+  font-size: 24px
+}
+h2,.h2{
+  font-size: 14px;
+
+}
+
+.text-muted{
+  color: #e0e9f3;
+}
+header *,
 a,
 a:hover {
   color: #fff;
@@ -100,4 +89,6 @@ ul li span {
   text-align: right;
   font-weight: 400;
 }
+
+
 </style>

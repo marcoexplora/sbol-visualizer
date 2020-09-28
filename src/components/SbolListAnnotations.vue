@@ -8,16 +8,18 @@
       <li v-for="(item, index) in selectedItems" :key="index" @click="detailItem(item.index)">
         <div>
           <ol>
-            <li class="text-muted small">
-              <b>Sequence Ontology:</b>
-              <span>{{ item.SBOL }}</span>
-            </li>
-            <li>
+            <li class="h1">
               <b>Name:</b>
               <span>{{ item.name }}</span>
             </li>
-            <li >
-              <b class="text-muted small">Direction:</b>
+
+            <li class="text-muted h2">
+              <b>Sequence Ontology:</b>
+              <span>{{ item.SBOL }}</span>
+            </li>
+
+            <li class="text-muted h2">
+              <b>Direction:</b>
               <span>{{ item.direction }}</span>
             </li>
           </ol>
@@ -105,7 +107,16 @@ section * {
   margin-top: 5px;
   min-height: 400px;
 }
+.search-list *{
+  color:  #4d4d4c
+}
+h1,.h1 {
+  font-size: 24px
+}
+h2,.h2{
+  font-size: 14px;
 
+}
 .search-list > li:first-child {
   border-top-left-radius: 0.25rem;
   border-top-right-radius: 0.25rem;
