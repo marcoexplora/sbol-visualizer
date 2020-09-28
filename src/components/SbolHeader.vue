@@ -1,5 +1,5 @@
 <template>
-  <header class="heading">
+  <header class="blue-container">
 
       <div style="float:left">
         <h2 class="text-muted">Part id: {{header.partID}}</h2>
@@ -39,17 +39,17 @@ header *{
   -moz-osx-font-smoothing: grayscale;
 }
 header {
-  overflow-x: hidden;
+  overflow: hidden;
   height: calc(14vh);
-  overflow-y: hidden;
-
   margin: 0 0 5px 0;
-  background-color: #0078b6;
   padding:10px;
   border: 1px solid #fff;
-  border-radius: 5px;
-}
 
+}
+.blue-container{
+  border-radius: 5px;
+  background-color: #0078b6;
+}
 header h2,h1{
   margin: 0px
 }
@@ -63,6 +63,7 @@ h2,.h2{
 
 .text-muted{
   color: #e0e9f3;
+  font-weight: 500;
 }
 header *,
 a,

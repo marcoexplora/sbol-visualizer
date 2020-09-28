@@ -151,6 +151,10 @@ export default {
       const defaultBreakpoints = [
         {
           class: "SM",
+          width: 1,
+        },
+        {
+          class: "SM",
           width: 384,
         },
         {
@@ -177,6 +181,8 @@ export default {
 
       if (["XL", "LG"].indexOf(classBp) == -1) {
         this.flavourMini = true;
+      }else{
+        this.flavourMini = false;
       }
 
       this.flavourClass = `${
