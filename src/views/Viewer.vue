@@ -63,7 +63,8 @@ export default {
   data() {
     return {
       sbolDataLayer: {
-        header: {},
+        header: {
+        },
         annotations: [],
       },
       enabledropfile: false,
@@ -206,10 +207,13 @@ export default {
     this.resizeHandler();
   },
   mounted: function () {
-    console.log(` this.dropafile ${this.dropafile}`)
+
     if(typeof this.dropafile != 'undefined'){
       this.enabledropfile = true;
     }
+
+
+
     if (this.format) {
       // Inline data
       const dataFormat = this.format == "json" ? "json" : "xml";
@@ -219,6 +223,8 @@ export default {
       const dataFormat = this.source.indexOf(".json") != -1 ? "json" : "xml";
       axios.get(this.source).then((data) => {
         this.genericLoad(dataFormat, data.data);
+        this.sbolDataLayer.header['source_link'] = this.source;
+
       });
     }
 

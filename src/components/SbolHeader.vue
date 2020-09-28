@@ -7,13 +7,29 @@
         <h2 class="text-muted-white" style="padding-bottom: 24px">Version no.: {{ header.version }}</h2>
         <h2 class="text-muted-white" >Created by: {{header.creator}}</h2>
       </div>
-      <div style="float:right">
+      <div style="float:right;margin-top:-0.4em;">
+        <a  v-if="this.header.source_link" class="va-super py1" :href="this.header.source_link" target="_blank">
+          <sbol-icon-arrow-in-down/>
+        </a>
+
+        <a class="va-super py1">
+          <sbol-icon-info/>
+        </a>
+        <a class="va-super py1"  :href="this.header.persistentIdentity" target="_blank">
+          <sbol-icon-arrow-up-right/>
+        </a>
       </div>
+
 
   </header>
 </template>
 <script>
 import SbolLink from "../components/SbolLinkText";
+
+import SbolIconInfo from "../components/SbolIconInfo";
+import SbolIconArrowInDown from "../components/SbolIconArrowInDown";
+import SbolIconArrowUpRight from "../components/SbolIconArrowUpRight";
+
 
 export default {
   props: ["header"],
@@ -22,7 +38,10 @@ export default {
   },
   methods: {},
   components: {
+    SbolIconArrowUpRight,
+    SbolIconArrowInDown,
     SbolLink,
+    SbolIconInfo
   },
 };
 </script>

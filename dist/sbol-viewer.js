@@ -10276,8 +10276,7 @@ var SbolListAnnotationsvue_type_template_id_4a55ca41_scoped_true_staticRenderFns
   },
   methods: {
     detailItem(so) {
-      window.console.log("detailItem from ListAnnotations", this.annotations[so]);
-      this.$emit("selectedAnnotation", so);
+       this.$emit("selectedAnnotation", so);
     }
 
   }
@@ -10859,7 +10858,7 @@ const xmlHandler = {
     matchWidth: function () {
       const main = this.$refs;
       this.mainWidth = main.clientWidth + "px";
-      console.log(`this.mainWidth  ${this.mainWidth}`);
+
     },
     genericLoad: function (dataFormat, data) {
       try {
@@ -10928,7 +10927,7 @@ const xmlHandler = {
     this.resizeHandler();
   },
   mounted: function () {
-    console.log(` this.dropafile ${this.dropafile}`);
+    //console.log(` this.dropafile ${this.dropafile}`);
 
     if (typeof this.dropafile != 'undefined') {
       this.enabledropfile = true;
