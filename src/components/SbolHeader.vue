@@ -8,14 +8,14 @@
         <h2 class="text-muted-white" >Created by: {{header.creator}}</h2>
       </div>
       <div style="float:right;margin-top:-0.4em;">
-        <a  v-if="this.header.source_link" class="va-super py1" :href="this.header.source_link" target="_blank">
+        <a  v-if="this.header.source_link" class="va-super py1" :href="this.header.source_link" target="_blank" download>
           <sbol-icon-arrow-in-down/>
         </a>
 
         <a class="va-super py1">
           <sbol-icon-info/>
         </a>
-        <a class="va-super py1"  :href="this.header.persistentIdentity" target="_blank">
+        <a class="va-super py1"  :href="this.header.persistentIdentity" target="_blank" >
           <sbol-icon-arrow-up-right/>
         </a>
       </div>
