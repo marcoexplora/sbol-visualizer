@@ -106,6 +106,7 @@ section * {
   text-align: left;
   margin-top: 5px;
   min-height: 400px;
+  oveerflow:hidden
 }
 .search-list *{
   color:  #4d4d4c

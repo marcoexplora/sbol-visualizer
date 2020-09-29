@@ -19,7 +19,9 @@ const xmlHandler = {
             wasDerivedFrom: xmlHandler.xmlFind(ComponentDefinition, "prov:wasDerivedFrom", "rdf:resource"),
             wasGeneratedBy: xmlHandler.xmlFind(ComponentDefinition, "prov:wasGeneratedBy", "rdf:resource"),
         };
-
+        console.log(`
+            sbolDataLayer.header ${JSON.stringify(sbolDataLayer.header)}
+        `)
         sbolDataLayer.annotations = [];
         sbolDataLayer.annotations = xmlHandler.SequenceAnnotation(ComponentDefinition, xmlDoc)
 
@@ -37,8 +39,6 @@ const xmlHandler = {
         const annotations = [];
         const ids = [];
 
-
-
         // Handle sbol:Component
         const dnaComponents = ComponentDefinition.getElementsByTagName(
             "sbol:Component"
@@ -47,6 +47,7 @@ const xmlHandler = {
         const ExternalData = []
 
         for (let i = 0; i < dnaComponents.length; i++) {
+
             const definition_id = xmlHandler.xmlFind_startWith(dnaComponents[i], "sbol:definition", "rdf:resource", "https://synbiohub.org/public/igem/");
             const ElemComponentDefinition = xmlHandler.xmlFindElement_startWith(xmlDoc, "sbol:ComponentDefinition", "rdf:about", definition_id);
 
@@ -54,18 +55,73 @@ const xmlHandler = {
             const ExternalIndex = xmlHandler.xmlFind(ElemComponentDefinition, "sbol:displayId");
             const ExternalName = xmlHandler.xmlFind(ElemComponentDefinition, "dcterms:title");
 
+
             ExternalData[ExternalIndex] = ({
                 'displayId': ExternalIndex,
                 'role': ExternalSO,
                 'sbol': xmlHandler.extractSO(ExternalSO),
                 'name': ExternalName
             });
+
+            const SequenceAnnotation = ElemComponentDefinition.getElementsByTagName(
+                "sbol:SequenceAnnotation"
+            );
+            console.log()
+            console.log(`i ${i}
+            ExternalIndex ${ExternalIndex}
+            
+            ExternalData[ExternalIndex] ${JSON.stringify(ExternalData[ExternalIndex])}
+            
+            ExternalData ${JSON.stringify(ExternalData)}
+            
+            SequenceAnnotation
+            
+            SequenceAnnotation.outerHTML : 
+            ${SequenceAnnotation.innerHTML}
+            
+            typeof SequenceAnnotation :
+             ${typeof SequenceAnnotation}` )
         }
 
         // handle sbol:SequenceAnnotation
         const SequenceAnnotation = ComponentDefinition.getElementsByTagName(
             "sbol:SequenceAnnotation"
         );
+
+        function harvestSeqAnnotation(seqAnnotationElem){
+            let role = "SO:0000110";
+            const seqAnnRole = xmlHandler.xmlFind_startWith(seqAnnotationElem, "sbol:role", "rdf:resource", "http://identifiers.org/so/SO:");
+
+            const sbolIndex = xmlHandler.xmlFind(seqAnnotationElem, "sbol:displayId");
+            let sbolTitle = xmlHandler.xmlFind(seqAnnotationElem, "dcterms:title");
+
+            if (typeof seqAnnRole == 'string') {
+                role = seqAnnRole;
+            }
+
+            const directionResource = xmlHandler.xmlFind(seqAnnotationElem, "sbol:orientation", "rdf:resource")
+
+            let direction = "--";
+            if (directionResource === "http://sbols.org/v2#inline") direction = 'FW'
+            if (directionResource === "http://sbols.org/v2#reverseComplement") {
+                direction = 'RV'
+            }
+
+            const dataLayerSingleComponent = {
+                SBOL: xmlHandler.extractSO(role),
+                direction: direction,
+                start: xmlHandler.xmlFind(seqAnnotationElem, "sbol:start"),
+                end: xmlHandler.xmlFind(seqAnnotationElem, "sbol:end"),
+                index: xmlHandler.extractIndexVal(sbolIndex),
+                name: sbolTitle,
+                notes: "",
+                pk: xmlHandler.extractIndexVal(sbolIndex),
+                role_id: 0,
+            };
+            if (xmlHandler.isAvalidSingleComponent(dataLayerSingleComponent)) {
+                return dataLayerSingleComponent;
+            }
+        }
 
         for (let i = 0; i < SequenceAnnotation.length; i++) {
             const component = SequenceAnnotation[i];
@@ -76,38 +132,40 @@ const xmlHandler = {
             const sbolIndex = xmlHandler.xmlFind(component, "sbol:displayId");
             let sbolTitle = xmlHandler.xmlFind(component, "dcterms:title");
 
-            if (typeof seqAnnRole == 'undefined' && typeof ExternalData[sbolTitle].role === 'string') {
-                role = ExternalData[sbolTitle].role
-                sbolTitle = ExternalData[sbolTitle].name
-            } else if (typeof seqAnnRole == 'string') {
-                role = seqAnnRole;
-            }
-
-
-            if (!ids.includes(sbolIndex)) {
-                ids.push(sbolIndex)
-
-                const directionResource = xmlHandler.xmlFind(component, "sbol:orientation", "rdf:resource")
-
-                let direction = "--";
-                if (directionResource === "http://sbols.org/v2#inline") direction = 'FW'
-                if (directionResource === "http://sbols.org/v2#reverseComplement") {
-                    direction = 'RV'
+            if(typeof sbolTitle== 'undefined' ) {
+                if (typeof seqAnnRole == 'undefined' && typeof ExternalData[sbolTitle].role === 'string') {
+                    role = ExternalData[sbolTitle].role
+                    sbolTitle = ExternalData[sbolTitle].name
+                } else if (typeof seqAnnRole == 'string') {
+                    role = seqAnnRole;
                 }
 
-                const dataLayerSingleComponent = {
-                    SBOL: xmlHandler.extractSO(role),
-                    direction: direction,
-                    start: xmlHandler.xmlFind(component, "sbol:start"),
-                    end: xmlHandler.xmlFind(component, "sbol:end"),
-                    index: xmlHandler.extractIndexVal(sbolIndex),
-                    name: sbolTitle,
-                    notes: "",
-                    pk: xmlHandler.extractIndexVal(sbolIndex),
-                    role_id: 0,
-                };
-                if (xmlHandler.isAvalidSingleComponent(dataLayerSingleComponent)) {
-                    annotations.push(dataLayerSingleComponent);
+
+                if (!ids.includes(sbolIndex)) {
+                    ids.push(sbolIndex)
+
+                    const directionResource = xmlHandler.xmlFind(component, "sbol:orientation", "rdf:resource")
+
+                    let direction = "--";
+                    if (directionResource === "http://sbols.org/v2#inline") direction = 'FW'
+                    if (directionResource === "http://sbols.org/v2#reverseComplement") {
+                        direction = 'RV'
+                    }
+
+                    const dataLayerSingleComponent = {
+                        SBOL: xmlHandler.extractSO(role),
+                        direction: direction,
+                        start: xmlHandler.xmlFind(component, "sbol:start"),
+                        end: xmlHandler.xmlFind(component, "sbol:end"),
+                        index: xmlHandler.extractIndexVal(sbolIndex),
+                        name: sbolTitle,
+                        notes: "",
+                        pk: xmlHandler.extractIndexVal(sbolIndex),
+                        role_id: 0,
+                    };
+                    if (xmlHandler.isAvalidSingleComponent(dataLayerSingleComponent)) {
+                        annotations.push(dataLayerSingleComponent);
+                    }
                 }
             }
         }
@@ -213,6 +271,9 @@ const xmlHandler = {
             "",
             attribute
         );
+    },
+    debug: (value) => {
+      console.log(value)
     },
     xmlFindAll: (ParseXml, elementTagName, attribute) => {
 

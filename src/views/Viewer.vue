@@ -136,6 +136,7 @@ export default {
           this.loadXml(data);
         }
       } catch (error) {
+        console.error(error)
         this.errors = true;
       }
     },

@@ -3,7 +3,7 @@
 
       <div style="float:left">
         <h2 class="text-muted-white">Part id: {{header.partID}}</h2>
-        <h1 v-bind:class="header.name.length > 20 ? 'long' : ''">{{header.name}}</h1>
+        <h1>{{header.name | truncate(20, '...')}}</h1>
         <h2 class="text-muted-white" style="padding-bottom: 24px">Version no.: {{ header.version }}</h2>
         <h2 class="text-muted-white" >Created by: {{header.creator}}</h2>
       </div>
@@ -42,10 +42,15 @@ export default {
     SbolLink,
     SbolIconInfo
   },
+  filters: {
+    truncate: function (text, length, suffix) {
+      return text.substring(0, length) + suffix;
+    },
+  }
 };
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 @import "scss/global.scss";
 
 
