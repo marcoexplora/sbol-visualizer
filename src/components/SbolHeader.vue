@@ -1,17 +1,18 @@
 <template>
-  <header class="blue-container">
+  <header class="blue-container" style="position:relative">
 
       <div style="float:left">
         <h2 class="text-muted-white">Part id: {{header.partID}}</h2>
-        <h1>{{header.name}}</h1>
+        <h1 v-bind:class="header.name.length > 20 ? 'long' : ''">{{header.name}}</h1>
         <h2 class="text-muted-white" style="padding-bottom: 24px">Version no.: {{ header.version }}</h2>
         <h2 class="text-muted-white" >Created by: {{header.creator}}</h2>
       </div>
-      <div style="float:right;margin-top:-0.4em;">
-        <a  v-if="this.header.source_link" class="va-super py1" :href="this.header.source_link" target="_blank" download>
-          <sbol-icon-arrow-in-down/>
-        </a>
-
+      <div style="position:absolute;top:5px;right:5px;">
+        <span  v-if="this.header.source_link">
+          <a  class="va-super py1" :href="this.header.source_link" target="_blank" download>
+            <sbol-icon-arrow-in-down/>
+          </a>
+        </span>
         <a class="va-super py1">
           <sbol-icon-info/>
         </a>
@@ -19,8 +20,6 @@
           <sbol-icon-arrow-up-right/>
         </a>
       </div>
-
-
   </header>
 </template>
 <script>
@@ -46,16 +45,17 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 @import "scss/global.scss";
 
 
 header {
   overflow: hidden;
-  height: calc(14vh);
+  height: calc(12vh);
   margin: 0 0 5px 0;
   padding:10px;
   border: 1px solid #fff;
+  margin-right: 14px;
 }
 
 header h2,h1{
@@ -64,7 +64,9 @@ header h2,h1{
 h1,.h1 {
   font-size: 24px
 }
-
+h1.long{
+  font-size: 20px;
+}
 header *,
 a,
 a:hover {

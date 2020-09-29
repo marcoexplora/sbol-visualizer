@@ -5,8 +5,9 @@
 </template>
 
 <style scoped>
+@import "scss/global.scss";
   footer{
-    height: calc(3vh);
+    height: 2vh;
     text-align: center;
   }
 </style>

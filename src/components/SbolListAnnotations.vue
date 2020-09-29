@@ -80,7 +80,7 @@ export default {
   background-color: #f0f2f5;
 }
 section {
-  height: 75vh;
+  height: 77vh;
   overflow-y: scroll;
 }
 section * {
