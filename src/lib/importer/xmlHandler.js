@@ -60,68 +60,21 @@ const xmlHandler = {
                 'displayId': ExternalIndex,
                 'role': ExternalSO,
                 'sbol': xmlHandler.extractSO(ExternalSO),
-                'name': ExternalName
+                'name': ExternalName,
+                'mutableDescription' : xmlHandler.xmlFind(ElemComponentDefinition, "sbh:mutableDescription"),
+                'dcterms_description' : xmlHandler.xmlFind(ElemComponentDefinition, "dcterms:description")
             });
 
             const SequenceAnnotation = ElemComponentDefinition.getElementsByTagName(
                 "sbol:SequenceAnnotation"
             );
-            console.log()
-            console.log(`i ${i}
-            ExternalIndex ${ExternalIndex}
-            
-            ExternalData[ExternalIndex] ${JSON.stringify(ExternalData[ExternalIndex])}
-            
-            ExternalData ${JSON.stringify(ExternalData)}
-            
-            SequenceAnnotation
-            
-            SequenceAnnotation.outerHTML : 
-            ${SequenceAnnotation.innerHTML}
-            
-            typeof SequenceAnnotation :
-             ${typeof SequenceAnnotation}` )
+
         }
 
         // handle sbol:SequenceAnnotation
         const SequenceAnnotation = ComponentDefinition.getElementsByTagName(
             "sbol:SequenceAnnotation"
         );
-
-        function harvestSeqAnnotation(seqAnnotationElem){
-            let role = "SO:0000110";
-            const seqAnnRole = xmlHandler.xmlFind_startWith(seqAnnotationElem, "sbol:role", "rdf:resource", "http://identifiers.org/so/SO:");
-
-            const sbolIndex = xmlHandler.xmlFind(seqAnnotationElem, "sbol:displayId");
-            let sbolTitle = xmlHandler.xmlFind(seqAnnotationElem, "dcterms:title");
-
-            if (typeof seqAnnRole == 'string') {
-                role = seqAnnRole;
-            }
-
-            const directionResource = xmlHandler.xmlFind(seqAnnotationElem, "sbol:orientation", "rdf:resource")
-
-            let direction = "--";
-            if (directionResource === "http://sbols.org/v2#inline") direction = 'FW'
-            if (directionResource === "http://sbols.org/v2#reverseComplement") {
-                direction = 'RV'
-            }
-
-            const dataLayerSingleComponent = {
-                SBOL: xmlHandler.extractSO(role),
-                direction: direction,
-                start: xmlHandler.xmlFind(seqAnnotationElem, "sbol:start"),
-                end: xmlHandler.xmlFind(seqAnnotationElem, "sbol:end"),
-                index: xmlHandler.extractIndexVal(sbolIndex),
-                name: sbolTitle,
-                notes: "",
-                pk: xmlHandler.extractIndexVal(sbolIndex),
-                role_id: 0,
-            };
-            if (xmlHandler.isAvalidSingleComponent(dataLayerSingleComponent)) {
-                return dataLayerSingleComponent;
-            }
-        }
 
         for (let i = 0; i < SequenceAnnotation.length; i++) {
             const component = SequenceAnnotation[i];
@@ -131,11 +84,15 @@ const xmlHandler = {
 
             const sbolIndex = xmlHandler.xmlFind(component, "sbol:displayId");
             let sbolTitle = xmlHandler.xmlFind(component, "dcterms:title");
+            let sbolDescription = xmlHandler.xmlFind(component, "dcterms:description");
+            let mutableDescription = xmlHandler.xmlFind(component, "sbh:mutableDescription");
 
-            if(typeof sbolTitle== 'undefined' ) {
                 if (typeof seqAnnRole == 'undefined' && typeof ExternalData[sbolTitle].role === 'string') {
                     role = ExternalData[sbolTitle].role
                     sbolTitle = ExternalData[sbolTitle].name
+                    sbolDescription = ExternalData[sbolTitle].sbolDescription
+                    mutableDescription = ExternalData[sbolTitle].mutableDescription
+
                 } else if (typeof seqAnnRole == 'string') {
                     role = seqAnnRole;
                 }
@@ -162,12 +119,14 @@ const xmlHandler = {
                         notes: "",
                         pk: xmlHandler.extractIndexVal(sbolIndex),
                         role_id: 0,
+                        sbolDescription :sbolDescription,
+                        mutableDescription : mutableDescription
                     };
                     if (xmlHandler.isAvalidSingleComponent(dataLayerSingleComponent)) {
                         annotations.push(dataLayerSingleComponent);
                     }
                 }
-            }
+
         }
         // sorted by start
         const sortedAnnotations = annotations.sort((a, b) => {

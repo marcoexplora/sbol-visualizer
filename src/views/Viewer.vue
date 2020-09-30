@@ -12,12 +12,7 @@
       />
     </div>
     <sbol-errors v-if="errors" class="sbolMain empty"></sbol-errors>
-    <div v-else-if="empty === true" class="sbolMain empty" ref="sbolVisualizer">
-      <a href="https://sbolstandard.org/">
-        <sbol-logo />
-        <small>https://sbolstandard.org/</small>
-      </a>
-    </div>
+    <sbol-landing v-else-if="empty === true" class="" ref="sbolVisualizer"></sbol-landing>
     <div v-else ref="sbolVisualizer" :key="flavourClass">
       <div v-bind:class="[flavourClass]">
         <nav v-if="!flavourMini">
@@ -45,6 +40,7 @@
 <script>
 import axios from "axios";
 
+import SbolLanding from "@/components/SbolLanding";
 import SbolErrors from "@/components/SbolErrors";
 import SbolHeader from "@/components/SbolHeader";
 import SbolListAnnotations from "@/components/SbolListAnnotations";
@@ -202,7 +198,8 @@ export default {
     SbolHeader,
     SbolLogo,
     SbolErrors,
-    SbolFooter
+    SbolFooter,
+    SbolLanding
   },
   created: function () {
     this.resizeHandler();

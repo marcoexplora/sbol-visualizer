@@ -5,9 +5,15 @@
 </template>
 
 <style scoped>
-@import "scss/global.scss";
+
   footer{
     height: 2vh;
     text-align: center;
   }
+
+  .blue-container{
+    border-radius: 5px;
+    background-color: #0078b6;
+  }
+
 </style>

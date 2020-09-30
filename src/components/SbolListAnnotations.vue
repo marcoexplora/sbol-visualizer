@@ -8,24 +8,18 @@
       <li v-for="(item, index) in selectedItems" :key="index" @click="detailItem(item.index)">
         <div>
           <ol>
-            <li class="h1">
-              <b>Name:</b>
-              <span>{{ item.name }}</span>
-            </li>
-
-            <li class="text-muted-black h2">
-              <b>Sequence Ontology:</b>
-              <span>{{ item.SBOL }}</span>
+            <li class="h1 bold">
+              {{ item.name }}
             </li>
 
             <li class="text-muted-black h2">
               <b>Direction:</b>
-              <span>{{ item.direction }}</span>
+              <span>{{ item.direction }}</span>     <span v-if="item.end > 0">( {{ item.start }}…{{ item.end }} )</span>
             </li>
           </ol>
         </div>
 
-        <span v-if="item.end > 0">{{ item.start }}…{{ item.end }}</span>
+
       </li>
     </ul>
   </section>
@@ -79,8 +73,11 @@ export default {
   border-radius: 0.25rem;
   background-color: #f0f2f5;
 }
+.bold{
+  font-weight: bold;
+}
 section {
-  height: 77vh;
+  height: 75vh;
   overflow-y: scroll;
 }
 section * {
