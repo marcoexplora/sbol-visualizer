@@ -42,7 +42,6 @@ export default {
 </script>
 
 <style scoped>
-@import "scss/global.scss";
 
 section {
   position: relative;

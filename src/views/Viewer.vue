@@ -1,5 +1,5 @@
 <template>
-  <div @dragover="dragover" @dragleave="dragleave" @drop="drop">
+  <div @dragover="dragover" @dragleave="dragleave" @drop="drop" class="SbolWvWrap">
     <div v-if="enabledropfile">
       <input
         type="file"
@@ -237,9 +237,8 @@ export default {
 };
 </script>
 
-<style scoped>
+<style  scoped>
 .sbolMain {
-  font-family: Helvetica;
   overflow: scroll;
   font-size: 0.875rem;
   font-weight: 400;
@@ -278,5 +277,58 @@ nav {
   height: calc(100vh - 13vh);
   padding: 0 12px 0 0;
 }
+
 </style>
 
+<style  lang="scss">
+
+
+.SbolWvWrap {
+  header *, section *, footer * {
+    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+    Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji,
+    Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .blue-container {
+    border-radius: 5px;
+    background-color: #0078b6;
+  }
+
+  .text-muted-white {
+    color: #e0e9f3;
+    font-weight: 500;
+  }
+
+  h1, .h1 {
+    font-size: 24px
+  }
+
+  h2, .h2, .small {
+    font-size: 14px;
+  }
+
+  a.white,
+  a.white:hover {
+    color: #fff;
+    text-decoration: none;
+  }
+
+  /* super */
+  .va-super {
+    vertical-align: super;
+  }
+
+  /* spacing */
+  .p1, .p-1 {
+    padding: 5px
+  }
+
+  .py1 {
+    padding: 0 5px;
+  }
+
+}
+</style>
