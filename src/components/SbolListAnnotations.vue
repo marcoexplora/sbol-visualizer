@@ -56,10 +56,6 @@ export default {
   },
   methods: {
     detailItem(so) {
-      window.console.log(
-        "detailItem from ListAnnotations",
-        this.annotations[so]
-      );
       this.$emit("selectedAnnotation", so);
     },
   },
@@ -77,7 +73,7 @@ export default {
   font-weight: bold;
 }
 section {
-  height: 75vh;
+  height: 560px;
   overflow-y: scroll;
 }
 section * {

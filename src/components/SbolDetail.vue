@@ -64,7 +64,7 @@ export default {
 .detailAnnotation {
   margin-top: 5px;
   background-color: #fff;
-  height: 67vh;
+  height: 490px;
   box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.15);
   border-radius: 5px;
   word-break: normal;

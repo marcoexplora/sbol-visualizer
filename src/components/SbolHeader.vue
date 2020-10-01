@@ -58,7 +58,7 @@ export default {
 
 header {
   overflow: hidden;
-  min-height: 12vh;
+  min-height: 110px;
   margin: 0 0 5px 0;
   padding:10px;
   border: 1px solid #fff;

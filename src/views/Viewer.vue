@@ -1,6 +1,7 @@
 <template>
   <div @dragover="dragover" @dragleave="dragleave" @drop="drop" class="SbolWvWrap">
-    <div v-if="enabledropfile">
+
+    <div v-if="enabledropfile" style="padding:10px 0 ">
       <input
         type="file"
         multiple
@@ -11,8 +12,11 @@
         accept=".json, .xml"
       />
     </div>
+
     <sbol-errors v-if="errors" class="sbolMain empty"></sbol-errors>
+
     <sbol-landing v-else-if="empty === true" class="" ref="sbolVisualizer"></sbol-landing>
+
     <div v-else ref="sbolVisualizer" :key="flavourClass">
       <div v-bind:class="[flavourClass]">
         <nav v-if="!flavourMini">
@@ -23,6 +27,9 @@
           />
         </nav>
         <div class="main" ref="chartsContainer">
+          <div class="panel">
+            <a  v-if="enabledropfile" v-on:click="reset()"><close-icon/></a>
+          </div>
           <sbol-chart
             :annotations="sbolDataLayer.annotations"
             :annotation="annotation"
@@ -31,6 +38,7 @@
           />
           <sbol-detail v-if="!flavourMini" :annotation="annotation" />
         </div>
+
       </div>
       <Sbol-footer/>
     </div>
@@ -46,9 +54,10 @@ import SbolHeader from "@/components/SbolHeader";
 import SbolListAnnotations from "@/components/SbolListAnnotations";
 import SbolChart from "@/components/SbolChart";
 import SbolDetail from "@/components/SbolDetail";
-import SbolLogo from "@/components/SbolLogo";
 import SbolFooter from "@/components/SbolFooter";
 
+import SbolLogo from "@/components/SbolLogo";
+import CloseIcon from "@/components/SbolIconX"
 
 import jsonHandler from "@/lib/importer/jsonHandler";
 import xmlHandler from "@/lib/importer/xmlHandler";
@@ -76,6 +85,18 @@ export default {
     };
   },
   methods: {
+    reset(){
+      this.sbolDataLayer =  {
+        header: {
+        },
+        annotations: [],
+      }
+      this.empty = true;
+      this.errors = false;
+      this.filter = "";
+      this.$refs['file'].value = ''
+
+    },
     drop(event) {
       if(this.enabledropfile){
         event.preventDefault();
@@ -118,7 +139,7 @@ export default {
     matchWidth: function () {
       const main = this.$refs;
       this.mainWidth = main.clientWidth + "px";
-      console.log(`this.mainWidth  ${this.mainWidth}`);
+      //console.log(`this.mainWidth  ${this.mainWidth}`);
     },
     genericLoad: function (dataFormat, data) {
       try {
@@ -132,7 +153,7 @@ export default {
           this.loadXml(data);
         }
       } catch (error) {
-        console.error(error)
+        //console.error(error)
         this.errors = true;
       }
     },
@@ -199,7 +220,8 @@ export default {
     SbolLogo,
     SbolErrors,
     SbolFooter,
-    SbolLanding
+    SbolLanding,
+    CloseIcon
   },
   created: function () {
     this.resizeHandler();
@@ -248,7 +270,11 @@ export default {
   margin: 0;
   padding: 10px;
 }
-
+.panel {
+    position: absolute;
+    right: 1em;
+    font-size: 2em;
+}
 .bg-green-300 {
   background-color: #1c1b41;
 }
@@ -270,11 +296,10 @@ export default {
   display: grid;
   grid-template-columns: 1fr 2fr;
   /* grid-template-rows: auto 1fr;*/
-  height: calc(100vh - 7vh);
+  height: 700px;
 }
 
 nav {
-  height: calc(100vh - 13vh);
   padding: 0 12px 0 0;
 }
 
@@ -284,7 +309,7 @@ nav {
 
 
 .SbolWvWrap {
-  header *, section *, footer * {
+  header *, section *, footer *,.detailAnnotation * {
     font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
     Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji,
     Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
