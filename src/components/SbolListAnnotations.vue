@@ -7,23 +7,19 @@
       <li v-if="selectedItems.length == 0">No Sbol component found</li>
       <li v-for="(item, index) in selectedItems" :key="index" @click="detailItem(item.index)">
         <div>
-          <ul>
-            <li>
-              <b>Sequence Ontology:</b>
-              <span>{{ item.SBOL }}</span>
+          <ol>
+            <li class="h1 bold">
+              {{ item.name }}
             </li>
-            <li>
-              <b>Name:</b>
-              <span>{{ item.name }}</span>
-            </li>
-            <li>
+
+            <li class="text-muted-black h2">
               <b>Direction:</b>
-              <span>{{ item.direction }}</span>
+              <span>{{ item.direction }}</span>     <span v-if="item.end > 0">( {{ item.start }}…{{ item.end }} )</span>
             </li>
-          </ul>
+          </ol>
         </div>
 
-        <span v-if="item.end > 0">{{ item.start }}…{{ item.end }}</span>
+
       </li>
     </ul>
   </section>
@@ -77,6 +73,13 @@ export default {
   border-radius: 0.25rem;
   background-color: #f0f2f5;
 }
+.bold{
+  font-weight: bold;
+}
+section {
+  height: 75vh;
+  overflow-y: scroll;
+}
 section * {
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
     Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji,
@@ -100,11 +103,21 @@ section * {
   text-align: left;
   margin-top: 5px;
   min-height: 400px;
+  oveerflow:hidden
+}
+.search-list *{
+  color:  #4d4d4c
 }
 
 .search-list > li:first-child {
   border-top-left-radius: 0.25rem;
   border-top-right-radius: 0.25rem;
+}
+ol{
+  padding: 0px
+}
+ol > li {
+  padding: 5px;
 }
 .search-list > li {
   position: relative;
@@ -131,5 +144,14 @@ section * {
 }
 .search-list > li span {
   font-size: 0.9em;
+}
+.text-muted-black {
+  color: #6c757d;
+}
+.small{
+  font-size: 80%;
+}
+.px-1{
+  padding:5px 0;
 }
 </style>

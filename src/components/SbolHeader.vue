@@ -1,39 +1,34 @@
 <template>
-  <header class="heading">
-    <div class="title">
-      <div style="float:left">
-        <SbolLink :url="header.persistentIdentity">
-          <b>{{ header.name }}</b>
-          <br />
-          <span class="secondary cap">{{ header.alternativeName }}</span>
-        </SbolLink>
-      </div>
-      <div style="float:right">
-        <div class="secondary">
-          By
-          <span class="cap">{{ header.creator }}</span>
-        </div>
-        <div class="secondary" style="text-align:right">
-          v.
-          <span>{{ header.version }}</span>
-        </div>
-      </div>
-    </div>
-    <ul>
-      <li>
-        Part ID:
-        <span>{{ header.partID }}</span>
-      </li>
+  <header class="blue-container" style="position:relative">
 
-      <li>
-        Parent Sequence:
-        <span>{{ header.parentSequence }}</span>
-      </li>
-    </ul>
+      <div style="float:left">
+        <h2 class="text-muted-white">Part id: {{header.partID}}</h2>
+        <h1>{{header.name | truncate(20, '…')}}</h1>
+        <h2 class="text-muted-white" style="padding-bottom: 24px">Version no.: {{ header.version }}</h2>
+        <h2 class="text-muted-white" >Created by: {{header.creator}}</h2>
+      </div>
+      <div style="position:absolute;top:5px;right:5px;">
+        <span  v-if="this.header.source_link">
+          <a  class="va-super py1" :href="this.header.source_link" target="_blank" download>
+            <sbol-icon-arrow-in-down/>
+          </a>
+        </span>
+        <a class="va-super py1">
+          <sbol-icon-info/>
+        </a>
+        <a class="va-super py1"  :href="this.header.persistentIdentity" target="_blank" >
+          <sbol-icon-arrow-up-right/>
+        </a>
+      </div>
   </header>
 </template>
 <script>
 import SbolLink from "../components/SbolLinkText";
+
+import SbolIconInfo from "../components/SbolIconInfo";
+import SbolIconArrowInDown from "../components/SbolIconArrowInDown";
+import SbolIconArrowUpRight from "../components/SbolIconArrowUpRight";
+
 
 export default {
   props: ["header"],
@@ -42,38 +37,44 @@ export default {
   },
   methods: {},
   components: {
+    SbolIconArrowUpRight,
+    SbolIconArrowInDown,
     SbolLink,
+    SbolIconInfo
   },
+  filters: {
+    truncate: function (text, length, suffix) {
+      if(text.length > length){
+        return text.substring(0, length) + suffix;
+      }else{
+        return text
+      }
+    },
+  }
 };
 </script>
 
 <style scoped>
-.header {
-  padding-bottom: 10px;
-  min-height: 135px;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
-    Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji,
-    Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
-  overflow-x: hidden;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-span.cap {
-  text-transform: capitalize;
-}
-.secondary {
-  font-size: 0.8em;
-}
-div.title {
-  min-height: 2em;
-  margin: 0;
-  background-color: #0078b6;
-  padding: 10px;
+
+header {
+  overflow: hidden;
+  min-height: 12vh;
+  margin: 0 0 5px 0;
+  padding:10px;
   border: 1px solid #fff;
-  border-radius: 5px;
+  margin-right: 1em;
 }
 
-div.title,
+header h2,h1{
+  margin: 0px
+}
+h1,.h1 {
+  font-size: 24px
+}
+h1.long{
+  font-size: 20px;
+}
+header *,
 a,
 a:hover {
   color: #fff;
@@ -98,4 +99,6 @@ ul li span {
   text-align: right;
   font-weight: 400;
 }
+
+
 </style>

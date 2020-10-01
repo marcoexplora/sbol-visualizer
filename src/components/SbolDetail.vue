@@ -8,17 +8,30 @@
         <li>No Sbol component selected</li>
       </ul>
       <div v-else>
-        <ul class="listDetail">
+        <ul class="listDetail p0">
+
           <li>
-            <b>SO:</b>
-            <span>
-              <SbolLink t :url="this.detail.href">{{this.detail.SBOL}}</SbolLink>
-            </span>
+              <a :href="this.detail.href">
+                {{this.detail.SBOL}}
+              </a>
           </li>
+
+          <li>
+            <span class="bold">Direction: </span> <span> {{ this.detail.direction }}</span>     <span v-if="this.detail.end > 0">( {{ this.detail.start }}…{{ this.detail.end }} )</span>
+          </li>
+
+          <li v-if="this.detail.sbolDescription">
+            {{ this.detail.sbolDescription }}
+          </li>
+
+          <li v-if="this.detail.mutableDescription">
+            <p class="m0"><span class="bold">Mutable Description: </span> {{ this.detail.mutableDescription }}</p>
+          </li>
+
         </ul>
 
-        <b>Notes</b>
-        {{this.detail.notes}}
+
+
       </div>
     </div>
   </div>
@@ -51,17 +64,10 @@ export default {
 .detailAnnotation {
   margin-top: 5px;
   background-color: #fff;
-  height: calc(100vh - 33vh);
+  height: 67vh;
   box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.15);
-  border-radius: 0.5rem;
-
-  word-break: break-all;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
-    Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji,
-    Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
-  overflow-x: hidden;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  border-radius: 5px;
+  word-break: normal;
   width: 100%;
 }
 .card-header {
@@ -88,18 +94,6 @@ export default {
   padding: 1em;
 }
 
-.card-body > ul > li {
-  display: flex;
-  padding: 0.6em;
-  border: 1px solid #f1f2f5;
-  border-left: none;
-  border-right: none;
-  background-color: #f1f2f5;
-}
-
-.card-body > ul > li:nth-child(even) {
-  background-color: #fff;
-}
 .card-body > div {
   padding: 0 1em 0 1em;
 }
@@ -107,13 +101,21 @@ export default {
   font-size: 1.2em;
   font-weight: bold;
 }
-li {
-  display: -webkit-box;
-  display: flex;
-  flex-wrap: wrap;
-  -webkit-box-align: center;
-  align-items: center;
-  -webkit-box-pack: justify;
-  justify-content: space-between;
+
+li,pre{
+  width: 100%;
+  overflow: auto;
+  padding: 1em 0;
+  word-break: break-word;
+}
+.bold{
+  font-weight: bold;
+}
+.p0{
+  padding:0
+}
+
+.m0{
+  margin:0
 }
 </style>

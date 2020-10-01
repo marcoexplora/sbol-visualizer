@@ -1,6 +1,5 @@
 <template>
-  <div @dragover="dragover" @dragleave="dragleave" @drop="drop">
-    {{enabledropfile}}
+  <div @dragover="dragover" @dragleave="dragleave" @drop="drop" class="SbolWvWrap">
     <div v-if="enabledropfile">
       <input
         type="file"
@@ -13,12 +12,7 @@
       />
     </div>
     <sbol-errors v-if="errors" class="sbolMain empty"></sbol-errors>
-    <div v-else-if="empty === true" class="sbolMain empty" ref="sbolVisualizer">
-      <a href="https://sbolstandard.org/">
-        <sbol-logo />
-        <small>https://sbolstandard.org/</small>
-      </a>
-    </div>
+    <sbol-landing v-else-if="empty === true" class="" ref="sbolVisualizer"></sbol-landing>
     <div v-else ref="sbolVisualizer" :key="flavourClass">
       <div v-bind:class="[flavourClass]">
         <nav v-if="!flavourMini">
@@ -38,6 +32,7 @@
           <sbol-detail v-if="!flavourMini" :annotation="annotation" />
         </div>
       </div>
+      <Sbol-footer/>
     </div>
   </div>
 </template>
@@ -45,12 +40,15 @@
 <script>
 import axios from "axios";
 
+import SbolLanding from "@/components/SbolLanding";
 import SbolErrors from "@/components/SbolErrors";
 import SbolHeader from "@/components/SbolHeader";
 import SbolListAnnotations from "@/components/SbolListAnnotations";
 import SbolChart from "@/components/SbolChart";
 import SbolDetail from "@/components/SbolDetail";
 import SbolLogo from "@/components/SbolLogo";
+import SbolFooter from "@/components/SbolFooter";
+
 
 import jsonHandler from "@/lib/importer/jsonHandler";
 import xmlHandler from "@/lib/importer/xmlHandler";
@@ -61,7 +59,8 @@ export default {
   data() {
     return {
       sbolDataLayer: {
-        header: {},
+        header: {
+        },
         annotations: [],
       },
       enabledropfile: false,
@@ -133,6 +132,7 @@ export default {
           this.loadXml(data);
         }
       } catch (error) {
+        console.error(error)
         this.errors = true;
       }
     },
@@ -150,6 +150,10 @@ export default {
     },
     resizeHandler: function () {
       const defaultBreakpoints = [
+        {
+          class: "SM",
+          width: 1,
+        },
         {
           class: "SM",
           width: 384,
@@ -178,6 +182,8 @@ export default {
 
       if (["XL", "LG"].indexOf(classBp) == -1) {
         this.flavourMini = true;
+      }else{
+        this.flavourMini = false;
       }
 
       this.flavourClass = `${
@@ -192,15 +198,20 @@ export default {
     SbolHeader,
     SbolLogo,
     SbolErrors,
+    SbolFooter,
+    SbolLanding
   },
   created: function () {
     this.resizeHandler();
   },
   mounted: function () {
-    console.log(` this.dropafile ${this.dropafile}`)
+
     if(typeof this.dropafile != 'undefined'){
       this.enabledropfile = true;
     }
+
+
+
     if (this.format) {
       // Inline data
       const dataFormat = this.format == "json" ? "json" : "xml";
@@ -210,6 +221,8 @@ export default {
       const dataFormat = this.source.indexOf(".json") != -1 ? "json" : "xml";
       axios.get(this.source).then((data) => {
         this.genericLoad(dataFormat, data.data);
+        this.sbolDataLayer.header['source_link'] = this.source;
+
       });
     }
 
@@ -224,9 +237,8 @@ export default {
 };
 </script>
 
-<style scoped>
+<style  scoped>
 .sbolMain {
-  font-family: Helvetica;
   overflow: scroll;
   font-size: 0.875rem;
   font-weight: 400;
@@ -256,15 +268,67 @@ export default {
 }
 .SBOLcontainer {
   display: grid;
-  grid-template-columns: repeat(2, minmax(100px, auto));
-  grid-template-rows: auto 1fr;
+  grid-template-columns: 1fr 2fr;
+  /* grid-template-rows: auto 1fr;*/
   height: calc(100vh - 7vh);
 }
 
 nav {
   height: calc(100vh - 13vh);
-  overflow-y: scroll;
   padding: 0 12px 0 0;
 }
+
 </style>
 
+<style  lang="scss">
+
+
+.SbolWvWrap {
+  header *, section *, footer * {
+    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+    Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji,
+    Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .blue-container {
+    border-radius: 5px;
+    background-color: #0078b6;
+  }
+
+  .text-muted-white {
+    color: #e0e9f3;
+    font-weight: 500;
+  }
+
+  h1, .h1 {
+    font-size: 24px
+  }
+
+  h2, .h2, .small {
+    font-size: 14px;
+  }
+
+  a.white,
+  a.white:hover {
+    color: #fff;
+    text-decoration: none;
+  }
+
+  /* super */
+  .va-super {
+    vertical-align: super;
+  }
+
+  /* spacing */
+  .p1, .p-1 {
+    padding: 5px
+  }
+
+  .py1 {
+    padding: 0 5px;
+  }
+
+}
+</style>
