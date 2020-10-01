@@ -79,7 +79,7 @@ export default {
 
 <style scoped>
 .sbolChart {
-  height: 9em;
+  height:130px;
   padding: 1em;
   white-space: nowrap;
   overflow-x: scroll;

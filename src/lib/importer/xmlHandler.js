@@ -19,9 +19,7 @@ const xmlHandler = {
             wasDerivedFrom: xmlHandler.xmlFind(ComponentDefinition, "prov:wasDerivedFrom", "rdf:resource"),
             wasGeneratedBy: xmlHandler.xmlFind(ComponentDefinition, "prov:wasGeneratedBy", "rdf:resource"),
         };
-        console.log(`
-            sbolDataLayer.header ${JSON.stringify(sbolDataLayer.header)}
-        `)
+
         sbolDataLayer.annotations = [];
         sbolDataLayer.annotations = xmlHandler.SequenceAnnotation(ComponentDefinition, xmlDoc)
 

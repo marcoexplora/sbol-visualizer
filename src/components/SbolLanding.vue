@@ -45,7 +45,7 @@ export default {
 
 section {
   position: relative;
-  height: 13vh;
+  height: 120px;
 }
 main{
   position: absolute;
