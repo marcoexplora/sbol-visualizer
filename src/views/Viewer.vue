@@ -12,9 +12,12 @@
         accept=".json, .xml"
       />
     </div>
-
-    <sbol-errors v-if="errors" class="sbolMain empty"></sbol-errors>
-
+    <div v-if="errors">
+      <div class="panel">
+        <a  v-if="enabledropfile" v-on:click="reset()"><close-icon/></a>
+      </div>
+      <sbol-errors  class="sbolMain empty"></sbol-errors>
+    </div>
     <sbol-landing v-else-if="empty === true" class="" ref="sbolVisualizer"></sbol-landing>
 
     <div v-else ref="sbolVisualizer" :key="flavourClass">
