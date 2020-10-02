@@ -2,6 +2,11 @@
   <div @dragover="dragover" @dragleave="dragleave" @drop="drop" class="SbolWvWrap">
 
     <div v-if="enabledropfile" style="padding:0 ">
+      <div>
+      <div style="float:right;font-size:1.2em">
+        <a  v-if="enabledropfile && empty === false" v-on:click="reset()"><close-icon/></a>
+      </div>
+
       <label style="cursor:pointer" class="txt" for="assetsFieldHandle"><sbol-box-arrow-up/> Choose a file to view</label>
       <input
         type="file"
@@ -13,6 +18,7 @@
         accept=".json, .xml"
         style="display: none"
       />
+      </div>
     </div>
     <div v-if="errors">
       <div class="panel">
@@ -32,9 +38,6 @@
           />
         </nav>
         <div class="main" ref="chartsContainer">
-          <div class="panel">
-            <a  v-if="enabledropfile" v-on:click="reset()"><close-icon/></a>
-          </div>
           <sbol-chart
             :annotations="sbolDataLayer.annotations"
             :annotation="annotation"

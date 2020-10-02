@@ -1,8 +1,12 @@
 <template>
-  <section>
+  <div>
     <div class="search">
       <input type="text" class="search-input" placeholder="Search in annotations" v-model="filter" />
     </div>
+
+
+  <section>
+
     <ul class="search-list">
       <li v-if="selectedItems.length == 0">No Sbol component found</li>
       <li v-for="(item, index) in selectedItems" :key="index" @click="detailItem(item.index)">
@@ -14,7 +18,7 @@
 
             <li class="text-muted-black h2">
               <b>Direction:</b>
-              <span>{{ item.direction }}</span>     <span v-if="item.end > 0">( {{ item.start }}…{{ item.end }} )</span>
+              <span>{{ item.direction }}</span>     <span v-if="item.end > 0">( {{ item.start }}..{{ item.end }} )</span>
             </li>
           </ol>
         </div>
@@ -23,6 +27,7 @@
       </li>
     </ul>
   </section>
+  </div>
 </template>
 <script>
 export default {
@@ -66,14 +71,15 @@ export default {
   margin: 0;
   font-size: 10px;
   border: 1px solid rgba(0, 0, 0, 0.125);
-  border-radius: 0.25rem;
+  border-radius: 5px;
   background-color: #f0f2f5;
+  margin-right: 1.5em;
 }
 .bold{
   font-weight: bold;
 }
 section {
-  height: 560px;
+  height: 522px;
   overflow-y: scroll;
 }
 section * {
@@ -85,12 +91,12 @@ section * {
   -moz-osx-font-smoothing: grayscale;
 }
 .search-input {
-  width: 100%;
+  width: 90%;
   height: 3em;
-  padding: 0 5px;
   font-size: 1.2em;
   border: none;
   background-color: #f0f2f5;
+  padding-left: 10px;
 }
 
 .search-list {

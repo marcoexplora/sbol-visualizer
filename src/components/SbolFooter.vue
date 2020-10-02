@@ -7,7 +7,7 @@
 <style scoped>
 
   footer{
-    height: 2vh;
+    height: 1.3em;
     text-align: center;
   }
 
