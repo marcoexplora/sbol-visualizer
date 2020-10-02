@@ -18,6 +18,7 @@ const xmlHandler = {
             persistentIdentity: xmlHandler.xmlFind(ComponentDefinition, "sbol:persistentIdentity", "rdf:resource"),
             wasDerivedFrom: xmlHandler.xmlFind(ComponentDefinition, "prov:wasDerivedFrom", "rdf:resource"),
             wasGeneratedBy: xmlHandler.xmlFind(ComponentDefinition, "prov:wasGeneratedBy", "rdf:resource"),
+            mutableDescription: xmlHandler.xmlFind(ComponentDefinition, "sbh:mutableDescription"),
         };
 
         sbolDataLayer.annotations = [];

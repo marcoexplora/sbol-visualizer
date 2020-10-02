@@ -1,24 +1,37 @@
 <template>
-  <header class="blue-container" style="position:relative">
+  <header class="blue-container"  :class="{showMutable: description}" style="position:relative">
+      <div class="mutableDescription">
 
-      <div style="float:left">
-        <h2 class="text-muted-white">Part id: {{header.partID}}</h2>
-        <h1>{{header.name | truncate(20, '…')}}</h1>
-        <h2 class="text-muted-white" style="padding-bottom: 24px">Version no.: {{ header.version }}</h2>
-        <h2 class="text-muted-white" >Created by: {{header.creator}}</h2>
+        <a  v-on:click="toogleDescription()"><close-icon/></a>
+
+        <div>
+          <span class="bold">Mutable Description:</span>
+          {{header.mutableDescription}}
+        </div>
+
       </div>
-      <div style="position:absolute;top:5px;right:5px;">
-        <span  v-if="this.header.source_link">
-          <a  class="va-super py1" :href="this.header.source_link" target="_blank" download>
-            <sbol-icon-arrow-in-down/>
+      <div class="headerDetails">
+
+        <div style="float:left">
+          <h2 class="text-muted-white">Part id: {{header.partID}}</h2>
+          <h1>{{header.name | truncate(20, '…')}}</h1>
+          <h2 class="text-muted-white" style="padding-bottom: 24px">Version no.: {{ header.version }}</h2>
+          <h2 class="text-muted-white" >Created by: {{header.creator}}</h2>
+        </div>
+        <div style="position:absolute;top:5px;right:5px;">
+          <span  v-if="this.header.source_link">
+            <a  class="va-super py1" :href="this.header.source_link" target="_blank" download>
+              <sbol-icon-arrow-in-down/>
+            </a>
+          </span>
+          <a   style="cursor:pointer"   v-on:click="toogleDescription()" class="va-super py1">
+            <sbol-icon-info/>
           </a>
-        </span>
-        <a class="va-super py1">
-          <sbol-icon-info/>
-        </a>
-        <a class="va-super py1"  :href="this.header.persistentIdentity" target="_blank" >
-          <sbol-icon-arrow-up-right/>
-        </a>
+          <a class="va-super py1"  :href="this.header.persistentIdentity" target="_blank" >
+            <sbol-icon-arrow-up-right/>
+          </a>
+        </div>
+
       </div>
   </header>
 </template>
@@ -28,19 +41,26 @@ import SbolLink from "../components/SbolLinkText";
 import SbolIconInfo from "../components/SbolIconInfo";
 import SbolIconArrowInDown from "../components/SbolIconArrowInDown";
 import SbolIconArrowUpRight from "../components/SbolIconArrowUpRight";
-
+import CloseIcon from "@/components/SbolIconX"
 
 export default {
   props: ["header"],
   data() {
-    return {};
+    return {
+      description : false
+    };
   },
-  methods: {},
+  methods: {
+    toogleDescription() {
+      this.description = !this.description;
+    }
+  },
   components: {
     SbolIconArrowUpRight,
     SbolIconArrowInDown,
     SbolLink,
-    SbolIconInfo
+    SbolIconInfo,
+    CloseIcon
   },
   filters: {
     truncate: function (text, length, suffix) {
@@ -79,6 +99,18 @@ a,
 a:hover {
   color: #fff;
   text-decoration: none;
+}
+
+.mutableDescription{
+  display: none;
+  height: 100px;
+  overflow-y: auto;
+}
+.showMutable .mutableDescription{
+  display: block;
+}
+.showMutable .headerDetails{
+  display: none;
 }
 
 ul {
