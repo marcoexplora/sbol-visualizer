@@ -1,10 +1,10 @@
 <template>
   <div @dragover="dragover" @dragleave="dragleave" @drop="drop" class="SbolWvWrap">
 
-    <div v-if="enabledropfile" style="padding:0 ">
-      <div>
+    <div v-if="enabledropfile" style="padding:0;height: 1.55em">
+      <div style="width: 100%">
       <div style="float:right;font-size:1.2em">
-        <a  v-if="enabledropfile && empty === false" v-on:click="reset()"><close-icon/></a>
+        <a  v-if="enabledropfile && empty === false"  style="font-size: 1em" v-on:click="reset()"><close-icon/></a>
       </div>
 
       <label style="cursor:pointer" class="txt" for="assetsFieldHandle"><sbol-box-arrow-up/> Choose a file to view</label>
