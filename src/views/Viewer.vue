@@ -1,7 +1,8 @@
 <template>
   <div @dragover="dragover" @dragleave="dragleave" @drop="drop" class="SbolWvWrap">
 
-    <div v-if="enabledropfile" style="padding:10px 0 ">
+    <div v-if="enabledropfile" style="padding:0 ">
+      <label style="cursor:pointer" class="txt" for="assetsFieldHandle"><sbol-box-arrow-up/> Choose a file to view</label>
       <input
         type="file"
         multiple
@@ -10,6 +11,7 @@
         @change="onChange"
         ref="file"
         accept=".json, .xml"
+        style="display: none"
       />
     </div>
     <div v-if="errors">
@@ -61,9 +63,11 @@ import SbolFooter from "@/components/SbolFooter";
 
 import SbolLogo from "@/components/SbolLogo";
 import CloseIcon from "@/components/SbolIconX"
+import BoxArrowUp from "@/components/SbolBoxArrowUp"
 
 import jsonHandler from "@/lib/importer/jsonHandler";
 import xmlHandler from "@/lib/importer/xmlHandler";
+import SbolBoxArrowUp from "@/components/SbolBoxArrowUp";
 
 export default {
   props: ["source", "format", "data", "flavour","dropafile"],
@@ -216,6 +220,7 @@ export default {
     },
   },
   components: {
+    SbolBoxArrowUp,
     SbolChart,
     SbolDetail,
     SbolListAnnotations,
@@ -234,8 +239,6 @@ export default {
     if(typeof this.dropafile != 'undefined'){
       this.enabledropfile = true;
     }
-
-
 
     if (this.format) {
       // Inline data
@@ -312,7 +315,7 @@ nav {
 
 
 .SbolWvWrap {
-  header *, section *, footer *,.detailAnnotation * {
+  header *, section *, footer *,.detailAnnotation *,.txt {
     font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
     Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji,
     Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
@@ -357,6 +360,8 @@ nav {
   .py1 {
     padding: 0 5px;
   }
-
+  .bold{
+    font-weight: bold;
+  }
 }
 </style>
