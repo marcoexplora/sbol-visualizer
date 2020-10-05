@@ -82,7 +82,7 @@ header {
   margin: 0 0 5px 0;
   padding:10px;
   border: 1px solid #fff;
-  margin-right: 1em;
+
 }
 
 header h2,h1{
