@@ -97,6 +97,7 @@ section * {
   border: none;
   background-color: #f0f2f5;
   padding-left: 10px;
+  outline: none;
 }
 
 .search-list {

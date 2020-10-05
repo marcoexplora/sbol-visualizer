@@ -86,12 +86,13 @@ const xmlHandler = {
             let sbolDescription = xmlHandler.xmlFind(component, "dcterms:description");
             let mutableDescription = xmlHandler.xmlFind(component, "sbh:mutableDescription");
 
-                if (typeof seqAnnRole == 'undefined' && typeof ExternalData[sbolTitle].role === 'string') {
+                if (typeof seqAnnRole == 'undefined' && typeof ExternalData[sbolTitle] != 'undefined' && typeof ExternalData[sbolTitle].role === 'string' ) {
                     role = ExternalData[sbolTitle].role
                     sbolTitle = ExternalData[sbolTitle].name
-                    sbolDescription = ExternalData[sbolTitle].sbolDescription
-                    mutableDescription = ExternalData[sbolTitle].mutableDescription
-
+                    if(typeof ExternalData[sbolTitle] != 'undefined'){
+                        sbolDescription = ExternalData[sbolTitle].sbolDescription
+                        mutableDescription = ExternalData[sbolTitle].mutableDescription
+                    }
                 } else if (typeof seqAnnRole == 'string') {
                     role = seqAnnRole;
                 }
