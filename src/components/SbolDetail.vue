@@ -9,15 +9,18 @@
       </ul>
       <div v-else>
         <ul class="listDetail p0">
-
+          <li class="h1 bold">
+            {{this.detail.name}}
+          </li>
           <li>
-              <a :href="this.detail.href">
+            <span class="bold">SO:</span>
+            <a :href="this.detail.href">
                 {{this.detail.SBOL}}
-              </a>
+            </a>
           </li>
 
           <li>
-            <span class="bold">Direction: </span> <span> {{ this.detail.direction }}</span>     <span v-if="this.detail.end > 0">( {{ this.detail.start }}…{{ this.detail.end }} )</span>
+            <span class="bold">Direction: </span> <span> {{ this.detail.direction }}</span>     <span v-if="this.detail.end > 0">( {{ this.detail.start }}..{{ this.detail.end }} )</span>
           </li>
 
           <li v-if="this.detail.sbolDescription">
@@ -65,16 +68,14 @@ export default {
   margin-top: 5px;
   background-color: #fff;
   height: 490px;
-  box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(0, 0, 0, 0.15);
   border-radius: 5px;
   word-break: normal;
   width: 100%;
 }
 .card-header {
   background-color: #f1f2f5;
-  border-top-left-radius: 0.5rem;
-  border-top-right-radius: 0.5rem;
-  margin: 1em 0em 1em 0em;
+  border-radius: 5px;
   padding: 0.05em;
   font-size: 0.6rem;
   font-weight: 400;

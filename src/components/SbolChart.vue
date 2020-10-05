@@ -79,14 +79,13 @@ export default {
 
 <style scoped>
 .sbolChart {
-  height:130px;
+  height:142px;
   padding: 1em;
   white-space: nowrap;
   overflow-x: scroll;
   overflow-y: hidden;
-
-  box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.15);
-  border-radius: 0.5rem;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 5px 5px 0 0;
 }
 
 div.glyphs {
@@ -104,8 +103,9 @@ img {
   bottom: 0px;
 }
 
-img.RV {
-  transform: scaleX(-1);
+.RV img{
+  /*transform: scaleX(-1);*/
+  transform: rotate(180deg);
 }
 
 .glyphs .selected {
