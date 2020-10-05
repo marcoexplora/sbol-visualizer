@@ -103,7 +103,7 @@ img {
   bottom: 0px;
 }
 
-img.RV {
+.RV img{
   /*transform: scaleX(-1);*/
   transform: rotate(180deg);
 }

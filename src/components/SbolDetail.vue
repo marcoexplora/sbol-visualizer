@@ -13,9 +13,10 @@
             {{this.detail.name}}
           </li>
           <li>
-              <a :href="this.detail.href">
-                <span class="bold">SO:</span>{{this.detail.SBOL}}
-              </a>
+            <span class="bold">SO:</span>
+            <a :href="this.detail.href">
+                {{this.detail.SBOL}}
+            </a>
           </li>
 
           <li>
