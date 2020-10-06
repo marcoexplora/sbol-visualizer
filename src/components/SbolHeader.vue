@@ -15,7 +15,7 @@
         <div style="float:left">
           <h2 class="text-muted-white">Part id: {{header.partID}}</h2>
           <h1>{{header.name | truncate(20, '…')}}</h1>
-          <h2 class="text-muted-white" style="padding-bottom: 24px">Version no.: {{ header.version }}</h2>
+          <h2 class="text-muted-white" style="padding-bottom: 20px">Version no.: {{ header.version }}</h2>
           <h2 class="text-muted-white" >Created by: {{header.creator}}</h2>
         </div>
         <div style="position:absolute;top:5px;right:5px;">
@@ -78,11 +78,10 @@ export default {
 
 header {
   overflow: hidden;
-  min-height: 110px;
+  height: 110px;
   margin: 0 0 5px 0;
   padding:10px;
   border: 1px solid #fff;
-  margin-right: 1em;
 }
 
 header h2,h1{

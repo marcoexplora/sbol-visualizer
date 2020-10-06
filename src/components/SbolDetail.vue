@@ -9,12 +9,12 @@
       </ul>
       <div v-else>
         <ul class="listDetail p0">
-          <li class="h1 bold">
+          <li class="h1 bold p0">
             {{this.detail.name}}
           </li>
           <li>
-            <span class="bold">SO:</span>
-            <a :href="this.detail.href">
+            <span class="bold">Sequence Ontology:</span>
+            <a :href="this.detail.href" target="_blank">
                 {{this.detail.SBOL}}
             </a>
           </li>
@@ -31,6 +31,11 @@
             <p class="m0"><span class="bold">Mutable Description: </span> {{ this.detail.mutableDescription }}</p>
           </li>
 
+          <li class="comingsoon">
+            <h2>Where is my sequence?</h2>
+            <p>Sequence viewer coming soon!</p>
+
+          </li>
         </ul>
 
 
@@ -64,6 +69,14 @@ export default {
 };
 </script>
 <style scoped>
+.comingsoon{
+  padding: 2em 1em;
+  background: #f0f2f5;
+  margin: 3em auto;
+  width: 60%;
+  border-radius: 5px;
+  text-align: center;
+}
 .detailAnnotation {
   margin-top: 5px;
   background-color: #fff;
@@ -72,6 +85,7 @@ export default {
   border-radius: 5px;
   word-break: normal;
   width: 100%;
+  color: #4d4d4c;
 }
 .card-header {
   background-color: #f1f2f5;
@@ -83,7 +97,6 @@ export default {
 
 .card-header h2 {
   margin: 0.5em 1em 0.5em 1em;
-  color: #000;
 }
 
 .card-body {
@@ -106,7 +119,7 @@ export default {
 li,pre{
   width: 100%;
   overflow: auto;
-  padding: 1em 0;
+  padding-top: 10px;
   word-break: break-word;
 }
 .bold{

@@ -305,7 +305,7 @@ export default {
   display: grid;
   grid-template-columns: 1fr 2fr;
   /* grid-template-rows: auto 1fr;*/
-  height: 700px;
+  height: 680px;
 }
 
 nav {

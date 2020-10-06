@@ -1,32 +1,32 @@
 <template>
-  <div>
+  <div class="wrap-list">
     <div class="search">
       <input type="text" class="search-input" placeholder="Search in annotations" v-model="filter" />
     </div>
 
+  <div class="wrap-section">
+    <section>
+      <ul class="search-list">
+        <li v-if="selectedItems.length == 0">No Sbol component found</li>
+        <li v-for="(item, index) in selectedItems" :key="index" @click="detailItem(item.index)" class="item">
+          <div>
+            <ol>
+              <li class="h1 bold">
+                {{ item.name }}
+              </li>
 
-  <section>
-
-    <ul class="search-list">
-      <li v-if="selectedItems.length == 0">No Sbol component found</li>
-      <li v-for="(item, index) in selectedItems" :key="index" @click="detailItem(item.index)">
-        <div>
-          <ol>
-            <li class="h1 bold">
-              {{ item.name }}
-            </li>
-
-            <li class="text-muted-black h2">
-              <b>Direction:</b>
-              <span>{{ item.direction }}</span>     <span v-if="item.end > 0">( {{ item.start }}..{{ item.end }} )</span>
-            </li>
-          </ol>
-        </div>
+              <li class="text-muted-black h2">
+                <b>Direction:</b>
+                <span>{{ item.direction }}</span>     <span v-if="item.end > 0">({{ item.start }}..{{ item.end }})</span>
+              </li>
+            </ol>
+          </div>
 
 
-      </li>
-    </ul>
-  </section>
+        </li>
+      </ul>
+    </section>
+  </div>
   </div>
 </template>
 <script>
@@ -73,13 +73,24 @@ export default {
   border: 1px solid rgba(0, 0, 0, 0.125);
   border-radius: 5px;
   background-color: #f0f2f5;
-  margin-right: 1.5em;
+
 }
 .bold{
   font-weight: bold;
 }
+.wrap-list{
+  height: 550px;
+  overflow: hidden;
+}
+.wrap-section{
+  margin: 5px 0 5px 0;
+  border: 1px solid #CCC;
+  border-radius: 5px;
+  overflow: hidden;
+  height: 490px;
+}
 section {
-  height: 522px;
+  height: 490px;
   overflow-y: scroll;
 }
 section * {
@@ -104,36 +115,29 @@ section * {
   list-style: none;
   padding: 0;
   text-align: left;
-  margin-top: 5px;
   min-height: 400px;
-  oveerflow:hidden
+  oveerflow:hidden;
+  margin: 0;
+  border-radius: 5px;
+  border-bottom: 1px;
 }
 .search-list *{
   color:  #4d4d4c
 }
 
-.search-list > li:first-child {
-  border-top-left-radius: 0.25rem;
-  border-top-right-radius: 0.25rem;
-}
 ol{
   padding: 0px
 }
-ol > li {
-  padding: 5px;
-}
-.search-list > li {
+
+li.item {
   position: relative;
-  display: block;
-  padding: 0.75rem 10px;
-  margin-bottom: -1px;
+  padding: 10px;
   background-color: #fff;
-  border: 1px solid rgba(0, 0, 0, 0.125);
-  display: flex !important;
-  -webkit-box-pack: justify !important;
-  justify-content: space-between !important;
-  -webkit-box-align: center !important;
-  align-items: center !important;
+  border-bottom: 2px solid #d9d9d9;
+}
+
+li.item:last-child{
+
 }
 .search-list > li b {
   padding-right: 5px;
@@ -142,9 +146,7 @@ ol > li {
   padding-left: 0;
   list-style: none;
 }
-.search-list > li div {
-  display: flex !important;
-}
+
 .search-list > li span {
   font-size: 0.9em;
 }
