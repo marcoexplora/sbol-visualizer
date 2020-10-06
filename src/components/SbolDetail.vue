@@ -14,7 +14,7 @@
           </li>
           <li>
             <span class="bold">Sequence Ontology:</span>
-            <a :href="this.detail.href">
+            <a :href="this.detail.href" target="_blank">
                 {{this.detail.SBOL}}
             </a>
           </li>

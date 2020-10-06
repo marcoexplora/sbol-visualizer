@@ -17,7 +17,7 @@
 
               <li class="text-muted-black h2">
                 <b>Direction:</b>
-                <span>{{ item.direction }}</span>     <span v-if="item.end > 0">( {{ item.start }}..{{ item.end }} )</span>
+                <span>{{ item.direction }}</span>     <span v-if="item.end > 0">({{ item.start }}..{{ item.end }})</span>
               </li>
             </ol>
           </div>
