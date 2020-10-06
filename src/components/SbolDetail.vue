@@ -69,6 +69,14 @@ export default {
 };
 </script>
 <style scoped>
+.comingsoon{
+  padding: 2em 1em;
+  background: #f0f2f5;
+  margin: 3em auto;
+  width: 60%;
+  border-radius: 5px;
+  text-align: center;
+}
 .detailAnnotation {
   margin-top: 5px;
   background-color: #fff;
