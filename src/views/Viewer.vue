@@ -26,7 +26,7 @@
       </div>
       <sbol-errors  class="sbolMain empty"></sbol-errors>
     </div>
-    <sbol-landing v-else-if="empty === true" class="" ref="sbolVisualizer"></sbol-landing>
+    <sbol-landing v-else-if="empty === true"></sbol-landing>
 
     <div v-else ref="sbolVisualizer" :key="flavourClass">
       <div v-bind:class="[flavourClass]">
@@ -309,7 +309,7 @@ export default {
 }
 
 nav {
-  padding: 0 12px 0 0;
+  padding: 0 5px 0 0;
 }
 
 </style>

@@ -18,7 +18,7 @@
           <h2 class="text-muted-white" style="padding-bottom: 20px">Version no.: {{ header.version }}</h2>
           <h2 class="text-muted-white" >Created by: {{header.creator}}</h2>
         </div>
-        <div style="position:absolute;top:5px;right:5px;">
+        <div class="panel">
           <span  v-if="this.header.source_link">
             <a  class="va-super py1" :href="this.header.source_link" target="_blank" download>
               <sbol-icon-arrow-in-down/>
@@ -83,7 +83,13 @@ header {
   padding:10px;
   border: 1px solid #fff;
 }
-
+.panel{
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: #3579b6;
+  border-radius: 5px;
+}
 header h2,h1{
   margin: 0px
 }
