@@ -39,24 +39,28 @@ export default {
   },
   computed: {
     selectedItems() {
-      return this.annotations.filter((so) => {
-        if (this.filter === "") {
-          return so;
-        }
+      if(typeof this.annotations !== 'undefined'){
+        return this.annotations.filter((so) => {
+          if (this.filter === "") {
+            return so;
+          }
 
-        if (/^\d+$/.test(this.filter)) {
-          const loc = parseInt(this.filter);
-          return so.start <= loc && so.end >= loc;
-        } else {
-          return (
-            so.name.toLowerCase().includes(this.filter.toLowerCase()) ||
-            so.start.toString().includes(this.filter.toString()) ||
-            so.SBOL.toString().includes(this.filter.toString()) ||
-            so.end.toString().includes(this.filter.toString()) ||
-            so.direction.toLowerCase().includes(this.filter.toString())
-          );
-        }
-      });
+          if (/^\d+$/.test(this.filter)) {
+            const loc = parseInt(this.filter);
+            return so.start <= loc && so.end >= loc;
+          } else {
+            return (
+              so.name.toLowerCase().includes(this.filter.toLowerCase()) ||
+              so.start.toString().includes(this.filter.toString()) ||
+              so.SBOL.toString().includes(this.filter.toString()) ||
+              so.end.toString().includes(this.filter.toString()) ||
+              so.direction.toLowerCase().includes(this.filter.toString())
+            );
+          }
+        });
+      }else{
+        return []
+      }
     },
   },
   methods: {
@@ -146,7 +150,7 @@ li.item:last-child{
   padding-left: 0;
   list-style: none;
 }
-
+filter
 .search-list > li span {
   font-size: 0.9em;
 }

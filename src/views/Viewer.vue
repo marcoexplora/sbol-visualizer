@@ -176,8 +176,10 @@ export default {
       });
     },
     loadXml: function (xml) {
-      this.sbolDataLayer = xmlHandler.convertXml(xml);
-      this.empty = false;
+     xmlHandler.convertXml(xml).then((sb)=>{
+       this.sbolDataLayer = sb;
+       this.empty = false;
+    })
     },
     resizeHandler: function () {
       const defaultBreakpoints = [
@@ -253,7 +255,6 @@ export default {
       axios.get(this.source).then((data) => {
         this.genericLoad(dataFormat, data.data);
         this.sbolDataLayer.header['source_link'] = this.source;
-
       });
     }
 

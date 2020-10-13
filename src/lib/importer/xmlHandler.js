@@ -1,5 +1,134 @@
+import SBOLDocument from 'sboljs';
+
+
+
 const xmlHandler = {
-    convertXml: (xml) => {
+    pupulateHeader: (doc)=> {
+        const mainComponetDefinition = doc.componentDefinitions[0];
+
+        const header = {
+            partID: mainComponetDefinition._displayId,
+            name:  mainComponetDefinition._name,
+            alternativeName: "",
+            version: mainComponetDefinition._version,
+            creator: "",
+            parentSequence: "sbh:mutableProvenance",
+            persistentIdentity: "sbol:persistentIdentity -- rdf:resource",
+            wasDerivedFrom: "",
+            wasGeneratedBy: "rdf:resource",
+            mutableDescription: mainComponetDefinition._description
+        };
+
+        return header
+    },
+    populateAnnotations: (doc) => {
+
+        if (doc.components.length > 0){
+            doc.componentDefinitions[0].components.map(
+                (component,index) => {
+                    const dataLayerSingleComponent = {
+                        name: component.name,
+                        SBOL: "SO:0000110",
+                        start: 1,
+                        end: 2,
+                        pk : index,
+                        index : index,
+                        sbolDescription : '',
+                        mutableDescription : ''
+                    }
+                }
+            )
+        }
+        return doc.componentDefinitions[0].sequenceAnnotations.map(function(sequenceAnnotation,index) {
+
+           const roles = sequenceAnnotation.roles;
+           let role = "SO:0000110";
+
+           if(roles.length > 0){
+               const soPrefix = 'http://identifiers.org/so/'
+               role = xmlHandler.extractSO(roles.filter( (i) => { return i.toString().indexOf(soPrefix) == 0}).toString());
+           }
+
+
+            const dataLayerSingleComponent = {
+                name: sequenceAnnotation._name,
+                SBOL: role,
+                start: sequenceAnnotation.locations[0]._start,
+                end: sequenceAnnotation.locations[0]._end,
+                pk : index,
+                index : index,
+                sbolDescription : '',
+                mutableDescription : ''
+            }
+            return dataLayerSingleComponent;
+        })
+
+        /*
+        const dataLayerSingleComponent = {
+            SBOL: xmlHandler.extractSO(role),
+            direction: direction,
+            start: xmlHandler.xmlFind(component, "sbol:start"),
+            end: xmlHandler.xmlFind(component, "sbol:end"),
+            index: xmlHandler.extractIndexVal(sbolIndex),
+            name: sbolTitle,
+            notes: "",
+            pk: xmlHandler.extractIndexVal(sbolIndex),
+            role_id: 0,
+            sbolDescription :sbolDescription,
+            mutableDescription : mutableDescription
+        };
+        */
+
+    },
+    convertXml: (xml) => new Promise((resolve,reject) => {
+        {
+            const sbolDataLayer = {}
+            SBOLDocument.loadRDF(xml, function(err, doc) {
+                window.SBOL = doc;
+                const stringDoc = doc.serializeJSON();
+                console.log(stringDoc)
+
+                const rootLevelsequenceAnnotations = doc.componentDefinitions[0].sequenceAnnotations;
+
+                if(rootLevelsequenceAnnotations.length > 0){
+                    rootLevelsequenceAnnotations.forEach(function(SequenceAnnotation) {
+                        console.log(SequenceAnnotation.name)
+                    })
+                }else{
+
+                }
+                /*doc.componentDefinitions.forEach(function(componentDefinition) {
+
+                    console.log(componentDefinition.name)
+
+                })
+*/
+
+                sbolDataLayer.header = xmlHandler.pupulateHeader(doc);
+                sbolDataLayer.annotations = [];
+                sbolDataLayer.annotations = xmlHandler.populateAnnotations(doc);
+
+                resolve(sbolDataLayer)
+            });
+
+        }
+    }),
+    old_convertXml: (xml) => {
+        const sbolDataLayer = {}
+
+        SBOLDocument.loadRDF(xml, function(err, doc) {
+            window.SBOL = doc;
+
+            sbolDataLayer.header = xmlHandler.pupulateHeader(doc);
+            sbolDataLayer.annotations = [];
+            sbolDataLayer.annotations = xmlHandler.populateAnnotations(doc)
+
+        })
+
+        return sbolDataLayer
+
+
+        /*
         const sbolDataLayer = {}
         const parser = new DOMParser();
         const xmlDoc = parser.parseFromString(xml, "text/xml");
@@ -23,8 +152,8 @@ const xmlHandler = {
 
         sbolDataLayer.annotations = [];
         sbolDataLayer.annotations = xmlHandler.SequenceAnnotation(ComponentDefinition, xmlDoc)
+        */
 
-        return sbolDataLayer
     },
     isAvalidSingleComponent: (dataLayerSingleComponent) => {
         if (dataLayerSingleComponent.SBOL === "") {
