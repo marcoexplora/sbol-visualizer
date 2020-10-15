@@ -1,5 +1,5 @@
 import SBOLDocument from 'sboljs';
-
+import getDisplayList from "./getDisplayList"
 
 
 const xmlHandler = {
@@ -22,61 +22,60 @@ const xmlHandler = {
         return header
     },
     populateAnnotations: (doc) => {
+        const visbolDisplayListElements = getDisplayList(doc.componentDefinitions[0]).components[0].segments[0].sequence;
 
-        if (doc.components.length > 0){
-            doc.componentDefinitions[0].components.map(
+        if (visbolDisplayListElements.length > 0){
+            const rootsElements = visbolDisplayListElements.map(
                 (component,index) => {
+
+                    /*
+                            id: "https://synbiohub.org/public/igem/BBa_I20282/annotation1962295/1"
+                            name: "BBa_B0034"
+                            propriety:
+                            Description: "RBS (Elowitz 1999) -- defines RBS efficiency"
+                            Identifier: "BBa_B0034"
+                            Name: "BBa_B0034"
+                            Orientation: "inline"
+                            Role: "ribosome_entry_site"
+                            element: "Component"
+                            end: 12
+                            iGEM Part Type: "RBS"
+                            sequenceOntology: "SO:0000139"
+                            start: 1
+                     */
+
                     const dataLayerSingleComponent = {
                         name: component.name,
-                        SBOL: "SO:0000110",
-                        start: 1,
-                        end: 2,
+                        SBOL: component.propriety.sequenceOntology,
+                        start: component.propriety.start,
+                        end:  component.propriety.end,
                         pk : index,
                         index : index,
-                        sbolDescription : '',
+                        sbolDescription : component.Description,
                         mutableDescription : ''
                     }
+
+                    return dataLayerSingleComponent;
                 }
             )
+
+            return  rootsElements
         }
-        return doc.componentDefinitions[0].sequenceAnnotations.map(function(sequenceAnnotation,index) {
-
-           const roles = sequenceAnnotation.roles;
-           let role = "SO:0000110";
-
-           if(roles.length > 0){
-               const soPrefix = 'http://identifiers.org/so/'
-               role = xmlHandler.extractSO(roles.filter( (i) => { return i.toString().indexOf(soPrefix) == 0}).toString());
-           }
-
-
-            const dataLayerSingleComponent = {
-                name: sequenceAnnotation._name,
-                SBOL: role,
-                start: sequenceAnnotation.locations[0]._start,
-                end: sequenceAnnotation.locations[0]._end,
-                pk : index,
-                index : index,
-                sbolDescription : '',
-                mutableDescription : ''
-            }
-            return dataLayerSingleComponent;
-        })
 
         /*
-        const dataLayerSingleComponent = {
-            SBOL: xmlHandler.extractSO(role),
-            direction: direction,
-            start: xmlHandler.xmlFind(component, "sbol:start"),
-            end: xmlHandler.xmlFind(component, "sbol:end"),
-            index: xmlHandler.extractIndexVal(sbolIndex),
-            name: sbolTitle,
-            notes: "",
-            pk: xmlHandler.extractIndexVal(sbolIndex),
-            role_id: 0,
-            sbolDescription :sbolDescription,
-            mutableDescription : mutableDescription
-        };
+            const dataLayerSingleComponent = {
+                SBOL: xmlHandler.extractSO(role),
+                direction: direction,
+                start: xmlHandler.xmlFind(component, "sbol:start"),
+                end: xmlHandler.xmlFind(component, "sbol:end"),
+                index: xmlHandler.extractIndexVal(sbolIndex),
+                name: sbolTitle,
+                notes: "",
+                pk: xmlHandler.extractIndexVal(sbolIndex),
+                role_id: 0,
+                sbolDescription :sbolDescription,
+                mutableDescription : mutableDescription
+            };
         */
 
     },
@@ -86,23 +85,8 @@ const xmlHandler = {
             SBOLDocument.loadRDF(xml, function(err, doc) {
                 window.SBOL = doc;
                 const stringDoc = doc.serializeJSON();
-                console.log(stringDoc)
 
-                const rootLevelsequenceAnnotations = doc.componentDefinitions[0].sequenceAnnotations;
 
-                if(rootLevelsequenceAnnotations.length > 0){
-                    rootLevelsequenceAnnotations.forEach(function(SequenceAnnotation) {
-                        console.log(SequenceAnnotation.name)
-                    })
-                }else{
-
-                }
-                /*doc.componentDefinitions.forEach(function(componentDefinition) {
-
-                    console.log(componentDefinition.name)
-
-                })
-*/
 
                 sbolDataLayer.header = xmlHandler.pupulateHeader(doc);
                 sbolDataLayer.annotations = [];
@@ -376,7 +360,6 @@ const xmlHandler = {
                 attribute
             );
             result.push(proposed)
-
         }
         return result
     },
