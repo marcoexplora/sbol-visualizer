@@ -30,7 +30,7 @@
 var soToGlyphType = require('./soToGlyphType')
 var soToTopology = require('./soToTopology')
 
-var sbolmeta = require('sbolmeta')
+//var sbolmeta = require('sbolmeta')
 
 var URI = require('sboljs').URI
 
@@ -64,7 +64,7 @@ function recurseGetDisplayList(componentDefinition, segments, config, share) {
             if (segment.sequence.length > 0) {
                 if (segments.filter(function (e) {
                     return e.name == segment.name;
-                }).length == 0) {
+                }).length === 0) {
                     segments.push(segment)
                 }
             }
@@ -137,7 +137,7 @@ function getDisplayListSegment(componentDefinition, config, share) {
 
                 var soTerm = role.toString().slice(soPrefix.length).split('_').join(':')
                 propriety['soTerm'] = soTerm
-                propriety['Role'] = sbolmeta.sequenceOntology[soTerm].name
+                //propriety['Role'] = sbolmeta.sequenceOntology[soTerm].name
 
             }
 
@@ -256,7 +256,7 @@ function getDisplayListSegment(componentDefinition, config, share) {
 
                         var soTerm = role.toString().slice(soPrefix.length).split('_').join(':')
                         propriety['sequenceOntology'] = soTerm
-                        propriety['Role'] = sbolmeta.sequenceOntology[soTerm].name
+                        //propriety['Role'] = sbolmeta.sequenceOntology[soTerm].name
 
                     }
 
