@@ -34,7 +34,6 @@
           <li class="comingsoon">
             <h2>Where is my sequence?</h2>
             <p>Sequence viewer coming soon!</p>
-
           </li>
         </ul>
 

@@ -155,6 +155,9 @@ function getDisplayListSegment(componentDefinition, config, share) {
             else
                 glyph = 'no-glyph-assigned';
 
+            propriety['glyphType'] = glyph;
+
+
         })
 
         return {
@@ -227,9 +230,9 @@ function getDisplayListSegment(componentDefinition, config, share) {
             } else {
                 propriety = {}
                 propriety['item'] = 'Feature'
-                if (sequenceAnnotation.displayId) propriety += 'Identifier: ' + sequenceAnnotation.displayId + '\n'
-                if (sequenceAnnotation.name) propriety += 'Name: ' + sequenceAnnotation.name + '\n'
-                if (sequenceAnnotation.description) propriety += 'Description: ' + sequenceAnnotation.description + '\n'
+                if (sequenceAnnotation.displayId) propriety['Identifier'] = sequenceAnnotation.displayId
+                if (sequenceAnnotation.name)  propriety['Name'] = sequenceAnnotation.name
+                if (sequenceAnnotation.description) propriety['Description'] = sequenceAnnotation.description
             }
 
 

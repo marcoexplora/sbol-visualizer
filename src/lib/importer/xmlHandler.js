@@ -5,21 +5,34 @@ import getDisplayList from "./getDisplayList"
 const xmlHandler = {
     pupulateHeader: (doc)=> {
         const mainComponetDefinition = doc.componentDefinitions[0];
+        const annotations =  mainComponetDefinition._annotations
         return {
             partID: mainComponetDefinition._displayId,
             name: mainComponetDefinition._name,
             alternativeName: "",
             version: mainComponetDefinition._version,
-            creator: "",
+            creator: xmlHandler.queryAnnotation(mainComponetDefinition._annotations,'http://purl.org/dc/elements/1.1/creator'),
             parentSequence: "sbh:mutableProvenance",
-            persistentIdentity: "sbol:persistentIdentity -- rdf:resource",
+            persistentIdentity: mainComponetDefinition._persistentIdentity,
             wasDerivedFrom: "",
             wasGeneratedBy: "rdf:resource",
-            mutableDescription: mainComponetDefinition._description
+            mutableDescription: xmlHandler.queryAnnotation(mainComponetDefinition._annotations,'http://wiki.synbiohub.org/wiki/Terms/synbiohub#mutableDescription'),
         }
     },
     populateAnnotations: (doc) => {
+        window.getD = getDisplayList(doc.componentDefinitions[0])
         const visbolDisplayListElements = getDisplayList(doc.componentDefinitions[0]).components[0].segments[0].sequence;
+
+        var component = {
+            segments: []
+        }
+
+        doc.componentDefinitions.forEach(function(componentDefinition) {
+            console.log(getDisplayList(componentDefinition))
+            component.segments = component.segments.concat(getDisplayList(componentDefinition).components[0].segments[0])
+        })
+        window.composedComponent = component
+
         if (visbolDisplayListElements.length > 0){
             return  visbolDisplayListElements.map(
                 (component, index) => {
@@ -77,6 +90,7 @@ const xmlHandler = {
             const sbolDataLayer = {}
             SBOLDocument.loadRDF(xml, function(err, doc) {
                 doc.serializeJSON();
+                window.SBOL = doc;
                 sbolDataLayer.header = xmlHandler.pupulateHeader(doc);
                 sbolDataLayer.annotations = [];
                 sbolDataLayer.annotations = xmlHandler.populateAnnotations(doc);
@@ -86,18 +100,11 @@ const xmlHandler = {
 
         }
     }),
-    old_convertXml: (xml) => {
-        const sbolDataLayer = {}
-
-        SBOLDocument.loadRDF(xml, function(err, doc) {
-
-            sbolDataLayer.header = xmlHandler.pupulateHeader(doc);
-            sbolDataLayer.annotations = [];
-            sbolDataLayer.annotations = xmlHandler.populateAnnotations(doc)
-
+    queryAnnotation : (Annontations,filter) => {
+        const candidate = Annontations.filter( (annotation) => {
+            return annotation.name.indexOf(filter) !== -1
         })
-
-        return sbolDataLayer
+        return candidate.length > 0 ? candidate[0].value : ""
     },
     isAvalidSingleComponent: (dataLayerSingleComponent) => {
         if (dataLayerSingleComponent.SBOL === "") {

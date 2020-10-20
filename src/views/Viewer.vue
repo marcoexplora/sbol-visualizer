@@ -66,7 +66,6 @@ import SbolFooter from "@/components/SbolFooter";
 
 import SbolLogo from "@/components/SbolLogo";
 import CloseIcon from "@/components/SbolIconX"
-import BoxArrowUp from "@/components/SbolBoxArrowUp"
 
 import jsonHandler from "@/lib/importer/jsonHandler";
 import xmlHandler from "@/lib/importer/xmlHandler";
@@ -135,7 +134,7 @@ export default {
           _that.droppedFile.data = el.target.result;
 
           const dataFormat =
-            _that.droppedFile["type"] == "text/xml" ? "xml" : "json";
+            _that.droppedFile["type"] === "text/xml" ? "xml" : "json";
           _that.genericLoad(dataFormat, _that.droppedFile["data"]);
         };
       })(this.fileObj, this);
@@ -153,13 +152,13 @@ export default {
     },
     genericLoad: function (dataFormat, data) {
       try {
-        if (dataFormat == "json") {
+        if (dataFormat === "json") {
           if (typeof data == "string") {
             data = JSON.parse(data);
           }
           this.loadJson(data);
         }
-        if (dataFormat == "xml") {
+        if (dataFormat === "xml") {
           this.loadXml(data);
         }
       } catch (error) {
@@ -213,11 +212,7 @@ export default {
         classBp = bp.width <= widthContainer ? bp.class : classBp;
       });
 
-      if (["XL", "LG"].indexOf(classBp) == -1) {
-        this.flavourMini = true;
-      }else{
-        this.flavourMini = false;
-      }
+      this.flavourMini = ["XL", "LG"].indexOf(classBp) === -1;
 
       this.flavourClass = `${
         this.flavourMini ? "mini" : "SBOLcontainer"
@@ -247,18 +242,18 @@ export default {
 
     if (this.format) {
       // Inline data
-      const dataFormat = this.format == "json" ? "json" : "xml";
+      const dataFormat = this.format === "json" ? "json" : "xml";
       this.genericLoad(dataFormat, this.data);
     } else if (this.source) {
       // Load a file
-      const dataFormat = this.source.indexOf(".json") != -1 ? "json" : "xml";
+      const dataFormat = this.source.indexOf(".json") !== -1 ? "json" : "xml";
       axios.get(this.source).then((data) => {
         this.genericLoad(dataFormat, data.data);
         this.sbolDataLayer.header['source_link'] = this.source;
       });
     }
 
-    if (this.flavour == "mini") {
+    if (this.flavour === "mini") {
       this.flavourMini = true;
     }
     window.addEventListener("resize", this.resizeHandler);
