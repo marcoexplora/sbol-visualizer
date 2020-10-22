@@ -91,7 +91,6 @@ const xmlHandler = {
                 const sbolDataLayer = {}
                 SBOLDocument.loadRDF(xml, function (err, doc) {
                     doc.serializeJSON();
-                    window.SBOL = doc
                     sbolDataLayer.header = xmlHandler.pupulateHeader(doc);
                     sbolDataLayer.annotations = [];
                     sbolDataLayer.annotations = xmlHandler.populateAnnotations(doc);

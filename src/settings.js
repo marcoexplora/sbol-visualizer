@@ -1,7 +1,7 @@
 
 
 const settings = {
-    version : "0.0.4b",
+    version : "0.0.5",
     messages : {
         error_page : {
             title : `Sorry, something went wrong!`,
