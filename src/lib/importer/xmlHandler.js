@@ -17,10 +17,11 @@ const xmlHandler = {
             wasDerivedFrom: "",
             wasGeneratedBy: "rdf:resource",
             mutableDescription: xmlHandler.queryAnnotation(mainComponetDefinition._annotations,'http://wiki.synbiohub.org/wiki/Terms/synbiohub#mutableDescription'),
+            ComponentSequences : mainComponetDefinition.sequences ? mainComponetDefinition.sequences : ""
         }
     },
     populateAnnotations: (doc) => {
-        window.getD = getDisplayList(doc.componentDefinitions[0])
+
         const visbolDisplayListElements = getDisplayList(doc.componentDefinitions[0]).components[0].segments[0].sequence;
 
         var component = {
@@ -28,7 +29,6 @@ const xmlHandler = {
         }
 
         doc.componentDefinitions.forEach(function(componentDefinition) {
-            console.log(getDisplayList(componentDefinition))
             component.segments = component.segments.concat(getDisplayList(componentDefinition).components[0].segments[0])
         })
         window.composedComponent = component
@@ -85,21 +85,23 @@ const xmlHandler = {
         */
 
     },
-    convertXml: (xml) => new Promise((resolve,reject) => {
-        {
-            const sbolDataLayer = {}
-            SBOLDocument.loadRDF(xml, function(err, doc) {
-                doc.serializeJSON();
-                window.SBOL = doc;
-                sbolDataLayer.header = xmlHandler.pupulateHeader(doc);
-                sbolDataLayer.annotations = [];
-                sbolDataLayer.annotations = xmlHandler.populateAnnotations(doc);
+    convertXml: (xml) => {
+        return new Promise((resolve, reject) => {
+            {
+                const sbolDataLayer = {}
+                SBOLDocument.loadRDF(xml, function (err, doc) {
+                    doc.serializeJSON();
+                    window.SBOL = doc
+                    sbolDataLayer.header = xmlHandler.pupulateHeader(doc);
+                    sbolDataLayer.annotations = [];
+                    sbolDataLayer.annotations = xmlHandler.populateAnnotations(doc);
 
-                resolve(sbolDataLayer)
-            });
+                    resolve(sbolDataLayer)
+                });
 
-        }
-    }),
+            }
+        });
+    },
     queryAnnotation : (Annontations,filter) => {
         const candidate = Annontations.filter( (annotation) => {
             return annotation.name.indexOf(filter) !== -1
