@@ -1,30 +1,112 @@
+import SBOLDocument from 'sboljs';
+import getDisplayList from "./getDisplayList"
+
+
 const xmlHandler = {
+    pupulateHeader: (doc)=> {
+        const mainComponetDefinition = doc.componentDefinitions[0];
+        const annotations =  mainComponetDefinition._annotations
+        return {
+            partID: mainComponetDefinition._displayId,
+            name: mainComponetDefinition._name,
+            alternativeName: "",
+            version: mainComponetDefinition._version,
+            creator: xmlHandler.queryAnnotation(mainComponetDefinition._annotations,'http://purl.org/dc/elements/1.1/creator'),
+            parentSequence: "sbh:mutableProvenance",
+            persistentIdentity: mainComponetDefinition._persistentIdentity,
+            wasDerivedFrom: "",
+            wasGeneratedBy: "rdf:resource",
+            mutableDescription: xmlHandler.queryAnnotation(mainComponetDefinition._annotations,'http://wiki.synbiohub.org/wiki/Terms/synbiohub#mutableDescription'),
+            ComponentSequences : mainComponetDefinition.sequences ? mainComponetDefinition.sequences : ""
+        }
+    },
+    populateAnnotations: (doc) => {
+
+        const visbolDisplayListElements = getDisplayList(doc.componentDefinitions[0]).components[0].segments[0].sequence;
+
+        var component = {
+            segments: []
+        }
+
+        doc.componentDefinitions.forEach(function(componentDefinition) {
+            component.segments = component.segments.concat(getDisplayList(componentDefinition).components[0].segments[0])
+        })
+        window.composedComponent = component
+
+        if (visbolDisplayListElements.length > 0){
+            return  visbolDisplayListElements.map(
+                (component, index) => {
+
+                    /*
+                            id: "https://synbiohub.org/public/igem/BBa_I20282/annotation1962295/1"
+                            name: "BBa_B0034"
+                            propriety:
+                            Description: "RBS (Elowitz 1999) -- defines RBS efficiency"
+                            Identifier: "BBa_B0034"
+                            Name: "BBa_B0034"
+                            Orientation: "inline"
+                            Role: "ribosome_entry_site"
+                            element: "Component"
+                            end: 12
+                            iGEM Part Type: "RBS"
+                            sequenceOntology: "SO:0000139"
+                            start: 1
+                     */
+
+                    return {
+                        name: component.name,
+                        SBOL: component.propriety.sequenceOntology,
+                        start: component.propriety.start,
+                        end: component.propriety.end,
+                        pk: index,
+                        index: index,
+                        direction: component.propriety.Orientation === 'inline' ? 'FW' : 'RV',
+                        sbolDescription: component.Description,
+                        mutableDescription: ''
+                    };
+                }
+            )
+        }
+
+        /*
+            const dataLayerSingleComponent = {
+                SBOL: xmlHandler.extractSO(role),
+                direction: direction,
+                start: xmlHandler.xmlFind(component, "sbol:start"),
+                end: xmlHandler.xmlFind(component, "sbol:end"),
+                index: xmlHandler.extractIndexVal(sbolIndex),
+                name: sbolTitle,
+                notes: "",
+                pk: xmlHandler.extractIndexVal(sbolIndex),
+                role_id: 0,
+                sbolDescription :sbolDescription,
+                mutableDescription : mutableDescription
+            };
+        */
+
+    },
     convertXml: (xml) => {
-        const sbolDataLayer = {}
-        const parser = new DOMParser();
-        const xmlDoc = parser.parseFromString(xml, "text/xml");
+        return new Promise((resolve, reject) => {
+            {
+                const sbolDataLayer = {}
+                SBOLDocument.loadRDF(xml, function (err, doc) {
+                    doc.serializeJSON();
+                    window.SBOL = doc
+                    sbolDataLayer.header = xmlHandler.pupulateHeader(doc);
+                    sbolDataLayer.annotations = [];
+                    sbolDataLayer.annotations = xmlHandler.populateAnnotations(doc);
 
-        const ComponentDefinition = xmlDoc.getElementsByTagName(
-            "sbol:ComponentDefinition"
-        )[0];
+                    resolve(sbolDataLayer)
+                });
 
-        sbolDataLayer.header = {
-            partID: xmlHandler.xmlFind(ComponentDefinition, "sbol:displayId"),
-            name: xmlHandler.xmlFind(ComponentDefinition, "dcterms:title"),
-            alternativeName: xmlHandler.xmlFind(ComponentDefinition, "dcterms:description"),
-            version: xmlHandler.xmlFind(ComponentDefinition, "sbol:version"),
-            creator: xmlHandler.xmlFind(ComponentDefinition, "dc:creator"),
-            parentSequence: xmlHandler.xmlFind(ComponentDefinition, "sbh:mutableProvenance"),
-            persistentIdentity: xmlHandler.xmlFind(ComponentDefinition, "sbol:persistentIdentity", "rdf:resource"),
-            wasDerivedFrom: xmlHandler.xmlFind(ComponentDefinition, "prov:wasDerivedFrom", "rdf:resource"),
-            wasGeneratedBy: xmlHandler.xmlFind(ComponentDefinition, "prov:wasGeneratedBy", "rdf:resource"),
-            mutableDescription: xmlHandler.xmlFind(ComponentDefinition, "sbh:mutableDescription"),
-        };
-
-        sbolDataLayer.annotations = [];
-        sbolDataLayer.annotations = xmlHandler.SequenceAnnotation(ComponentDefinition, xmlDoc)
-
-        return sbolDataLayer
+            }
+        });
+    },
+    queryAnnotation : (Annontations,filter) => {
+        const candidate = Annontations.filter( (annotation) => {
+            return annotation.name.indexOf(filter) !== -1
+        })
+        return candidate.length > 0 ? candidate[0].value : ""
     },
     isAvalidSingleComponent: (dataLayerSingleComponent) => {
         if (dataLayerSingleComponent.SBOL === "") {
@@ -34,224 +116,6 @@ const xmlHandler = {
         return typeof dataLayerSingleComponent.SBOL !== undefined;
 
     },
-    SequenceAnnotation: (ComponentDefinition, xmlDoc) => {
-        const annotations = [];
-        const ids = [];
-
-        // Handle sbol:Component
-        const dnaComponents = ComponentDefinition.getElementsByTagName(
-            "sbol:Component"
-        );
-
-        const ExternalData = []
-
-        for (let i = 0; i < dnaComponents.length; i++) {
-
-            const definition_id = xmlHandler.xmlFind_startWith(dnaComponents[i], "sbol:definition", "rdf:resource", "https://synbiohub.org/public/igem/");
-            const ElemComponentDefinition = xmlHandler.xmlFindElement_startWith(xmlDoc, "sbol:ComponentDefinition", "rdf:about", definition_id);
-
-            const ExternalSO = xmlHandler.xmlFind_startWith(ElemComponentDefinition, "sbol:role", "rdf:resource", "http://identifiers.org/so/SO:")
-            const ExternalIndex = xmlHandler.xmlFind(ElemComponentDefinition, "sbol:displayId");
-            const ExternalName = xmlHandler.xmlFind(ElemComponentDefinition, "dcterms:title");
-
-
-            ExternalData[ExternalIndex] = ({
-                'displayId': ExternalIndex,
-                'role': ExternalSO,
-                'sbol': xmlHandler.extractSO(ExternalSO),
-                'name': ExternalName,
-                'mutableDescription' : xmlHandler.xmlFind(ElemComponentDefinition, "sbh:mutableDescription"),
-                'dcterms_description' : xmlHandler.xmlFind(ElemComponentDefinition, "dcterms:description")
-            });
-
-            const SequenceAnnotation = ElemComponentDefinition.getElementsByTagName(
-                "sbol:SequenceAnnotation"
-            );
-
-        }
-
-        // handle sbol:SequenceAnnotation
-        const SequenceAnnotation = ComponentDefinition.getElementsByTagName(
-            "sbol:SequenceAnnotation"
-        );
-
-        for (let i = 0; i < SequenceAnnotation.length; i++) {
-            const component = SequenceAnnotation[i];
-
-            let role = "SO:0000110";
-            const seqAnnRole = xmlHandler.xmlFind_startWith(component, "sbol:role", "rdf:resource", "http://identifiers.org/so/SO:");
-
-            const sbolIndex = xmlHandler.xmlFind(component, "sbol:displayId");
-            let sbolTitle = xmlHandler.xmlFind(component, "dcterms:title");
-            let sbolDescription = xmlHandler.xmlFind(component, "dcterms:description");
-            let mutableDescription = xmlHandler.xmlFind(component, "sbh:mutableDescription");
-
-                if (typeof seqAnnRole == 'undefined' && typeof ExternalData[sbolTitle].role === 'string' ) {
-                    role = ExternalData[sbolTitle].role
-                    sbolTitle = ExternalData[sbolTitle].name
-                    if(typeof ExternalData[sbolTitle] != 'undefined'){
-                        sbolDescription = ExternalData[sbolTitle].sbolDescription
-                        mutableDescription = ExternalData[sbolTitle].mutableDescription
-                    }
-                } else if (typeof seqAnnRole == 'string') {
-                    role = seqAnnRole;
-                }
-
-
-                if (!ids.includes(sbolIndex)) {
-                    ids.push(sbolIndex)
-
-                    const directionResource = xmlHandler.xmlFind(component, "sbol:orientation", "rdf:resource")
-
-                    let direction = "--";
-                    if (directionResource === "http://sbols.org/v2#inline") direction = 'FW'
-                    if (directionResource === "http://sbols.org/v2#reverseComplement") {
-                        direction = 'RV'
-                    }
-
-                    const dataLayerSingleComponent = {
-                        SBOL: xmlHandler.extractSO(role),
-                        direction: direction,
-                        start: xmlHandler.xmlFind(component, "sbol:start"),
-                        end: xmlHandler.xmlFind(component, "sbol:end"),
-                        index: xmlHandler.extractIndexVal(sbolIndex),
-                        name: sbolTitle,
-                        notes: "",
-                        pk: xmlHandler.extractIndexVal(sbolIndex),
-                        role_id: 0,
-                        sbolDescription :sbolDescription,
-                        mutableDescription : mutableDescription
-                    };
-                    if (xmlHandler.isAvalidSingleComponent(dataLayerSingleComponent)) {
-                        annotations.push(dataLayerSingleComponent);
-                    }
-                }
-
-        }
-        // sorted by start
-        const sortedAnnotations = annotations.sort((a, b) => {
-            return a.start - b.start
-        })
-        return sortedAnnotations
-    },
-    xmlFallback: (parsedElement, fallbackString, attribute) => {
-
-        if (
-            Object.prototype.toString.call(parsedElement) === "[object HTMLCollection]"
-        ) {
-            parsedElement = parsedElement[0];
-        }
-
-
-        if (typeof attribute === "undefined") {
-            if (
-                typeof parsedElement === "undefined" ||
-                typeof parsedElement.childNodes[0] === "undefined"
-            ) {
-                return fallbackString;
-            } else {
-                return parsedElement.childNodes[0].nodeValue;
-            }
-        } else {
-
-            if (typeof parsedElement != 'undefined' && parsedElement.hasAttribute(attribute)) {
-                return parsedElement.attributes[attribute].value;
-            } else {
-                return fallbackString;
-            }
-        }
-    },
-    testElement: (parsedElement, attribute) => {
-
-        if (
-            Object.prototype.toString.call(parsedElement) === "[object HTMLCollection]"
-        ) {
-            parsedElement = parsedElement[0];
-        }
-
-
-        if (typeof attribute === "undefined") {
-            return !(typeof parsedElement === "undefined" ||
-                typeof parsedElement.childNodes[0] === "undefined");
-        } else {
-            return !!(typeof parsedElement != 'undefined' && parsedElement.hasAttribute(attribute));
-        }
-    },
-    xmlFind_startWith: (ParseXml, elementTagName, attribute, startWith) => {
-        return xmlHandler.xmlFindAll_startWith(ParseXml, elementTagName, attribute, startWith)[0]
-    },
-    xmlFindAllElement_startWith: (ParseXml, elementTagName, attribute, startWith) => {
-
-        const allDOMelement = ParseXml.getElementsByTagName(elementTagName);
-        const result = []
-
-        for (let i = 0; i < allDOMelement.length; i++) {
-            const component = allDOMelement[i];
-            const proposed = xmlHandler.xmlFallback(
-                component,
-                "",
-                attribute
-            );
-            if (proposed.startsWith(startWith)) {
-                result.push(component)
-            }
-
-
-        }
-        return result
-    },
-    xmlFindElement_startWith: (ParseXml, elementTagName, attribute, startWith) => {
-        return xmlHandler.xmlFindAllElement_startWith(ParseXml, elementTagName, attribute, startWith)[0]
-    },
-    xmlFindAll_startWith: (ParseXml, elementTagName, attribute, startWith) => {
-
-        const allDOMelement = ParseXml.getElementsByTagName(elementTagName);
-        const result = []
-
-        for (let i = 0; i < allDOMelement.length; i++) {
-            const component = allDOMelement[i];
-            const proposed = xmlHandler.xmlFallback(
-                component,
-                "",
-                attribute
-            );
-            if (proposed.startsWith(startWith)) {
-                result.push(proposed)
-            }
-
-
-        }
-        return result
-    },
-
-    xmlFind: (ParseXml, elementTagName, attribute) => {
-        return xmlHandler.xmlFallback(
-            ParseXml.getElementsByTagName(elementTagName),
-            "",
-            attribute
-        );
-    },
-    debug: (value) => {
-      console.log(value)
-    },
-    xmlFindAll: (ParseXml, elementTagName, attribute) => {
-
-        const allDOMelement = ParseXml.getElementsByTagName(elementTagName);
-        const result = []
-
-        for (let i = 0; i < allDOMelement.length; i++) {
-            const component = allDOMelement[i];
-            const proposed = xmlHandler.xmlFallback(
-                component,
-                "",
-                attribute
-            );
-            result.push(proposed)
-
-        }
-        return result
-    },
-
     extractSO: (text) => {
         if (typeof text != 'undefined') {
             const match = text.toUpperCase().match(/([so:]+[\d]+)/gi)
