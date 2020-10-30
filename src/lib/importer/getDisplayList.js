@@ -136,7 +136,7 @@ function getDisplayListSegment(componentDefinition, config, share) {
             } else if (role.toString().indexOf(soPrefix) === 0) {
 
                 var soTerm = role.toString().slice(soPrefix.length).split('_').join(':')
-                propriety['soTerm'] = soTerm
+                propriety['sequenceOntology'] = soTerm
                 //propriety['Role'] = sbolmeta.sequenceOntology[soTerm].name
 
             }
@@ -215,7 +215,7 @@ function getDisplayListSegment(componentDefinition, config, share) {
                     if (component.definition.displayId) propriety['Identifier'] = component.definition.displayId
                     if (component.definition.name) propriety['Name'] = component.definition.name
                     if (component.definition.description) propriety['Description'] = component.definition.description
-                    if (component.definition.sequences) propriety['Sequences'] = component.definition.sequences
+                    //if (component.definition.sequences) propriety['Sequences'] = component.definition.sequences
                 } else {
                     uri = component.definition.toString()
 

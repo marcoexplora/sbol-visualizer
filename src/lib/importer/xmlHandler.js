@@ -24,14 +24,15 @@ const xmlHandler = {
 
         const visbolDisplayListElements = getDisplayList(doc.componentDefinitions[0]).components[0].segments[0].sequence;
 
-        var component = {
+        const component = {
             segments: []
         }
 
         doc.componentDefinitions.forEach(function(componentDefinition) {
             component.segments = component.segments.concat(getDisplayList(componentDefinition).components[0].segments[0])
         })
-        window.composedComponent = component
+        window.composedComponent = component;
+        window.doc = doc;
 
         if (visbolDisplayListElements.length > 0){
             return  visbolDisplayListElements.map(
@@ -94,7 +95,7 @@ const xmlHandler = {
                     sbolDataLayer.header = xmlHandler.pupulateHeader(doc);
                     sbolDataLayer.annotations = [];
                     sbolDataLayer.annotations = xmlHandler.populateAnnotations(doc);
-
+                    window.sbolDataLayer = sbolDataLayer
                     resolve(sbolDataLayer)
                 });
 
