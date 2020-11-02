@@ -31,8 +31,6 @@ const xmlHandler = {
         doc.componentDefinitions.forEach(function(componentDefinition) {
             component.segments = component.segments.concat(getDisplayList(componentDefinition).components[0].segments[0])
         })
-        window.composedComponent = component;
-        window.doc = doc;
 
         if (visbolDisplayListElements.length > 0){
             return  visbolDisplayListElements.map(
@@ -63,7 +61,8 @@ const xmlHandler = {
                         index: index,
                         direction: component.propriety.Orientation === 'inline' ? 'FW' : 'RV',
                         sbolDescription: component.Description,
-                        mutableDescription: ''
+                        mutableDescription: '',
+                        components: component.propriety.components
                     };
                 }
             )

@@ -215,6 +215,7 @@ function getDisplayListSegment(componentDefinition, config, share) {
                     if (component.definition.displayId) propriety['Identifier'] = component.definition.displayId
                     if (component.definition.name) propriety['Name'] = component.definition.name
                     if (component.definition.description) propriety['Description'] = component.definition.description
+                    if (component.definition.components) propriety['components'] = getDisplayListSegment(component.definition).sequence
                     //if (component.definition.sequences) propriety['Sequences'] = component.definition.sequences
                 } else {
                     uri = component.definition.toString()
