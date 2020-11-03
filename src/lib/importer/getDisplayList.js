@@ -287,6 +287,7 @@ function getDisplayListSegment(componentDefinition, config, share) {
             sequenceAnnotation.ranges.forEach((range) => {
                 if (range.orientation) {
                     propriety['Orientation'] = range.orientation.toString().replace('http://sbols.org/v2#', '')
+                    propriety['Direction'] =  propriety['Orientation'] === 'inline' ? 'FW' : 'RV'
                     if (range.orientation.toString() === 'http://sbols.org/v2#reverseComplement') strand = 'negative'
                 }
                 propriety['start'] = range.start
@@ -295,7 +296,8 @@ function getDisplayListSegment(componentDefinition, config, share) {
 
             sequenceAnnotation.cuts.forEach((cut) => {
                 if (cut.orientation) {
-                    ppropriety['Orientation'] = cut.orientation.toString().replace('http://sbols.org/v2#', '')
+                    propriety['Orientation'] = cut.orientation.toString().replace('http://sbols.org/v2#', '')
+                    propriety['Direction'] =  propriety['Orientation'] === 'inline' ? 'FW' : 'RV'
                     if (cut.orientation.toString() === 'http://sbols.org/v2#reverseComplement') strand = 'negative'
                 }
                 propriety['cut_at'] = cut.at
@@ -304,6 +306,7 @@ function getDisplayListSegment(componentDefinition, config, share) {
             sequenceAnnotation.genericLocations.forEach((genericLocation) => {
                 if (genericLocation.orientation) {
                     propriety['Orientation'] = genericLocation.orientation.toString().replace('http://sbols.org/v2#', '')
+                    propriety['Direction'] =  propriety['Orientation'] === 'inline' ? 'FW' : 'RV'
                     if (genericLocation.orientation.toString() === 'http://sbols.org/v2#reverseComplement') strand = 'negative'
                 }
             })

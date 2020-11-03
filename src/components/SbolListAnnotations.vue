@@ -8,21 +8,9 @@
     <section>
       <ul class="search-list">
         <li v-if="selectedItems.length == 0">No Sbol component found</li>
+
         <li v-for="(item, index) in selectedItems" :key="index" @click="detailItem(item.index)" class="item">
-          <div>
-            <ol>
-              <li class="h1 bold">
-                {{ item.name }}
-              </li>
-
-              <li class="text-muted-black h2">
-                <b>Direction:</b>
-                <span>{{ item.direction }}</span>     <span v-if="item.end > 0">({{ item.start }}..{{ item.end }})</span>
-              </li>
-            </ol>
-          </div>
-
-
+          <sbol-tree-list  :item="item" v-bind:level="0" :breadcrumbs="item.name"></sbol-tree-list>
         </li>
       </ul>
     </section>
@@ -30,12 +18,18 @@
   </div>
 </template>
 <script>
+
+import SbolTreeList from "../components/SbolTreeList";
+
 export default {
   props: ["annotations"],
   data() {
     return {
       filter: "",
     };
+  },
+  components: {
+    SbolTreeList,
   },
   computed: {
     selectedItems() {

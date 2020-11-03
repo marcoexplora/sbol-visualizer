@@ -54,6 +54,7 @@ const xmlHandler = {
 
                     return {
                         name: component.name,
+                        propriety : component.propriety,
                         SBOL: component.propriety.sequenceOntology,
                         start: component.propriety.start,
                         end: component.propriety.end,
@@ -94,7 +95,10 @@ const xmlHandler = {
                     sbolDataLayer.header = xmlHandler.pupulateHeader(doc);
                     sbolDataLayer.annotations = [];
                     sbolDataLayer.annotations = xmlHandler.populateAnnotations(doc);
+
+                    // todo: remove this
                     window.sbolDataLayer = sbolDataLayer
+
                     resolve(sbolDataLayer)
                 });
 
