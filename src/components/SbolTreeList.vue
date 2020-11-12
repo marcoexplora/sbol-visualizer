@@ -2,25 +2,36 @@
   <div>
 
     <div class="h1 bold">
-      {{ item.name }} ( {{level}} )
+      <span v-if="item.propriety.components"
+            v-on:click="showSubComponent = !showSubComponent"
+            v-bind:class="[showSubComponent ? 'open' : 'close']"
+            class="sub_components_controller"><sbol-icon-open-collapse-list :open="showSubComponent"/> </span>
+            {{ item.name }}
     </div>
 
     <div class="text-muted-black h2">
       <b>Direction:</b>
-      <span>{{ item.propriety.Direction }}</span> <span v-if="item.propriety.end > 0">({{
-        item.propriety.start
-      }}..{{ item.propriety.end }})</span>
+      <span>{{ item.propriety.Direction }}</span> <span v-if="item.propriety.end > 0">({{item.propriety.start}}..{{ item.propriety.end }})</span>
     </div>
-    <ul v-if="item.components" :id="item.name  + 'sub' + level" >
-      <li v-for="(sub, index) in item.components" :key="index" class="item">
-        <sbol-tree-list :item="sub" :level="level + 1" :breadcrumbs="item.name"></sbol-tree-list>
-      </li>
-    </ul>
+
+    <div  v-bind:class="[showSubComponent ? 'show' : 'hide']" class="components_list" >
+
+      <div class="breadcrumbs">
+        {{breadcrumbs ? breadcrumbs + ' / ' : ""}} {{item.name}}
+      </div>
+
+      <ul v-if="item.propriety.components" :id="item.name  + 'sub' + level" >
+        <li v-for="(sub, index) in item.propriety.components" :key="index" class="item">
+          <sbol-tree-list :item="sub" :level="level + 1" :breadcrumbs='breadcrumbs ? breadcrumbs  +" / " + item.name : item.name'  ></sbol-tree-list>
+        </li>
+      </ul>
+    </div>
   </div>
 
 </template>
 <script>
-import SbolTreeList from "../components/SbolTreeList";
+import SbolTreeList from "@/components/SbolTreeList";
+import SbolIconOpenCollapseList from "@/components/SbolIconOpenCollapseList";
 
 export default {
   props: {
@@ -32,32 +43,51 @@ export default {
       default: 0
     },
     breadcrumbs: {
-      type: String
-    }
+      type : String
+      }
   },
   name: 'sbol-tree-list',
   data() {
     return {
+      showSubComponent : false,
       filter: "",
     };
   },
   components: {
     SbolTreeList,
+    SbolIconOpenCollapseList
   },
-  computed: {},
-  methods: {
-    hasChild(annotations) {
-    },
-  },
+
 };
 </script>
 <style scoped>
-ul {
+li.item{
+  padding: 10px 0 0 0;
+}
+.sub_components_controller{
+  color: #3578b6;
+  font-size: 0.8em;
+  vertical-align: revert;
+}
+.breadcrumbs{
+  font-size: 0.7em;
+  color: #3578b6;
+  float: right;
+}
+.components_list.hide{
+  overflow:hidden;
+  height: 0px;
   margin: 0;
-  padding: 10px 0 10px 5px;
-  padding-left: 5px;
-  border: 1px solid #e8e8e878;
-  background: #e8e8e878;
-  border-radius: 5px;
+  padding: 0;
+  border: 0;
+}
+.components_list {
+  margin: 0;
+  margin-left: 5px;
+  border-left: 2px solid #dee5ea;
+}
+ul{
+  list-style: none;
+  padding-left: 10px;
 }
 </style>

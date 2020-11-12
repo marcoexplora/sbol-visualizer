@@ -36,11 +36,11 @@
   </header>
 </template>
 <script>
-import SbolLink from "../components/SbolLinkText";
+import SbolLink from "@/components/SbolLinkText";
 
-import SbolIconInfo from "../components/SbolIconInfo";
-import SbolIconArrowInDown from "../components/SbolIconArrowInDown";
-import SbolIconArrowUpRight from "../components/SbolIconArrowUpRight";
+import SbolIconInfo from "@/components/SbolIconInfo";
+import SbolIconArrowInDown from "@/components/SbolIconArrowInDown";
+import SbolIconArrowUpRight from "@/components/SbolIconArrowUpRight";
 import CloseIcon from "@/components/SbolIconX"
 
 export default {

@@ -45,7 +45,7 @@
 </template>
 
 <script>
-import SbolLink from "../components/SbolLinkText";
+import SbolLink from "@/components/SbolLinkText";
 
 export default {
   props: ["annotation"],

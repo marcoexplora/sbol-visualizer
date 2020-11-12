@@ -56,14 +56,10 @@ const xmlHandler = {
                         name: component.name,
                         propriety : component.propriety,
                         SBOL: component.propriety.sequenceOntology,
-                        start: component.propriety.start,
-                        end: component.propriety.end,
-                        pk: index,
-                        index: index,
-                        direction: component.propriety.Orientation === 'inline' ? 'FW' : 'RV',
+                        pk: `${index}`,
                         sbolDescription: component.Description,
                         mutableDescription: '',
-                        components: component.propriety.components
+                       // components: component.propriety.components
                     };
                 }
             )

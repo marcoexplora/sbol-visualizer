@@ -3,21 +3,21 @@
 
     <div v-if="enabledropfile" style="padding:0;height: 1.55em">
       <div style="width: 100%">
-      <div style="float:right;font-size:1.2em">
-        <a  v-if="enabledropfile && empty === false"  style="font-size: 1em" v-on:click="reset()"><close-icon/></a>
-      </div>
+        <div style="float:right;font-size:1.2em">
+          <a  v-if="enabledropfile && empty === false"  style="font-size: 1em" v-on:click="reset()"><close-icon/></a>
+        </div>
 
-      <label style="cursor:pointer" class="txt" for="assetsFieldHandle"><sbol-box-arrow-up/> Choose a file to view</label>
-      <input
-        type="file"
-        multiple
-        name="fields[assetsFieldHandle][]"
-        id="assetsFieldHandle"
-        @change="onChange"
-        ref="file"
-        accept=".json, .xml"
-        style="display: none"
-      />
+        <label style="cursor:pointer" class="txt" for="assetsFieldHandle"><sbol-box-arrow-up/> Choose a file to view</label>
+        <input
+            type="file"
+            multiple
+            name="fields[assetsFieldHandle][]"
+            id="assetsFieldHandle"
+            @change="onChange"
+            ref="file"
+            accept=".json, .xml"
+            style="display: none"
+        />
       </div>
     </div>
     <div v-if="errors">
@@ -33,18 +33,18 @@
         <nav v-if="!flavourMini">
           <sbol-header :header="sbolDataLayer.header" />
           <sbol-list-annotations
-            :annotations="sbolDataLayer.annotations"
-            @selectedAnnotation="showDetail"
+              :annotations="sbolDataLayer.visibleAnnotations"
+              @selectedAnnotation="showDetail"
           />
         </nav>
         <div class="main" ref="chartsContainer">
           <sbol-chart
-            :annotations="sbolDataLayer.annotations"
-            :annotation="annotation"
-            @selectedAnnotation="showDetail"
-            :mainWidth="chartsWidth"
+              :annotations="sbolDataLayer.visibleAnnotations"
+              :annotation="selected"
+              @selectedAnnotation="showDetail"
+              :mainWidth="chartsWidth"
           />
-          <sbol-detail v-if="!flavourMini" :annotation="annotation" />
+          <sbol-detail v-if="!flavourMini" :annotation="selected" />
         </div>
 
       </div>
@@ -81,16 +81,18 @@ export default {
         },
         annotations: [],
       },
-      enabledropfile: false,
-      fileObj: {},
-      droppedFile: { type: "", data: "" },
-      annotation: null,
+      visibleAnnotations: [],
+      selected: null,
       filter: "",
       errors: false,
       empty: true,
       chartsWidth: 0,
       flavourClass: "SBOLcontainer XL",
       flavourMini: false,
+
+      enabledropfile: false,
+      fileObj: {},
+      droppedFile: { type: "", data: "" },
     };
   },
   methods: {
@@ -134,7 +136,7 @@ export default {
           _that.droppedFile.data = el.target.result;
 
           const dataFormat =
-            _that.droppedFile["type"] === "text/xml" ? "xml" : "json";
+              _that.droppedFile["type"] === "text/xml" ? "xml" : "json";
           _that.genericLoad(dataFormat, _that.droppedFile["data"]);
         };
       })(this.fileObj, this);
@@ -143,12 +145,11 @@ export default {
       this.filelist.splice(i, 1);
     },
     showDetail: function (idx) {
-      this.annotation = this.sbolDataLayer.annotations[idx];
+      this.selected = this.sbolDataLayer.visibleAnnotations[idx];
     },
     matchWidth: function () {
       const main = this.$refs;
       this.mainWidth = main.clientWidth + "px";
-      //console.log(`this.mainWidth  ${this.mainWidth}`);
     },
     genericLoad: function (dataFormat, data) {
       try {
@@ -161,6 +162,7 @@ export default {
         if (dataFormat === "xml") {
           this.loadXml(data);
         }
+        window.sbolDataLayer = this.sbolDataLayer
       } catch (error) {
         //console.error(error)
         this.errors = true;
@@ -168,17 +170,18 @@ export default {
     },
     loadJson: function (json) {
       this.sbolDataLayer = jsonHandler.convertJson(json);
-
+      this.sbolDataLayer.visibleAnnotations = this.sbolDataLayer.annotations;
       this.empty = false;
       this.$nextTick(function () {
         this.chartsWidth = this.$refs.chartsContainer.clientWidth - 50;
       });
     },
     loadXml: function (xml) {
-     xmlHandler.convertXml(xml).then((sb)=>{
-       this.sbolDataLayer = sb;
-       this.empty = false;
-    })
+      xmlHandler.convertXml(xml).then((sb)=>{
+        this.sbolDataLayer = sb;
+        this.sbolDataLayer.visibleAnnotations = this.sbolDataLayer.annotations;
+        this.empty = false;
+      })
     },
     resizeHandler: function () {
       const defaultBreakpoints = [
@@ -204,9 +207,9 @@ export default {
         },
       ];
       const widthContainer =
-        window.innerWidth ||
-        document.documentElement.clientWidth ||
-        document.body.clientWidth;
+          window.innerWidth ||
+          document.documentElement.clientWidth ||
+          document.body.clientWidth;
       let classBp = "XL";
       defaultBreakpoints.forEach((bp) => {
         classBp = bp.width <= widthContainer ? bp.class : classBp;
@@ -215,7 +218,7 @@ export default {
       this.flavourMini = ["XL", "LG"].indexOf(classBp) === -1;
 
       this.flavourClass = `${
-        this.flavourMini ? "mini" : "SBOLcontainer"
+          this.flavourMini ? "mini" : "SBOLcontainer"
       } ${classBp}`;
     },
   },
@@ -276,9 +279,9 @@ export default {
   padding: 10px;
 }
 .panel {
-    position: absolute;
-    right: 1em;
-    font-size: 2em;
+  position: absolute;
+  right: 1em;
+  font-size: 2em;
 }
 .bg-green-300 {
   background-color: #1c1b41;
@@ -362,5 +365,12 @@ nav {
   .bold{
     font-weight: bold;
   }
+  .float-left{
+    float: left
+  }
+  .float-right{
+    float: right;
+  }
+
 }
 </style>

@@ -6,11 +6,16 @@
 
   <div class="wrap-section">
     <section>
+
       <ul class="search-list">
+        <div class="root active">
+          <sbol-icon-glasses/>
+        </div>
+
         <li v-if="selectedItems.length == 0">No Sbol component found</li>
 
         <li v-for="(item, index) in selectedItems" :key="index" @click="detailItem(item.index)" class="item">
-          <sbol-tree-list  :item="item" v-bind:level="0" :breadcrumbs="item.name"></sbol-tree-list>
+          <sbol-tree-list  :item="item" v-bind:level="0" ></sbol-tree-list>
         </li>
       </ul>
     </section>
@@ -19,7 +24,8 @@
 </template>
 <script>
 
-import SbolTreeList from "../components/SbolTreeList";
+import SbolTreeList from "@/components/SbolTreeList";
+import SbolIconGlasses from "@/components/SbolIconGlasses"
 
 export default {
   props: ["annotations"],
@@ -30,6 +36,7 @@ export default {
   },
   components: {
     SbolTreeList,
+    SbolIconGlasses
   },
   computed: {
     selectedItems() {
@@ -65,13 +72,22 @@ export default {
 };
 </script>
 <style scoped>
+.root{
+  position: absolute;
+  top: 0px;
+  right: 5px;
+  z-index: 1;
+}
+.root.active{
+  font-size: 25px;
+  color: #0078b6;
+}
 .search {
   margin: 0;
   font-size: 10px;
   border: 1px solid rgba(0, 0, 0, 0.125);
   border-radius: 5px;
   background-color: #f0f2f5;
-
 }
 .bold{
   font-weight: bold;
@@ -118,6 +134,7 @@ section * {
   margin: 0;
   border-radius: 5px;
   border-bottom: 1px;
+  position: relative;
 }
 .search-list *{
   color:  #4d4d4c

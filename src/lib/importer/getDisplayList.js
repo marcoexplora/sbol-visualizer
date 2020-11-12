@@ -176,7 +176,7 @@ function getDisplayListSegment(componentDefinition, config, share) {
 
     return {
         name: displayName,
-        sequence: sortedSequenceAnnotations(componentDefinition).map((sequenceAnnotation) => {
+        sequence: sortedSequenceAnnotations(componentDefinition).map((sequenceAnnotation,_index) => {
 
             var glyph = 'unspecified'
 
@@ -311,10 +311,13 @@ function getDisplayListSegment(componentDefinition, config, share) {
                 }
             })
 
+
+
             return {
                 strand: strand,
                 type: glyph,
                 id: sequenceAnnotation.uri + '',
+                pk: `${_index}`,
                 name: name,
                 uri: uri,
                 propriety: propriety
