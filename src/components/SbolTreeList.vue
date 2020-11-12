@@ -72,7 +72,13 @@ li.item{
 .breadcrumbs{
   font-size: 0.7em;
   color: #3578b6;
-  float: right;
+  /* float: right; */
+  margin-top: 10px;
+  text-decoration: underline;
+  text-align: center;
+  background: #dee5ea;
+  padding: 5px;
+
 }
 .components_list.hide{
   overflow:hidden;
