@@ -33,8 +33,9 @@
         <nav v-if="!flavourMini">
           <sbol-header :header="sbolDataLayer.header" />
           <sbol-list-annotations
-              :annotations="sbolDataLayer.visibleAnnotations"
+              :annotations="sbolDataLayer.annotations"
               @selectedAnnotation="showDetail"
+              @showBranch="showComponents"
           />
         </nav>
         <div class="main" ref="chartsContainer">
@@ -43,6 +44,7 @@
               :annotation="selected"
               @selectedAnnotation="showDetail"
               :mainWidth="chartsWidth"
+
           />
           <sbol-detail v-if="!flavourMini" :annotation="selected" />
         </div>
@@ -55,6 +57,8 @@
 
 <script>
 import axios from "axios";
+
+import eventBus from "@/lib/eventBus";
 
 import SbolLanding from "@/components/SbolLanding";
 import SbolErrors from "@/components/SbolErrors";
@@ -81,11 +85,11 @@ export default {
         },
         annotations: [],
       },
-      visibleAnnotations: [],
       selected: null,
       filter: "",
       errors: false,
       empty: true,
+
       chartsWidth: 0,
       flavourClass: "SBOLcontainer XL",
       flavourMini: false,
@@ -146,6 +150,9 @@ export default {
     },
     showDetail: function (idx) {
       this.selected = this.sbolDataLayer.visibleAnnotations[idx];
+    },
+    showComponents: function(Annotations){
+      this.visibleAnnotations = Annotations;
     },
     matchWidth: function () {
       const main = this.$refs;
@@ -236,6 +243,12 @@ export default {
   },
   created: function () {
     this.resizeHandler();
+    eventBus.$on("set-visible", (annotations) => {
+
+      const newVisible = Object.assign([], annotations);
+      this.sbolDataLayer.visibleAnnotations = newVisible;
+      this.chartsWidth += 1;
+    });
   },
   mounted: function () {
 

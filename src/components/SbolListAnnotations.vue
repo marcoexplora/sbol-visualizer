@@ -8,14 +8,14 @@
     <section>
 
       <ul class="search-list">
-        <div class="root active">
+        <div class="root active" @click="changeVisible(annotations)">
           <sbol-icon-glasses/>
         </div>
 
         <li v-if="selectedItems.length == 0">No Sbol component found</li>
 
         <li v-for="(item, index) in selectedItems" :key="index" @click="detailItem(item.index)" class="item">
-          <sbol-tree-list  :item="item" v-bind:level="0" ></sbol-tree-list>
+          <sbol-tree-list  :item="item" v-bind:level="0"  ></sbol-tree-list>
         </li>
       </ul>
     </section>
@@ -26,6 +26,7 @@
 
 import SbolTreeList from "@/components/SbolTreeList";
 import SbolIconGlasses from "@/components/SbolIconGlasses"
+import eventBus from "@/lib/eventBus";
 
 export default {
   props: ["annotations"],
@@ -39,7 +40,8 @@ export default {
     SbolIconGlasses
   },
   computed: {
-    selectedItems() {
+    //todo: rename selectedItems in searchItems and make it work on multiples levels
+    selectedItems()  {
       if(typeof this.annotations !== 'undefined'){
         return this.annotations.filter((so) => {
           if (this.filter === "") {
@@ -68,6 +70,9 @@ export default {
     detailItem(so) {
       this.$emit("selectedAnnotation", so);
     },
+    changeVisible(ann) {
+      eventBus.$emit("set-visible",ann)
+    }
   },
 };
 </script>

@@ -161,6 +161,7 @@ function getDisplayListSegment(componentDefinition, config, share) {
         })
 
         return {
+            log: "1b",
             name: displayName,
             sequence: [{
                 strand: "positive",
@@ -314,6 +315,8 @@ function getDisplayListSegment(componentDefinition, config, share) {
 
 
             return {
+                log: "1c",
+                SBOL : propriety.sequenceOntology,
                 strand: strand,
                 type: glyph,
                 id: sequenceAnnotation.uri + '',

@@ -16,7 +16,7 @@
 
     <div  v-bind:class="[showSubComponent ? 'show' : 'hide']" class="components_list" >
 
-      <div class="breadcrumbs">
+      <div class="breadcrumbs" @click="changeVisible(item.propriety.components)">
         {{breadcrumbs ? breadcrumbs + ' / ' : ""}} {{item.name}}
       </div>
 
@@ -32,6 +32,8 @@
 <script>
 import SbolTreeList from "@/components/SbolTreeList";
 import SbolIconOpenCollapseList from "@/components/SbolIconOpenCollapseList";
+
+import eventBus from "@/lib/eventBus";
 
 export default {
   props: {
@@ -57,6 +59,11 @@ export default {
     SbolTreeList,
     SbolIconOpenCollapseList
   },
+  methods :{
+    changeVisible(ann) {
+      eventBus.$emit("set-visible",ann)
+    }
+  }
 
 };
 </script>

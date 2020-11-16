@@ -53,6 +53,7 @@ const xmlHandler = {
                      */
 
                     return {
+                        log: "1a",
                         name: component.name,
                         propriety : component.propriety,
                         SBOL: component.propriety.sequenceOntology,
