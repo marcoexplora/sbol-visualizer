@@ -247,7 +247,7 @@ export default {
 
       const newVisible = Object.assign([], annotations);
       this.sbolDataLayer.visibleAnnotations = newVisible;
-      this.chartsWidth += 1;
+      this.chartsWidth += 1; // todo: fix this with a clever approach
     });
   },
   mounted: function () {
