@@ -6,19 +6,21 @@
         :ref="'glyphs'"
         :class="item.class"
         :key="index"
-        @click="detailItem(index)"
+        @click="detailItem(item)"
       >
         <div class="tooltiptext">{{ item.name }}</div>
-        <div v-if="item.selected" class="selected"></div>
-          <img :src="item.path" />
+        <div v-if="selected === item" class="selected"></div>
+          <img :src="item.path" @error="setAltImg" />
         </div>
     </div>
   </div>
 </template>
 
 <script>
+import eventBus from "@/lib/eventBus";
+
 export default {
-  props: ["annotations", "annotation"],
+  props: ["annotations", "selected"],
   data() {
     return {
       activeAnnotation: "none",
@@ -33,9 +35,12 @@ export default {
     computedGlyphAnnotations() {
       if (this.annotations) {
         this.annotations.map((key, index) => {
+          let sbol = this.annotations[index].SBOL;
+
+
           this.annotations[
             index
-          ].path = `https://vows.sbolstandard.org/glyph/${this.annotations[index].SBOL}/png`;
+          ].path = `https://vows.sbolstandard.org/glyph/${sbol}/png`;
 
           this.annotations[index].selected =
             this.activeAnnotation == this.annotations[index].pk;
@@ -55,8 +60,8 @@ export default {
     },
   },
   methods: {
-    detailItem(a) {
-      this.$emit("selectedAnnotation", a);
+    detailItem(ann) {
+      eventBus.$emit("select-annotation", ann);
     },
     selectedAnnotation(a) {
       this.activeAnnotation = a.pk;
@@ -68,6 +73,9 @@ export default {
         });
       }, 100);
     },
+    setAltImg(event) {
+      event.target.src = "https://vows.sbolstandard.org/glyph/SO:0000313/png"
+    }
   },
   watch: {
     annotation(a) {

@@ -19,17 +19,18 @@
             </a>
           </li>
 
-          <li>
-            <span class="bold">Direction: </span> <span> {{ this.detail.direction }}</span>     <span v-if="this.detail.end > 0">( {{ this.detail.start }}..{{ this.detail.end }} )</span>
+          <li v-if="this.detail.propriety.Direction">
+            <span class="bold">Direction: </span> <span> {{ this.detail.propriety.Direction }}</span>     <span v-if="this.detail.end > 0">( {{ this.detail.start }}..{{ this.detail.end }} )</span>
           </li>
 
-          <li v-if="this.detail.sbolDescription">
-            {{ this.detail.sbolDescription }}
+          <li v-if="this.detail.propriety.Description">
+            {{ this.detail.propriety.Description }}
           </li>
 
           <li v-if="this.detail.mutableDescription">
             <p class="m0"><span class="bold">Mutable Description: </span> {{ this.detail.mutableDescription }}</p>
           </li>
+
 
           <li class="comingsoon">
             <h2>Where is my sequence?</h2>

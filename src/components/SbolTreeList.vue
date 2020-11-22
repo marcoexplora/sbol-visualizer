@@ -1,28 +1,33 @@
 <template>
   <div>
 
-    <div class="h1 bold">
+    <div class="h1 bold"  @click="detailItem(item)">
       <span v-if="item.propriety.components"
             v-on:click="showSubComponent = !showSubComponent"
             v-bind:class="[showSubComponent ? 'open' : 'close']"
-            class="sub_components_controller"><sbol-icon-open-collapse-list :open="showSubComponent"/> </span>
+            class="sub_components_controller">
+        <sbol-icon-open-collapse-list :open="showSubComponent"/>
+      </span>
             {{ item.name }}
+
+      <span v-if="item.propriety.components"
+            @click="changeVisible(item.propriety.components)"
+            class="glasses">
+          <sbol-icon-glasses :active="item.propriety.components == visible"/>
+       </span>
+
     </div>
 
-    <div class="text-muted-black h2">
+    <div class="text-muted-black h2"  @click="detailItem(item)">
       <b>Direction:</b>
-      <span>{{ item.propriety.Direction }}</span> <span v-if="item.propriety.end > 0">({{item.propriety.start}}..{{ item.propriety.end }})</span>
+      <span>{{ item.propriety.Direction }}</span>
+      <span v-if="item.propriety.end > 0">({{item.propriety.start}}..{{ item.propriety.end }})</span>
     </div>
 
-    <div  v-bind:class="[showSubComponent ? 'show' : 'hide']" class="components_list" >
-
-      <div class="breadcrumbs" @click="changeVisible(item.propriety.components)">
-        {{breadcrumbs ? breadcrumbs + ' / ' : ""}} {{item.name}}
-      </div>
-
+    <div  v-bind:class="[showSubComponent ? 'show' : 'hide']" class="components_list">
       <ul v-if="item.propriety.components" :id="item.name  + 'sub' + level" >
         <li v-for="(sub, index) in item.propriety.components" :key="index" class="item">
-          <sbol-tree-list :item="sub" :level="level + 1" :breadcrumbs='breadcrumbs ? breadcrumbs  +" / " + item.name : item.name'  ></sbol-tree-list>
+          <sbol-tree-list :item="sub" :level="level + 1" :visible="visible" :breadcrumbs='breadcrumbs ? breadcrumbs  +" / " + item.name : item.name'  ></sbol-tree-list>
         </li>
       </ul>
     </div>
@@ -32,6 +37,7 @@
 <script>
 import SbolTreeList from "@/components/SbolTreeList";
 import SbolIconOpenCollapseList from "@/components/SbolIconOpenCollapseList";
+import SbolIconGlasses from "@/components/SbolIconGlasses"
 
 import eventBus from "@/lib/eventBus";
 
@@ -46,7 +52,9 @@ export default {
     },
     breadcrumbs: {
       type : String
-      }
+      },
+    visible: {}
+
   },
   name: 'sbol-tree-list',
   data() {
@@ -57,17 +65,32 @@ export default {
   },
   components: {
     SbolTreeList,
-    SbolIconOpenCollapseList
+    SbolIconOpenCollapseList,
+    SbolIconGlasses
   },
   methods :{
     changeVisible(ann) {
-      eventBus.$emit("set-visible",ann)
-    }
+      const annotations = ann.length == 1 ? [ann] : ann;
+      eventBus.$emit("set-visible",annotations)
+    },
+    detailItem(ann) {
+      eventBus.$emit("select-annotation", ann);
+    },
   }
 
 };
 </script>
 <style scoped>
+
+.glasses{
+  font-size: 25px;
+  position: absolute;
+  right: 5px;
+  z-index: 1;
+}
+.close .glasses{
+  display: none;
+}
 li.item{
   padding: 10px 0 0 0;
 }
@@ -77,15 +100,10 @@ li.item{
   vertical-align: revert;
 }
 .breadcrumbs{
-  font-size: 0.7em;
   color: #3578b6;
-  /* float: right; */
   margin-top: 10px;
-  text-decoration: underline;
   text-align: center;
-  background: #dee5ea;
   padding: 5px;
-
 }
 .components_list.hide{
   overflow:hidden;

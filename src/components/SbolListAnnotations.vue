@@ -1,5 +1,6 @@
 <template>
   <div class="wrap-list">
+
     <div class="search">
       <input type="text" class="search-input" placeholder="Search in annotations" v-model="filter" />
     </div>
@@ -8,15 +9,24 @@
     <section>
 
       <ul class="search-list">
-        <div class="root active" @click="changeVisible(annotations)">
-          <sbol-icon-glasses/>
-        </div>
 
         <li v-if="selectedItems.length == 0">No Sbol component found</li>
 
-        <li v-for="(item, index) in selectedItems" :key="index" @click="detailItem(item.index)" class="item">
-          <sbol-tree-list  :item="item" v-bind:level="0"  ></sbol-tree-list>
+        <li v-if="selectedItems.length > 0" class="item">
+          <div class="h1 bold">
+            {{root.partID}}
+          </div>
+
+          <div class="root active" @click="changeVisible(annotations)">
+            <sbol-icon-glasses v-bind:active="visible == annotations"/>
+          </div>
+
         </li>
+
+        <li v-for="(item, index) in selectedItems" :key="index" class="item">
+          <sbol-tree-list  :item="item" v-bind:level="0"  :selected="selected" :visible="visible"  ></sbol-tree-list>
+        </li>
+
       </ul>
     </section>
   </div>
@@ -29,7 +39,7 @@ import SbolIconGlasses from "@/components/SbolIconGlasses"
 import eventBus from "@/lib/eventBus";
 
 export default {
-  props: ["annotations"],
+  props: ["annotations","selected","root","visible"],
   data() {
     return {
       filter: "",
@@ -67,9 +77,6 @@ export default {
     },
   },
   methods: {
-    detailItem(so) {
-      this.$emit("selectedAnnotation", so);
-    },
     changeVisible(ann) {
       eventBus.$emit("set-visible",ann)
     }
@@ -78,15 +85,13 @@ export default {
 </script>
 <style scoped>
 .root{
+  font-size: 25px;
   position: absolute;
   top: 0px;
   right: 5px;
   z-index: 1;
 }
-.root.active{
-  font-size: 25px;
-  color: #0078b6;
-}
+
 .search {
   margin: 0;
   font-size: 10px;

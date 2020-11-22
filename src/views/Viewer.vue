@@ -33,18 +33,18 @@
         <nav v-if="!flavourMini">
           <sbol-header :header="sbolDataLayer.header" />
           <sbol-list-annotations
+              :root="sbolDataLayer.header"
               :annotations="sbolDataLayer.annotations"
-              @selectedAnnotation="showDetail"
+              :selected="selected"
+              :visible="sbolDataLayer.visibleAnnotations"
               @showBranch="showComponents"
           />
         </nav>
         <div class="main" ref="chartsContainer">
           <sbol-chart
               :annotations="sbolDataLayer.visibleAnnotations"
-              :annotation="selected"
-              @selectedAnnotation="showDetail"
-              :mainWidth="chartsWidth"
-
+              :selected="selected"
+              :key="updateRender"
           />
           <sbol-detail v-if="!flavourMini" :annotation="selected" />
         </div>
@@ -90,7 +90,7 @@ export default {
       errors: false,
       empty: true,
 
-      chartsWidth: 0,
+      updateRender: 0,
       flavourClass: "SBOLcontainer XL",
       flavourMini: false,
 
@@ -148,12 +148,30 @@ export default {
     remove(i) {
       this.filelist.splice(i, 1);
     },
-    showDetail: function (idx) {
-      this.selected = this.sbolDataLayer.visibleAnnotations[idx];
+    showDetail: function (annotation) {
+      this.selected = annotation;
     },
     showComponents: function(Annotations){
       this.visibleAnnotations = Annotations;
+      //Annotations['visible'] = true;
     },
+    /*searchInThree: function(filter){
+        let result = false;
+        this.sbolDataLayer.annotations.forEach((component)=>{
+            component.propriety.components.forEach( (childComp) =>{
+                  result = result || searchInThree(childComp)
+                }
+            );
+            const actualPosFilter = filter(component);
+            result = result || actualPosFilter;
+            component.search = actualPosFilter;
+            if(actualPosFilter){
+              console.log(component.name)
+            }
+        });
+      console.log('searchInThree');
+      return result
+     },*/
     matchWidth: function () {
       const main = this.$refs;
       this.mainWidth = main.clientWidth + "px";
@@ -171,22 +189,20 @@ export default {
         }
         window.sbolDataLayer = this.sbolDataLayer
       } catch (error) {
-        //console.error(error)
         this.errors = true;
       }
+
     },
     loadJson: function (json) {
       this.sbolDataLayer = jsonHandler.convertJson(json);
       this.sbolDataLayer.visibleAnnotations = this.sbolDataLayer.annotations;
       this.empty = false;
-      this.$nextTick(function () {
-        this.chartsWidth = this.$refs.chartsContainer.clientWidth - 50;
-      });
     },
     loadXml: function (xml) {
       xmlHandler.convertXml(xml).then((sb)=>{
         this.sbolDataLayer = sb;
         this.sbolDataLayer.visibleAnnotations = this.sbolDataLayer.annotations;
+        window.sbolDataLayer = sbolDataLayer;
         this.empty = false;
       })
     },
@@ -243,12 +259,17 @@ export default {
   },
   created: function () {
     this.resizeHandler();
-    eventBus.$on("set-visible", (annotations) => {
 
-      const newVisible = Object.assign([], annotations);
-      this.sbolDataLayer.visibleAnnotations = newVisible;
-      this.chartsWidth += 1; // todo: fix this with a clever approach
+    eventBus.$on("set-visible", (annotations) => {
+      this.sbolDataLayer.visibleAnnotations = annotations.length == 1 ? annotations[0] : annotations;
+      this.updateRender += 1;
     });
+
+    eventBus.$on("select-annotation", (_annotation) => {
+      this.selected = _annotation;
+      this.updateRender += 1;
+    });
+
   },
   mounted: function () {
 
@@ -273,6 +294,7 @@ export default {
       this.flavourMini = true;
     }
     window.addEventListener("resize", this.resizeHandler);
+
   },
   destroyed: function () {
     window.removeEventListener("resize", this.resizeHandler);
