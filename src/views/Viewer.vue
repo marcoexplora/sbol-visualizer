@@ -153,7 +153,6 @@ export default {
     },
     showComponents: function(Annotations){
       this.visibleAnnotations = Annotations;
-      //Annotations['visible'] = true;
     },
     /*searchInThree: function(filter){
         let result = false;

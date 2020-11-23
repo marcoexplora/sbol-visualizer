@@ -10,7 +10,7 @@
       >
         <div class="tooltiptext">{{ item.name }}</div>
         <div v-if="selected === item" class="selected"></div>
-          <img :src="item.path" @error="setAltImg" />
+          <img :src="item.path" @error="setAltImg(index)" />
         </div>
     </div>
   </div>
@@ -35,7 +35,7 @@ export default {
     computedGlyphAnnotations() {
       if (this.annotations) {
         this.annotations.map((key, index) => {
-          let sbol = this.annotations[index].SBOL;
+          let sbol = this.annotations[index].propriety.sequenceOntology;
 
 
           this.annotations[
@@ -45,9 +45,7 @@ export default {
           this.annotations[index].selected =
             this.activeAnnotation == this.annotations[index].pk;
 
-          this.annotations[index].class = `${this.annotations[
-            index
-          ].SBOL.replace("SO:", "SO_")} ${
+          this.annotations[index].class = `${sbol.replace("SO:", "SO_")} ${
             this.annotations[index].direction
           } glyphs tooltip`;
 
@@ -74,7 +72,11 @@ export default {
       }, 100);
     },
     setAltImg(event) {
-      event.target.src = "https://vows.sbolstandard.org/glyph/SO:0000313/png"
+      const alternativeImage = "https://vows.sbolstandard.org/glyph/SO:0000313/png"
+      this.annotations[
+          index
+          ].path = alternativeImage;
+      event.target.src = alternativeImage
     }
   },
   watch: {
