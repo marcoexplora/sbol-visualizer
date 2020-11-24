@@ -14,19 +14,27 @@
 
         <li v-if="selectedItems.length > 0" class="item">
           <div class="h1 bold">
+              <span v-on:click="showSubComponent = !showSubComponent"
+                    v-bind:class="[showSubComponent ? 'open' : 'close']"
+                    class="sub_components_controller">
+                  <sbol-icon-open-collapse-list :open="showSubComponent"/>
+                </span>
             {{root.partID}}
           </div>
-
-          <div class="root active" @click="changeVisible(annotations)">
-            <sbol-icon-glasses v-bind:active="visible == annotations"/>
+          <div  v-bind:class="[showSubComponent ? 'show' : 'hide']" class="components_list">
+            <ul v-for="(item, index) in selectedItems" :key="index" class="item">
+              <li class="item">
+                <sbol-tree-list
+                    :item="item"
+                    v-bind:level="0"
+                    v-bind:selected="selected"
+                    v-bind:bestview="selectedItems"
+                    :visible="visible">
+                </sbol-tree-list>
+              </li>
+            </ul>
           </div>
-
         </li>
-
-        <li v-for="(item, index) in selectedItems" :key="index" class="item">
-          <sbol-tree-list  :item="item" v-bind:level="0"  v-bind:selected="selected" :visible="visible"  ></sbol-tree-list>
-        </li>
-
       </ul>
     </section>
   </div>
@@ -36,6 +44,7 @@
 
 import SbolTreeList from "@/components/SbolTreeList";
 import SbolIconGlasses from "@/components/SbolIconGlasses"
+import SbolIconOpenCollapseList from "@/components/SbolIconOpenCollapseList";
 import eventBus from "@/lib/eventBus";
 
 export default {
@@ -43,11 +52,13 @@ export default {
   data() {
     return {
       filter: "",
+      showSubComponent : false
     };
   },
   components: {
     SbolTreeList,
-    SbolIconGlasses
+    SbolIconGlasses,
+    SbolIconOpenCollapseList,
   },
   computed: {
     //todo: rename selectedItems in searchItems and make it work on multiples levels
@@ -158,7 +169,6 @@ li.item {
   position: relative;
   padding: 10px;
   background-color: #fff;
-  border-bottom: 2px solid #d9d9d9;
 }
 
 li.item:last-child{
@@ -183,5 +193,28 @@ filter
 }
 .px-1{
   padding:5px 0;
+}
+
+.components_list.hide{
+  overflow:hidden;
+  height: 0px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.components_list {
+  margin: 0;
+  margin-left: 5px;
+  border-left: 2px solid #dee5ea;
+}
+ul{
+  list-style: none;
+  padding-left: 10px;
+}
+
+.sub_components_controller{
+  color: #3578b6;
+  font-size: 0.8em;
+  vertical-align: revert;
 }
 </style>

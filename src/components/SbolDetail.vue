@@ -38,8 +38,6 @@
           </li>
         </ul>
 
-        <pre>{{this.tags}}</pre>
-
       </div>
     </div>
   </div>
