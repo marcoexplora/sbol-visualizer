@@ -38,7 +38,7 @@
           </li>
         </ul>
 
-
+        <pre>{{this.tags}}</pre>
 
       </div>
     </div>
@@ -49,10 +49,10 @@
 import SbolLink from "@/components/SbolLinkText";
 
 export default {
-  props: ["annotation"],
+  props: ["annotation","tags"],
   data() {
     return {
-      detail: {},
+      detail: {}
     };
   },
   components: {
@@ -64,7 +64,7 @@ export default {
         this.detail = this.annotation;
         this.detail.href = `http://identifiers.org/so/${this.detail.SBOL}`;
       }
-    },
+    }
   },
 };
 </script>

@@ -10,7 +10,7 @@
       >
         <div class="tooltiptext">{{ item.name }}</div>
         <div v-if="selected === item" class="selected"></div>
-          <img :src="item.path" @error="setAltImg(index)" />
+          <img :src="item.path" :index="index" @error="setAltImg" />
         </div>
     </div>
   </div>
@@ -37,7 +37,6 @@ export default {
         this.annotations.map((key, index) => {
           let sbol = this.annotations[index].propriety.sequenceOntology;
 
-
           this.annotations[
             index
           ].path = `https://vows.sbolstandard.org/glyph/${sbol}/png`;
@@ -56,8 +55,16 @@ export default {
       }
       return [];
     },
+    selectedElement(){
+      return this.selected.filter((tags)=>{
+        return tags.tag == "showDetails"
+      }).element
+    }
   },
   methods: {
+    amIselected(ann){
+     this.selectedElement() == ann;
+    },
     detailItem(ann) {
       eventBus.$emit("select-annotation", ann);
     },
@@ -72,11 +79,7 @@ export default {
       }, 100);
     },
     setAltImg(event) {
-      const alternativeImage = "https://vows.sbolstandard.org/glyph/SO:0000313/png"
-      this.annotations[
-          index
-          ].path = alternativeImage;
-      event.target.src = alternativeImage
+      event.target.src = "https://vows.sbolstandard.org/glyph/SO:0000313/png";
     }
   },
   watch: {

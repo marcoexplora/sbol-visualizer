@@ -24,7 +24,7 @@
         </li>
 
         <li v-for="(item, index) in selectedItems" :key="index" class="item">
-          <sbol-tree-list  :item="item" v-bind:level="0"  :selected="selected" :visible="visible"  ></sbol-tree-list>
+          <sbol-tree-list  :item="item" v-bind:level="0"  v-bind:selected="selected" :visible="visible"  ></sbol-tree-list>
         </li>
 
       </ul>

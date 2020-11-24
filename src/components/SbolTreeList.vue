@@ -1,14 +1,16 @@
 <template>
   <div>
-
-    <div class="h1 bold"  @click="detailItem(item)">
+    <div  v-bind:class="[item == selected ? 'selected' : '']">
+    <div class="h1 bold" >
       <span v-if="item.propriety.components"
             v-on:click="showSubComponent = !showSubComponent"
             v-bind:class="[showSubComponent ? 'open' : 'close']"
             class="sub_components_controller">
         <sbol-icon-open-collapse-list :open="showSubComponent"/>
       </span>
-            {{ item.name }}
+      <span  @click="detailItem(item)">
+        {{ item.name }}
+      </span>
 
       <span v-if="item.propriety.components"
             @click="changeVisible(item.propriety.components)"
@@ -18,19 +20,21 @@
 
     </div>
 
+
     <div class="text-muted-black h2"  @click="detailItem(item)">
       <b>Direction:</b>
       <span>{{ item.propriety.Direction }}</span>
       <span v-if="item.propriety.end > 0">({{item.propriety.start}}..{{ item.propriety.end }})</span>
     </div>
-
+    </div>
     <div  v-bind:class="[showSubComponent ? 'show' : 'hide']" class="components_list">
       <ul v-if="item.propriety.components" :id="item.name  + 'sub' + level" >
         <li v-for="(sub, index) in item.propriety.components" :key="index" class="item">
-          <sbol-tree-list :item="sub" :level="level + 1" :visible="visible" :breadcrumbs='breadcrumbs ? breadcrumbs  +" / " + item.name : item.name'  ></sbol-tree-list>
+          <sbol-tree-list :item="sub" :level="level + 1" :selected="selected" :visible="visible" :breadcrumbs='breadcrumbs ? breadcrumbs  +" / " + item.name : item.name'  ></sbol-tree-list>
         </li>
       </ul>
     </div>
+
   </div>
 
 </template>
@@ -53,7 +57,8 @@ export default {
     breadcrumbs: {
       type : String
       },
-    visible: {}
+    visible: {},
+    selected: {}
 
   },
   name: 'sbol-tree-list',
@@ -99,11 +104,16 @@ li.item{
   font-size: 0.8em;
   vertical-align: revert;
 }
-.breadcrumbs{
+/*.breadcrumbs{
   color: #3578b6;
   margin-top: 10px;
   text-align: center;
   padding: 5px;
+}*/
+.selected{
+  background: #dee5ea;
+  margin-right: 40px;
+  border-radius: 5px;
 }
 .components_list.hide{
   overflow:hidden;

@@ -36,6 +36,7 @@
               :root="sbolDataLayer.header"
               :annotations="sbolDataLayer.annotations"
               :selected="selected"
+              :tags="tags"
               :visible="sbolDataLayer.visibleAnnotations"
               @showBranch="showComponents"
           />
@@ -46,7 +47,7 @@
               :selected="selected"
               :key="updateRender"
           />
-          <sbol-detail v-if="!flavourMini" :annotation="selected" />
+          <sbol-detail v-if="!flavourMini" :annotation="selected"  v-bind:tags="this.tags"/>
         </div>
 
       </div>
@@ -86,6 +87,7 @@ export default {
         annotations: [],
       },
       selected: null,
+      tags: [],
       filter: "",
       errors: false,
       empty: true,
@@ -149,12 +151,22 @@ export default {
       this.filelist.splice(i, 1);
     },
     showDetail: function (annotation) {
+      this.tags.push({
+        tag : "showDetails",
+        element : annotation
+      });
       this.selected = annotation;
     },
     showComponents: function(Annotations){
       this.visibleAnnotations = Annotations;
     },
-    /*searchInThree: function(filter){
+    cleanAnnonations: function (){
+     // this.sbolDataLayer.annotations = this.sbolDataLayer.__anns;
+    },
+    findParent: function (element){
+
+    },
+    searchInThree: function(filter){
         let result = false;
         this.sbolDataLayer.annotations.forEach((component)=>{
             component.propriety.components.forEach( (childComp) =>{
@@ -170,7 +182,7 @@ export default {
         });
       console.log('searchInThree');
       return result
-     },*/
+     },
     matchWidth: function () {
       const main = this.$refs;
       this.mainWidth = main.clientWidth + "px";
@@ -186,6 +198,8 @@ export default {
         if (dataFormat === "xml") {
           this.loadXml(data);
         }
+        //todo: remove before production
+        //this.sbolDataLayer.__anns = this.sbolDataLayer.annotations;
         window.sbolDataLayer = this.sbolDataLayer
       } catch (error) {
         this.errors = true;
