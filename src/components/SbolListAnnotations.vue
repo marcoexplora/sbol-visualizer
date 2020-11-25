@@ -103,6 +103,18 @@ export default {
   z-index: 1;
 }
 
+.search-list h1,
+.search-list h1{
+  color:  #4d4d4c
+}
+
+
+.sub_components_controller{
+  color: #3578b6;
+  font-size: 0.8em;
+  vertical-align: revert;
+}
+
 .search {
   margin: 0;
   font-size: 10px;
@@ -157,9 +169,6 @@ section * {
   border-bottom: 1px;
   position: relative;
 }
-.search-list *{
-  color:  #4d4d4c
-}
 
 ol{
   padding: 0px
@@ -212,9 +221,4 @@ ul{
   padding-left: 10px;
 }
 
-.sub_components_controller{
-  color: #3578b6;
-  font-size: 0.8em;
-  vertical-align: revert;
-}
 </style>

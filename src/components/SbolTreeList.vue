@@ -107,8 +107,7 @@
   }
   .selected{
     background: #dee5ea;
-    margin-right: 40px;
-    border-radius: 5px;
+    transition: 200ms;
   }
   .components_list.hide{
     overflow:hidden;
