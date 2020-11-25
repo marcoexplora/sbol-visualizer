@@ -28,7 +28,7 @@
                     :item="item"
                     v-bind:level="0"
                     v-bind:selected="selected"
-                    v-bind:bestview="selectedItems"
+                    v-bind:bestview="item.propriety.components ? item.propriety.components : selectedItems"
                     :visible="visible">
                 </sbol-tree-list>
               </li>

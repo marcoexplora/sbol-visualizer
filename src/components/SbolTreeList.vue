@@ -11,9 +11,7 @@
         <span  @click="detailItem(item)">
           {{ item.name }}
         </span>
-
       </div>
-
 
       <div class="text-muted-black h2"  @click="detailItem(item)">
         <b>Direction:</b>
@@ -26,7 +24,7 @@
           <li v-for="(sub, index) in item.propriety.components" :key="index" class="item">
             <sbol-tree-list
                 :item="sub"
-                :bestview="item.propriety.components"
+                :bestview="bestView(sub)"
                 :level="level + 1"
                 :selected="selected"
                 :visible="visible"
@@ -77,12 +75,24 @@
         const annotations = ann.length == 1 ? [ann] : ann;
         eventBus.$emit("set-visible",annotations)
       },
+      bestView(ann){
+
+        console.log( `ann.name ${ann.name}
+          typeof ann.propriety.components.length ${typeof ann.propriety.components}`
+        )
+
+        if(typeof  ann.propriety.components != "undefined"){
+          return ann.propriety.components
+        }else{
+          return this.item.propriety.components
+        }
+      },
       detailItem(ann) {
         console.log('detailItem(ann)')
         console.log(ann)
         console.log('this.bestview')
         console.log(this.bestview)
-        eventBus.$emit("set-visible",this.bestview)
+        eventBus.$emit("set-visible",ann)
 
         this.changeVisible(this.bestview);
         eventBus.$emit("select-annotation", ann);
