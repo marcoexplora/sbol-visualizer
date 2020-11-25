@@ -91,6 +91,7 @@
         errors: false,
         empty: true,
 
+        chartsWidth: 0,
         updateRender: 0,
         flavourClass: "SBOLcontainer XL",
         flavourMini: false,
@@ -200,6 +201,11 @@
           //todo: remove before production
           //this.sbolDataLayer.__anns = this.sbolDataLayer.annotations;
           window.sbolDataLayer = this.sbolDataLayer
+
+          this.$nextTick(function () {
+            this.chartsWidth = this.$refs.chartsContainer.clientWidth - 50;
+          });
+
         } catch (error) {
           this.errors = true;
         }
