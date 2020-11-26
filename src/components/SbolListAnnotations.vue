@@ -13,13 +13,15 @@
         <li v-if="selectedItems.length == 0">No Sbol component found</li>
 
         <li v-if="selectedItems.length > 0" class="item">
-          <div class="h1 bold">
+          <div class="h1 bold" >
               <span v-on:click="showSubComponent = !showSubComponent"
                     v-bind:class="[showSubComponent ? 'open' : 'close']"
                     class="sub_components_controller">
                   <sbol-icon-open-collapse-list :open="showSubComponent"/>
                 </span>
-            {{root.partID}}
+            <span  @click="changeVisible(selectedItems)">
+              {{root.partID}}
+            </span>
           </div>
           <div  v-bind:class="[showSubComponent ? 'show' : 'hide']" class="components_list">
             <ul v-for="(item, index) in selectedItems" :key="index" class="item">

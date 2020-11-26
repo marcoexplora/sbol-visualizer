@@ -88,11 +88,8 @@
         }
       },
       detailItem(ann) {
-        console.log('detailItem(ann)')
-        console.log(ann)
-        console.log('this.bestview')
-        console.log(this.bestview)
-        eventBus.$emit("set-visible",ann)
+
+        //eventBus.$emit("set-visible",ann)
 
         this.changeVisible(this.bestview);
         eventBus.$emit("select-annotation", ann);

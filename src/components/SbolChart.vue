@@ -1,6 +1,6 @@
 <template>
-  <div class="sbolChart" :ref="'sbolChart'">
-    <div style="margin: 20px auto auto auto;width: fit-content">
+  <div class="sbolChart" :ref="'sbolChart'" v-bind:style="{ width : graphwidth + 'px'}" >
+    <div style="margin: 20px auto auto auto;width: fit-content" >
       <div
         v-for="(item, index) in computedGlyphAnnotations"
         :ref="'glyphs'"
@@ -20,7 +20,7 @@
 import eventBus from "@/lib/eventBus";
 
 export default {
-  props: ["annotations", "selected"],
+  props: ["annotations", "selected","graphwidth"],
   data() {
     return {
       activeAnnotation: "none",
@@ -80,6 +80,9 @@ export default {
     },
     setAltImg(event) {
       event.target.src = "https://vows.sbolstandard.org/glyph/SO:0000313/png";
+    },
+    setWideth(){
+      return `width:${graphwidth}px`
     }
   },
   watch: {

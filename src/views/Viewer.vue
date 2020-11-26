@@ -45,6 +45,7 @@
                 :annotations="sbolDataLayer.visibleAnnotations"
                 :selected="selected"
                 :key="updateRender"
+                :graphwidth="chartsWidth"
             />
             <sbol-detail v-if="!flavourMini" :annotation="selected"  v-bind:tags="this.tags"/>
           </div>
@@ -202,9 +203,6 @@
           //this.sbolDataLayer.__anns = this.sbolDataLayer.annotations;
           window.sbolDataLayer = this.sbolDataLayer
 
-          this.$nextTick(function () {
-            this.chartsWidth = this.$refs.chartsContainer.clientWidth - 50;
-          });
 
         } catch (error) {
           this.errors = true;
@@ -215,6 +213,10 @@
         this.sbolDataLayer = jsonHandler.convertJson(json);
         this.sbolDataLayer.visibleAnnotations = this.sbolDataLayer.annotations;
         this.empty = false;
+
+        this.$nextTick(function () {
+          this.chartsWidth = this.$refs.chartsContainer.clientWidth ;
+        });
       },
       loadXml: function (xml) {
         xmlHandler.convertXml(xml).then((sb)=>{
@@ -222,6 +224,10 @@
           this.sbolDataLayer.visibleAnnotations = this.sbolDataLayer.annotations;
           window.sbolDataLayer = sbolDataLayer;
           this.empty = false;
+
+          this.$nextTick(function () {
+            this.chartsWidth = this.$refs.chartsContainer.clientWidth ;
+          });
         })
       },
       resizeHandler: function () {
@@ -261,6 +267,10 @@
         this.flavourClass = `${
             this.flavourMini ? "mini" : "SBOLcontainer"
         } ${classBp}`;
+
+        this.$nextTick(function () {
+          this.chartsWidth = this.$refs.chartsContainer.clientWidth;
+        });
       },
     },
     components: {
