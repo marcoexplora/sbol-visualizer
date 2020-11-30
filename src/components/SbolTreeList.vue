@@ -28,6 +28,7 @@
                 :level="level + 1"
                 :selected="selected"
                 :visible="visible"
+                :wcid="wcid"
                 :breadcrumbs='breadcrumbs ? breadcrumbs  +" / " + item.name : item.name'  ></sbol-tree-list>
           </li>
         </ul>
@@ -54,6 +55,7 @@
       breadcrumbs: {
         type : String
         },
+      wcid : { type : Number},
       visible: {},
       bestview: {},
       selected: {}
@@ -73,7 +75,7 @@
     methods :{
       changeVisible(ann) {
         const annotations = ann.length == 1 ? [ann] : ann;
-        eventBus.$emit("set-visible",annotations)
+        eventBus.$emit("set-visible",{ annotations : annotations, wcid : this.wcid})
       },
       bestView(ann){
         if(typeof  ann.propriety.components != "undefined"){
@@ -84,7 +86,7 @@
       },
       detailItem(ann) {
         this.changeVisible(this.bestview);
-        eventBus.$emit("select-annotation", ann);
+        eventBus.$emit("select-annotation", { annotation : ann, wcid : this.wcid});
       },
     }
 
