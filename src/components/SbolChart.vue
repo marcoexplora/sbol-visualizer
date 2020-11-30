@@ -1,24 +1,26 @@
 <template>
-  <div class="sbolChart" :ref="'sbolChart'">
-    <div style="margin: 20px auto auto auto;width: fit-content">
+  <div class="sbolChart" :ref="'sbolChart'" v-bind:style="{ width : graphwidth + 'px'}" >
+    <div style="margin: 20px auto auto auto;width: fit-content" >
       <div
         v-for="(item, index) in computedGlyphAnnotations"
         :ref="'glyphs'"
         :class="item.class"
-        :key="index"
-        @click="detailItem(index)"
+        :keßy="index"
+        @click="detailItem(item)"
       >
         <div class="tooltiptext">{{ item.name }}</div>
-        <div v-if="item.selected" class="selected"></div>
-          <img :src="item.path" />
+        <div v-if="selected === item" class="selected"></div>
+          <img :src="item.path" :index="index" :alt="item.propriety.sequenceOntology" @error="setAltImg" />
         </div>
     </div>
   </div>
 </template>
 
 <script>
+import eventBus from "@/lib/eventBus";
+
 export default {
-  props: ["annotations", "annotation"],
+  props: ["annotations", "selected","graphwidth"],
   data() {
     return {
       activeAnnotation: "none",
@@ -33,16 +35,16 @@ export default {
     computedGlyphAnnotations() {
       if (this.annotations) {
         this.annotations.map((key, index) => {
+          let sbol = this.annotations[index].propriety.sequenceOntology;
+
           this.annotations[
             index
-          ].path = `https://vows.sbolstandard.org/glyph/${this.annotations[index].SBOL}/png`;
+          ].path = `https://vows.sbolstandard.org/glyph/${sbol}/png`;
 
           this.annotations[index].selected =
-            this.activeAnnotation == this.annotations[index].pk;
+            this.activeAnnotation === this.annotations[index].pk;
 
-          this.annotations[index].class = `${this.annotations[
-            index
-          ].SBOL.replace("SO:", "SO_")} ${
+          this.annotations[index].class = `${sbol.replace("SO:", "SO_")} ${
             this.annotations[index].direction
           } glyphs tooltip`;
 
@@ -53,10 +55,18 @@ export default {
       }
       return [];
     },
+    selectedElement(){
+      return this.selected.filter((tags)=>{
+        return tags.tag === "showDetails"
+      }).element
+    }
   },
   methods: {
-    detailItem(a) {
-      this.$emit("selectedAnnotation", a);
+    amIselected(ann){
+     this.selectedElement() === ann;
+    },
+    detailItem(ann) {
+      eventBus.$emit("select-annotation", ann);
     },
     selectedAnnotation(a) {
       this.activeAnnotation = a.pk;
@@ -68,6 +78,12 @@ export default {
         });
       }, 100);
     },
+    setAltImg(event) {
+      event.target.src = "https://vows.sbolstandard.org/glyph/SO:0000313/png";
+    },
+    setWideth(){
+      return `width:${graphwidth}px`
+    }
   },
   watch: {
     annotation(a) {
@@ -100,7 +116,7 @@ img {
   width: 75px;
   /* border-bottom: 2px solid green; */
   position: absolute;
-  bottom: 0px;
+  bottom: 0;
 }
 
 .RV img{

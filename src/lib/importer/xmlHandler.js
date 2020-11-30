@@ -24,14 +24,13 @@ const xmlHandler = {
 
         const visbolDisplayListElements = getDisplayList(doc.componentDefinitions[0]).components[0].segments[0].sequence;
 
-        var component = {
+        const component = {
             segments: []
         }
 
         doc.componentDefinitions.forEach(function(componentDefinition) {
             component.segments = component.segments.concat(getDisplayList(componentDefinition).components[0].segments[0])
         })
-        window.composedComponent = component
 
         if (visbolDisplayListElements.length > 0){
             return  visbolDisplayListElements.map(
@@ -54,15 +53,14 @@ const xmlHandler = {
                      */
 
                     return {
+                        log: "1a",
                         name: component.name,
+                        propriety : component.propriety,
                         SBOL: component.propriety.sequenceOntology,
-                        start: component.propriety.start,
-                        end: component.propriety.end,
-                        pk: index,
-                        index: index,
-                        direction: component.propriety.Orientation === 'inline' ? 'FW' : 'RV',
+                        pk: `${index}`,
                         sbolDescription: component.Description,
-                        mutableDescription: ''
+                        mutableDescription: '',
+                       // components: component.propriety.components
                     };
                 }
             )
@@ -91,10 +89,12 @@ const xmlHandler = {
                 const sbolDataLayer = {}
                 SBOLDocument.loadRDF(xml, function (err, doc) {
                     doc.serializeJSON();
-                    window.SBOL = doc
                     sbolDataLayer.header = xmlHandler.pupulateHeader(doc);
                     sbolDataLayer.annotations = [];
                     sbolDataLayer.annotations = xmlHandler.populateAnnotations(doc);
+
+                    // todo: remove this
+                    window.sbolDataLayer = sbolDataLayer
 
                     resolve(sbolDataLayer)
                 });

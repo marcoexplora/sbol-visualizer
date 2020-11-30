@@ -136,7 +136,7 @@ function getDisplayListSegment(componentDefinition, config, share) {
             } else if (role.toString().indexOf(soPrefix) === 0) {
 
                 var soTerm = role.toString().slice(soPrefix.length).split('_').join(':')
-                propriety['soTerm'] = soTerm
+                propriety['sequenceOntology'] = soTerm
                 //propriety['Role'] = sbolmeta.sequenceOntology[soTerm].name
 
             }
@@ -161,6 +161,7 @@ function getDisplayListSegment(componentDefinition, config, share) {
         })
 
         return {
+            log: "1b",
             name: displayName,
             sequence: [{
                 strand: "positive",
@@ -176,7 +177,7 @@ function getDisplayListSegment(componentDefinition, config, share) {
 
     return {
         name: displayName,
-        sequence: sortedSequenceAnnotations(componentDefinition).map((sequenceAnnotation) => {
+        sequence: sortedSequenceAnnotations(componentDefinition).map((sequenceAnnotation,_index) => {
 
             var glyph = 'unspecified'
 
@@ -215,7 +216,8 @@ function getDisplayListSegment(componentDefinition, config, share) {
                     if (component.definition.displayId) propriety['Identifier'] = component.definition.displayId
                     if (component.definition.name) propriety['Name'] = component.definition.name
                     if (component.definition.description) propriety['Description'] = component.definition.description
-                    if (component.definition.sequences) propriety['Sequences'] = component.definition.sequences
+                    if (component.definition.components) propriety['components'] = getDisplayListSegment(component.definition).sequence
+                    //if (component.definition.sequences) propriety['Sequences'] = component.definition.sequences
                 } else {
                     uri = component.definition.toString()
 
@@ -286,6 +288,7 @@ function getDisplayListSegment(componentDefinition, config, share) {
             sequenceAnnotation.ranges.forEach((range) => {
                 if (range.orientation) {
                     propriety['Orientation'] = range.orientation.toString().replace('http://sbols.org/v2#', '')
+                    propriety['Direction'] =  propriety['Orientation'] === 'inline' ? 'FW' : 'RV'
                     if (range.orientation.toString() === 'http://sbols.org/v2#reverseComplement') strand = 'negative'
                 }
                 propriety['start'] = range.start
@@ -294,7 +297,8 @@ function getDisplayListSegment(componentDefinition, config, share) {
 
             sequenceAnnotation.cuts.forEach((cut) => {
                 if (cut.orientation) {
-                    ppropriety['Orientation'] = cut.orientation.toString().replace('http://sbols.org/v2#', '')
+                    propriety['Orientation'] = cut.orientation.toString().replace('http://sbols.org/v2#', '')
+                    propriety['Direction'] =  propriety['Orientation'] === 'inline' ? 'FW' : 'RV'
                     if (cut.orientation.toString() === 'http://sbols.org/v2#reverseComplement') strand = 'negative'
                 }
                 propriety['cut_at'] = cut.at
@@ -303,14 +307,20 @@ function getDisplayListSegment(componentDefinition, config, share) {
             sequenceAnnotation.genericLocations.forEach((genericLocation) => {
                 if (genericLocation.orientation) {
                     propriety['Orientation'] = genericLocation.orientation.toString().replace('http://sbols.org/v2#', '')
+                    propriety['Direction'] =  propriety['Orientation'] === 'inline' ? 'FW' : 'RV'
                     if (genericLocation.orientation.toString() === 'http://sbols.org/v2#reverseComplement') strand = 'negative'
                 }
             })
 
+
+
             return {
+                log: "1c",
+                SBOL : propriety.sequenceOntology,
                 strand: strand,
                 type: glyph,
                 id: sequenceAnnotation.uri + '',
+                pk: `${_index}`,
                 name: name,
                 uri: uri,
                 propriety: propriety

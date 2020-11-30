@@ -19,17 +19,18 @@
             </a>
           </li>
 
-          <li>
-            <span class="bold">Direction: </span> <span> {{ this.detail.direction }}</span>     <span v-if="this.detail.end > 0">( {{ this.detail.start }}..{{ this.detail.end }} )</span>
+          <li v-if="this.detail.propriety && this.detail.propriety.Direction">
+            <span class="bold">Direction: </span> <span> {{ this.detail.propriety.Direction }}</span>     <span v-if="this.detail.end > 0">( {{ this.detail.start }}..{{ this.detail.end }} )</span>
           </li>
 
-          <li v-if="this.detail.sbolDescription">
-            {{ this.detail.sbolDescription }}
+          <li v-if="this.detail.propriety && this.detail.propriety.Description">
+            {{ this.detail.propriety.Description }}
           </li>
 
           <li v-if="this.detail.mutableDescription">
             <p class="m0"><span class="bold">Mutable Description: </span> {{ this.detail.mutableDescription }}</p>
           </li>
+
 
           <li class="comingsoon">
             <h2>Where is my sequence?</h2>
@@ -37,21 +38,19 @@
           </li>
         </ul>
 
-
-
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import SbolLink from "../components/SbolLinkText";
+import SbolLink from "@/components/SbolLinkText";
 
 export default {
-  props: ["annotation"],
+  props: ["annotation","tags"],
   data() {
     return {
-      detail: {},
+      detail: {}
     };
   },
   components: {
@@ -59,11 +58,11 @@ export default {
   },
   watch: {
     annotation: function (data) {
-      if (typeof data !== "undefined") {
+      if (typeof data !== "undefined" && data !== null ) {
         this.detail = this.annotation;
         this.detail.href = `http://identifiers.org/so/${this.detail.SBOL}`;
       }
-    },
+    }
   },
 };
 </script>

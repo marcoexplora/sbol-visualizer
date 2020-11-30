@@ -1,28 +1,41 @@
 <template>
   <div class="wrap-list">
+
     <div class="search">
-      <input type="text" class="search-input" placeholder="Search in annotations" v-model="filter" />
+      <input type="text" aria-label="search input" class="search-input" placeholder="Search in annotations" v-model="filter" />
     </div>
 
   <div class="wrap-section">
     <section>
+
       <ul class="search-list">
-        <li v-if="selectedItems.length == 0">No Sbol component found</li>
-        <li v-for="(item, index) in selectedItems" :key="index" @click="detailItem(item.index)" class="item">
-          <div>
-            <ol>
-              <li class="h1 bold">
-                {{ item.name }}
-              </li>
 
-              <li class="text-muted-black h2">
-                <b>Direction:</b>
-                <span>{{ item.direction }}</span>     <span v-if="item.end > 0">({{ item.start }}..{{ item.end }})</span>
-              </li>
-            </ol>
+        <li v-if="selectedItems.length === 0">No Sbol component found</li>
+
+        <li v-if="selectedItems.length > 0" class="item">
+          <div class="h1 bold" >
+              <span v-on:click="showSubComponent = !showSubComponent"
+                    v-bind:class="[showSubComponent ? 'open' : 'close']"
+                    class="sub_components_controller">
+                  <sbol-icon-open-collapse-list :open="showSubComponent"/>
+                </span>
+            <span  @click="changeVisible(selectedItems)">
+              {{root.partID}}
+            </span>
           </div>
-
-
+          <div  v-bind:class="[showSubComponent ? 'show' : 'hide']" class="components_list">
+            <ul v-for="(item, index) in selectedItems" :key="index" class="item">
+              <li class="item">
+                <sbol-tree-list
+                    :item="item"
+                    v-bind:level="0"
+                    v-bind:selected="selected"
+                    v-bind:bestview="item.propriety.components ? item.propriety.components : selectedItems"
+                    :visible="visible">
+                </sbol-tree-list>
+              </li>
+            </ul>
+          </div>
         </li>
       </ul>
     </section>
@@ -30,15 +43,28 @@
   </div>
 </template>
 <script>
+
+import SbolTreeList from "@/components/SbolTreeList";
+import SbolIconGlasses from "@/components/SbolIconGlasses"
+import SbolIconOpenCollapseList from "@/components/SbolIconOpenCollapseList";
+import eventBus from "@/lib/eventBus";
+
 export default {
-  props: ["annotations"],
+  props: ["annotations","selected","root","visible"],
   data() {
     return {
       filter: "",
+      showSubComponent : false
     };
   },
+  components: {
+    SbolTreeList,
+    SbolIconGlasses,
+    SbolIconOpenCollapseList,
+  },
   computed: {
-    selectedItems() {
+    //todo: rename selectedItems in searchItems and make it work on multiples levels
+    selectedItems()  {
       if(typeof this.annotations !== 'undefined'){
         return this.annotations.filter((so) => {
           if (this.filter === "") {
@@ -64,20 +90,31 @@ export default {
     },
   },
   methods: {
-    detailItem(so) {
-      this.$emit("selectedAnnotation", so);
-    },
+    changeVisible(ann) {
+      eventBus.$emit("select-annotation", null);
+      eventBus.$emit("set-visible",ann)
+    }
   },
 };
 </script>
 <style scoped>
+.search-list h1,
+.search-list h1{
+  color:  #4d4d4c
+}
+
+.sub_components_controller{
+  color: #3578b6;
+  font-size: 0.8em;
+  vertical-align: revert;
+}
+
 .search {
   margin: 0;
   font-size: 10px;
   border: 1px solid rgba(0, 0, 0, 0.125);
   border-radius: 5px;
   background-color: #f0f2f5;
-
 }
 .bold{
   font-weight: bold;
@@ -120,24 +157,21 @@ section * {
   padding: 0;
   text-align: left;
   min-height: 400px;
-  oveerflow:hidden;
+  overflow:hidden;
   margin: 0;
   border-radius: 5px;
   border-bottom: 1px;
-}
-.search-list *{
-  color:  #4d4d4c
+  position: relative;
 }
 
 ol{
-  padding: 0px
+  padding: 0
 }
 
 li.item {
   position: relative;
   padding: 10px;
   background-color: #fff;
-  border-bottom: 2px solid #d9d9d9;
 }
 
 li.item:last-child{
@@ -150,7 +184,7 @@ li.item:last-child{
   padding-left: 0;
   list-style: none;
 }
-filter
+
 .search-list > li span {
   font-size: 0.9em;
 }
@@ -163,4 +197,21 @@ filter
 .px-1{
   padding:5px 0;
 }
+
+.components_list.hide{
+  overflow:hidden;
+  height: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.components_list {
+  margin: 0 0 0 5px;
+  border-left: 2px solid #dee5ea;
+}
+ul{
+  list-style: none;
+  padding-left: 10px;
+}
+
 </style>

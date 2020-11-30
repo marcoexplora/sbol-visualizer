@@ -10,7 +10,7 @@
     <dcterms:description>Plastocyanin variant #5 in pSB1C3</dcterms:description>
     <dcterms:created>2015-09-09T11:00:00Z</dcterms:created>
     <dcterms:modified>2015-09-10T12:09:51Z</dcterms:modified>
-    <sbh:mutableProvenance>Synthetic construct (codon optimized for E. coli expression) of plastocyanin from Synechocystis sp. PCC 6803 (PDB ID: 1JXF)</sbh:mutableProvenance>
+    <sbh:mutableProvenance>Syntheticå construct (codon optimized for E. coli expression) of plastocyanin from Synechocystis sp. PCC 6803 (PDB ID: 1JXF)</sbh:mutableProvenance>
     <sbh:topLevel rdf:resource="https://synbiohub.org/public/igem/BBa_K1743015/1"/>
     <sbh:ownedBy rdf:resource="https://synbiohub.org/user/james"/>
     <sbh:ownedBy rdf:resource="https://synbiohub.org/user/myers"/>

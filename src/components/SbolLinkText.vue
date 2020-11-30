@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import Info from "../components/SbolIconInfo";
+import Info from "@/components/SbolIconInfo";
 
 export default {
   props: ["url"],
