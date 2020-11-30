@@ -1,6 +1,5 @@
   <template>
     <div @dragover="dragover" @dragleave="dragleave" @drop="drop" class="SbolWvWrap">
-
       <div v-if="enabledropfile" style="padding:0;height: 1.55em">
         <div style="width: 100%">
           <div style="float:right;font-size:1.2em">
@@ -161,29 +160,6 @@
       showComponents: function(Annotations){
         this.visibleAnnotations = Annotations;
       },
-      cleanAnnonations: function (){
-       // this.sbolDataLayer.annotations = this.sbolDataLayer.__anns;
-      },
-      findParent: function (element){
-
-      },
-      searchInThree: function(filter){
-          let result = false;
-          this.sbolDataLayer.annotations.forEach((component)=>{
-              component.propriety.components.forEach( (childComp) =>{
-                    result = result || searchInThree(childComp)
-                  }
-              );
-              const actualPosFilter = filter(component);
-              result = result || actualPosFilter;
-              component.search = actualPosFilter;
-              if(actualPosFilter){
-                console.log(component.name)
-              }
-          });
-        console.log('searchInThree');
-        return result
-       },
       matchWidth: function () {
         const main = this.$refs;
         this.mainWidth = main.clientWidth + "px";
@@ -213,10 +189,7 @@
         this.sbolDataLayer = jsonHandler.convertJson(json);
         this.sbolDataLayer.visibleAnnotations = this.sbolDataLayer.annotations;
         this.empty = false;
-
-        this.$nextTick(function () {
-          this.chartsWidth = this.$refs.chartsContainer.clientWidth ;
-        });
+        this.resizeHandler();
       },
       loadXml: function (xml) {
         xmlHandler.convertXml(xml).then((sb)=>{
@@ -224,10 +197,7 @@
           this.sbolDataLayer.visibleAnnotations = this.sbolDataLayer.annotations;
           window.sbolDataLayer = sbolDataLayer;
           this.empty = false;
-
-          this.$nextTick(function () {
-            this.chartsWidth = this.$refs.chartsContainer.clientWidth ;
-          });
+          this.resizeHandler();
         })
       },
       resizeHandler: function () {
@@ -268,9 +238,17 @@
             this.flavourMini ? "mini" : "SBOLcontainer"
         } ${classBp}`;
 
-        this.$nextTick(function () {
-          this.chartsWidth = this.$refs.chartsContainer.clientWidth;
-        });
+        if(!this.empty && !this.flavourMini ){
+          this.$nextTick(function () {
+            console.log(`$nextTick
+
+            this.chartsWidth {${this.chartsWidth}}
+            this.$refs.chartsContainer.clientWidth ${this.$refs.chartsContainer.clientWidth}
+            `)
+            this.chartsWidth = this.$refs.chartsContainer.clientWidth -34;
+
+          });
+        }
       },
     },
     components: {

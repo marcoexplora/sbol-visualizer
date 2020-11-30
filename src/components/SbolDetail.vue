@@ -19,11 +19,11 @@
             </a>
           </li>
 
-          <li v-if="this.detail.propriety.Direction">
+          <li v-if="this.detail.propriety && this.detail.propriety.Direction">
             <span class="bold">Direction: </span> <span> {{ this.detail.propriety.Direction }}</span>     <span v-if="this.detail.end > 0">( {{ this.detail.start }}..{{ this.detail.end }} )</span>
           </li>
 
-          <li v-if="this.detail.propriety.Description">
+          <li v-if="this.detail.propriety && this.detail.propriety.Description">
             {{ this.detail.propriety.Description }}
           </li>
 

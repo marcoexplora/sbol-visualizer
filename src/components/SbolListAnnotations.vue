@@ -91,6 +91,7 @@ export default {
   },
   methods: {
     changeVisible(ann) {
+      eventBus.$emit("select-annotation", null);
       eventBus.$emit("set-visible",ann)
     }
   },

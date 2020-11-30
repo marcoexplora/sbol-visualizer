@@ -76,11 +76,6 @@
         eventBus.$emit("set-visible",annotations)
       },
       bestView(ann){
-
-        console.log( `ann.name ${ann.name}
-          typeof ann.propriety.components.length ${typeof ann.propriety.components}`
-        )
-
         if(typeof  ann.propriety.components != "undefined"){
           return ann.propriety.components
         }else{
@@ -88,9 +83,6 @@
         }
       },
       detailItem(ann) {
-
-        //eventBus.$emit("set-visible",ann)
-
         this.changeVisible(this.bestview);
         eventBus.$emit("select-annotation", ann);
       },
