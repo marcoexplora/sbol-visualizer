@@ -11,7 +11,6 @@
       <ul class="search-list">
 
         <li v-if="selectedItems.length === 0">No Sbol component found</li>
-
         <li v-if="selectedItems.length > 0" class="item">
           <div class="h1 bold" >
               <span v-on:click="showSubComponent = !showSubComponent"
@@ -54,7 +53,7 @@ export default {
   data() {
     return {
       filter: "",
-      showSubComponent : false
+      showSubComponent : true
     };
   },
   components: {

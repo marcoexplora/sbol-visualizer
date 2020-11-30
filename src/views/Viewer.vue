@@ -331,6 +331,7 @@
 
   nav {
     padding: 0 5px 0 0;
+    min-width: 250px;
   }
 
   </style>
