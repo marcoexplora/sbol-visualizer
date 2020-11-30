@@ -5,12 +5,12 @@
         v-for="(item, index) in computedGlyphAnnotations"
         :ref="'glyphs'"
         :class="item.class"
-        :key="index"
+        :keßy="index"
         @click="detailItem(item)"
       >
         <div class="tooltiptext">{{ item.name }}</div>
         <div v-if="selected === item" class="selected"></div>
-          <img :src="item.path" :index="index" @error="setAltImg" />
+          <img :src="item.path" :index="index" :alt="item.propriety.sequenceOntology" @error="setAltImg" />
         </div>
     </div>
   </div>
@@ -42,7 +42,7 @@ export default {
           ].path = `https://vows.sbolstandard.org/glyph/${sbol}/png`;
 
           this.annotations[index].selected =
-            this.activeAnnotation == this.annotations[index].pk;
+            this.activeAnnotation === this.annotations[index].pk;
 
           this.annotations[index].class = `${sbol.replace("SO:", "SO_")} ${
             this.annotations[index].direction
@@ -57,13 +57,13 @@ export default {
     },
     selectedElement(){
       return this.selected.filter((tags)=>{
-        return tags.tag == "showDetails"
+        return tags.tag === "showDetails"
       }).element
     }
   },
   methods: {
     amIselected(ann){
-     this.selectedElement() == ann;
+     this.selectedElement() === ann;
     },
     detailItem(ann) {
       eventBus.$emit("select-annotation", ann);
@@ -116,7 +116,7 @@ img {
   width: 75px;
   /* border-bottom: 2px solid green; */
   position: absolute;
-  bottom: 0px;
+  bottom: 0;
 }
 
 .RV img{

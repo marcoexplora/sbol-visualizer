@@ -2,7 +2,7 @@
   <div class="wrap-list">
 
     <div class="search">
-      <input type="text" class="search-input" placeholder="Search in annotations" v-model="filter" />
+      <input type="text" aria-label="search input" class="search-input" placeholder="Search in annotations" v-model="filter" />
     </div>
 
   <div class="wrap-section">
@@ -10,7 +10,7 @@
 
       <ul class="search-list">
 
-        <li v-if="selectedItems.length == 0">No Sbol component found</li>
+        <li v-if="selectedItems.length === 0">No Sbol component found</li>
 
         <li v-if="selectedItems.length > 0" class="item">
           <div class="h1 bold" >
@@ -98,19 +98,10 @@ export default {
 };
 </script>
 <style scoped>
-.root{
-  font-size: 25px;
-  position: absolute;
-  top: 0px;
-  right: 5px;
-  z-index: 1;
-}
-
 .search-list h1,
 .search-list h1{
   color:  #4d4d4c
 }
-
 
 .sub_components_controller{
   color: #3578b6;
@@ -166,7 +157,7 @@ section * {
   padding: 0;
   text-align: left;
   min-height: 400px;
-  oveerflow:hidden;
+  overflow:hidden;
   margin: 0;
   border-radius: 5px;
   border-bottom: 1px;
@@ -174,7 +165,7 @@ section * {
 }
 
 ol{
-  padding: 0px
+  padding: 0
 }
 
 li.item {
@@ -193,7 +184,7 @@ li.item:last-child{
   padding-left: 0;
   list-style: none;
 }
-filter
+
 .search-list > li span {
   font-size: 0.9em;
 }
@@ -209,14 +200,13 @@ filter
 
 .components_list.hide{
   overflow:hidden;
-  height: 0px;
+  height: 0;
   margin: 0;
   padding: 0;
   border: 0;
 }
 .components_list {
-  margin: 0;
-  margin-left: 5px;
+  margin: 0 0 0 5px;
   border-left: 2px solid #dee5ea;
 }
 ul{

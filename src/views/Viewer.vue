@@ -147,9 +147,6 @@
           };
         })(this.fileObj, this);
       },
-      remove(i) {
-        this.filelist.splice(i, 1);
-      },
       showDetail: function (annotation) {
         this.tags.push({
           tag : "showDetails",
@@ -240,13 +237,7 @@
 
         if(!this.empty && !this.flavourMini ){
           this.$nextTick(function () {
-            console.log(`$nextTick
-
-            this.chartsWidth {${this.chartsWidth}}
-            this.$refs.chartsContainer.clientWidth ${this.$refs.chartsContainer.clientWidth}
-            `)
             this.chartsWidth = this.$refs.chartsContainer.clientWidth -34;
-
           });
         }
       },
@@ -267,7 +258,7 @@
       this.resizeHandler();
 
       eventBus.$on("set-visible", (annotations) => {
-        this.sbolDataLayer.visibleAnnotations = annotations.length == 1 ? annotations[0] : annotations;
+        this.sbolDataLayer.visibleAnnotations = annotations.length === 1 ? annotations[0] : annotations;
         this.updateRender += 1;
       });
 
@@ -278,7 +269,6 @@
 
     },
     mounted: function () {
-
       if(typeof this.dropafile != 'undefined'){
         this.enabledropfile = true;
       }
@@ -324,16 +314,7 @@
     right: 1em;
     font-size: 2em;
   }
-  .bg-green-300 {
-    background-color: #1c1b41;
-  }
-  .bg-gray-100 {
-    background-color: #072008;
-  }
 
-  .hide {
-    display: none;
-  }
   .empty {
     background-color: #f0f2f5;
     border-radius: 3px;
