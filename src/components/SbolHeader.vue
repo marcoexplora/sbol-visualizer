@@ -122,12 +122,10 @@
   .showMutable .headerDetails{
     display: none;
   }
-
   ul {
     padding: 5px;
     margin: 0px;
   }
-
   ul li {
     display: flex;
     justify-content: space-between;
