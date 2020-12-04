@@ -21,6 +21,8 @@
   "dependencies": {
     "axios": "^0.20.0",
     "core-js": "^3.6.5",
+    "sboljs": "^2.2.5",
+    "sha1": "^1.1.1",
     "vue": "^2.6.12",
     "vue-axios": "^2.1.5"
   },
@@ -34,6 +36,9 @@
     "babel-loader": "^8.1.0",
     "babel-preset-vue": "^2.0.2",
     "postcss-loader": "^4.0.1",
+    "sass": "^1.26.11",
+    "sass-loader": "^10.0.2",
+    "sass-resources-loader": "^2.1.1",
     "vue-template-compiler": "^2.6.12"
   },
   "postcss": {

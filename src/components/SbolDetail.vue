@@ -8,30 +8,49 @@
         <li>No Sbol component selected</li>
       </ul>
       <div v-else>
-        <ul class="listDetail">
+        <ul class="listDetail p0">
+          <li class="h1 bold p0">
+            {{this.detail.name}}
+          </li>
           <li>
-            <b>SO:</b>
-            <span>
-              <SbolLink t :url="this.detail.href">{{this.detail.SBOL}}</SbolLink>
-            </span>
+            <span class="bold">Sequence Ontology:</span>
+            <a :href="this.detail.href" target="_blank">
+                {{this.detail.SBOL}}
+            </a>
+          </li>
+
+          <li v-if="this.detail.propriety && this.detail.propriety.Direction">
+            <span class="bold">Direction: </span> <span> {{ this.detail.propriety.Direction }}</span>     <span v-if="this.detail.end > 0">( {{ this.detail.start }}..{{ this.detail.end }} )</span>
+          </li>
+
+          <li v-if="this.detail.propriety && this.detail.propriety.Description">
+            {{ this.detail.propriety.Description }}
+          </li>
+
+          <li v-if="this.detail.mutableDescription">
+            <p class="m0"><span class="bold">Mutable Description: </span> {{ this.detail.mutableDescription }}</p>
+          </li>
+
+
+          <li class="comingsoon">
+            <h2>Where is my sequence?</h2>
+            <p>Sequence viewer coming soon!</p>
           </li>
         </ul>
 
-        <b>Notes</b>
-        {{this.detail.notes}}
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import SbolLink from "../components/SbolLinkText";
+import SbolLink from "@/components/SbolLinkText";
 
 export default {
-  props: ["annotation"],
+  props: ["annotation","tags"],
   data() {
     return {
-      detail: {},
+      detail: {}
     };
   },
   components: {
@@ -39,36 +58,36 @@ export default {
   },
   watch: {
     annotation: function (data) {
-      if (typeof data !== "undefined") {
+      if (typeof data !== "undefined" && data !== null ) {
         this.detail = this.annotation;
         this.detail.href = `http://identifiers.org/so/${this.detail.SBOL}`;
       }
-    },
+    }
   },
 };
 </script>
 <style scoped>
+.comingsoon{
+  padding: 2em 1em;
+  background: #f0f2f5;
+  margin: 3em auto;
+  width: 60%;
+  border-radius: 5px;
+  text-align: center;
+}
 .detailAnnotation {
   margin-top: 5px;
   background-color: #fff;
-  height: calc(100vh - 33vh);
-  box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.15);
-  border-radius: 0.5rem;
-
-  word-break: break-all;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
-    Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji,
-    Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
-  overflow-x: hidden;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  height: 490px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 5px;
+  word-break: normal;
   width: 100%;
+  color: #4d4d4c;
 }
 .card-header {
   background-color: #f1f2f5;
-  border-top-left-radius: 0.5rem;
-  border-top-right-radius: 0.5rem;
-  margin: 1em 0em 1em 0em;
+  border-radius: 5px;
   padding: 0.05em;
   font-size: 0.6rem;
   font-weight: 400;
@@ -76,7 +95,6 @@ export default {
 
 .card-header h2 {
   margin: 0.5em 1em 0.5em 1em;
-  color: #000;
 }
 
 .card-body {
@@ -88,18 +106,6 @@ export default {
   padding: 1em;
 }
 
-.card-body > ul > li {
-  display: flex;
-  padding: 0.6em;
-  border: 1px solid #f1f2f5;
-  border-left: none;
-  border-right: none;
-  background-color: #f1f2f5;
-}
-
-.card-body > ul > li:nth-child(even) {
-  background-color: #fff;
-}
 .card-body > div {
   padding: 0 1em 0 1em;
 }
@@ -107,13 +113,21 @@ export default {
   font-size: 1.2em;
   font-weight: bold;
 }
-li {
-  display: -webkit-box;
-  display: flex;
-  flex-wrap: wrap;
-  -webkit-box-align: center;
-  align-items: center;
-  -webkit-box-pack: justify;
-  justify-content: space-between;
+
+li,pre{
+  width: 100%;
+  overflow: auto;
+  padding-top: 10px;
+  word-break: break-word;
+}
+.bold{
+  font-weight: bold;
+}
+.p0{
+  padding:0
+}
+
+.m0{
+  margin:0
 }
 </style>
