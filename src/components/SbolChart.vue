@@ -1,17 +1,18 @@
 <template>
   <div class="sbolChart" :ref="'sbolChart'" v-bind:style="{ width : graphwidth + 'px'}" >
+
     <div style="margin: 20px auto auto auto;width: fit-content" >
       <div
-        v-for="(item, index) in computedGlyphAnnotations"
-        :ref="'glyphs'"
-        :class="item.class"
-        :keßy="index"
-        @click="detailItem(item)"
+          v-for="(item, index) in computedGlyphAnnotations"
+          ref="glyphs"
+          :class="item.class"
+          :key="index"
+          @click="detailItem(item)"
       >
         <div class="tooltiptext">{{ item.name }}</div>
         <div v-if="selected === item" class="selected"></div>
-          <img :src="item.path" :index="index" :alt="item.propriety.sequenceOntology" @error="setAltImg" />
-        </div>
+        <img :src="item.path" :id="item.index" v-bind:ref="item.index" :alt="item.propriety.sequenceOntology" @error="setAltImg" />
+      </div>
     </div>
   </div>
 </template>
@@ -20,10 +21,14 @@
 import eventBus from "@/lib/eventBus";
 
 export default {
-  props: ["annotations", "selected","graphwidth"],
+  props: {
+    "annotations" : { type : Array },
+    "selected": { type : Object },
+    "graphwidth" : { type : Number},
+    "wcid" : { type :Number}
+  },
   data() {
     return {
-      activeAnnotation: "none",
       containerWidth: 0,
       parentWidth: 0,
     };
@@ -38,19 +43,15 @@ export default {
           let sbol = this.annotations[index].propriety.sequenceOntology;
 
           this.annotations[
-            index
-          ].path = `https://vows.sbolstandard.org/glyph/${sbol}/png`;
-
-          this.annotations[index].selected =
-            this.activeAnnotation === this.annotations[index].pk;
+              index
+              ].path = `https://vows.sbolstandard.org/glyph/${sbol}/png`;
 
           this.annotations[index].class = `${sbol.replace("SO:", "SO_")} ${
-            this.annotations[index].direction
+              this.annotations[index].direction
           } glyphs tooltip`;
 
-          this.annotations[index].index = index;
+          this.annotations[index].index = `${index}_id_${parseInt(Math.random() * 100000)}`;
         });
-
         return this.annotations;
       }
       return [];
@@ -62,21 +63,29 @@ export default {
     }
   },
   methods: {
-    amIselected(ann){
-     this.selectedElement() === ann;
+    amIselected(ann){ //todo: check if this is legacy
+      this.selectedElement() === ann;
     },
     detailItem(ann) {
-      eventBus.$emit("select-annotation", ann);
+      eventBus.$emit("select-annotation", { annotation : ann, wcid : this.wcid});
+      //  eventBus.$emit("set-visible",{ annotations : annotations, wcid : this.wcid})
+      //   eventBus.$emit("select-annotation", { annotation : ann, wcid : this.wcid});
+
+
     },
-    selectedAnnotation(a) {
-      this.activeAnnotation = a.pk;
-      setTimeout(() => {
-        this.$refs.glyphs[a.index].scrollIntoView({
-          behavior: "smooth",
-          block: "nearest",
-          inline: "center",
-        });
-      }, 100);
+    selectedAnnotation: function (ann) {
+      if(typeof ann != 'undefined' && ann != null){
+        setTimeout(() => {
+          if(typeof this.$refs[ann.index] != 'undefined') {
+            this.$refs[ann.index][0].scrollIntoView({
+              behavior: 'smooth',
+              block: "nearest",
+              inline: "center",
+            });
+          }
+        }, 100);
+
+      }
     },
     setAltImg(event) {
       event.target.src = "https://vows.sbolstandard.org/glyph/SO:0000313/png";
@@ -86,8 +95,13 @@ export default {
     }
   },
   watch: {
-    annotation(a) {
-      this.selectedAnnotation(a);
+    selected: {
+      immediate: true,
+      handler: function(n, o) {
+        if(n != null){
+          this.selectedAnnotation(n);
+        }
+      }
     },
   },
 };

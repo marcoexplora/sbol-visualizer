@@ -1,6 +1,5 @@
 <template>
   <div class="wrap-list">
-
     <div class="search">
       <input type="text" aria-label="search input" class="search-input" placeholder="Search in annotations" v-model="filter" />
     </div>
@@ -11,7 +10,6 @@
       <ul class="search-list">
 
         <li v-if="selectedItems.length === 0">No Sbol component found</li>
-
         <li v-if="selectedItems.length > 0" class="item">
           <div class="h1 bold" >
               <span v-on:click="showSubComponent = !showSubComponent"
@@ -28,6 +26,7 @@
               <li class="item">
                 <sbol-tree-list
                     :item="item"
+                    :wcid="wcid"
                     v-bind:level="0"
                     v-bind:selected="selected"
                     v-bind:bestview="item.propriety.components ? item.propriety.components : selectedItems"
@@ -50,11 +49,11 @@ import SbolIconOpenCollapseList from "@/components/SbolIconOpenCollapseList";
 import eventBus from "@/lib/eventBus";
 
 export default {
-  props: ["annotations","selected","root","visible"],
+  props: ["annotations","selected","root","visible","wcid"],
   data() {
     return {
       filter: "",
-      showSubComponent : false
+      showSubComponent : true
     };
   },
   components: {
@@ -91,8 +90,8 @@ export default {
   },
   methods: {
     changeVisible(ann) {
-      eventBus.$emit("select-annotation", null);
-      eventBus.$emit("set-visible",ann)
+      eventBus.$emit("select-annotation", { annotation : null, wcid : this.wcid});
+      eventBus.$emit("set-visible",{ annotations : ann, wcid : this.wcid})
     }
   },
 };

@@ -29,22 +29,26 @@
 
       <div v-else ref="sbolVisualizer" :key="flavourClass">
         <div v-bind:class="[flavourClass]">
-          <nav v-if="!flavourMini">
+          <nav
+              v-if="!flavourMini"
+              ref="navContainer">
             <sbol-header :header="sbolDataLayer.header" />
             <sbol-list-annotations
                 :root="sbolDataLayer.header"
                 :annotations="sbolDataLayer.annotations"
                 :selected="selected"
                 :tags="tags"
+                :wcid="id"
                 :visible="sbolDataLayer.visibleAnnotations"
                 @showBranch="showComponents"></sbol-list-annotations>
           </nav>
-          <div class="main" ref="chartsContainer">
+          <div class="main smooth" ref="chartsContainer">
             <sbol-chart
                 :annotations="sbolDataLayer.visibleAnnotations"
                 :selected="selected"
                 :key="updateRender"
                 :graphwidth="chartsWidth"
+                :wcid="id"
             />
             <sbol-detail v-if="!flavourMini" :annotation="selected"  v-bind:tags="this.tags"/>
           </div>
@@ -80,11 +84,13 @@
 
     data() {
       return {
+        id : 0,
         sbolDataLayer: {
           header: {
           },
           annotations: [],
         },
+
         selected: null,
         tags: [],
         filter: "",
@@ -192,7 +198,6 @@
         xmlHandler.convertXml(xml).then((sb)=>{
           this.sbolDataLayer = sb;
           this.sbolDataLayer.visibleAnnotations = this.sbolDataLayer.annotations;
-          window.sbolDataLayer = sbolDataLayer;
           this.empty = false;
           this.resizeHandler();
         })
@@ -235,11 +240,18 @@
             this.flavourMini ? "mini" : "SBOLcontainer"
         } ${classBp}`;
 
-        if(!this.empty && !this.flavourMini ){
+        if(!this.empty ){
+          this.chartsWidth = null;
+
           this.$nextTick(function () {
-            this.chartsWidth = this.$refs.chartsContainer.clientWidth -34;
+            if(typeof this.$refs.navContainer !== 'undefined'){
+              const navWidth =  this.$refs.navContainer.clientWidth
+              this.chartsWidth = widthContainer - navWidth -69; //34 padding and border of chart + NAV 5 + 20
+              this.$refs.chartsContainer.style.width = `{this.chartsWidth}px`
+            }
           });
         }
+        this.updateRender += 1;
       },
     },
     components: {
@@ -256,15 +268,22 @@
     },
     created: function () {
       this.resizeHandler();
+      this.id = parseInt(Math.random() * 100000);
 
-      eventBus.$on("set-visible", (annotations) => {
-        this.sbolDataLayer.visibleAnnotations = annotations.length === 1 ? annotations[0] : annotations;
-        this.updateRender += 1;
+      eventBus.$on("set-visible", (_event) => {
+
+        if(_event.wcid == this.id) {
+          this.sbolDataLayer.visibleAnnotations = _event.annotations.length === 1 ? _event.annotations[0] : _event.annotations;
+          this.updateRender += 1;
+        }
       });
 
-      eventBus.$on("select-annotation", (_annotation) => {
-        this.selected = _annotation;
-        this.updateRender += 1;
+      eventBus.$on("select-annotation", (_event) => {
+
+        if(_event.wcid == this.id) {
+          this.selected = _event.annotation;
+          this.updateRender += 1;
+        }
       });
 
     },
@@ -331,6 +350,7 @@
 
   nav {
     padding: 0 5px 0 0;
+    min-width: 300px;
   }
 
   </style>
@@ -393,6 +413,8 @@
     .float-right{
       float: right;
     }
-
+    .smooth{
+      transition: 200ms;
+    }
   }
   </style>
