@@ -25,6 +25,7 @@
             <div v-bind:class="[showSubComponent ? 'show' : 'hide']" class="components_list">
               <ul v-for="(item, index) in selectedItems" :key="index" class="item">
                 <li class="item">
+
                   <sbol-tree-list
                       :item="item"
                       :wcid="wcid"
