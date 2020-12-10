@@ -2,6 +2,7 @@
     <div @dragover="dragover" @dragleave="dragleave" @drop="drop" class="SbolWvWrap">
       <div v-if="enabledropfile" style="padding:0;height: 1.55em">
         <div style="width: 100%">
+          <a @click="BFthree(sbolDataLayer.annotations)">debug</a>
           <div style="float:right;font-size:1.2em">
             <a  v-if="enabledropfile && empty === false"  style="font-size: 1em" v-on:click="reset()"><close-icon/></a>
           </div>
@@ -37,14 +38,17 @@
                 :root="sbolDataLayer.header"
                 :annotations="sbolDataLayer.annotations"
                 :selected="selected"
+                :breadcrumbs="visible.breadcrumbs"
                 :tags="tags"
                 :wcid="id"
                 :visible="sbolDataLayer.visibleAnnotations"
+                :key="updateRender"
                 @showBranch="showComponents"></sbol-list-annotations>
           </nav>
           <div class="main smooth" ref="chartsContainer">
             <sbol-chart
                 :annotations="sbolDataLayer.visibleAnnotations"
+                :breadcrumbs="visible.breadcrumbs"
                 :selected="selected"
                 :key="updateRender"
                 :graphwidth="chartsWidth"
@@ -90,7 +94,9 @@
           },
           annotations: [],
         },
-
+        visible : {
+          breadcrumbs : []
+        },
         selected: null,
         tags: [],
         filter: "",
@@ -182,7 +188,6 @@
           //this.sbolDataLayer.__anns = this.sbolDataLayer.annotations;
           window.sbolDataLayer = this.sbolDataLayer
 
-
         } catch (error) {
           this.errors = true;
         }
@@ -253,6 +258,31 @@
         }
         this.updateRender += 1;
       },
+      BFthree: function (annotations) {
+        console.log('BFthree')
+        console.log(annotations);
+
+        function recursiveWalk(components,question){
+          console.log('recursiveWalk');
+
+          components.forEach( (comp) => {
+                console.log(comp.name);
+                  recursiveWalk(comp.propriety.components,question)
+              }
+          )
+        }
+
+        console.log(1)
+        if(annotations.hasOwnProperty('components')){
+          console.log(2)
+          console.log(`comp ${annotations.name} has  child components`)
+         recursiveWalk(annotations.components,question)
+        }else{
+          console.log(3)
+          console.log(`comp ${annotations.name} has not child components`)
+        }
+
+      }
     },
     components: {
       SbolBoxArrowUp,
@@ -283,6 +313,29 @@
         if(_event.wcid == this.id) {
           this.selected = _event.annotation;
           this.updateRender += 1;
+        }
+      });
+
+
+      eventBus.$on("update-breackcrumbs", (_event) => {
+        console.log("received update-breackcrumbs")
+        if(_event.wcid == this.id) {
+          /* first element is always the  root */
+          const _level =  parseInt(_event.level) + 1;
+          this.visible.breadcrumbs[0]  = { name : this.sbolDataLayer.header.partID}
+
+          if( this.visible.breadcrumbs[_level] !== _event.item){
+            if(_event.item == null){
+              const back = _level == 1 ? this.sbolDataLayer.annotations : this.visible.breadcrumbs[_level - 1] ;
+              //console.log(back)
+              //eventBus.$emit("set-visible",{ annotations : back, wcid : this.id})
+
+            }else{
+              this.visible.breadcrumbs[_level] = _event.item;
+            }
+            this.updateRender += 1;
+
+          }
         }
       });
 

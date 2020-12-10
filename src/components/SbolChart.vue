@@ -1,8 +1,13 @@
 <template>
   <div class="sbolChart" :ref="'sbolChart'" v-bind:style="{ width : graphwidth + 'px'}" >
 
-    <div style="margin: 20px auto auto auto;width: fit-content" >
-      <div
+    <div class="wrapGlyph" >
+      <nav class="breadcrumbs" >
+        <span v-for="(bread, index) in breadcrumbs">
+         {{bread.name}}
+        </span>
+      </nav>
+     <div
           v-for="(item, index) in computedGlyphAnnotations"
           ref="glyphs"
           :class="item.class"
@@ -25,7 +30,8 @@ export default {
     "annotations" : { type : Array },
     "selected": { type : Object },
     "graphwidth" : { type : Number},
-    "wcid" : { type :Number}
+    "wcid" : { type :Number },
+    "breadcrumbs": {type : Array }
   },
   data() {
     return {
@@ -116,6 +122,7 @@ export default {
   overflow-y: hidden;
   border: 1px solid rgba(0, 0, 0, 0.15);
   border-radius: 5px 5px 0 0;
+  position: relative;
 }
 
 div.glyphs {
@@ -179,6 +186,16 @@ img {
   transition: opacity 0.5s;
 }
 
+.wrapGlyph{
+  margin: 20px auto auto;
+  width: fit-content;
+}
+
+.breadcrumbs{
+  position: absolute;
+  top: 0;
+  left: 10px;
+}
 .BW {
   -webkit-transform: scaleX(-1);
   transform: scaleX(-1);

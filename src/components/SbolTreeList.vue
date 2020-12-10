@@ -3,11 +3,13 @@
       <div  v-bind:class="[item == selected ? 'selected' : '']">
       <div class="h1 bold" >
         <span v-if="item.propriety.components"
-              v-on:click="showSubComponent = !showSubComponent"
-              v-bind:class="[showSubComponent ? 'open' : 'close']"
+              v-bind:class="[ showSubComponent ? 'open' : 'close']"
+              @click="updateBreadcrumbs()"
               class="sub_components_controller">
           <sbol-icon-open-collapse-list :open="showSubComponent"/>
         </span>
+
+
         <span  @click="detailItem(item)">
           {{ item.name }}
         </span>
@@ -19,7 +21,7 @@
         <span v-if="item.propriety.end > 0">({{item.propriety.start}}..{{ item.propriety.end }})</span>
       </div>
       </div>
-      <div  v-bind:class="[showSubComponent ? 'show' : 'hide']" class="components_list">
+      <div v-bind:class="[showSubComponent ? 'show' : 'hide']" class="components_list">
         <ul v-if="item.propriety.components" :id="item.name  + 'sub' + level" >
           <li v-for="(sub, index) in item.propriety.components" :key="index" class="item">
             <sbol-tree-list
@@ -29,7 +31,7 @@
                 :selected="selected"
                 :visible="visible"
                 :wcid="wcid"
-                :breadcrumbs='breadcrumbs ? breadcrumbs  +" / " + item.name : item.name'  ></sbol-tree-list>
+                v-bind:breadcrumbs="breadcrumbs"  ></sbol-tree-list>
           </li>
         </ul>
       </div>
@@ -52,14 +54,11 @@
         type: Number,
         default: 0
       },
-      breadcrumbs: {
-        type : String
-        },
+      breadcrumbs: {type : Array},
       wcid : { type : Number},
       visible: {},
       bestview: {},
       selected: {}
-
     },
     name: 'sbol-tree-list',
     data() {
@@ -88,16 +87,29 @@
         this.changeVisible(this.bestview);
         eventBus.$emit("select-annotation", { annotation : ann, wcid : this.wcid});
       },
-    }
-
+      updateBreadcrumbs(){
+        if(this.isOpenAccordion){
+          eventBus.$emit("update-breackcrumbs", { item : null, level : this.level, wcid : this.wcid});
+        }else{
+          eventBus.$emit("update-breackcrumbs", { item : this.item, level : this.level, wcid : this.wcid});
+        }
+      }
+    },
+    watch: {
+      breadcrumbs: {
+        immediate: true,
+        handler: function(n, o) {
+          if(n != null){
+            console.log('we should update the list')
+            this.showSubComponent = this.breadcrumbs[this.level + 1] === this.item;
+          }
+        }
+      },
+    },
   };
   </script>
   <style scoped>
 
-
-  .close .glasses{
-    display: none;
-  }
   li.item{
     padding: 10px 0 0 0;
   }
