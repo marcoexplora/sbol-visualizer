@@ -2,7 +2,7 @@
     <div @dragover="dragover" @dragleave="dragleave" @drop="drop" class="SbolWvWrap">
       <div v-if="enabledropfile" style="padding:0;height: 1.55em">
         <div style="width: 100%">
-          <a @click="BFthree(sbolDataLayer.annotations)">debug</a>
+
           <div style="float:right;font-size:1.2em">
             <a  v-if="enabledropfile && empty === false"  style="font-size: 1em" v-on:click="reset()"><close-icon/></a>
           </div>
@@ -337,6 +337,8 @@
 
             if(_event.item == null){
               this.visible.breadcrumbs = cleanFromLevel(this.visible.breadcrumbs,_level);
+            }else{
+              this.visible.breadcrumbs = cleanFromLevel(this.visible.breadcrumbs,_level + 1);
             }
 
             const lastElement = this.visible.breadcrumbs[this.visible.breadcrumbs.length -1]

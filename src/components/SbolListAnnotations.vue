@@ -103,18 +103,7 @@ export default {
       eventBus.$emit("select-annotation", {annotation: null, wcid: this.wcid});
       eventBus.$emit("set-visible", {annotations: ann, wcid: this.wcid})
     }
-  },
-  watch: {
-    breadcrumbs: {
-      immediate: true,
-      handler: function(n, o) {
-        if(n != null){
-          console.log('we should update the list')
-          //this.selectedAnnotation(n);
-        }
-      }
-    },
-  },
+  }
 };
 </script>
 <style scoped>
