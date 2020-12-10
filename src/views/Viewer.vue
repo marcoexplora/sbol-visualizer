@@ -318,24 +318,32 @@
 
 
       eventBus.$on("update-breackcrumbs", (_event) => {
-        console.log("received update-breackcrumbs")
+
         if(_event.wcid == this.id) {
           /* first element is always the  root */
           const _level =  parseInt(_event.level) + 1;
-          this.visible.breadcrumbs[0]  = { name : this.sbolDataLayer.header.partID}
+          this.visible.breadcrumbs[0]  = { name : this.sbolDataLayer.header.partID, propriety : { components : this.sbolDataLayer.annotations }}
 
           if( this.visible.breadcrumbs[_level] !== _event.item){
-            if(_event.item == null){
-              const back = _level == 1 ? this.sbolDataLayer.annotations : this.visible.breadcrumbs[_level - 1] ;
-              //console.log(back)
-              //eventBus.$emit("set-visible",{ annotations : back, wcid : this.id})
-
-            }else{
               this.visible.breadcrumbs[_level] = _event.item;
-            }
-            this.updateRender += 1;
 
+              function cleanFromLevel(_bradcrumbs,_level){
+                const results = []
+                for(let t = 0; t < _level; t++){
+                  results.push(_bradcrumbs[t])
+                }
+                return results
+              }
+
+            if(_event.item == null){
+              this.visible.breadcrumbs = cleanFromLevel(this.visible.breadcrumbs,_level);
+            }
+
+            const lastElement = this.visible.breadcrumbs[this.visible.breadcrumbs.length -1]
+            this.sbolDataLayer.visibleAnnotations = lastElement.propriety.components;
+            this.updateRender += 1;
           }
+
         }
       });
 

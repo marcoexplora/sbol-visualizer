@@ -13,6 +13,7 @@
         <span  @click="detailItem(item)">
           {{ item.name }}
         </span>
+
       </div>
 
       <div class="text-muted-black h2"  @click="detailItem(item)">
@@ -84,11 +85,11 @@
         }
       },
       detailItem(ann) {
-        this.changeVisible(this.bestview);
+        //this.changeVisible(this.bestview);
         eventBus.$emit("select-annotation", { annotation : ann, wcid : this.wcid});
       },
       updateBreadcrumbs(){
-        if(this.isOpenAccordion){
+        if(this.showSubComponent){
           eventBus.$emit("update-breackcrumbs", { item : null, level : this.level, wcid : this.wcid});
         }else{
           eventBus.$emit("update-breackcrumbs", { item : this.item, level : this.level, wcid : this.wcid});
@@ -100,7 +101,7 @@
         immediate: true,
         handler: function(n, o) {
           if(n != null){
-            console.log('we should update the list')
+            //console.log('we should update the list')
             this.showSubComponent = this.breadcrumbs[this.level + 1] === this.item;
           }
         }
