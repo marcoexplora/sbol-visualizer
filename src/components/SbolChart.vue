@@ -3,16 +3,15 @@
 
     <div class="wrapGlyph">
       <nav class="breadcrumbs">
-        <span v-for="(bread, index) in breadcrumbs">
+        <span v-for="bread in breadcrumbs">
          {{ bread.name }}
         </span>
       </nav>
-      <div
-          v-for="(item, index) in computedGlyphAnnotations"
-          ref="glyphs"
-          :class="item.class"
-          :key="index"
-          @click="detailItem(item)"
+      <div v-for="(item, index) in computedGlyphAnnotations"
+           ref="glyphs"
+           :class="item.class"
+           :key="index"
+           @click="detailItem(item)"
       >
         <div class="tooltiptext">{{ item.name }}</div>
         <div v-if="selected === item" class="selected"></div>
@@ -41,9 +40,7 @@ export default {
     };
   },
   computed: {
-    computedContainerWidth() {
-      return this.containerWidth;
-    },
+
     computedGlyphAnnotations() {
       if (this.annotations) {
         this.annotations.map((key, index) => {
@@ -93,7 +90,7 @@ export default {
       event.target.src = "https://vows.sbolstandard.org/glyph/SO:0000313/png";
     },
     setWideth() {
-      return `width:${graphwidth}px`
+      return `width:${this.graphwidth}px`
     }
   },
   watch: {

@@ -95,7 +95,7 @@ header {
 }
 
 header h2, h1 {
-  margin: 0px
+  margin: 0
 }
 
 h1, .h1 {
@@ -139,7 +139,7 @@ a:hover {
 
 ul {
   padding: 5px;
-  margin: 0px;
+  margin: 0
 }
 
 ul li {

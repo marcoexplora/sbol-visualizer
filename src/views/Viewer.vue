@@ -261,7 +261,10 @@ export default {
       }
       this.updateRender += 1;
     },
-    BFthree: function (annotations) {
+   /*
+        Work in progress
+
+   BFthree: function (annotations) {
       console.log('BFthree')
       console.log(annotations);
 
@@ -285,7 +288,7 @@ export default {
         console.log(`comp ${annotations.name} has not child components`)
       }
 
-    }
+    }*/
   },
   components: {
     SbolBoxArrowUp,
@@ -305,7 +308,7 @@ export default {
 
     eventBus.$on("set-visible", (_event) => {
 
-      if (_event.wcid == this.id) {
+      if (_event.wcid === this.id) {
         this.sbolDataLayer.visibleAnnotations = _event.annotations.length === 1 ? _event.annotations[0] : _event.annotations;
         this.updateRender += 1;
       }
@@ -313,7 +316,7 @@ export default {
 
     eventBus.$on("select-annotation", (_event) => {
 
-      if (_event.wcid == this.id) {
+      if (_event.wcid === this.id) {
         this.selected = _event.annotation;
         this.updateRender += 1;
       }
@@ -322,7 +325,7 @@ export default {
 
     eventBus.$on("update-breackcrumbs", (_event) => {
 
-      if (_event.wcid == this.id) {
+      if (_event.wcid === this.id) {
         /* first element is always the  root */
         const _level = parseInt(_event.level) + 1;
         this.visible.breadcrumbs[0] = {

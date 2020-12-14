@@ -1,6 +1,6 @@
   <template>
     <div>
-      <div  v-bind:class="[item == selected ? 'selected' : '']">
+      <div  v-bind:class="[item === selected ? 'selected' : '']">
       <div class="h1 bold" >
         <span v-if="item.propriety.components"
               v-bind:class="[ showSubComponent ? 'open' : 'close']"
@@ -117,14 +117,13 @@
   }
   .components_list.hide{
     overflow:hidden;
-    height: 0px;
+    height: 0;
     margin: 0;
     padding: 0;
     border: 0;
   }
   .components_list {
-    margin: 0;
-    margin-left: 5px;
+    margin: 0 0 0 5px;
     border-left: 2px solid #dee5ea;
   }
   ul{
