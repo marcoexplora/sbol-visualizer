@@ -147,20 +147,22 @@ export default {
       this.fileObj = [...this.$refs.file.files][0];
 
       const read = new FileReader();
-      read.readAsText(this.fileObj);
+      if(this.fileObj != null && this.fileObj.size > 0) {
+        read.readAsText(this.fileObj);
 
-      read.onload = (function (theFile, _that) {
-        return function (el) {
-          _that.droppedFile.name = theFile.name;
-          _that.droppedFile.type = theFile.type;
+        read.onload = (function (theFile, _that) {
+          return function (el) {
+            _that.droppedFile.name = theFile.name;
+            _that.droppedFile.type = theFile.type;
 
-          _that.droppedFile.data = el.target.result;
+            _that.droppedFile.data = el.target.result;
 
-          const dataFormat =
-              _that.droppedFile["type"] === "text/xml" ? "xml" : "json";
-          _that.genericLoad(dataFormat, _that.droppedFile["data"]);
-        };
-      })(this.fileObj, this);
+            const dataFormat =
+                _that.droppedFile["type"] === "text/xml" ? "xml" : "json";
+            _that.genericLoad(dataFormat, _that.droppedFile["data"]);
+          };
+        })(this.fileObj, this);
+      }
     },
     showDetail: function (annotation) {
       this.tags.push({

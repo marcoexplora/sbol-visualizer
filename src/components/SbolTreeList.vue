@@ -1,7 +1,7 @@
   <template>
     <div>
       <div  v-bind:class="[item === selected ? 'selected' : '']">
-      <div class="h1 bold" >
+      <div class="h1 bold">
         <span v-if="item.propriety.components"
               v-bind:class="[ showSubComponent ? 'open' : 'close']"
               @click="accordionUpdate(item)"
@@ -9,8 +9,7 @@
           <sbol-icon-open-collapse-list :open="showSubComponent"/>
         </span>
 
-
-        <span class="pointer"  @click="selectByClickingOnName(item)">
+        <span class="pointer"  @click="selectByClickingOnName(item)" v-bind:class="[selected === item ? 'itemSelected' : '']">
           {{ item.name }}
         </span>
 
@@ -24,15 +23,18 @@
       </div>
       <div v-bind:class="[showSubComponent ? 'show' : 'hide']" class="components_list">
         <ul v-if="item.propriety.components" :id="item.name  + 'sub' + level" >
-          <li v-for="(sub, index) in item.propriety.components" :key="index" class="item">
-            <sbol-tree-list
-                :item="sub"
-                :parent="item"
-                :level="level + 1"
-                :selected="selected"
-                :visible="visible"
-                :wcid="wcid"
-                v-bind:breadcrumbs="breadcrumbs"  ></sbol-tree-list>
+          <li v-for="(sub, index) in item.propriety.components"
+              :key="index"
+              class="item"
+              >
+                <sbol-tree-list
+                    :item="sub"
+                    :parent="item"
+                    :level="level + 1"
+                    :selected="selected"
+                    :visible="visible"
+                    :wcid="wcid"
+                    v-bind:breadcrumbs="breadcrumbs"  ></sbol-tree-list>
           </li>
         </ul>
       </div>
@@ -95,6 +97,19 @@
           if(n != null){
             //console.log('we should update the list')
             this.showSubComponent = this.breadcrumbs[this.level + 1] === this.item;
+            console.log('breadcrumbs udpated')
+          }
+        }
+      },
+
+      selected : {
+        immediate: true,
+        handler: function(n, o) {
+          if(n != null){
+            //console.log('we should update the list')
+            //this.showSubComponent = this.breadcrumbs[this.level + 1] === this.item;
+            console.log('selected  udpated')
+
           }
         }
       },

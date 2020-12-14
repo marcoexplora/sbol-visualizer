@@ -8,23 +8,23 @@
     <div class="wrap-section">
       <section>
 
-        <ul class="search-list">
+        <ul class="search-list" ref="ItemsTree">
 
-          <li v-if="selectedItems.length === 0">No Sbol component found</li>
-          <li v-if="selectedItems.length > 0" class="item">
+          <li v-if="annotations.length === 0">No Sbol component found</li>
+          <li v-if="annotations.length > 0" class="item">
             <div class="h1 bold">
               <span v-on:click="showSubComponent = !showSubComponent"
                     v-bind:class="[showSubComponent ? 'open' : 'close']"
                     class="sub_components_controller pointer">
                   <sbol-icon-open-collapse-list :open="showSubComponent"/>
                 </span>
-              <span @click="selectMe(selectedItems)" class="pointer">
+              <span @click="selectMe(annotations)" class="pointer">
                 {{ root.partID }}
               </span>
 
             </div>
             <div v-bind:class="[showSubComponent ? 'show' : 'hide']" class="components_list">
-              <ul v-for="(item, index) in selectedItems" :key="index" class="item">
+              <ul v-for="(item, index) in annotations" :key="index" class="item">
                 <li class="item">
 
                   <sbol-tree-list
@@ -36,6 +36,7 @@
                       v-bind:selected="selected"
                       :visible="visible">
                   </sbol-tree-list>
+
                 </li>
               </ul>
             </div>
@@ -81,24 +82,7 @@ export default {
     //todo: rename selectedItems in searchItems and make it work on multiples levels
     selectedItems() {
       if (typeof this.annotations !== 'undefined') {
-        return this.annotations.filter((so) => {
-          if (this.filter === "") {
-            return so;
-          }
-
-          if (/^\d+$/.test(this.filter)) {
-            const loc = parseInt(this.filter);
-            return so.start <= loc && so.end >= loc;
-          } else {
-            return (
-                so.name.toLowerCase().includes(this.filter.toLowerCase()) ||
-                so.start.toString().includes(this.filter.toString()) ||
-                so.SBOL.toString().includes(this.filter.toString()) ||
-                so.end.toString().includes(this.filter.toString()) ||
-                so.direction.toLowerCase().includes(this.filter.toString())
-            );
-          }
-        });
+        return this.annotations
       } else {
         return []
       }
