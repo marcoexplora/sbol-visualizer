@@ -494,5 +494,8 @@ nav {
   .smooth {
     transition: 200ms;
   }
+  .pointer{
+    cursor:pointer;
+  }
 }
 </style>

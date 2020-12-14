@@ -15,11 +15,11 @@
             <div class="h1 bold">
               <span v-on:click="showSubComponent = !showSubComponent"
                     v-bind:class="[showSubComponent ? 'open' : 'close']"
-                    class="sub_components_controller">
+                    class="sub_components_controller pointer">
                   <sbol-icon-open-collapse-list :open="showSubComponent"/>
                 </span>
-              <span @click="selectMe(selectedItems)">
-              {{ root.partID }}
+              <span @click="selectMe(selectedItems)" class="pointer">
+                {{ root.partID }}
               </span>
 
             </div>

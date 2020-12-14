@@ -5,12 +5,12 @@
         <span v-if="item.propriety.components"
               v-bind:class="[ showSubComponent ? 'open' : 'close']"
               @click="accordionUpdate(item)"
-              class="sub_components_controller">
+              class="sub_components_controller pointer">
           <sbol-icon-open-collapse-list :open="showSubComponent"/>
         </span>
 
 
-        <span  @click="selectByClickingOnName(item)">
+        <span class="pointer"  @click="selectByClickingOnName(item)">
           {{ item.name }}
         </span>
 

@@ -15,7 +15,7 @@
       >
         <div class="tooltiptext">{{ item.name }}</div>
         <div v-if="selected === item" class="selected"></div>
-        <img :src="item.path" :id="item.index" v-bind:ref="item.index" :alt="item.propriety.sequenceOntology"
+        <img :src="item.path" :id="item.index" v-bind:ref="item.index" class="pointer" :alt="item.propriety.sequenceOntology"
              @error="setAltImg"/>
       </div>
     </div>
