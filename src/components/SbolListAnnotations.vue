@@ -18,9 +18,10 @@
                     class="sub_components_controller">
                   <sbol-icon-open-collapse-list :open="showSubComponent"/>
                 </span>
-              <span @click="changeVisible(selectedItems)">
+              <span @click="selectMe(selectedItems)">
               {{ root.partID }}
-            </span>
+              </span>
+
             </div>
             <div v-bind:class="[showSubComponent ? 'show' : 'hide']" class="components_list">
               <ul v-for="(item, index) in selectedItems" :key="index" class="item">
@@ -28,11 +29,11 @@
 
                   <sbol-tree-list
                       :item="item"
+                      :parent="parentRoot"
                       :wcid="wcid"
                       v-bind:breadcrumbs="breadcrumbs"
                       v-bind:level="0"
                       v-bind:selected="selected"
-                      v-bind:bestview="item.propriety.components ? item.propriety.components : selectedItems"
                       :visible="visible">
                   </sbol-tree-list>
                 </li>
@@ -72,6 +73,11 @@ export default {
     SbolIconOpenCollapseList,
   },
   computed: {
+    parentRoot() {
+      return {
+        propriety : { components : this.annotations }
+      }
+    },
     //todo: rename selectedItems in searchItems and make it work on multiples levels
     selectedItems() {
       if (typeof this.annotations !== 'undefined') {
@@ -99,9 +105,9 @@ export default {
     },
   },
   methods: {
-    changeVisible(ann) {
+
+    selectMe(ann) {
       eventBus.$emit("select-annotation", {annotation: null, wcid: this.wcid});
-      eventBus.$emit("set-visible", {annotations: ann, wcid: this.wcid})
     }
   }
 };

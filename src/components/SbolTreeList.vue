@@ -4,19 +4,19 @@
       <div class="h1 bold" >
         <span v-if="item.propriety.components"
               v-bind:class="[ showSubComponent ? 'open' : 'close']"
-              @click="updateBreadcrumbs()"
+              @click="accordionUpdate(item)"
               class="sub_components_controller">
           <sbol-icon-open-collapse-list :open="showSubComponent"/>
         </span>
 
 
-        <span  @click="detailItem(item)">
+        <span  @click="selectByClickingOnName(item)">
           {{ item.name }}
         </span>
 
       </div>
 
-      <div class="text-muted-black h2"  @click="detailItem(item)">
+      <div class="text-muted-black h2"  @click="selectByClickingOnName(item)">
         <b>Direction:</b>
         <span>{{ item.propriety.Direction }}</span>
         <span v-if="item.propriety.end > 0">({{item.propriety.start}}..{{ item.propriety.end }})</span>
@@ -27,7 +27,7 @@
           <li v-for="(sub, index) in item.propriety.components" :key="index" class="item">
             <sbol-tree-list
                 :item="sub"
-                :bestview="bestView(sub)"
+                :parent="item"
                 :level="level + 1"
                 :selected="selected"
                 :visible="visible"
@@ -51,6 +51,9 @@
       item: {
         type: Object
       },
+      parent: {
+        type: Object
+      },
       level: {
         type: Number,
         default: 0
@@ -58,7 +61,6 @@
       breadcrumbs: {type : Array},
       wcid : { type : Number},
       visible: {},
-      bestview: {},
       selected: {}
     },
     name: 'sbol-tree-list',
@@ -73,26 +75,16 @@
       SbolIconOpenCollapseList,
     },
     methods :{
-      changeVisible(ann) {
-        const annotations = ann.length == 1 ? [ann] : ann;
-        eventBus.$emit("set-visible",{ annotations : annotations, wcid : this.wcid})
-      },
-      bestView(ann){
-        if(typeof  ann.propriety.components != "undefined"){
-          return ann.propriety.components
-        }else{
-          return this.item.propriety.components
-        }
-      },
-      detailItem(ann) {
-        //this.changeVisible(this.bestview);
+      selectByClickingOnName(ann) {
         eventBus.$emit("select-annotation", { annotation : ann, wcid : this.wcid});
+        eventBus.$emit("update-breackcrumbs", { item : this.parent, level : this.level - 1 , wcid : this.wcid});
       },
-      updateBreadcrumbs(){
+      accordionUpdate(item){
         if(this.showSubComponent){
           eventBus.$emit("update-breackcrumbs", { item : null, level : this.level, wcid : this.wcid});
         }else{
           eventBus.$emit("update-breackcrumbs", { item : this.item, level : this.level, wcid : this.wcid});
+          eventBus.$emit("select-annotation", { annotation : item, wcid : this.wcid});
         }
       }
     },
