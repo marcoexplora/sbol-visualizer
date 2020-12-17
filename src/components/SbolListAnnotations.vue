@@ -18,7 +18,7 @@
               </span>
               <span @click="selectMe(annotations)" class="pointer">
                 {{ root.partID }}
-                  <span v-if="annotations == visible" class="glasses">
+                  <span v-if="annotations === visible" class="glasses">
                     <SbolIconGlasses active="true" alt="this element is displayed on the map"/>
                   </span>
               </span>

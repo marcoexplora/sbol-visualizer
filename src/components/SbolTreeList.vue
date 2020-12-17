@@ -11,10 +11,10 @@
 
         <span class="pointer"  @click="selectByClickingOnName(item)" v-bind:class="[selected === item ? 'itemSelected' : '']">
           {{ item.name }}
-          <span v-if="item.propriety.components == visible" class="glasses"><SbolIconGlasses  active="true" alt="this element is displayed on the map"/></span>
-
+          <span v-if="item.propriety.components == visible" class="glasses">
+            <SbolIconGlasses  active="true" alt="this element is displayed on the map"/>
+          </span>
         </span>
-
       </div>
 
       <div class="text-muted-black h2"  @click="selectByClickingOnName(item)">
@@ -26,10 +26,7 @@
 
       <div v-bind:class="[showSubComponent ? 'show' : 'hide']" class="components_list">
         <ul v-if="item.propriety.components" :id="item.name  + 'sub' + level" >
-          <li v-for="(sub, index) in item.propriety.components"
-              :key="index"
-              class="item"
-              >
+          <li v-for="(sub, index) in item.propriety.components" :key="index" class="item">
                 <sbol-tree-list
                     :item="sub"
                     :parent="item"
@@ -37,7 +34,7 @@
                     :selected="selected"
                     :visible="visible"
                     :wcid="wcid"
-                    v-bind:breadcrumbs="breadcrumbs"  ></sbol-tree-list>
+                    v-bind:breadcrumbs="breadcrumbs" ></sbol-tree-list>
           </li>
         </ul>
       </div>
@@ -45,6 +42,7 @@
     </div>
 
   </template>
+
   <script>
   import SbolTreeList from "@/components/SbolTreeList";
   import SbolIconOpenCollapseList from "@/components/SbolIconOpenCollapseList";
@@ -108,11 +106,10 @@
         immediate: true,
         handler: function(n, o) {
           if(n != null){
-            //todo: is this legacy code?
-            //this.showSubComponent = this.breadcrumbs[this.level + 1] === this.item;
-            //console.log('select is changed')
-            //this.$refs.$el.querySelector('.itemSelected').scrollIntoViewIfNeeded()
-          }
+            if(this.item === this.selected){
+              this.$el.scrollIntoViewIfNeeded()
+            }
+           }
         }
       },
     },
