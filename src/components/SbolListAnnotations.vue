@@ -1,5 +1,5 @@
 <template>
-  <div class="wrap-list">
+  <div class="wrap-list" ref="list">
     <div class="search">
       <input type="text" aria-label="search input" class="search-input" placeholder="Search in annotations"
              v-model="filter"/>
@@ -7,19 +7,20 @@
 
     <div class="wrap-section">
       <section>
-
         <ul class="search-list" ref="ItemsTree">
-
           <li v-if="annotations.length === 0">No Sbol component found</li>
           <li v-if="annotations.length > 0" class="item">
             <div class="h1 bold">
-              <span v-on:click="showSubComponent = !showSubComponent"
+              <span @click="accordionUpdate()"
                     v-bind:class="[showSubComponent ? 'open' : 'close']"
                     class="sub_components_controller pointer">
                   <sbol-icon-open-collapse-list :open="showSubComponent"/>
-                </span>
+              </span>
               <span @click="selectMe(annotations)" class="pointer">
                 {{ root.partID }}
+                  <span v-if="annotations == visible" class="glasses">
+                    <SbolIconGlasses active="true" alt="this element is displayed on the map"/>
+                  </span>
               </span>
 
             </div>
@@ -49,8 +50,9 @@
 <script>
 
 import SbolTreeList from "@/components/SbolTreeList";
-import SbolIconGlasses from "@/components/SbolIconGlasses"
+import SbolIconGlasses from "@/components/SbolIconGlasses";
 import SbolIconOpenCollapseList from "@/components/SbolIconOpenCollapseList";
+
 import eventBus from "@/lib/eventBus";
 
 export default {
@@ -89,7 +91,9 @@ export default {
     },
   },
   methods: {
-
+    accordionUpdate(){
+      this.showSubComponent = !this.showSubComponent;
+    },
     selectMe(ann) {
       eventBus.$emit("select-annotation", {annotation: null, wcid: this.wcid});
     }
@@ -226,4 +230,11 @@ ul {
   padding-left: 10px;
 }
 
+.glasses{
+  float: right;
+  padding: 0.2em 1.8em 0 0;
+}
+.glasses svg{
+  font-size:1.2em;
+}
 </style>

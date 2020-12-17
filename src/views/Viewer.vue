@@ -9,7 +9,7 @@
           </a>
         </div>
 
-        <label style="cursor:pointer" class="txt" for="assetsFieldHandle">
+        <label class="txt pointer" for="assetsFieldHandle">
           <sbol-box-arrow-up/>
           Choose a file to view</label>
         <input
@@ -40,6 +40,7 @@
             ref="navContainer">
           <sbol-header :header="sbolDataLayer.header"/>
           <sbol-list-annotations
+              ref="listAnnotation"
               :root="sbolDataLayer.header"
               :annotations="sbolDataLayer.annotations"
               :selected="selected"
@@ -47,7 +48,6 @@
               :tags="tags"
               :wcid="id"
               :visible="sbolDataLayer.visibleAnnotations"
-              :key="updateRender"
               @showBranch="showComponents"></sbol-list-annotations>
         </nav>
         <div class="main smooth" ref="chartsContainer">
@@ -55,7 +55,6 @@
               :annotations="sbolDataLayer.visibleAnnotations"
               :breadcrumbs="visible.breadcrumbs"
               :selected="selected"
-              :key="updateRender"
               :graphwidth="chartsWidth"
               :wcid="id"
           />
@@ -191,7 +190,9 @@ export default {
         }
         //todo: remove before production
         //this.sbolDataLayer.__anns = this.sbolDataLayer.annotations;
+        console.log('created sbolDataLayer list as debug variables')
         window.sbolDataLayer = this.sbolDataLayer
+        window.list = this.$refs
 
       } catch (error) {
         this.errors = true;
@@ -321,7 +322,18 @@ export default {
       if (_event.wcid === this.id) {
         this.selected = _event.annotation;
         this.updateRender += 1;
+
+        //window.selectedItem = this.$refs['listAnnotation']
+        /*
+        this.$refs['listAnnotation'].$el.querySelector('.itemSelected').scrollIntoView({
+          behavior: 'smooth',
+          block: "nearest",
+        });*/
+
+
       }
+
+
     });
 
 

@@ -3,7 +3,7 @@
 
     <div class="wrapGlyph">
       <nav class="breadcrumbs">
-        <span v-for="bread in breadcrumbs">
+        <span v-for="(bread,indexbread) in createBreadcrumbs">
          {{ bread.name }}
         </span>
       </nav>
@@ -40,7 +40,17 @@ export default {
     };
   },
   computed: {
+    createBreadcrumbs(){
+      if(this.breadcrumbs.length > 2){
+        const result = [{
+          name : "..."
+        }]
+        return result.concat(this.breadcrumbs.slice(-2));
+      }else{
+        return this.breadcrumbs.slice(-2)
 
+      }
+    },
     computedGlyphAnnotations() {
       if (this.annotations) {
         this.annotations.map((key, index) => {
@@ -117,7 +127,10 @@ export default {
   border-radius: 5px 5px 0 0;
   position: relative;
 }
-
+.breadcrumbs span{
+  padding: 0 5px 0  0;
+  font-size:16px;
+}
 div.glyphs {
   position: relative;
 }
