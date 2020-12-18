@@ -107,7 +107,9 @@
         handler: function(n, o) {
           if(n != null){
             if(this.item === this.selected){
-              this.$el.scrollIntoViewIfNeeded()
+              if(typeof this.$el !== 'undefined'){
+                this.$el.scrollIntoViewIfNeeded()
+              }
             }
            }
         }

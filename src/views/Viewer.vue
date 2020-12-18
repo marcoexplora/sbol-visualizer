@@ -4,7 +4,7 @@
       <div style="width: 100%">
 
         <div style="float:right;font-size:1.2em">
-          <a v-if="enabledropfile && empty === false" style="font-size: 1em" v-on:click="reset()">
+          <a v-if="enabledropfile && empty === false" style="font-size: 1em;cursor:pointer;" v-on:click="reset()">
             <close-icon/>
           </a>
         </div>
@@ -188,11 +188,13 @@ export default {
         if (dataFormat === "xml") {
           this.loadXml(data);
         }
+
         //todo: remove before production
         //this.sbolDataLayer.__anns = this.sbolDataLayer.annotations;
         console.log('created sbolDataLayer list as debug variables')
         window.sbolDataLayer = this.sbolDataLayer
         window.list = this.$refs
+
 
       } catch (error) {
         this.errors = true;

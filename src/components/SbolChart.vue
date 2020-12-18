@@ -86,7 +86,7 @@ export default {
     selectedAnnotation: function (ann) {
       if (typeof ann != 'undefined' && ann != null) {
         setTimeout(() => {
-          if (typeof this.$refs[ann.index] != 'undefined') {
+          if (typeof this.$refs[ann.index] != 'undefined' && typeof  this.$refs[ann.index][0] != 'undefined') {
             this.$refs[ann.index][0].scrollIntoView({
               behavior: 'smooth',
               block: "nearest",
