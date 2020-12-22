@@ -82,8 +82,9 @@
     },
     methods :{
       selectByClickingOnName(ann) {
+        const _level = this.level > 1 ? this.level -1 : 0;
         eventBus.$emit("select-annotation", { annotation : ann, wcid : this.wcid});
-        eventBus.$emit("update-breackcrumbs", { item : this.parent, level : this.level - 1 , wcid : this.wcid});
+        eventBus.$emit("update-breackcrumbs", { item : this.parent, level : _level , wcid : this.wcid});
       },
       accordionUpdate(item){
         if(this.showSubComponent){
