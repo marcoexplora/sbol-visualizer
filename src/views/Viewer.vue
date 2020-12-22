@@ -195,7 +195,6 @@ export default {
         window.sbolDataLayer = this.sbolDataLayer
         window.list = this.$refs
 
-
       } catch (error) {
         this.errors = true;
       }
@@ -211,6 +210,13 @@ export default {
       xmlHandler.convertXml(xml).then((sb) => {
         this.sbolDataLayer = sb;
         this.sbolDataLayer.visibleAnnotations = this.sbolDataLayer.annotations;
+
+        this.visible.breadcrumbs[0] = {
+          name: this.sbolDataLayer.header.partID,
+          propriety: {components: this.sbolDataLayer.annotations},
+          mutableDescription : this.sbolDataLayer.header.mutableDescription,
+        }
+
         this.empty = false;
         this.resizeHandler();
       })
@@ -259,7 +265,7 @@ export default {
         this.$nextTick(function () {
           if (typeof this.$refs.navContainer !== 'undefined') {
             const navWidth = this.$refs.navContainer.clientWidth
-            this.chartsWidth = widthContainer - navWidth - 69; //34 padding and border of chart + NAV 5 + 20
+            this.chartsWidth = widthContainer - navWidth - 49; //34 padding and border of chart + NAV 5 + 20
             this.$refs.chartsContainer.style.width = `{this.chartsWidth}px`
           }
         });
@@ -324,21 +330,10 @@ export default {
       if (_event.wcid === this.id) {
         this.selected = _event.annotation;
         this.updateRender += 1;
-
-        //window.selectedItem = this.$refs['listAnnotation']
-        /*
-        this.$refs['listAnnotation'].$el.querySelector('.itemSelected').scrollIntoView({
-          behavior: 'smooth',
-          block: "nearest",
-        });*/
-
-
       }
 
 
     });
-
-
     eventBus.$on("update-breackcrumbs", (_event) => {
 
       if (_event.wcid === this.id) {
@@ -346,7 +341,8 @@ export default {
         const _level = parseInt(_event.level) + 1;
         this.visible.breadcrumbs[0] = {
           name: this.sbolDataLayer.header.partID,
-          propriety: {components: this.sbolDataLayer.annotations}
+          propriety: {components: this.sbolDataLayer.annotations},
+          mutableDescription : this.sbolDataLayer.header.mutableDescription,
         }
 
         //if (this.visible.breadcrumbs[_level] !== _event.item) {
@@ -392,6 +388,8 @@ export default {
         this.sbolDataLayer.header['source_link'] = this.source;
       });
     }
+
+
 
     if (this.flavour === "mini") {
       this.flavourMini = true;

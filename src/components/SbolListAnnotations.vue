@@ -18,9 +18,9 @@
               </span>
               <span @click="selectMe(annotations)" class="pointer">
                 {{ root.partID }}
-                  <span v-if="annotations === visible" class="glasses">
+              </span>
+              <span v-if="annotations === visible" class="glasses">
                     <SbolIconGlasses active="true" alt="this element is displayed on the map"/>
-                  </span>
               </span>
 
             </div>
@@ -31,11 +31,11 @@
                   <sbol-tree-list
                       :item="item"
                       :parent="parentRoot"
+                      :visible="visible"
                       :wcid="wcid"
                       v-bind:breadcrumbs="breadcrumbs"
                       v-bind:level="0"
-                      v-bind:selected="selected"
-                      :visible="visible">
+                      v-bind:selected="selected">
                   </sbol-tree-list>
 
                 </li>
@@ -93,6 +93,7 @@ export default {
   methods: {
     accordionUpdate(){
       this.showSubComponent = !this.showSubComponent;
+      eventBus.$emit("update-breackcrumbs", { item : null, level : 0, wcid : this.wcid});
     },
     selectMe(ann) {
       eventBus.$emit("select-annotation", {annotation: null, wcid: this.wcid});
@@ -222,7 +223,7 @@ li.item:last-child {
 
 .components_list {
   margin: 0 0 0 5px;
-  border-left: 2px solid #dee5ea;
+  border-left: 2px solid #0078b6;
 }
 
 ul {

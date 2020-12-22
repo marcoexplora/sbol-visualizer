@@ -11,10 +11,11 @@
 
         <span class="pointer"  @click="selectByClickingOnName(item)" v-bind:class="[selected === item ? 'itemSelected' : '']">
           {{ item.name }}
-          <span v-if="item.propriety.components == visible" class="glasses">
+        </span>
+
+        <span v-if="item.propriety.components == visible" class="glasses">
             <SbolIconGlasses  active="true" alt="this element is displayed on the map"/>
           </span>
-        </span>
       </div>
 
       <div class="text-muted-black h2"  @click="selectByClickingOnName(item)">
@@ -140,7 +141,7 @@
   }
   .components_list {
     margin: 0 0 0 5px;
-    border-left: 2px solid #dee5ea;
+    border-left: 2px solid #0078b6;
   }
   ul{
     list-style: none;

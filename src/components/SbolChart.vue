@@ -1,22 +1,23 @@
 <template>
   <div class="sbolChart" :ref="'sbolChart'" v-bind:style="{ width : graphwidth + 'px'}">
 
-    <div class="wrapGlyph">
-      <nav class="breadcrumbs">
+    <nav class="breadcrumbs">
         <span v-for="(bread,indexbread) in createBreadcrumbs">
          {{ bread.name }}
         </span>
-      </nav>
-      <div v-for="(item, index) in computedGlyphAnnotations"
-           ref="glyphs"
-           :class="item.class"
-           :key="index"
-           @click="detailItem(item)"
-      >
-        <div class="tooltiptext">{{ item.name }}</div>
-        <div v-if="selected === item" class="selected"></div>
-        <img :src="item.path" :id="item.index" v-bind:ref="item.index" class="pointer" :alt="item.propriety.sequenceOntology"
-             @error="setAltImg"/>
+    </nav>
+    <div class="scrollable">
+      <div class="wrapGlyph">
+        <div v-for="(item, index) in computedGlyphAnnotations"
+             ref="glyphs"
+             :class="item.class"
+             :key="index"
+             @click="detailItem(item)">
+          <div class="tooltiptext">{{ item.name }}</div>
+          <div v-if="selected === item" class="selected"></div>
+          <img :src="item.path" :id="item.index" v-bind:ref="item.index" class="pointer" :alt="item.propriety.sequenceOntology"
+               @error="setAltImg"/>
+        </div>
       </div>
     </div>
   </div>
@@ -104,6 +105,14 @@ export default {
     }
   },
   watch: {
+      breadcrumbs: {
+        immediate: true,
+        handler: function(n, o) {
+          if(n != null){
+            //this.showSubComponent = this.breadcrumbs[this.level + 1] === this.item;
+          }
+        }
+      },
     selected: {
       immediate: true,
       handler: function (n, o) {
@@ -121,11 +130,14 @@ export default {
   height: 142px;
   padding: 1em;
   white-space: nowrap;
-  overflow-x: scroll;
-  overflow-y: hidden;
   border: 1px solid rgba(0, 0, 0, 0.15);
   border-radius: 5px 5px 0 0;
   position: relative;
+}
+.scrollable{
+  height: 100%;
+  overflow-x: scroll;
+  overflow-y: hidden;
 }
 .breadcrumbs span{
   padding: 0 5px 0  0;
