@@ -1,59 +1,73 @@
 <template>
-  <div class="wrap-list">
+  <div class="wrap-list" ref="list">
     <div class="search">
-      <input type="text" aria-label="search input" class="search-input" placeholder="Search in annotations" v-model="filter" />
+      <input type="text" aria-label="search input" class="search-input" placeholder="Search in annotations"
+             v-model="filter"/>
     </div>
 
-  <div class="wrap-section">
-    <section>
-
-      <ul class="search-list">
-
-        <li v-if="selectedItems.length === 0">No Sbol component found</li>
-        <li v-if="selectedItems.length > 0" class="item">
-          <div class="h1 bold" >
-              <span v-on:click="showSubComponent = !showSubComponent"
+    <div class="wrap-section">
+      <section>
+        <ul class="search-list" ref="ItemsTree">
+          <li v-if="annotations.length === 0">No Sbol component found</li>
+          <li v-if="annotations.length > 0" class="item">
+            <div class="h1 bold">
+              <span @click="accordionUpdate()"
                     v-bind:class="[showSubComponent ? 'open' : 'close']"
-                    class="sub_components_controller">
+                    class="sub_components_controller pointer">
                   <sbol-icon-open-collapse-list :open="showSubComponent"/>
-                </span>
-            <span  @click="changeVisible(selectedItems)">
-              {{root.partID}}
-            </span>
-          </div>
-          <div  v-bind:class="[showSubComponent ? 'show' : 'hide']" class="components_list">
-            <ul v-for="(item, index) in selectedItems" :key="index" class="item">
-              <li class="item">
-                <sbol-tree-list
-                    :item="item"
-                    :wcid="wcid"
-                    v-bind:level="0"
-                    v-bind:selected="selected"
-                    v-bind:bestview="item.propriety.components ? item.propriety.components : selectedItems"
-                    :visible="visible">
-                </sbol-tree-list>
-              </li>
-            </ul>
-          </div>
-        </li>
-      </ul>
-    </section>
-  </div>
+              </span>
+              <span @click="selectMe(annotations)" class="pointer">
+                {{ root.partID }}
+              </span>
+              <span v-if="annotations === visible" class="glasses">
+                    <SbolIconGlasses active="true" alt="this element is displayed on the map"/>
+              </span>
+
+            </div>
+            <div v-bind:class="[showSubComponent ? 'show' : 'hide']" class="components_list">
+              <ul v-for="(item, index) in annotations" :key="index" class="item">
+                <li class="item">
+
+                  <sbol-tree-list
+                      :item="item"
+                      :parent="parentRoot"
+                      :visible="visible"
+                      :wcid="wcid"
+                      v-bind:breadcrumbs="breadcrumbs"
+                      v-bind:level="0"
+                      v-bind:selected="selected">
+                  </sbol-tree-list>
+
+                </li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </section>
+    </div>
   </div>
 </template>
 <script>
 
 import SbolTreeList from "@/components/SbolTreeList";
-import SbolIconGlasses from "@/components/SbolIconGlasses"
+import SbolIconGlasses from "@/components/SbolIconGlasses";
 import SbolIconOpenCollapseList from "@/components/SbolIconOpenCollapseList";
+
 import eventBus from "@/lib/eventBus";
 
 export default {
-  props: ["annotations","selected","root","visible","wcid"],
+  props: {
+    annotations: {type: Array},
+    selected: {type: Object},
+    root: {type: Object},
+    visible: {},
+    wcid: {type: Number},
+    breadcrumbs: {type: Array}
+  },
   data() {
     return {
       filter: "",
-      showSubComponent : true
+      showSubComponent: true
     };
   },
   components: {
@@ -62,47 +76,39 @@ export default {
     SbolIconOpenCollapseList,
   },
   computed: {
+    parentRoot() {
+      return {
+        propriety : { components : this.annotations }
+      }
+    },
     //todo: rename selectedItems in searchItems and make it work on multiples levels
-    selectedItems()  {
-      if(typeof this.annotations !== 'undefined'){
-        return this.annotations.filter((so) => {
-          if (this.filter === "") {
-            return so;
-          }
-
-          if (/^\d+$/.test(this.filter)) {
-            const loc = parseInt(this.filter);
-            return so.start <= loc && so.end >= loc;
-          } else {
-            return (
-              so.name.toLowerCase().includes(this.filter.toLowerCase()) ||
-              so.start.toString().includes(this.filter.toString()) ||
-              so.SBOL.toString().includes(this.filter.toString()) ||
-              so.end.toString().includes(this.filter.toString()) ||
-              so.direction.toLowerCase().includes(this.filter.toString())
-            );
-          }
-        });
-      }else{
+    selectedItems() {
+      if (typeof this.annotations !== 'undefined') {
+        return this.annotations
+      } else {
         return []
       }
     },
   },
   methods: {
-    changeVisible(ann) {
-      eventBus.$emit("select-annotation", { annotation : null, wcid : this.wcid});
-      eventBus.$emit("set-visible",{ annotations : ann, wcid : this.wcid})
+    accordionUpdate(){
+      this.showSubComponent = !this.showSubComponent;
+      eventBus.$emit("update-breackcrumbs", { item : null, level : 0, wcid : this.wcid});
+    },
+    selectMe(ann) {
+      eventBus.$emit("select-annotation", {annotation: null, wcid: this.wcid});
+      eventBus.$emit("update-breackcrumbs", { item : null, level : 0, wcid : this.wcid});
     }
-  },
+  }
 };
 </script>
 <style scoped>
 .search-list h1,
-.search-list h1{
-  color:  #4d4d4c
+.search-list h1 {
+  color: #4d4d4c
 }
 
-.sub_components_controller{
+.sub_components_controller {
   color: #3578b6;
   font-size: 0.8em;
   vertical-align: revert;
@@ -115,32 +121,38 @@ export default {
   border-radius: 5px;
   background-color: #f0f2f5;
 }
-.bold{
+
+.bold {
   font-weight: bold;
 }
-.wrap-list{
+
+.wrap-list {
   height: 550px;
   overflow: hidden;
 }
-.wrap-section{
+
+.wrap-section {
   margin: 5px 0 5px 0;
   border: 1px solid #CCC;
   border-radius: 5px;
   overflow: hidden;
   height: 490px;
 }
+
 section {
   height: 490px;
   overflow-y: scroll;
 }
+
 section * {
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
-    Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji,
-    Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+  Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji,
+  Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
   overflow: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
 .search-input {
   width: 90%;
   height: 3em;
@@ -156,14 +168,14 @@ section * {
   padding: 0;
   text-align: left;
   min-height: 400px;
-  overflow:hidden;
+  overflow: hidden;
   margin: 0;
   border-radius: 5px;
   border-bottom: 1px;
   position: relative;
 }
 
-ol{
+ol {
   padding: 0
 }
 
@@ -173,12 +185,14 @@ li.item {
   background-color: #fff;
 }
 
-li.item:last-child{
+li.item:last-child {
 
 }
+
 .search-list > li b {
   padding-right: 5px;
 }
+
 .search-list > li ul {
   padding-left: 0;
   list-style: none;
@@ -187,30 +201,42 @@ li.item:last-child{
 .search-list > li span {
   font-size: 0.9em;
 }
+
 .text-muted-black {
   color: #6c757d;
 }
-.small{
+
+.small {
   font-size: 80%;
 }
-.px-1{
-  padding:5px 0;
+
+.px-1 {
+  padding: 5px 0;
 }
 
-.components_list.hide{
-  overflow:hidden;
+.components_list.hide {
+  overflow: hidden;
   height: 0;
   margin: 0;
   padding: 0;
   border: 0;
 }
+
 .components_list {
   margin: 0 0 0 5px;
-  border-left: 2px solid #dee5ea;
+  border-left: 2px solid #0078b6;
 }
-ul{
+
+ul {
   list-style: none;
   padding-left: 10px;
 }
 
+.glasses{
+  float: right;
+  padding: 0.2em 1.8em 0 0;
+}
+.glasses svg{
+  font-size:1.2em;
+}
 </style>

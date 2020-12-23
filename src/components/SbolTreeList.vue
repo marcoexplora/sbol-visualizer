@@ -1,35 +1,41 @@
   <template>
     <div>
-      <div  v-bind:class="[item == selected ? 'selected' : '']">
-      <div class="h1 bold" >
+      <div  v-bind:class="[item === selected ? 'selected' : '']">
+      <div class="h1 bold">
         <span v-if="item.propriety.components"
-              v-on:click="showSubComponent = !showSubComponent"
-              v-bind:class="[showSubComponent ? 'open' : 'close']"
-              class="sub_components_controller">
+              v-bind:class="[ showSubComponent ? 'open' : 'close']"
+              @click="accordionUpdate(item)"
+              class="sub_components_controller pointer">
           <sbol-icon-open-collapse-list :open="showSubComponent"/>
         </span>
-        <span  @click="detailItem(item)">
+
+        <span class="pointer"  @click="selectByClickingOnName(item)" v-bind:class="[selected === item ? 'itemSelected' : '']">
           {{ item.name }}
         </span>
+
+        <span v-if="item.propriety.components == visible" class="glasses">
+            <SbolIconGlasses  active="true" alt="this element is displayed on the map"/>
+          </span>
       </div>
 
-      <div class="text-muted-black h2"  @click="detailItem(item)">
+      <div class="text-muted-black h2"  @click="selectByClickingOnName(item)">
         <b>Direction:</b>
         <span>{{ item.propriety.Direction }}</span>
         <span v-if="item.propriety.end > 0">({{item.propriety.start}}..{{ item.propriety.end }})</span>
       </div>
       </div>
-      <div  v-bind:class="[showSubComponent ? 'show' : 'hide']" class="components_list">
+
+      <div v-bind:class="[showSubComponent ? 'show' : 'hide']" class="components_list">
         <ul v-if="item.propriety.components" :id="item.name  + 'sub' + level" >
           <li v-for="(sub, index) in item.propriety.components" :key="index" class="item">
-            <sbol-tree-list
-                :item="sub"
-                :bestview="bestView(sub)"
-                :level="level + 1"
-                :selected="selected"
-                :visible="visible"
-                :wcid="wcid"
-                :breadcrumbs='breadcrumbs ? breadcrumbs  +" / " + item.name : item.name'  ></sbol-tree-list>
+                <sbol-tree-list
+                    :item="sub"
+                    :parent="item"
+                    :level="level + 1"
+                    :selected="selected"
+                    :visible="visible"
+                    :wcid="wcid"
+                    v-bind:breadcrumbs="breadcrumbs" ></sbol-tree-list>
           </li>
         </ul>
       </div>
@@ -37,9 +43,11 @@
     </div>
 
   </template>
+
   <script>
   import SbolTreeList from "@/components/SbolTreeList";
   import SbolIconOpenCollapseList from "@/components/SbolIconOpenCollapseList";
+  import SbolIconGlasses from "@/components/SbolIconGlasses";
 
   import eventBus from "@/lib/eventBus";
 
@@ -48,18 +56,17 @@
       item: {
         type: Object
       },
+      parent: {
+        type: Object
+      },
       level: {
         type: Number,
         default: 0
       },
-      breadcrumbs: {
-        type : String
-        },
+      breadcrumbs: {type : Array},
       wcid : { type : Number},
       visible: {},
-      bestview: {},
       selected: {}
-
     },
     name: 'sbol-tree-list',
     data() {
@@ -71,33 +78,49 @@
     components: {
       SbolTreeList,
       SbolIconOpenCollapseList,
+      SbolIconGlasses
     },
     methods :{
-      changeVisible(ann) {
-        const annotations = ann.length == 1 ? [ann] : ann;
-        eventBus.$emit("set-visible",{ annotations : annotations, wcid : this.wcid})
+      selectByClickingOnName(ann) {
+        const _level = this.level > 1 ? this.level -1 : 0;
+        eventBus.$emit("select-annotation", { annotation : ann, wcid : this.wcid});
+        eventBus.$emit("update-breackcrumbs", { item : this.parent, level : _level , wcid : this.wcid});
       },
-      bestView(ann){
-        if(typeof  ann.propriety.components != "undefined"){
-          return ann.propriety.components
+      accordionUpdate(item){
+        if(this.showSubComponent){
+          eventBus.$emit("update-breackcrumbs", { item : null, level : this.level, wcid : this.wcid});
         }else{
-          return this.item.propriety.components
+          eventBus.$emit("update-breackcrumbs", { item : this.item, level : this.level, wcid : this.wcid});
+          eventBus.$emit("select-annotation", { annotation : item, wcid : this.wcid});
+        }
+      }
+    },
+    watch: {
+      breadcrumbs: {
+        immediate: true,
+        handler: function(n, o) {
+          if(n != null){
+            this.showSubComponent = this.breadcrumbs[this.level + 1] === this.item;
+          }
         }
       },
-      detailItem(ann) {
-        this.changeVisible(this.bestview);
-        eventBus.$emit("select-annotation", { annotation : ann, wcid : this.wcid});
+      selected : {
+        immediate: true,
+        handler: function(n, o) {
+          if(n != null){
+            if(this.item === this.selected){
+              if(typeof this.$el !== 'undefined'){
+                this.$el.scrollIntoViewIfNeeded()
+              }
+            }
+           }
+        }
       },
-    }
-
+    },
   };
   </script>
   <style scoped>
 
-
-  .close .glasses{
-    display: none;
-  }
   li.item{
     padding: 10px 0 0 0;
   }
@@ -112,18 +135,21 @@
   }
   .components_list.hide{
     overflow:hidden;
-    height: 0px;
+    height: 0;
     margin: 0;
     padding: 0;
     border: 0;
   }
   .components_list {
-    margin: 0;
-    margin-left: 5px;
-    border-left: 2px solid #dee5ea;
+    margin: 0 0 0 5px;
+    border-left: 2px solid #0078b6;
   }
   ul{
     list-style: none;
     padding-left: 10px;
+  }
+  .glasses{
+    float: right;
+    padding: 0.2em 1em 0 0;
   }
   </style>

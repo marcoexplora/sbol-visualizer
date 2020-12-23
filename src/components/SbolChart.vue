@@ -1,17 +1,23 @@
 <template>
-  <div class="sbolChart" :ref="'sbolChart'" v-bind:style="{ width : graphwidth + 'px'}" >
+  <div class="sbolChart" :ref="'sbolChart'" v-bind:style="{ width : graphwidth + 'px'}">
 
-    <div style="margin: 20px auto auto auto;width: fit-content" >
-      <div
-          v-for="(item, index) in computedGlyphAnnotations"
-          ref="glyphs"
-          :class="item.class"
-          :key="index"
-          @click="detailItem(item)"
-      >
-        <div class="tooltiptext">{{ item.name }}</div>
-        <div v-if="selected === item" class="selected"></div>
-        <img :src="item.path" :id="item.index" v-bind:ref="item.index" :alt="item.propriety.sequenceOntology" @error="setAltImg" />
+    <nav class="breadcrumbs">
+        <span v-for="(bread,indexbread) in createBreadcrumbs">
+         {{ bread.name }}
+        </span>
+    </nav>
+    <div class="scrollable">
+      <div class="wrapGlyph">
+        <div v-for="(item, index) in computedGlyphAnnotations"
+             ref="glyphs"
+             :class="item.class"
+             :key="index"
+             @click="detailItem(item)">
+          <div class="tooltiptext">{{ item.name }}</div>
+          <div v-if="selected === item" class="selected"></div>
+          <img :src="item.path" :id="item.index" v-bind:ref="item.index" class="pointer" :alt="item.propriety.sequenceOntology"
+               @error="setAltImg"/>
+        </div>
       </div>
     </div>
   </div>
@@ -22,10 +28,11 @@ import eventBus from "@/lib/eventBus";
 
 export default {
   props: {
-    "annotations" : { type : Array },
-    "selected": { type : Object },
-    "graphwidth" : { type : Number},
-    "wcid" : { type :Number}
+    "annotations": {type: Array},
+    "selected": {type: Object},
+    "graphwidth": {type: Number},
+    "wcid": {type: Number},
+    "breadcrumbs": {type: Array}
   },
   data() {
     return {
@@ -34,8 +41,16 @@ export default {
     };
   },
   computed: {
-    computedContainerWidth() {
-      return this.containerWidth;
+    createBreadcrumbs(){
+      if(this.breadcrumbs.length > 2){
+        const result = [{
+          name : "..."
+        }]
+        return result.concat(this.breadcrumbs.slice(-2));
+      }else{
+        return this.breadcrumbs.slice(-2)
+
+      }
     },
     computedGlyphAnnotations() {
       if (this.annotations) {
@@ -56,27 +71,23 @@ export default {
       }
       return [];
     },
-    selectedElement(){
-      return this.selected.filter((tags)=>{
+    selectedElement() {
+      return this.selected.filter((tags) => {
         return tags.tag === "showDetails"
       }).element
     }
   },
   methods: {
-    amIselected(ann){ //todo: check if this is legacy
+    amIselected(ann) { //todo: check if this is legacy
       this.selectedElement() === ann;
     },
     detailItem(ann) {
-      eventBus.$emit("select-annotation", { annotation : ann, wcid : this.wcid});
-      //  eventBus.$emit("set-visible",{ annotations : annotations, wcid : this.wcid})
-      //   eventBus.$emit("select-annotation", { annotation : ann, wcid : this.wcid});
-
-
+      eventBus.$emit("select-annotation", {annotation: ann, wcid: this.wcid});
     },
     selectedAnnotation: function (ann) {
-      if(typeof ann != 'undefined' && ann != null){
+      if (typeof ann != 'undefined' && ann != null) {
         setTimeout(() => {
-          if(typeof this.$refs[ann.index] != 'undefined') {
+          if (typeof this.$refs[ann.index] != 'undefined' && typeof  this.$refs[ann.index][0] != 'undefined') {
             this.$refs[ann.index][0].scrollIntoView({
               behavior: 'smooth',
               block: "nearest",
@@ -84,21 +95,28 @@ export default {
             });
           }
         }, 100);
-
       }
     },
     setAltImg(event) {
       event.target.src = "https://vows.sbolstandard.org/glyph/SO:0000313/png";
     },
-    setWideth(){
-      return `width:${graphwidth}px`
+    setWideth() {
+      return `width:${this.graphwidth}px`
     }
   },
   watch: {
+      breadcrumbs: {
+        immediate: true,
+        handler: function(n, o) {
+          if(n != null){
+            //this.showSubComponent = this.breadcrumbs[this.level + 1] === this.item;
+          }
+        }
+      },
     selected: {
       immediate: true,
-      handler: function(n, o) {
-        if(n != null){
+      handler: function (n, o) {
+        if (n != null) {
           this.selectedAnnotation(n);
         }
       }
@@ -109,23 +127,33 @@ export default {
 
 <style scoped>
 .sbolChart {
-  height:142px;
-  padding: 1em;
+  height: 142px;
+  padding: 2em 0 0 0;
   white-space: nowrap;
-  overflow-x: scroll;
-  overflow-y: hidden;
   border: 1px solid rgba(0, 0, 0, 0.15);
   border-radius: 5px 5px 0 0;
+  position: relative;
 }
-
+.scrollable{
+  padding: 0 20px;
+  height: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+.breadcrumbs span{
+  padding: 0 5px 0  0;
+  font-size:16px;
+}
 div.glyphs {
   position: relative;
 }
+
 .glyphs {
   /* border: 1px solid red; */
   width: 75px;
   height: 75px;
 }
+
 img {
   width: 75px;
   /* border-bottom: 2px solid green; */
@@ -133,7 +161,7 @@ img {
   bottom: 0;
 }
 
-.RV img{
+.RV img {
   /*transform: scaleX(-1);*/
   transform: rotate(180deg);
 }
@@ -179,10 +207,27 @@ img {
   transition: opacity 0.5s;
 }
 
+.wrapGlyph {
+  margin: 20px auto auto;
+  width: fit-content;
+}
+
+.breadcrumbs {
+  position: absolute;
+  top: 0;
+  left: 10px;
+  padding: 5px 10px;
+
+  z-index: 1;
+  background: #ffffff66;
+  border-radius: 20px;
+}
+
 .BW {
   -webkit-transform: scaleX(-1);
   transform: scaleX(-1);
 }
+
 .SO_0000699 img,
 .SO_0001236 img,
 .SO_0001237 img,
@@ -210,17 +255,20 @@ img {
 .SO_0000110 img {
   bottom: 10px;
 }
+
 .SO_0001691 img,
 .SO_0000830 img,
 .SO_0002211 img {
   bottom: calc(-35%);
 }
+
 .SO_0000553 img,
 .SO_0000316 img,
 .SO_0001975 img,
 .SO_0001976 img {
   bottom: calc(-18%);
 }
+
 .SO_0000316 img,
 .SO_0000188 img,
 .SO_0000296 img,
@@ -228,14 +276,17 @@ img {
 .SO_0000839 img {
   bottom: calc(-15%);
 }
+
 .SO_0005850 img {
   bottom: calc(-50% + 25px);
 }
+
 .SO_0000057 img,
 .SO_0000409 img,
 .SO_0000299 img {
   bottom: -11px;
 }
+
 .SO_0000139 img {
   bottom: -7px;
 }
