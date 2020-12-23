@@ -265,7 +265,7 @@ export default {
         this.$nextTick(function () {
           if (typeof this.$refs.navContainer !== 'undefined') {
             const navWidth = this.$refs.navContainer.clientWidth
-            this.chartsWidth = widthContainer - navWidth - 49; //34 padding and border of chart + NAV 5 + 20
+            this.chartsWidth = widthContainer - navWidth - 17; //17 padding and border of chart + NAV 2 + 15
             this.$refs.chartsContainer.style.width = `{this.chartsWidth}px`
           }
         });
@@ -326,13 +326,10 @@ export default {
     });
 
     eventBus.$on("select-annotation", (_event) => {
-
       if (_event.wcid === this.id) {
         this.selected = _event.annotation;
         this.updateRender += 1;
       }
-
-
     });
     eventBus.$on("update-breackcrumbs", (_event) => {
 

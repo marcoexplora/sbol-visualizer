@@ -97,6 +97,7 @@ export default {
     },
     selectMe(ann) {
       eventBus.$emit("select-annotation", {annotation: null, wcid: this.wcid});
+      eventBus.$emit("update-breackcrumbs", { item : null, level : 0, wcid : this.wcid});
     }
   }
 };

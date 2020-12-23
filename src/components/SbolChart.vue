@@ -128,15 +128,16 @@ export default {
 <style scoped>
 .sbolChart {
   height: 142px;
-  padding: 1em;
+  padding: 2em 0 0 0;
   white-space: nowrap;
   border: 1px solid rgba(0, 0, 0, 0.15);
   border-radius: 5px 5px 0 0;
   position: relative;
 }
 .scrollable{
+  padding: 0 20px;
   height: 100%;
-  overflow-x: scroll;
+  overflow-x: auto;
   overflow-y: hidden;
 }
 .breadcrumbs span{
