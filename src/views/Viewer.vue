@@ -100,7 +100,7 @@ export default {
       visible: {
         breadcrumbs: []
       },
-      selected: null,
+      selected: 'initial',
       tags: [],
       filter: "",
       errors: false,

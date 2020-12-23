@@ -7,6 +7,14 @@
       <ul v-if="!annotation">
         <li>No Sbol component selected</li>
       </ul>
+      <ul v-else-if="annotation == 'initial'">
+        <div class="initial">
+
+          <img src="https://cdn.jsdelivr.net/gh/doulix/sbol-web-visualizer@0.0.6image/dist/Christmas_snow_animation.gif" alt="happy holidays">
+          <h2>Happy Holidays</h2>
+        </div>
+
+      </ul>
       <div v-else>
         <ul class="listDetail p0">
           <li class="h1 bold p0">
@@ -131,5 +139,16 @@ li,pre{
 
 .m0{
   margin:0
+}
+.initial{
+  text-align: center;
+}
+.initial h2{
+  font-size: 20px;
+}
+.initial img{
+  width: 50%;
+  margin: auto;
+  border-radius: 52%;
 }
 </style>
