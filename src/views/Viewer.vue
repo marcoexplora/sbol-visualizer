@@ -100,7 +100,7 @@ export default {
       visible: {
         breadcrumbs: []
       },
-      selected: 'initial',
+      selected: { style:'initial'},
       tags: [],
       filter: "",
       errors: false,
@@ -196,6 +196,7 @@ export default {
         window.list = this.$refs
 
       } catch (error) {
+
         this.errors = true;
       }
 
@@ -207,7 +208,9 @@ export default {
       this.resizeHandler();
     },
     loadXml: function (xml) {
+
       xmlHandler.convertXml(xml).then((sb) => {
+
         this.sbolDataLayer = sb;
         this.sbolDataLayer.visibleAnnotations = this.sbolDataLayer.annotations;
 
@@ -219,7 +222,9 @@ export default {
 
         this.empty = false;
         this.resizeHandler();
-      })
+      },(sb) => {
+        this.errors = true;
+      });
     },
     resizeHandler: function () {
       const defaultBreakpoints = [

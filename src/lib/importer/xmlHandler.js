@@ -88,7 +88,14 @@ const xmlHandler = {
             {
                 const sbolDataLayer = {}
                 SBOLDocument.loadRDF(xml, function (err, doc) {
-                    doc.serializeJSON();
+
+                    try{
+                        doc.serializeJSON();
+                    }catch (error){
+                        reject("SbolJ has triggered and error")
+                    }
+
+
                     sbolDataLayer.header = xmlHandler.pupulateHeader(doc);
                     sbolDataLayer.annotations = [];
                     sbolDataLayer.annotations = xmlHandler.populateAnnotations(doc);

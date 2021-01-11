@@ -7,7 +7,7 @@
       <ul v-if="!annotation">
         <li>No Sbol component selected</li>
       </ul>
-      <ul v-else-if="annotation == 'initial'">
+      <ul v-else-if="annotation.style == 'initial'">
         <div class="initial">
 
           <img src="https://cdn.jsdelivr.net/gh/doulix/sbol-web-visualizer@0.0.6image/dist/Christmas_snow_animation.gif" alt="happy holidays">
