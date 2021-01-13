@@ -10,13 +10,13 @@
         <ul class="search-list" ref="ItemsTree">
           <li v-if="annotations.length === 0">No Sbol component found</li>
           <li v-if="annotations.length > 0" class="item">
-            <div class="h1 bold">
+            <div class="h1 bold" v-bind:class="[selected.style === 'root' ? 'selected' : 'nope']">
               <span @click="accordionUpdate()"
                     v-bind:class="[showSubComponent ? 'open' : 'close']"
                     class="sub_components_controller pointer">
                   <sbol-icon-open-collapse-list :open="showSubComponent"/>
               </span>
-              <span @click="selectMe(annotations)" class="pointer">
+              <span @click="selectMe(annotations)" class="pointer" >
                 {{ root.partID }}
               </span>
               <span v-if="annotations === visible" class="glasses">
@@ -96,7 +96,7 @@ export default {
       eventBus.$emit("update-breackcrumbs", { item : null, level : 0, wcid : this.wcid});
     },
     selectMe(ann) {
-      eventBus.$emit("select-annotation", {annotation: null, wcid: this.wcid});
+      eventBus.$emit("select-annotation", {annotation: { style:'root' }, wcid: this.wcid});
       eventBus.$emit("update-breackcrumbs", { item : null, level : 0, wcid : this.wcid});
     }
   }
@@ -137,6 +137,11 @@ export default {
   border-radius: 5px;
   overflow: hidden;
   height: 490px;
+}
+
+.selected{
+  background: #dee5ea;
+  transition: 200ms;
 }
 
 section {
@@ -223,7 +228,7 @@ li.item:last-child {
 }
 
 .components_list {
-  margin: 0 0 0 5px;
+  margin: 0 0 0 0.5em;
   border-left: 2px solid #0078b6;
 }
 

@@ -92,6 +92,7 @@ const xmlHandler = {
                     try{
                         doc.serializeJSON();
                     }catch (error){
+                        console.log(error)
                         reject("SbolJ has triggered and error")
                     }
 

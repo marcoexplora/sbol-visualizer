@@ -15,12 +15,27 @@
         </div>
 
       </ul>
+
       <div v-else>
         <ul class="listDetail p0">
+
           <li class="h1 bold p0">
             {{this.detail.name}}
           </li>
-          <li>
+
+          <li  v-if="this.detail.partID" >
+            <span class="bold">Part ID:</span>
+            {{this.detail.partID}}
+          </li>
+
+          <li  v-if="this.detail.persistentIdentity" >
+            <span class="bold">Persistent Identity:</span>
+            <a :href="this.detail.persistentIdentity" target="_blank">
+              {{this.detail.persistentIdentity}}
+            </a>
+          </li>
+
+          <li v-if="this.detail.SBOL">
             <span class="bold">Sequence Ontology:</span>
             <a :href="this.detail.href" target="_blank">
                 {{this.detail.SBOL}}
@@ -150,5 +165,6 @@ li,pre{
   width: 50%;
   margin: auto;
   border-radius: 52%;
+  max-width:280px
 }
 </style>
