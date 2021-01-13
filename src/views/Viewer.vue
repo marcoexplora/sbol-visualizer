@@ -100,7 +100,7 @@ export default {
       visible: {
         breadcrumbs: []
       },
-      selected: 'initial',
+      selected: { style:'initial'},
       tags: [],
       filter: "",
       errors: false,
@@ -196,6 +196,7 @@ export default {
         window.list = this.$refs
 
       } catch (error) {
+
         this.errors = true;
       }
 
@@ -207,7 +208,9 @@ export default {
       this.resizeHandler();
     },
     loadXml: function (xml) {
+
       xmlHandler.convertXml(xml).then((sb) => {
+
         this.sbolDataLayer = sb;
         this.sbolDataLayer.visibleAnnotations = this.sbolDataLayer.annotations;
 
@@ -219,7 +222,9 @@ export default {
 
         this.empty = false;
         this.resizeHandler();
-      })
+      },(sb) => {
+        this.errors = true;
+      });
     },
     resizeHandler: function () {
       const defaultBreakpoints = [
@@ -327,14 +332,21 @@ export default {
 
     eventBus.$on("select-annotation", (_event) => {
       if (_event.wcid === this.id) {
-        this.selected = _event.annotation;
+        const _annotation = _event.annotation;
+        if(_event.annotation.style == "root"){
+          _annotation.name = this.sbolDataLayer.header.name;
+          _annotation.partID = this.sbolDataLayer.header.partID;
+          _annotation.persistentIdentity = this.sbolDataLayer.header.persistentIdentity;
+        }
+
+        this.selected = _annotation;
         this.updateRender += 1;
+
       }
     });
     eventBus.$on("update-breackcrumbs", (_event) => {
 
       if (_event.wcid === this.id) {
-        /* first element is always the  root */
         const _level = parseInt(_event.level) + 1;
         this.visible.breadcrumbs[0] = {
           name: this.sbolDataLayer.header.partID,
@@ -342,7 +354,7 @@ export default {
           mutableDescription : this.sbolDataLayer.header.mutableDescription,
         }
 
-        //if (this.visible.breadcrumbs[_level] !== _event.item) {
+
           this.visible.breadcrumbs[_level] = _event.item;
 
           function cleanFromLevel(_bradcrumbs, _level) {
@@ -362,7 +374,6 @@ export default {
           const lastElement = this.visible.breadcrumbs[this.visible.breadcrumbs.length - 1]
           this.sbolDataLayer.visibleAnnotations = lastElement.propriety.components;
           this.updateRender += 1;
-        //}
 
       }
     });
@@ -385,8 +396,6 @@ export default {
         this.sbolDataLayer.header['source_link'] = this.source;
       });
     }
-
-
 
     if (this.flavour === "mini") {
       this.flavourMini = true;
