@@ -2,7 +2,7 @@
   <header class="blue-container" :class="{showMutable: description}" style="position:relative">
     <div class="mutableDescription">
 
-      <a v-on:click="toogleDescription()">
+      <a v-on:click="toogleDescription()" class="pointer">
         <close-icon/>
       </a>
 

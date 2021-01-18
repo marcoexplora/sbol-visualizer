@@ -9,9 +9,9 @@
       </ul>
       <ul v-else-if="annotation.style == 'initial'">
         <div class="initial">
+          <h2>Welcome:</h2>
+          <img src="https://pbs.twimg.com/media/Epv4wJRXcAIOvbT?format=jpg&name=medium" alt="Doulix meme">
 
-          <img src="https://cdn.jsdelivr.net/gh/doulix/sbol-web-visualizer@0.0.6image/dist/Christmas_snow_animation.gif" alt="happy holidays">
-          <h2>Happy Holidays</h2>
         </div>
 
       </ul>
@@ -162,9 +162,8 @@ li,pre{
   font-size: 20px;
 }
 .initial img{
-  width: 50%;
+  width: 70%;
   margin: auto;
-  border-radius: 52%;
-  max-width:280px
+
 }
 </style>

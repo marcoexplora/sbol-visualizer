@@ -1,5 +1,5 @@
 <template>
-  <div @dragover="dragover" @dragleave="dragleave" @drop="drop" class="SbolWvWrap">
+  <div @dragover="dragover" @dragleave="dragleave" @drop="drop" class="SbolWvWrap" ref="wrapper">
     <div v-if="enabledropfile" style="padding:0;height: 1.55em">
       <div style="width: 100%">
 
@@ -194,6 +194,7 @@ export default {
         console.log('created sbolDataLayer list as debug variables')
         window.sbolDataLayer = this.sbolDataLayer
         window.list = this.$refs
+        window.list = this.$refs
 
       } catch (error) {
 
@@ -227,6 +228,7 @@ export default {
       });
     },
     resizeHandler: function () {
+      if (typeof this.$refs.wrapper !== 'undefined'){
       const defaultBreakpoints = [
         {
           class: "SM",
@@ -249,10 +251,8 @@ export default {
           width: 960,
         },
       ];
-      const widthContainer =
-          window.innerWidth ||
-          document.documentElement.clientWidth ||
-          document.body.clientWidth;
+      const widthContainer = this.$refs.wrapper.offsetWidth
+
       let classBp = "XL";
       defaultBreakpoints.forEach((bp) => {
         classBp = bp.width <= widthContainer ? bp.class : classBp;
@@ -270,12 +270,13 @@ export default {
         this.$nextTick(function () {
           if (typeof this.$refs.navContainer !== 'undefined') {
             const navWidth = this.$refs.navContainer.clientWidth
-            this.chartsWidth = widthContainer - navWidth - 17; //17 padding and border of chart + NAV 2 + 15
+            this.chartsWidth = widthContainer - navWidth - 3; //17 padding and border of chart + NAV 2 + 15
             this.$refs.chartsContainer.style.width = `{this.chartsWidth}px`
           }
         });
       }
       this.updateRender += 1;
+    }
     },
    /*
         Work in progress
@@ -319,11 +320,11 @@ export default {
     CloseIcon
   },
   created: function () {
+
     this.resizeHandler();
     this.id = parseInt(Math.random() * 100000);
 
     eventBus.$on("set-visible", (_event) => {
-
       if (_event.wcid === this.id) {
         this.sbolDataLayer.visibleAnnotations = _event.annotations.length === 1 ? _event.annotations[0] : _event.annotations;
         this.updateRender += 1;
@@ -383,6 +384,7 @@ export default {
     if (typeof this.dropafile != 'undefined') {
       this.enabledropfile = true;
     }
+
 
     if (this.format) {
       // Inline data
