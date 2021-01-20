@@ -194,7 +194,8 @@ export default {
         console.log('created sbolDataLayer list as debug variables')
         window.sbolDataLayer = this.sbolDataLayer
         window.list = this.$refs
-        window.list = this.$refs
+        window.search = this.Search
+        window.cleanSearch = this.cleanTag
 
       } catch (error) {
 
@@ -278,34 +279,28 @@ export default {
       this.updateRender += 1;
     }
     },
-   /*
-        Work in progress
+    cleanTag : function (_annotations){
+      this.Search({ "name" : "root", "propriety" : { "components" : [ ..._annotations]}},()=>true,"",[])
+    },
+    Search: function(annotations,filter,tag,route){
+      let _route = [annotations,...route];
 
-   BFthree: function (annotations) {
-      console.log('BFthree')
-      console.log(annotations);
-
-      function recursiveWalk(components, question) {
-        console.log('recursiveWalk');
-
-        components.forEach((comp) => {
-              console.log(comp.name);
-              recursiveWalk(comp.propriety.components, question)
-            }
-        )
+      if(filter(annotations)){
+       route.forEach( (el) => {
+          el.propriety.tag = tag;
+        });
       }
 
-      console.log(1)
-      if (annotations.hasOwnProperty('components')) {
-        console.log(2)
-        console.log(`comp ${annotations.name} has  child components`)
-        recursiveWalk(annotations.components, question)
-      } else {
-        console.log(3)
-        console.log(`comp ${annotations.name} has not child components`)
+      if(annotations.hasOwnProperty('propriety')) {
+        if(annotations.propriety.hasOwnProperty('components')) {
+          annotations.propriety.components.forEach((elem) => {
+            this.Search(elem, filter, tag,_route);
+          });
+        }
       }
 
-    }*/
+    },
+
   },
   components: {
     SbolBoxArrowUp,
@@ -331,10 +326,23 @@ export default {
       }
     });
 
+    eventBus.$on("search", (_event) => {
+      if (_event.wcid === this.id) {
+
+        this.cleanTag(this.sbolDataLayer.visibleAnnotations);
+        this.Search({ "name" : "root", "propriety" : { "components" : [ ...this.sbolDataLayer.visibleAnnotations ]}}
+            ,(el)=>{return el.indexOf(_event.searchString) !== -1},
+            _event.searchString,
+            []);
+        //search({ "name" : "root", "propriety" : { "components" : [ ...visi ]}},(el)=>{return el.name == "BamHI"},"BamHI",[])
+        this.updateRender += 1;
+      }
+    });
+
     eventBus.$on("select-annotation", (_event) => {
       if (_event.wcid === this.id) {
         const _annotation = _event.annotation;
-        if(_event.annotation.style == "root"){
+        if(_event.annotation.style === "root"){
           _annotation.name = this.sbolDataLayer.header.name;
           _annotation.partID = this.sbolDataLayer.header.partID;
           _annotation.persistentIdentity = this.sbolDataLayer.header.persistentIdentity;
