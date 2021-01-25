@@ -17,7 +17,7 @@
                   <sbol-icon-open-collapse-list :open="showSubComponent"/>
               </span>
               <span @click="selectMe(annotations)" class="pointer" >
-                {{ root.partID }}
+                {{ root.partID }} <span v-if=""></span>
               </span>
               <span v-if="annotations === visible" class="glasses">
                     <SbolIconGlasses active="true" alt="this element is displayed on the map"/>
@@ -33,6 +33,7 @@
                       :parent="parentRoot"
                       :visible="visible"
                       :wcid="wcid"
+                      :key="updateRender"
                       v-bind:breadcrumbs="breadcrumbs"
                       v-bind:level="0"
                       v-bind:selected="selected">
@@ -62,12 +63,13 @@ export default {
     root: {type: Object},
     visible: {},
     wcid: {type: Number},
-    breadcrumbs: {type: Array}
+    breadcrumbs: {type: Array},
   },
   data() {
     return {
       filter: "",
-      showSubComponent: true
+      showSubComponent: true,
+      updateRender: 0
     };
   },
   components: {
@@ -81,14 +83,6 @@ export default {
         propriety : { components : this.annotations }
       }
     },
-    //todo: rename selectedItems in searchItems and make it work on multiples levels
-    selectedItems() {
-      if (typeof this.annotations !== 'undefined') {
-        return this.annotations
-      } else {
-        return []
-      }
-    },
   },
   methods: {
     accordionUpdate(){
@@ -98,8 +92,18 @@ export default {
     selectMe(ann) {
       eventBus.$emit("select-annotation", {annotation: { style:'root' }, wcid: this.wcid});
       eventBus.$emit("update-breackcrumbs", { item : null, level : 0, wcid : this.wcid});
+    },
+    search(value){
+      eventBus.$emit("search", { searchString : value, level : 0, wcid : this.wcid});
+    }
+  },
+  watch: {
+    filter(v) {
+      eventBus.$emit("search", { searchString : v, level : 0, wcid : this.wcid});
+      this.updateRender += 1;
     }
   }
+
 };
 </script>
 <style scoped>

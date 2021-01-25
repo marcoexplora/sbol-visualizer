@@ -40,7 +40,6 @@
             ref="navContainer">
           <sbol-header :header="sbolDataLayer.header"/>
           <sbol-list-annotations
-              ref="listAnnotation"
               :root="sbolDataLayer.header"
               :annotations="sbolDataLayer.annotations"
               :selected="selected"
@@ -48,7 +47,8 @@
               :tags="tags"
               :wcid="id"
               :visible="sbolDataLayer.visibleAnnotations"
-              @showBranch="showComponents"></sbol-list-annotations>
+              @showBranch="showComponents">
+          </sbol-list-annotations>
         </nav>
         <div class="main smooth" ref="chartsContainer">
           <sbol-chart
@@ -102,7 +102,6 @@ export default {
       },
       selected: { style:'initial'},
       tags: [],
-      filter: "",
       errors: false,
       empty: true,
 
@@ -124,7 +123,7 @@ export default {
       }
       this.empty = true;
       this.errors = false;
-      this.filter = "";
+      this.search = "";
       this.$refs['file'].value = ''
 
     },
@@ -289,6 +288,7 @@ export default {
        route.forEach( (el) => {
           el.propriety.tag = tag;
         });
+        annotations.propriety.tag = tag;
       }
 
       if(annotations.hasOwnProperty('propriety')) {
@@ -298,7 +298,6 @@ export default {
           });
         }
       }
-
     },
 
   },
@@ -322,20 +321,34 @@ export default {
     eventBus.$on("set-visible", (_event) => {
       if (_event.wcid === this.id) {
         this.sbolDataLayer.visibleAnnotations = _event.annotations.length === 1 ? _event.annotations[0] : _event.annotations;
-        this.updateRender += 1;
       }
     });
 
     eventBus.$on("search", (_event) => {
       if (_event.wcid === this.id) {
+        //console.log(`this.updateRender ${this.updateRender}`)
+        this.cleanTag(this.sbolDataLayer.annotations);
 
-        this.cleanTag(this.sbolDataLayer.visibleAnnotations);
-        this.Search({ "name" : "root", "propriety" : { "components" : [ ...this.sbolDataLayer.visibleAnnotations ]}}
-            ,(el)=>{return el.indexOf(_event.searchString) !== -1},
-            _event.searchString,
-            []);
-        //search({ "name" : "root", "propriety" : { "components" : [ ...visi ]}},(el)=>{return el.name == "BamHI"},"BamHI",[])
-        this.updateRender += 1;
+        if (/^\d+$/.test(_event.searchString)) {
+          const pos = parseInt(_event.searchString);
+          this.Search({ "name" : "root", "propriety" : { "components" : [ ...this.sbolDataLayer.annotations ]}}
+              ,(el)=>{
+                console.log(`what ${!!(pos >= el.propriety.start  && el.propriety.end >= pos)}`);
+                console.log(`POS: ${pos} --- el.propriety.start ${el.propriety.start} -- el.propriety.end ${el.propriety.end}`);
+
+                return !!(pos >= el.propriety.start  && el.propriety.end >= pos)
+              },
+              _event.searchString,
+              []);
+        }else{
+          this.Search({ "name" : "root", "propriety" : { "components" : [ ...this.sbolDataLayer.annotations ]}}
+              ,(el)=>{return el.name.indexOf(_event.searchString) !== -1},
+              _event.searchString, []);
+        }
+
+        //this.updateRender += 1;
+        //console.log(`this.updateRender ${this.updateRender}`)
+
       }
     });
 
@@ -349,7 +362,6 @@ export default {
         }
 
         this.selected = _annotation;
-        this.updateRender += 1;
 
       }
     });
@@ -382,7 +394,6 @@ export default {
 
           const lastElement = this.visible.breadcrumbs[this.visible.breadcrumbs.length - 1]
           this.sbolDataLayer.visibleAnnotations = lastElement.propriety.components;
-          this.updateRender += 1;
 
       }
     });
@@ -392,7 +403,6 @@ export default {
     if (typeof this.dropafile != 'undefined') {
       this.enabledropfile = true;
     }
-
 
     if (this.format) {
       // Inline data
