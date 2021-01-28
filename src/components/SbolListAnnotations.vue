@@ -17,7 +17,7 @@
                   <sbol-icon-open-collapse-list :open="showSubComponent"/>
               </span>
               <span @click="selectMe(annotations)" class="pointer" >
-                {{ root.partID }} <span v-if=""></span>
+                {{ root.partID }}
               </span>
               <span v-if="annotations === visible" class="glasses">
                     <SbolIconGlasses active="true" alt="this element is displayed on the map"/>

@@ -7,13 +7,12 @@
       <ul v-if="!annotation">
         <li>No Sbol component selected</li>
       </ul>
+
       <ul v-else-if="annotation.style == 'initial'">
         <div class="initial">
           <h2>Welcome:</h2>
           <img src="https://pbs.twimg.com/media/Epv4wJRXcAIOvbT?format=jpg&name=medium" alt="Doulix meme">
-
         </div>
-
       </ul>
 
       <div v-else>
@@ -162,7 +161,8 @@ li,pre{
   font-size: 20px;
 }
 .initial img{
-  width: 70%;
+  max-width: 70%;
+  max-height: 200px;
   margin: auto;
 
 }
