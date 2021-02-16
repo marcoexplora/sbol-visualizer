@@ -124,6 +124,11 @@
   };
   </script>
   <style scoped>
+  .tag{
+    vertical-align: sub;
+    padding-left: 0.3em;
+    font-size: 0.95em;
+  }
 
   li.item{
     padding: 10px 0 0 0;

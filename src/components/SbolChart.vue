@@ -6,8 +6,10 @@
            <a class="pointer"   @click="moveByBreadcrumbs(bread,indexbread )" >
               {{ bread.name }}
           </a>
+          <span v-if="indexbread < createBreadcrumbs.length -1">></span>
         </span>
     </nav>
+
     <div class="scrollable">
       <div class="wrapGlyph">
 
