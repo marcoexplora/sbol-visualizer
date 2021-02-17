@@ -243,7 +243,6 @@ ul {
 
 .glasses{
   float: right;
-  padding: 0.2em 1.8em 0 0;
 }
 .glasses svg{
   font-size:1.2em;
