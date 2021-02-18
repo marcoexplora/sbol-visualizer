@@ -4,14 +4,14 @@
       <h2>Details</h2>
     </div>
     <div class="card-body">
+
       <ul v-if="!annotation">
         <li>No Sbol component selected</li>
       </ul>
-
-      <ul v-else-if="annotation.style == 'initial'">
+      <ul v-else-if="annotation.style == 'initial' || !this.detail.name">
         <div class="initial">
           <h2>Welcome:</h2>
-          <a href="https://getstarted.doulix.com/doulix-home/dna-synthesis-services/custom-gene-cloning/">
+          <a target="__blank" href="https://getstarted.doulix.com/doulix-home/dna-synthesis-services/custom-gene-cloning/">
             <img src="https://pbs.twimg.com/media/EsAbDrIWMAYnQ_r?format=png&name=4096x4096" alt="Doulix meme">
           </a>
 
@@ -165,7 +165,7 @@ li,pre{
 }
 .initial img{
   max-width: 70%;
-  max-height: 200px;
+  max-height: 300px;
   margin: auto;
 
 }
