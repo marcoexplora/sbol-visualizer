@@ -27,7 +27,7 @@
             <div>{{ item.name }}</div>
           </div>
 
-          <div v-if="selected === item && !flavourMini" class="selected"></div>
+          <div v-if="selected == item && !flavourMini" class="selected"></div>
 
           <img :src="item.path" :id="item.index" v-bind:ref="item.index" class="pointer"
                :alt="item.propriety.sequenceOntology"
@@ -219,7 +219,7 @@ img {
   height: 9em;
   position: absolute;
   top: -2em;
-  z-index: -1;
+
 }
 
 .active .tooltip {

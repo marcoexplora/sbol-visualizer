@@ -11,7 +11,10 @@
       <ul v-else-if="annotation.style == 'initial'">
         <div class="initial">
           <h2>Welcome:</h2>
-          <img src="https://pbs.twimg.com/media/Epv4wJRXcAIOvbT?format=jpg&name=medium" alt="Doulix meme">
+          <a href="https://getstarted.doulix.com/doulix-home/dna-synthesis-services/custom-gene-cloning/">
+            <img src="https://pbs.twimg.com/media/EsAbDrIWMAYnQ_r?format=png&name=4096x4096" alt="Doulix meme">
+          </a>
+
         </div>
       </ul>
 
