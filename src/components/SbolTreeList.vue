@@ -159,6 +159,5 @@
   }
   .glasses{
     float: right;
-    padding: 0.2em 1em 0 0;
   }
   </style>
