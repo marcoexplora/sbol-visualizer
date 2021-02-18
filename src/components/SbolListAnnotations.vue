@@ -140,6 +140,7 @@ export default {
   border: 1px solid #CCC;
   border-radius: 5px;
   overflow: hidden;
+  background-color: #fff;
   height: 490px;
 }
 
