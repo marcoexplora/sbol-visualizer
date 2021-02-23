@@ -33,6 +33,7 @@
                       :parent="parentRoot"
                       :visible="visible"
                       :wcid="wcid"
+                      :key="updateRender"
                       v-bind:breadcrumbs="breadcrumbs"
                       v-bind:level="0"
                       v-bind:selected="selected">
@@ -62,12 +63,13 @@ export default {
     root: {type: Object},
     visible: {},
     wcid: {type: Number},
-    breadcrumbs: {type: Array}
+    breadcrumbs: {type: Array},
   },
   data() {
     return {
       filter: "",
-      showSubComponent: true
+      showSubComponent: true,
+      updateRender: 0
     };
   },
   components: {
@@ -81,14 +83,6 @@ export default {
         propriety : { components : this.annotations }
       }
     },
-    //todo: rename selectedItems in searchItems and make it work on multiples levels
-    selectedItems() {
-      if (typeof this.annotations !== 'undefined') {
-        return this.annotations
-      } else {
-        return []
-      }
-    },
   },
   methods: {
     accordionUpdate(){
@@ -98,8 +92,18 @@ export default {
     selectMe(ann) {
       eventBus.$emit("select-annotation", {annotation: { style:'root' }, wcid: this.wcid});
       eventBus.$emit("update-breackcrumbs", { item : null, level : 0, wcid : this.wcid});
+    },
+    search(value){
+      eventBus.$emit("search", { searchString : value, level : 0, wcid : this.wcid});
+    }
+  },
+  watch: {
+    filter(v) {
+      eventBus.$emit("search", { searchString : v, level : 0, wcid : this.wcid});
+      this.updateRender += 1;
     }
   }
+
 };
 </script>
 <style scoped>
@@ -136,6 +140,7 @@ export default {
   border: 1px solid #CCC;
   border-radius: 5px;
   overflow: hidden;
+  background-color: #fff;
   height: 490px;
 }
 
@@ -239,7 +244,6 @@ ul {
 
 .glasses{
   float: right;
-  padding: 0.2em 1.8em 0 0;
 }
 .glasses svg{
   font-size:1.2em;

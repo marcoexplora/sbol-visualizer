@@ -4,6 +4,10 @@ import getDisplayList from "./getDisplayList"
 
 const xmlHandler = {
     pupulateHeader: (doc)=> {
+
+        //remove this before go to production
+        //window.sboljs_output = doc;
+
         const mainComponetDefinition = doc.componentDefinitions[0];
         const annotations =  mainComponetDefinition._annotations
         return {
@@ -90,16 +94,18 @@ const xmlHandler = {
                 SBOLDocument.loadRDF(xml, function (err, doc) {
 
                     try{
-                        doc.serializeJSON();
+                        //doc.serializeJSON();
+                        sbolDataLayer.header = xmlHandler.pupulateHeader(doc);
+                        sbolDataLayer.annotations = [];
+                        sbolDataLayer.annotations = xmlHandler.populateAnnotations(doc);
+
                     }catch (error){
                         console.log(error)
                         reject("SbolJ has triggered and error")
                     }
 
 
-                    sbolDataLayer.header = xmlHandler.pupulateHeader(doc);
-                    sbolDataLayer.annotations = [];
-                    sbolDataLayer.annotations = xmlHandler.populateAnnotations(doc);
+
 
                     // todo: remove this
                     window.sbolDataLayer = sbolDataLayer

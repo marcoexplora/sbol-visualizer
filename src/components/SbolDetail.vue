@@ -4,16 +4,18 @@
       <h2>Details</h2>
     </div>
     <div class="card-body">
+
       <ul v-if="!annotation">
         <li>No Sbol component selected</li>
       </ul>
-      <ul v-else-if="annotation.style == 'initial'">
+      <ul v-else-if="annotation.style == 'initial' || !this.detail.name">
         <div class="initial">
+          <h2>Welcome:</h2>
+          <a target="__blank" href="https://getstarted.doulix.com/doulix-home/dna-synthesis-services/custom-gene-cloning/">
+            <img src="https://pbs.twimg.com/media/EsAbDrIWMAYnQ_r?format=png&name=4096x4096" alt="Doulix meme">
+          </a>
 
-          <img src="https://cdn.jsdelivr.net/gh/doulix/sbol-web-visualizer@0.0.6image/dist/Christmas_snow_animation.gif" alt="happy holidays">
-          <h2>Happy Holidays</h2>
         </div>
-
       </ul>
 
       <div v-else>
@@ -162,9 +164,9 @@ li,pre{
   font-size: 20px;
 }
 .initial img{
-  width: 50%;
+  max-width: 70%;
+  max-height: 300px;
   margin: auto;
-  border-radius: 52%;
-  max-width:280px
+
 }
 </style>

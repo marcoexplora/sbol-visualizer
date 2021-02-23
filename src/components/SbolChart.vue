@@ -3,19 +3,34 @@
 
     <nav class="breadcrumbs">
         <span v-for="(bread,indexbread) in createBreadcrumbs">
-         {{ bread.name }}
+           <a class="pointer"   @click="moveByBreadcrumbs(bread,indexbread )" >
+              {{ bread.name }}
+          </a>
+          <span v-if="indexbread < createBreadcrumbs.length -1">></span>
         </span>
     </nav>
+
     <div class="scrollable">
       <div class="wrapGlyph">
+
         <div v-for="(item, index) in computedGlyphAnnotations"
              ref="glyphs"
              :class="item.class"
              :key="index"
              @click="detailItem(item)">
-          <div class="tooltiptext">{{ item.name }}</div>
-          <div v-if="selected === item" class="selected"></div>
-          <img :src="item.path" :id="item.index" v-bind:ref="item.index" class="pointer" :alt="item.propriety.sequenceOntology"
+
+          <div v-if="!flavourMini" class="tooltiptext">{{ item.name }}</div>
+
+          <div v-if="flavourMini"
+               class="mobileHandler pointer"  >
+            <span v-if="item.propriety.components"  @click="mobileSelection(item)">+</span>
+            <div>{{ item.name }}</div>
+          </div>
+
+          <div v-if="selected == item && !flavourMini" class="selected"></div>
+
+          <img :src="item.path" :id="item.index" v-bind:ref="item.index" class="pointer"
+               :alt="item.propriety.sequenceOntology"
                @error="setAltImg"/>
         </div>
       </div>
@@ -32,7 +47,9 @@ export default {
     "selected": {type: Object},
     "graphwidth": {type: Number},
     "wcid": {type: Number},
-    "breadcrumbs": {type: Array}
+    "breadcrumbs": {type: Array},
+    "flavourMini": {type: Boolean},
+    "level" : { type: Number}
   },
   data() {
     return {
@@ -41,15 +58,15 @@ export default {
     };
   },
   computed: {
-    createBreadcrumbs(){
-      if(this.breadcrumbs.length > 2){
+    createBreadcrumbs() {
+      if (this.breadcrumbs.length > 2) {
         const result = [{
-          name : "..."
+          name: "...",
+          class : ""
         }]
         return result.concat(this.breadcrumbs.slice(-2));
-      }else{
+      } else {
         return this.breadcrumbs.slice(-2)
-
       }
     },
     computedGlyphAnnotations() {
@@ -78,6 +95,19 @@ export default {
     }
   },
   methods: {
+    moveByBreadcrumbs(item,_level){
+      if(typeof _level !== 'undefined' ){
+        if(item.name != "..."){
+            eventBus.$emit("select-annotation", { annotation : item, wcid : this.wcid});
+            eventBus.$emit("update-breackcrumbs", { item : item , level : _level -1 , wcid : this.wcid});
+        }
+      }else{
+        eventBus.$emit("mobile-expanse", { item : item, wcid : this.wcid});
+      }
+    },
+    mobileSelection(item){
+        eventBus.$emit("mobile-expanse", { item : item, wcid : this.wcid});
+    },
     amIselected(ann) { //todo: check if this is legacy
       this.selectedElement() === ann;
     },
@@ -87,7 +117,7 @@ export default {
     selectedAnnotation: function (ann) {
       if (typeof ann != 'undefined' && ann != null) {
         setTimeout(() => {
-          if (typeof this.$refs[ann.index] != 'undefined' && typeof  this.$refs[ann.index][0] != 'undefined') {
+          if (typeof this.$refs[ann.index] != 'undefined' && typeof this.$refs[ann.index][0] != 'undefined') {
             this.$refs[ann.index][0].scrollIntoView({
               behavior: 'smooth',
               block: "nearest",
@@ -105,14 +135,14 @@ export default {
     }
   },
   watch: {
-      breadcrumbs: {
-        immediate: true,
-        handler: function(n, o) {
-          if(n != null){
-            //this.showSubComponent = this.breadcrumbs[this.level + 1] === this.item;
-          }
+    breadcrumbs: {
+      immediate: true,
+      handler: function (n, o) {
+        if (n != null) {
+          //this.showSubComponent = this.breadcrumbs[this.level + 1] === this.item;
         }
-      },
+      }
+    },
     selected: {
       immediate: true,
       handler: function (n, o) {
@@ -131,19 +161,36 @@ export default {
   padding: 2em 0 0 0;
   white-space: nowrap;
   border: 1px solid rgba(0, 0, 0, 0.15);
+  background-color: #fff;
   border-radius: 5px 5px 0 0;
   position: relative;
 }
-.scrollable{
+
+.mobileHandler {
+  text-align: center;
+  font-size: 0.72em;
+  margin-top: -25px;
+}
+
+.mobileHandler span,.blue {
+  color: #0078b6
+}
+
+.mobileHandler div {
+}
+
+.scrollable {
   padding: 0 20px;
   height: 100%;
   overflow-x: auto;
   overflow-y: hidden;
 }
-.breadcrumbs span{
-  padding: 0 5px 0  0;
-  font-size:16px;
+
+.breadcrumbs span {
+  padding: 0 5px 0 0;
+  font-size: 16px;
 }
+
 div.glyphs {
   position: relative;
 }
@@ -172,6 +219,7 @@ img {
   height: 9em;
   position: absolute;
   top: -2em;
+
 }
 
 .active .tooltip {

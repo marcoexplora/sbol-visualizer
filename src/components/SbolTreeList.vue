@@ -2,6 +2,7 @@
     <div>
       <div  v-bind:class="[item === selected ? 'selected' : '']">
       <div class="h1 bold">
+
         <span v-if="item.propriety.components"
               v-bind:class="[ showSubComponent ? 'open' : 'close']"
               @click="accordionUpdate(item)"
@@ -10,12 +11,13 @@
         </span>
 
         <span class="pointer"  @click="selectByClickingOnName(item)" v-bind:class="[selected === item ? 'itemSelected' : '']">
-          {{ item.name }}
+          {{ item.name }} <span class="tag" v-if="item.propriety.tag && item.propriety.tag !== ''"><SbolIconCheck/></span>
         </span>
 
         <span v-if="item.propriety.components == visible" class="glasses">
             <SbolIconGlasses  active="true" alt="this element is displayed on the map"/>
-          </span>
+         </span>
+
       </div>
 
       <div class="text-muted-black h2"  @click="selectByClickingOnName(item)">
@@ -48,6 +50,7 @@
   import SbolTreeList from "@/components/SbolTreeList";
   import SbolIconOpenCollapseList from "@/components/SbolIconOpenCollapseList";
   import SbolIconGlasses from "@/components/SbolIconGlasses";
+  import SbolIconCheck from "@/components/SbolIconCheck"
 
   import eventBus from "@/lib/eventBus";
 
@@ -78,7 +81,8 @@
     components: {
       SbolTreeList,
       SbolIconOpenCollapseList,
-      SbolIconGlasses
+      SbolIconGlasses,
+      SbolIconCheck
     },
     methods :{
       selectByClickingOnName(ann) {
@@ -120,6 +124,11 @@
   };
   </script>
   <style scoped>
+  .tag{
+    vertical-align: sub;
+    padding-left: 0.3em;
+    font-size: 0.95em;
+  }
 
   li.item{
     padding: 10px 0 0 0;
@@ -150,6 +159,5 @@
   }
   .glasses{
     float: right;
-    padding: 0.2em 1em 0 0;
   }
   </style>

@@ -1,5 +1,5 @@
 <template>
-  <div @dragover="dragover" @dragleave="dragleave" @drop="drop" class="SbolWvWrap">
+  <div @dragover="dragover" @dragleave="dragleave" @drop="drop" class="SbolWvWrap" ref="wrapper">
     <div v-if="enabledropfile" style="padding:0;height: 1.55em">
       <div style="width: 100%">
 
@@ -40,7 +40,6 @@
             ref="navContainer">
           <sbol-header :header="sbolDataLayer.header"/>
           <sbol-list-annotations
-              ref="listAnnotation"
               :root="sbolDataLayer.header"
               :annotations="sbolDataLayer.annotations"
               :selected="selected"
@@ -48,7 +47,8 @@
               :tags="tags"
               :wcid="id"
               :visible="sbolDataLayer.visibleAnnotations"
-              @showBranch="showComponents"></sbol-list-annotations>
+              @showBranch="showComponents">
+          </sbol-list-annotations>
         </nav>
         <div class="main smooth" ref="chartsContainer">
           <sbol-chart
@@ -57,6 +57,7 @@
               :selected="selected"
               :graphwidth="chartsWidth"
               :wcid="id"
+              :flavourMini="flavourMini"
           />
           <sbol-detail v-if="!flavourMini" :annotation="selected" v-bind:tags="this.tags"/>
         </div>
@@ -88,8 +89,13 @@ import xmlHandler from "@/lib/importer/xmlHandler";
 import SbolBoxArrowUp from "@/components/SbolBoxArrowUp";
 
 export default {
-  props: ["source", "format", "data", "flavour", "dropafile"],
-
+  props: {
+    source: {type: String},
+    format: {type: String},
+    data: {type: String},
+    flavour: {type: String},
+    dropafile: {type: String}
+  },
   data() {
     return {
       id: 0,
@@ -100,9 +106,8 @@ export default {
       visible: {
         breadcrumbs: []
       },
-      selected: { style:'initial'},
+      selected: {style: 'initial'},
       tags: [],
-      filter: "",
       errors: false,
       empty: true,
 
@@ -124,7 +129,7 @@ export default {
       }
       this.empty = true;
       this.errors = false;
-      this.filter = "";
+      this.search = "";
       this.$refs['file'].value = ''
 
     },
@@ -146,7 +151,7 @@ export default {
       this.fileObj = [...this.$refs.file.files][0];
 
       const read = new FileReader();
-      if(this.fileObj != null && this.fileObj.size > 0) {
+      if (this.fileObj != null && this.fileObj.size > 0) {
         read.readAsText(this.fileObj);
 
         read.onload = (function (theFile, _that) {
@@ -191,9 +196,11 @@ export default {
 
         //todo: remove before production
         //this.sbolDataLayer.__anns = this.sbolDataLayer.annotations;
-        console.log('created sbolDataLayer list as debug variables')
+        //console.log('created sbolDataLayer list as debug variables')
         window.sbolDataLayer = this.sbolDataLayer
         window.list = this.$refs
+        window.search = this.Search
+        window.cleanSearch = this.cleanTag
 
       } catch (error) {
 
@@ -217,94 +224,88 @@ export default {
         this.visible.breadcrumbs[0] = {
           name: this.sbolDataLayer.header.partID,
           propriety: {components: this.sbolDataLayer.annotations},
-          mutableDescription : this.sbolDataLayer.header.mutableDescription,
+          mutableDescription: this.sbolDataLayer.header.mutableDescription,
         }
 
         this.empty = false;
         this.resizeHandler();
-      },(sb) => {
+      }, (sb) => {
         this.errors = true;
       });
     },
     resizeHandler: function () {
-      const defaultBreakpoints = [
-        {
-          class: "SM",
-          width: 1,
-        },
-        {
-          class: "SM",
-          width: 384,
-        },
-        {
-          class: "MD",
-          width: 576,
-        },
-        {
-          class: "LG",
-          width: 768,
-        },
-        {
-          class: "XL",
-          width: 960,
-        },
-      ];
-      const widthContainer =
-          window.innerWidth ||
-          document.documentElement.clientWidth ||
-          document.body.clientWidth;
-      let classBp = "XL";
-      defaultBreakpoints.forEach((bp) => {
-        classBp = bp.width <= widthContainer ? bp.class : classBp;
-      });
+      if (typeof this.$refs.wrapper !== 'undefined') {
+        const defaultBreakpoints = [
+          {
+            class: "SM",
+            width: 1,
+          },
+          {
+            class: "SM",
+            width: 384,
+          },
+          {
+            class: "MD",
+            width: 576,
+          },
+          {
+            class: "LG",
+            width: 768,
+          },
+          {
+            class: "XL",
+            width: 960,
+          },
+        ];
+        const widthContainer = this.$refs.wrapper.offsetWidth
 
-      this.flavourMini = ["XL", "LG"].indexOf(classBp) === -1;
-
-      this.flavourClass = `${
-          this.flavourMini ? "mini" : "SBOLcontainer"
-      } ${classBp}`;
-
-      if (!this.empty) {
-        this.chartsWidth = null;
-
-        this.$nextTick(function () {
-          if (typeof this.$refs.navContainer !== 'undefined') {
-            const navWidth = this.$refs.navContainer.clientWidth
-            this.chartsWidth = widthContainer - navWidth - 17; //17 padding and border of chart + NAV 2 + 15
-            this.$refs.chartsContainer.style.width = `{this.chartsWidth}px`
-          }
+        let classBp = "XL";
+        defaultBreakpoints.forEach((bp) => {
+          classBp = bp.width <= widthContainer ? bp.class : classBp;
         });
-      }
-      this.updateRender += 1;
-    },
-   /*
-        Work in progress
 
-   BFthree: function (annotations) {
-      console.log('BFthree')
-      console.log(annotations);
+        this.flavourMini = ["XL", "LG"].indexOf(classBp) === -1;
 
-      function recursiveWalk(components, question) {
-        console.log('recursiveWalk');
+        this.flavourClass = `${
+            this.flavourMini ? "mini" : "SBOLcontainer"
+        } ${classBp}`;
 
-        components.forEach((comp) => {
-              console.log(comp.name);
-              recursiveWalk(comp.propriety.components, question)
+        if (!this.empty) {
+          this.chartsWidth = null;
+
+          this.$nextTick(function () {
+            if (typeof this.$refs.navContainer !== 'undefined') {
+              const navWidth = this.$refs.navContainer.clientWidth
+              this.chartsWidth = widthContainer - navWidth - 3; //17 padding and border of chart + NAV 2 + 15
+              this.$refs.chartsContainer.style.width = `{this.chartsWidth}px`
             }
-        )
+          });
+        }
+        this.updateRender += 1;
+      }
+    },
+    cleanTag: function (_annotations) {
+      this.Search({"name": "root", "propriety": {"components": [..._annotations]}}, () => true, "", [])
+    },
+    Search: function (annotations, filter, tag, route) {
+      let _route = [annotations, ...route];
+
+      if (filter(annotations)) {
+        route.forEach((el) => {
+          el.propriety.tag = tag;
+        });
+        annotations.propriety.tag = tag;
       }
 
-      console.log(1)
-      if (annotations.hasOwnProperty('components')) {
-        console.log(2)
-        console.log(`comp ${annotations.name} has  child components`)
-        recursiveWalk(annotations.components, question)
-      } else {
-        console.log(3)
-        console.log(`comp ${annotations.name} has not child components`)
+      if (annotations.hasOwnProperty('propriety')) {
+        if (annotations.propriety.hasOwnProperty('components')) {
+          annotations.propriety.components.forEach((elem) => {
+            this.Search(elem, filter, tag, _route);
+          });
+        }
       }
+    },
 
-    }*/
   },
   components: {
     SbolBoxArrowUp,
@@ -319,31 +320,54 @@ export default {
     CloseIcon
   },
   created: function () {
+
     this.resizeHandler();
     this.id = parseInt(Math.random() * 100000);
 
     eventBus.$on("set-visible", (_event) => {
-
       if (_event.wcid === this.id) {
         this.sbolDataLayer.visibleAnnotations = _event.annotations.length === 1 ? _event.annotations[0] : _event.annotations;
-        this.updateRender += 1;
+      }
+    });
+
+    eventBus.$on("search", (_event) => {
+      if (_event.wcid === this.id) {
+        //console.log(`this.updateRender ${this.updateRender}`)
+        this.cleanTag(this.sbolDataLayer.annotations);
+
+        if (/^\d+$/.test(_event.searchString)) {
+          const pos = parseInt(_event.searchString);
+          this.Search({"name": "root", "propriety": {"components": [...this.sbolDataLayer.annotations]}}
+              , (el) => {
+                return !!(pos >= el.propriety.start && el.propriety.end >= pos)
+              },
+              _event.searchString,
+              []);
+        } else {
+          this.Search({"name": "root", "propriety": {"components": [...this.sbolDataLayer.annotations]}}
+              , (el) => {
+                return el.name.indexOf(_event.searchString) !== -1
+              },
+              _event.searchString, []);
+        }
+
       }
     });
 
     eventBus.$on("select-annotation", (_event) => {
       if (_event.wcid === this.id) {
         const _annotation = _event.annotation;
-        if(_event.annotation.style == "root"){
+        if (_event.annotation.style === "root") {
           _annotation.name = this.sbolDataLayer.header.name;
           _annotation.partID = this.sbolDataLayer.header.partID;
           _annotation.persistentIdentity = this.sbolDataLayer.header.persistentIdentity;
         }
 
         this.selected = _annotation;
-        this.updateRender += 1;
 
       }
     });
+
     eventBus.$on("update-breackcrumbs", (_event) => {
 
       if (_event.wcid === this.id) {
@@ -351,33 +375,47 @@ export default {
         this.visible.breadcrumbs[0] = {
           name: this.sbolDataLayer.header.partID,
           propriety: {components: this.sbolDataLayer.annotations},
-          mutableDescription : this.sbolDataLayer.header.mutableDescription,
+          mutableDescription: this.sbolDataLayer.header.mutableDescription,
         }
 
+        this.visible.breadcrumbs[_level] = _event.item;
 
-          this.visible.breadcrumbs[_level] = _event.item;
-
-          function cleanFromLevel(_bradcrumbs, _level) {
-            const results = []
-            for (let t = 0; t < _level; t++) {
-              results.push(_bradcrumbs[t])
-            }
-            return results
+        function cleanFromLevel(_bradcrumbs, _level) {
+          const results = []
+          for (let t = 0; t < _level; t++) {
+            results.push(_bradcrumbs[t])
           }
+          return results
+        }
 
-          if (_event.item == null) {
-            this.visible.breadcrumbs = cleanFromLevel(this.visible.breadcrumbs, _level);
-          } else {
-            this.visible.breadcrumbs = cleanFromLevel(this.visible.breadcrumbs, _level + 1);
-          }
+        if (_event.item == null) {
+          this.visible.breadcrumbs = cleanFromLevel(this.visible.breadcrumbs, _level);
+        } else {
+          this.visible.breadcrumbs = cleanFromLevel(this.visible.breadcrumbs, _level + 1);
+        }
 
-          const lastElement = this.visible.breadcrumbs[this.visible.breadcrumbs.length - 1]
-          this.sbolDataLayer.visibleAnnotations = lastElement.propriety.components;
-          this.updateRender += 1;
+        const lastElement = this.visible.breadcrumbs[this.visible.breadcrumbs.length - 1]
+        this.sbolDataLayer.visibleAnnotations = lastElement.propriety.components;
 
       }
     });
 
+    eventBus.$on("mobile-expanse", (_event) => {
+      if (_event.wcid === this.id) {
+        const _level = this.visible.breadcrumbs.length -1;
+        eventBus.$emit("update-breackcrumbs", { item : _event.item, level : _level , wcid : _event.wcid});
+      }
+    });
+
+    eventBus.$on("mobile-collapse", (_event) => {
+
+      if (_event.wcid === this.id) {
+        const _level = this.visible.breadcrumbs.length -1;
+        eventBus.$emit("select-annotation", { annotation : this.visible.breadcrumbs[_level - 1 ].propriety.components, wcid : _event.wcid});
+        eventBus.$emit("update-breackcrumbs", { item :this.visible.breadcrumbs[_level - 1 ], level : _level , wcid : _event.wcid});
+      }
+
+    });
   },
   mounted: function () {
     if (typeof this.dropafile != 'undefined') {
@@ -514,8 +552,9 @@ nav {
   .smooth {
     transition: 200ms;
   }
-  .pointer{
-    cursor:pointer;
+
+  .pointer {
+    cursor: pointer;
   }
 }
 </style>
