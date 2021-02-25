@@ -79,7 +79,7 @@ export default {
               ].path = `https://vows.sbolstandard.org/glyph/${sbol}/png`;
 
           this.annotations[index].class = `${sbol.replace("SO:", "SO_")} ${
-              this.annotations[index].direction
+              key.propriety.Direction
           } glyphs tooltip`;
 
           this.annotations[index].index = `${index}_id_${parseInt(Math.random() * 100000)}`;
