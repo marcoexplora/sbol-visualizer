@@ -8,14 +8,8 @@
       <ul v-if="!annotation">
         <li>No Sbol component selected</li>
       </ul>
-      <ul v-else-if="annotation.style == 'initial' || !this.detail.name">
-        <div class="initial">
-          <h2>Welcome:</h2>
-          <a target="__blank" href="https://getstarted.doulix.com/doulix-home/dna-synthesis-services/custom-gene-cloning/">
-            <img src="https://pbs.twimg.com/media/EsAbDrIWMAYnQ_r?format=png&name=4096x4096" alt="Doulix meme">
-          </a>
-
-        </div>
+      <ul v-else-if="annotation.style === 'initial' || !this.detail.name">
+        <SbolDetailInitialPage/>
       </ul>
 
       <div v-else>
@@ -71,7 +65,7 @@
 </template>
 
 <script>
-import SbolLink from "@/components/SbolLinkText";
+import SbolDetailInitialPage from "@/components/SbolDetailInitialPage";
 
 export default {
   props: ["annotation","tags"],
@@ -81,7 +75,8 @@ export default {
     };
   },
   components: {
-    SbolLink,
+    SbolDetailInitialPage,
+
   },
   watch: {
     annotation: function (data) {
@@ -157,9 +152,7 @@ li,pre{
 .m0{
   margin:0
 }
-.initial{
-  text-align: center;
-}
+
 .initial h2{
   font-size: 20px;
 }

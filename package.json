@@ -35,9 +35,11 @@
     "autoprefixer": "^9.0.0",
     "babel-loader": "^8.2.2",
     "babel-preset-vue": "^2.0.2",
+    "eslint": "^7.20.0",
+    "eslint-plugin-vue": "^7.6.0",
+    "postcss": "^8.2.4",
     "postcss-loader": "^4.1.0",
     "sass": "^1.32.2",
-    "postcss": "^8.2.4",
     "sass-loader": "^10.1.0",
     "sass-resources-loader": "^2.1.1",
     "vue-template-compiler": "^2.6.12"

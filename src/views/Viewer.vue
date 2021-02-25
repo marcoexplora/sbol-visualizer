@@ -81,7 +81,6 @@ import SbolChart from "@/components/SbolChart";
 import SbolDetail from "@/components/SbolDetail";
 import SbolFooter from "@/components/SbolFooter";
 
-import SbolLogo from "@/components/SbolLogo";
 import CloseIcon from "@/components/SbolIconX"
 
 import jsonHandler from "@/lib/importer/jsonHandler";
@@ -141,6 +140,7 @@ export default {
         this.onChange();
       }
     },
+    // eslint-disable-next-line no-unused-vars
     dragleave(event) {
       // keep this for future reference
     },
@@ -313,7 +313,6 @@ export default {
     SbolDetail,
     SbolListAnnotations,
     SbolHeader,
-    SbolLogo,
     SbolErrors,
     SbolFooter,
     SbolLanding,
@@ -380,10 +379,10 @@ export default {
 
         this.visible.breadcrumbs[_level] = _event.item;
 
-        function cleanFromLevel(_bradcrumbs, _level) {
+        function cleanFromLevel(_breadcrumb, _level) {
           const results = []
           for (let t = 0; t < _level; t++) {
-            results.push(_bradcrumbs[t])
+            results.push(_breadcrumb[t])
           }
           return results
         }

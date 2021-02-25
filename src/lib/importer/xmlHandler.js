@@ -6,7 +6,7 @@ const xmlHandler = {
     pupulateHeader: (doc)=> {
 
         //remove this before go to production
-        //window.sboljs_output = doc;
+        window.sboljs_output = doc;
 
         const mainComponetDefinition = doc.componentDefinitions[0];
         const annotations =  mainComponetDefinition._annotations
