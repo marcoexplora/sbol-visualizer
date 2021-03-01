@@ -345,7 +345,7 @@ export default {
         } else {
           this.Search({"name": "root", "propriety": {"components": [...this.sbolDataLayer.annotations]}}
               , (el) => {
-                return el.name.indexOf(_event.searchString) !== -1
+                return el.name.toLowerCase().indexOf(_event.searchString.toLowerCase()) !== -1
               },
               _event.searchString, []);
         }
