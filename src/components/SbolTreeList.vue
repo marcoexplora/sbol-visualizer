@@ -1,7 +1,7 @@
   <template>
     <div>
-      <div  v-bind:class="[item === selected ? 'selected' : '']">
-      <div class="h1 bold">
+      <div  v-bind:class="[item === selected ? 'selected' : '',showSubComponent ? 'highlighed' : '']">
+      <div class="h1">
 
         <span v-if="item.propriety.components"
               v-bind:class="[ showSubComponent ? 'open' : 'close']"
@@ -139,7 +139,7 @@
     vertical-align: revert;
   }
   .selected{
-    background: #dee5ea;
+    background: #dee5ea8a;
     transition: 200ms;
   }
   .components_list.hide{
@@ -151,7 +151,7 @@
   }
   .components_list {
     margin: 0 0 0 0.5em;
-    border-left: 2px solid #0078b6;
+    border-left: 2px solid #e5e5e5;
   }
   ul{
     list-style: none;

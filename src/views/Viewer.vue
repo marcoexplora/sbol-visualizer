@@ -509,10 +509,12 @@ nav {
   }
 
   h1, .h1 {
-    font-size: 24px
+    padding: 16px 0 4px 0;
+    font-size: 16px
   }
 
   h2, .h2, .small {
+    padding: 0 0 14px 0;
     font-size: 14px;
   }
 

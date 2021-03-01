@@ -214,7 +214,7 @@ img {
 }
 
 .glyphs .selected {
-  background: #dee5ea;
+  background: #dee5ea8a;
   width: 75px;
   height: 9em;
   position: absolute;

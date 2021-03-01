@@ -234,7 +234,7 @@ li.item:last-child {
 
 .components_list {
   margin: 0 0 0 0.5em;
-  border-left: 2px solid #0078b6;
+  border-left: 2px solid #e5e5e5;
 }
 
 ul {
