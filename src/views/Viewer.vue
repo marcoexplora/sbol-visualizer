@@ -345,7 +345,7 @@ export default {
         } else {
           this.Search({"name": "root", "propriety": {"components": [...this.sbolDataLayer.annotations]}}
               , (el) => {
-                return el.name.toLowerCase().indexOf(_event.searchString.toLowerCase()) !== -1
+                return el.name.indexOf(_event.searchString) !== -1
               },
               _event.searchString, []);
         }
@@ -509,12 +509,10 @@ nav {
   }
 
   h1, .h1 {
-    padding: 16px 0 4px 0;
-    font-size: 16px
+    font-size: 24px
   }
 
   h2, .h2, .small {
-    padding: 0 0 14px 0;
     font-size: 14px;
   }
 

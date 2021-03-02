@@ -107,6 +107,20 @@ export default {
 };
 </script>
 <style scoped>
+
+
+
+h1, .h1 {
+  padding: 8px 0 2px 0;
+  font-size: 16px
+}
+
+h2, .h2, .small {
+  padding: 0 0 14px 0;
+  font-size: 14px;
+}
+
+
 .search-list h1,
 .search-list h1 {
   color: #4d4d4c
