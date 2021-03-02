@@ -27,7 +27,7 @@
       </div>
       </div>
 
-      <div v-bind:class="[showSubComponent ? 'show' : 'hide']" class="components_list">
+      <div v-bind:class="[showSubComponent ? 'show' : 'hide', item.propriety.components == visible ? 'visible':'' ]" class="components_list">
         <ul v-if="item.propriety.components" :id="item.name  + 'sub' + level" >
           <li v-for="(sub, index) in item.propriety.components" :key="index" class="item">
                 <sbol-tree-list
@@ -149,6 +149,10 @@
     padding: 0;
     border: 0;
   }
+  .components_list.visible {
+    border-left: 2px solid #0078b6;
+  }
+
   .components_list {
     margin: 0 0 0 0.5em;
     border-left: 2px solid #e5e5e5;
