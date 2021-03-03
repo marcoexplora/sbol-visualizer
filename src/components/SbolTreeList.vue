@@ -1,6 +1,6 @@
   <template>
     <div>
-      <div  v-bind:class="[item === selected ? 'selected' : '',showSubComponent ? 'highlighed' : '']">
+      <div  v-bind:class="[item === selected ? 'selected' : '',showSubComponent ? 'highlighed' : 'muted']">
       <div class="h1">
 
         <span v-if="item.propriety.components"
@@ -25,6 +25,7 @@
         <span>{{ item.propriety.Direction }}</span>
         <span v-if="item.propriety.end > 0">({{item.propriety.start}}..{{ item.propriety.end }})</span>
       </div>
+
       </div>
 
       <div v-bind:class="[showSubComponent ? 'show' : 'hide', item.propriety.components == visible ? 'visible':'' ]" class="components_list">
@@ -97,6 +98,9 @@
           eventBus.$emit("update-breackcrumbs", { item : this.item, level : this.level, wcid : this.wcid});
           eventBus.$emit("select-annotation", { annotation : item, wcid : this.wcid});
         }
+      },
+      amImuted(){
+        return this.breadcrumbs.length > level && this.showSubComponent
       }
     },
     watch: {
@@ -135,7 +139,9 @@
     padding: 0 0 14px 0;
     font-size: 14px;
   }
-
+.muted {
+  color : #7d7d7d;
+}
 
   .tag{
     vertical-align: sub;

@@ -10,7 +10,7 @@
         <ul class="search-list" ref="ItemsTree">
           <li v-if="annotations.length === 0">No Sbol component found</li>
           <li v-if="annotations.length > 0" class="item">
-            <div class="h1 bold" v-bind:class="[selected.style === 'root' ? 'selected' : 'nope']">
+            <div class="h1" v-bind:class="[selected.style === 'root' ? 'selected' : 'nope']">
               <span @click="accordionUpdate()"
                     v-bind:class="[showSubComponent ? 'open' : 'close']"
                     class="sub_components_controller pointer">
@@ -24,7 +24,7 @@
               </span>
 
             </div>
-            <div v-bind:class="[showSubComponent ? 'show' : 'hide']" class="components_list">
+            <div v-bind:class="[showSubComponent ? 'show' : 'hide',annotations === visible ? 'visible':'' ]" class="components_list">
               <ul v-for="(item, index) in annotations" :key="index" class="item">
                 <li class="item">
 
@@ -244,6 +244,10 @@ li.item:last-child {
   margin: 0;
   padding: 0;
   border: 0;
+}
+
+.components_list.visible {
+  border-left: 2px solid #0078b6;
 }
 
 .components_list {
