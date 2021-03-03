@@ -159,7 +159,7 @@ h2, .h2, .small {
 }
 
 .selected{
-  background: #dee5ea;
+  background:  #b1b1b124;
   transition: 200ms;
 }
 
