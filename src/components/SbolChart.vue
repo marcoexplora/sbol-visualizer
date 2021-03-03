@@ -203,7 +203,7 @@ div.glyphs {
 
 img {
   width: 75px;
-  border: 1px solid #202832;
+  /* border: 1px solid #202832; */
   /* border-bottom: 2px solid green; */
 }
 
