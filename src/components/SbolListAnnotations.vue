@@ -223,7 +223,7 @@ li.item:last-child {
 }
 
 .search-list > li span {
-  font-size: 0.9em;
+  font-size: 16px;
 }
 
 .text-muted-black {
