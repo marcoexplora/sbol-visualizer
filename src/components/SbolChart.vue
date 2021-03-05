@@ -130,7 +130,7 @@ export default {
       }
     },
     setAltImg(event) {
-      event.target.src = "/SO_SBOL_glyphs_svg/SO_0000110.svg";  //SO_0000110
+      event.target.src = `${settings.svg_prefix}/SO_0000110.svg`;  //SO_0000110
     },
     setWideth() {
       return `width:${this.graphwidth}px`
