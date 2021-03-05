@@ -11,7 +11,7 @@
     </nav>
 
     <div class="scrollable">
-      <div class="wrapGlyph">
+      <div class="wrapGlyph" v-bind:style="{ background: `${lineBackground}` }">
 
         <div v-for="(item, index) in computedGlyphAnnotations"
              ref="glyphs"
@@ -40,6 +40,7 @@
 
 <script>
 import eventBus from "@/lib/eventBus";
+import settings from "../settings"
 
 export default {
   props: {
@@ -55,6 +56,7 @@ export default {
     return {
       containerWidth: 0,
       parentWidth: 0,
+      lineBackground : `url('${settings.svg_prefix}/tt.svg')`
     };
   },
   computed: {
@@ -76,7 +78,7 @@ export default {
 
           this.annotations[
               index
-              ].path = `/SO_SBOL_glyphs_svg/${sbol.replace("SO:", "SO_")}.svg`;
+              ].path = `${settings.svg_prefix}/${sbol.replace("SO:", "SO_")}.svg`;
 
           this.annotations[index].class = ` ${
               key.propriety.Direction
@@ -255,7 +257,6 @@ img {
 .wrapGlyph {
   margin: 20px auto auto;
   width: fit-content;
-  background-image: url('/SO_SBOL_glyphs_svg/tt.svg');
 }
 /*
   background-image: url("data:image/svg+xml;utf8, <svg  xmlns='http://www.w3.org/2000/svg' height="45" width="300"><g transform="translate(0,0)"><g transform="translate(0, 22.5)"><path class="ruler" d="M0,0 L300,0" opacity="1" style="fill: none; stroke-width: 3.25;"></path></g></g><g transform="translate(65.5,0)"><g transform="translate(6.5, 3)"><line x1="0" y1="0" x2="16.25" y2="0" class="popoverslot" data-toggle="popover" data-placement="top" data-html="true" data-boundary="window" data-content="Upstream integration pad" stroke-width="5" style="pointer-events: none;"></line></g></g></svg> ");
