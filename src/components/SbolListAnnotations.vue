@@ -17,7 +17,7 @@
                   <sbol-icon-open-collapse-list :open="showSubComponent"/>
               </span>
               <span @click="selectMe(annotations)" class="pointer" >
-                {{ root.partID }}
+                {{ root.partID }}  <span class="tag" v-if="tagMe()"><SbolIconCheck/></span>
               </span>
               <span v-if="annotations === visible" class="glasses">
                     <SbolIconGlasses active="true" alt="this element is displayed on the map"/>
@@ -52,6 +52,7 @@
 
 import SbolTreeList from "@/components/SbolTreeList";
 import SbolIconGlasses from "@/components/SbolIconGlasses";
+import SbolIconCheck from "@/components/SbolIconCheck"
 import SbolIconOpenCollapseList from "@/components/SbolIconOpenCollapseList";
 
 import eventBus from "@/lib/eventBus";
@@ -76,6 +77,7 @@ export default {
     SbolTreeList,
     SbolIconGlasses,
     SbolIconOpenCollapseList,
+    SbolIconCheck
   },
   computed: {
     parentRoot() {
@@ -83,8 +85,15 @@ export default {
         propriety : { components : this.annotations }
       }
     },
+
   },
   methods: {
+    tagMe(){
+      return this.annotations.filter( (e) => {
+        console.log( e.propriety.tag )
+        console.log( typeof(e.propriety.tag) != 'undefined')
+        return typeof(e.propriety.tag) !== 'undefined' && e.propriety.tag !== "" } ).length > 0
+    },
     accordionUpdate(){
       this.showSubComponent = !this.showSubComponent;
       eventBus.$emit("update-breackcrumbs", { item : null, level : 0, wcid : this.wcid});
