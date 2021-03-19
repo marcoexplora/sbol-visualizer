@@ -2,11 +2,11 @@
   <div style="padding: 3em;text-align:center ">
     <h1>
       <svg
-        style="height: 2em;width: 2em;vertical-align: middle;padding-right: 1em;"
-        viewBox="0 0 16 16"
-        class="bi bi-exclamation-diamond"
-        fill="currentColor"
-        xmlns="http://www.w3.org/2000/svg"
+          class="bi bi-exclamation-diamond"
+          fill="currentColor"
+          style="height: 2em;width: 2em;vertical-align: middle;padding-right: 1em;"
+          viewBox="0 0 16 16"
+          xmlns="http://www.w3.org/2000/svg"
       >
         <path
           fill-rule="evenodd"

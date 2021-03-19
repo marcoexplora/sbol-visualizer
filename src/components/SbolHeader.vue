@@ -83,7 +83,6 @@ header {
   height: 110px;
   margin: 0 0 5px 0;
   padding: 10px;
-  border: 1px solid #fff;
 }
 
 .panel {

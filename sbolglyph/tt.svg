@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="75"
+   height="75"
+   viewBox="0 0 19.84375 19.84375"
+   version="1.1"
+   id="svg83"
+   inkscape:version="1.0.2 (e86c8708, 2021-01-15)"
+   sodipodi:docname="tt.svg">
+  <defs
+     id="defs77" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="9.7643585"
+     inkscape:cx="21.566912"
+     inkscape:cy="44.390318"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     inkscape:document-rotation="0"
+     showgrid="false"
+     inkscape:window-width="1398"
+     inkscape:window-height="855"
+     inkscape:window-x="1962"
+     inkscape:window-y="114"
+     inkscape:window-maximized="0"
+     units="px"
+     showguides="true"
+     inkscape:guide-bbox="true">
+    <sodipodi:guide
+       position="11.024868,10.422499"
+       orientation="0,-1"
+       id="guide1523" />
+    <sodipodi:guide
+       position="9.4212508,4.4757523"
+       orientation="1,0"
+       id="guide1525" />
+    <sodipodi:guide
+       position="0,7.8206212"
+       orientation="1,0"
+       id="guide1527" />
+    <sodipodi:guide
+       position="19.835932,10.422499"
+       orientation="1,0"
+       id="guide1529" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata80">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Livello 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:#aeb0b0;fill-opacity:0.470588;fill-rule:evenodd;stroke-width:0.012369"
+       id="rect85-1"
+       width="19.835932"
+       height="0.79648542"
+       x="5.4470317e-16"
+       y="9.588418"
+       ry="0" />
+  </g>
+</svg>

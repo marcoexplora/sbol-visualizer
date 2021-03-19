@@ -11,7 +11,7 @@
     </nav>
 
     <div class="scrollable">
-      <div class="wrapGlyph">
+      <div class="wrapGlyph" v-bind:style="{ background: `${lineBackground}` }">
 
         <div v-for="(item, index) in computedGlyphAnnotations"
              ref="glyphs"
@@ -40,6 +40,7 @@
 
 <script>
 import eventBus from "@/lib/eventBus";
+import settings from "../settings"
 
 export default {
   props: {
@@ -55,6 +56,7 @@ export default {
     return {
       containerWidth: 0,
       parentWidth: 0,
+      lineBackground : `url('${settings.svg_prefix}/tt.svg')`
     };
   },
   computed: {
@@ -76,10 +78,10 @@ export default {
 
           this.annotations[
               index
-              ].path = `https://vows.sbolstandard.org/glyph/${sbol}/png`;
+              ].path = `${settings.svg_prefix}/${sbol.replace("SO:", "SO_")}.svg`;
 
-          this.annotations[index].class = `${sbol.replace("SO:", "SO_")} ${
-              this.annotations[index].direction
+          this.annotations[index].class = ` ${
+              key.propriety.Direction
           } glyphs tooltip`;
 
           this.annotations[index].index = `${index}_id_${parseInt(Math.random() * 100000)}`;
@@ -128,7 +130,7 @@ export default {
       }
     },
     setAltImg(event) {
-      event.target.src = "https://vows.sbolstandard.org/glyph/SO:0000313/png";
+      event.target.src = `${settings.svg_prefix}/SO_0000110.svg`;  //SO_0000110
     },
     setWideth() {
       return `width:${this.graphwidth}px`
@@ -160,7 +162,7 @@ export default {
   height: 142px;
   padding: 2em 0 0 0;
   white-space: nowrap;
-  border: 1px solid rgba(0, 0, 0, 0.15);
+  /*border: 1px solid rgba(0, 0, 0, 0.15);*/
   background-color: #fff;
   border-radius: 5px 5px 0 0;
   position: relative;
@@ -203,9 +205,8 @@ div.glyphs {
 
 img {
   width: 75px;
+  /* border: 1px solid #202832; */
   /* border-bottom: 2px solid green; */
-  position: absolute;
-  bottom: 0;
 }
 
 .RV img {
@@ -214,12 +215,11 @@ img {
 }
 
 .glyphs .selected {
-  background: #dee5ea;
+  background: #b1b1b124;
   width: 75px;
   height: 9em;
   position: absolute;
   top: -2em;
-
 }
 
 .active .tooltip {
@@ -245,7 +245,6 @@ img {
   border: solid 1px #e5e5e5;
   position: absolute;
   z-index: 1;
-
   word-wrap: break-word;
   font-size: 0.8em;
 }
@@ -259,6 +258,10 @@ img {
   margin: 20px auto auto;
   width: fit-content;
 }
+/*
+  background-image: url("data:image/svg+xml;utf8, <svg  xmlns='http://www.w3.org/2000/svg' height="45" width="300"><g transform="translate(0,0)"><g transform="translate(0, 22.5)"><path class="ruler" d="M0,0 L300,0" opacity="1" style="fill: none; stroke-width: 3.25;"></path></g></g><g transform="translate(65.5,0)"><g transform="translate(6.5, 3)"><line x1="0" y1="0" x2="16.25" y2="0" class="popoverslot" data-toggle="popover" data-placement="top" data-html="true" data-boundary="window" data-content="Upstream integration pad" stroke-width="5" style="pointer-events: none;"></line></g></g></svg> ");
+*/
+
 
 .breadcrumbs {
   position: absolute;
@@ -275,7 +278,7 @@ img {
   -webkit-transform: scaleX(-1);
   transform: scaleX(-1);
 }
-
+/*
 .SO_0000699 img,
 .SO_0001236 img,
 .SO_0001237 img,
@@ -338,4 +341,5 @@ img {
 .SO_0000139 img {
   bottom: -7px;
 }
+*/
 </style>

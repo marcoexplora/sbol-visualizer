@@ -1,7 +1,7 @@
   <template>
     <div>
-      <div  v-bind:class="[item === selected ? 'selected' : '']">
-      <div class="h1 bold">
+      <div  v-bind:class="[item === selected ? 'selected' : '',showSubComponent ? 'highlighed' : '']">
+      <div class="h1">
 
         <span v-if="item.propriety.components"
               v-bind:class="[ showSubComponent ? 'open' : 'close']"
@@ -21,13 +21,14 @@
       </div>
 
       <div class="text-muted-black h2"  @click="selectByClickingOnName(item)">
-        <b>Direction:</b>
+        <span>Direction: </span>
         <span>{{ item.propriety.Direction }}</span>
         <span v-if="item.propriety.end > 0">({{item.propriety.start}}..{{ item.propriety.end }})</span>
       </div>
+
       </div>
 
-      <div v-bind:class="[showSubComponent ? 'show' : 'hide']" class="components_list">
+      <div v-bind:class="[showSubComponent ? 'show' : 'hide', item.propriety.components == visible ? 'visible':'' ]" class="components_list">
         <ul v-if="item.propriety.components" :id="item.name  + 'sub' + level" >
           <li v-for="(sub, index) in item.propriety.components" :key="index" class="item">
                 <sbol-tree-list
@@ -97,6 +98,9 @@
           eventBus.$emit("update-breackcrumbs", { item : this.item, level : this.level, wcid : this.wcid});
           eventBus.$emit("select-annotation", { annotation : item, wcid : this.wcid});
         }
+      },
+      amImuted(){
+        return this.breadcrumbs.length > level && this.showSubComponent
       }
     },
     watch: {
@@ -124,6 +128,21 @@
   };
   </script>
   <style scoped>
+
+
+  h1, .h1 {
+    padding: 8px 0 2px 0;
+    font-size: 16px
+  }
+
+  h2, .h2, .small {
+    padding: 0 0 14px 0;
+    font-size: 14px;
+  }
+.muted {
+  color : #7d7d7d;
+}
+
   .tag{
     vertical-align: sub;
     padding-left: 0.3em;
@@ -139,7 +158,7 @@
     vertical-align: revert;
   }
   .selected{
-    background: #dee5ea;
+    background: #b1b1b124;
     transition: 200ms;
   }
   .components_list.hide{
@@ -149,9 +168,13 @@
     padding: 0;
     border: 0;
   }
+  .components_list.visible {
+    border-left: 2px solid #0078b6;
+  }
+
   .components_list {
     margin: 0 0 0 0.5em;
-    border-left: 2px solid #0078b6;
+    border-left: 2px solid #e5e5e5;
   }
   ul{
     list-style: none;
