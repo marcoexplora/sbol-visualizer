@@ -1,32 +1,8 @@
-<!--
-*** Thanks for checking out the Best-README-Template. If you have a suggestion
-*** that would make this better, please fork the repo and create a pull request
-*** or simply open an issue with the tag "enhancement".
-*** Thanks again! Now go create something AMAZING! :D
-***
-***
-***
-*** To avoid retyping too much info. Do a search and replace for the following:
-*** github_username, repo_name, twitter_handle, email, project_title, project_description
--->
-
-
-
-<!-- PROJECT SHIELDS -->
-<!--
-*** I'm using markdown "reference style" links for readability.
-*** Reference links are enclosed in brackets [ ] instead of parentheses ( ).
-*** See the bottom of this document for the declaration of the reference variables
-*** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
-*** https://www.markdownguide.org/basic-syntax/#reference-style-links
--->
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
-
-
 
 
 <!-- PROJECT LOGO -->
@@ -36,26 +12,26 @@
     <img src="public/logo.png" alt="Logo" width="140" height="130">
   </a>
 
-  <h3 align="center">SBOL Web Viewer</h3>
+<h3 align="center">SBOL Web Viewer</h3>
 
   <p align="center">
    Doulix’s SBOL viewer is a <a href="https://sbolstandard.org">SBOL 2.0</a> interactive visualizer.
    It can be directly embedded in your webpage to display SBOL file and allow your visitors to navigate and interact with your latest piece of research. It’s a perfect addon for your blog, wiki or website. 
-   
-   Technically speaking this a web component that gives the possibility to include and visualise a Synthetic Biology Open Language (SBOL) sequence in any webpage using the modern web component approach. 
+
+Technically speaking this a web component that gives the possibility to include and visualise a Synthetic Biology Open Language (SBOL) sequence in any webpage using the modern web component approach.
 
 Once you add the necessary script to your page you will call Sbol Visualizer as a normal HTML node.
 </p>
  <br/>
-    
- <a href="https://github.com/doulix/sbol-web-visualizer"><strong>Explore the docs »</strong></a>
-    <br />
-    <br />
-    <a href="https://github.com/doulix/sbol-web-visualizer">View Demo</a>
-    ·
-    <a href="https://github.com/doulix/sbol-web-visualizer/issues">Report Bug</a>
-    ·
-    <a href="https://github.com/doulix/sbol-web-visualizer/issues">Request Feature</a>
+
+<a href="https://github.com/doulix/sbol-web-visualizer"><strong>Explore the docs »</strong></a>
+<br />
+<br />
+<a href="https://getstarted.doulix.com/sbol-viewer-lets-get-visual/">View Demo</a>
+·
+<a href="https://github.com/doulix/sbol-web-visualizer/issues">Report Bug</a>
+·
+<a href="https://github.com/doulix/sbol-web-visualizer/issues">Request Feature</a>
   </p>
 </p>
 
@@ -92,14 +68,10 @@ Once you add the necessary script to your page you will call Sbol Visualizer as 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-<div style="text-align:center;border: 1px solid">
- <img src="public/screenshot.png" alt="screenshot" width="80%">
+<div style="text-align:center;padding-top:3em">
+ <img src="public/sbol_viewer_demo.gif" alt="screenshot" width="90%">
 </div>
 
-<div style="padding:3em 0">
-<script src="https://cdn.jsdelivr.net/gh/doulix/sbol-web-visualizer@0.0.10c/dist/sbol-viewer.min.js"></script>
-<sbol-viewer dropafile="true"></sbol-viewer>  
-</div>
 
 ### Built With
 
@@ -114,80 +86,77 @@ To get a local copy up and running follow these simple steps.
 ### Prerequisites
 
 - [Node](https://nodejs.org/en/)
-  
+
 
 ### Installation
 
 1. Clone the repo
-   ```sh
-   git clone https://github.com/doulix/sbol-web-visualizer.git
-   ```
+```sh
+git clone https://github.com/doulix/sbol-web-visualizer.git
+```
 2. Install NPM packages
-   ```sh
-   cd sbol-web-visualizer
-   npm install
-   ```
+```sh
+cd sbol-web-visualizer
+npm install
+```
 
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-1. Run in developer mode 
+1. Run in developer mode
 
   ```sh
    npm run serve
    ```
-   and visit the page suggested by your console (i.e. http://localhost:8080/ )
-   
+and visit the page suggested by your console (i.e. http://localhost:8080/ )
+
 2. Add in your HTML page with the web component installed :
 
 
-- ```
+```
 <sbol-viewer dropafile="true"></sbol-viewer>  
 ```
-
 Sbol Web viewer  will show in your page and you will be able to interact, drop a file and rewiew
 
 
-
-- ```
+```
 <sbol-viewer  source="/BBa_C0510.xml"></sbol-viewer>  
 ```
-
 Sbol Web viewer will try to load the file in the "/BBa_C0510.xml" and display it
 
-## Compile Web Component 
+## Compile Web Component
 
-1. Run in developer mode 
+1. Run in developer mode
 
   ```sh
    npm run build-wc
    ```
-   
-  This will create a javascript file that will allow you to use the Web component in 
+
+This will create a javascript file that will allow you to use the Web component in
 
   ```sh
    cd dist
    ls
    ```
-   
+
    ```sh
    sbol-viewer.js.map	sbol-viewer.min.js.map
 	sbol-viewer.js		sbol-viewer.min.js
    ```
-   
-  Now include this files in your web project for example :
-  
-  **Note the script tag**
-  
-    ```xml
+
+Now include this files in your web project for example :
+
+**Note the script tag**
+
+ ```xml
     <html>
     <header>
-    	[...]
-		<script src="./sbol-viewer.min.js"></script> 
-	 </header>	
-	 [...]
-	</html>
-   ```
+    	...
+    <script src="./sbol-viewer.min.js"></script> 
+    </header>	
+    ...
+    </html>
+ ```
 
 _For more examples, please refer to the [Documentation](https://example.com)_
 
@@ -247,15 +216,15 @@ Also
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/github_username/repo.svg?style=for-the-badge
-[contributors-url]: https://github.com/github_username/repo/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/github_username/repo.svg?style=for-the-badge
-[forks-url]: https://github.com/github_username/repo/network/members
-[stars-shield]: https://img.shields.io/github/stars/github_username/repo.svg?style=for-the-badge
-[stars-url]: https://github.com/github_username/repo/stargazers
-[issues-shield]: https://img.shields.io/github/issues/github_username/repo.svg?style=for-the-badge
-[issues-url]: https://github.com/github_username/repo/issues
-[license-shield]: https://img.shields.io/github/license/github_username/repo.svg?style=for-the-badge
-[license-url]: https://github.com/github_username/repo/blob/master/LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/github_username
+[contributors-shield]: https://img.shields.io/github/contributors/doulix/sbol-web-visualizer.svg?style=for-the-badge
+[contributors-url]: https://github.com/doulix/sbol-web-visualizer/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/doulix/sbol-web-visualizer.svg?style=for-the-badge
+[forks-url]: https://github.com/doulix/sbol-web-visualizer/network/members
+[stars-shield]: https://img.shields.io/github/stars/doulix/sbol-web-visualizer.svg?style=for-the-badge
+[stars-url]: https://github.com/doulix/sbol-web-visualizer/stargazers
+[issues-shield]: https://img.shields.io/github/issues/doulix/sbol-web-visualizer.svg?style=for-the-badge
+[issues-url]: https://github.com/doulix/sbol-web-visualizer/issues
+[license-shield]: https://img.shields.io/github/license/doulix/sbol-web-visualizer.svg?style=for-the-badge
+[license-url]: https://github.com/doulix/sbol-web-visualizer/master/LICENSE.txt
+[product-screenshot]: images/screenshot.png
+
