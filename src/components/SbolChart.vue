@@ -1,17 +1,38 @@
 <template>
-  <div class="sbolChart" :ref="'sbolChart'" v-bind:style="{ width : graphwidth + 'px'}" >
+  <div class="sbolChart" :ref="'sbolChart'" v-bind:style="{ width : graphwidth + 'px'}">
 
-    <div style="margin: 20px auto auto auto;width: fit-content" >
-      <div
-          v-for="(item, index) in computedGlyphAnnotations"
-          ref="glyphs"
-          :class="item.class"
-          :key="index"
-          @click="detailItem(item)"
-      >
-        <div class="tooltiptext">{{ item.name }}</div>
-        <div v-if="selected === item" class="selected"></div>
-        <img :src="item.path" :id="item.index" v-bind:ref="item.index" :alt="item.propriety.sequenceOntology" @error="setAltImg" />
+    <nav class="breadcrumbs">
+        <span v-for="(bread,indexbread) in createBreadcrumbs">
+           <a class="pointer"   @click="moveByBreadcrumbs(bread,indexbread )" >
+              {{ bread.name }}
+          </a>
+          <span v-if="indexbread < createBreadcrumbs.length -1">></span>
+        </span>
+    </nav>
+
+    <div class="scrollable">
+      <div class="wrapGlyph" v-bind:style="{ background: `${lineBackground}` }">
+
+        <div v-for="(item, index) in computedGlyphAnnotations"
+             ref="glyphs"
+             :class="item.class"
+             :key="index"
+             @click="detailItem(item)">
+
+          <div v-if="!flavourMini" class="tooltiptext">{{ item.name }}</div>
+
+          <div v-if="flavourMini"
+               class="mobileHandler pointer"  >
+            <span v-if="item.propriety.components"  @click="mobileSelection(item)">+</span>
+            <div>{{ item.name }}</div>
+          </div>
+
+          <div v-if="selected == item && !flavourMini" class="selected"></div>
+
+          <img :src="item.path" :id="item.index" v-bind:ref="item.index" class="pointer"
+               :alt="item.propriety.sequenceOntology"
+               @error="setAltImg"/>
+        </div>
       </div>
     </div>
   </div>
@@ -19,23 +40,36 @@
 
 <script>
 import eventBus from "@/lib/eventBus";
+import settings from "../settings"
 
 export default {
   props: {
-    "annotations" : { type : Array },
-    "selected": { type : Object },
-    "graphwidth" : { type : Number},
-    "wcid" : { type :Number}
+    "annotations": {type: Array},
+    "selected": {type: Object},
+    "graphwidth": {type: Number},
+    "wcid": {type: Number},
+    "breadcrumbs": {type: Array},
+    "flavourMini": {type: Boolean},
+    "level" : { type: Number}
   },
   data() {
     return {
       containerWidth: 0,
       parentWidth: 0,
+      lineBackground : `url('${settings.svg_prefix}/tt.svg')`
     };
   },
   computed: {
-    computedContainerWidth() {
-      return this.containerWidth;
+    createBreadcrumbs() {
+      if (this.breadcrumbs.length > 2) {
+        const result = [{
+          name: "...",
+          class : ""
+        }]
+        return result.concat(this.breadcrumbs.slice(-2));
+      } else {
+        return this.breadcrumbs.slice(-2)
+      }
     },
     computedGlyphAnnotations() {
       if (this.annotations) {
@@ -44,10 +78,10 @@ export default {
 
           this.annotations[
               index
-              ].path = `https://vows.sbolstandard.org/glyph/${sbol}/png`;
+              ].path = `${settings.svg_prefix}/${sbol.replace("SO:", "SO_")}.svg`;
 
-          this.annotations[index].class = `${sbol.replace("SO:", "SO_")} ${
-              this.annotations[index].direction
+          this.annotations[index].class = ` ${
+              key.propriety.Direction
           } glyphs tooltip`;
 
           this.annotations[index].index = `${index}_id_${parseInt(Math.random() * 100000)}`;
@@ -56,27 +90,36 @@ export default {
       }
       return [];
     },
-    selectedElement(){
-      return this.selected.filter((tags)=>{
+    selectedElement() {
+      return this.selected.filter((tags) => {
         return tags.tag === "showDetails"
       }).element
     }
   },
   methods: {
-    amIselected(ann){ //todo: check if this is legacy
+    moveByBreadcrumbs(item,_level){
+      if(typeof _level !== 'undefined' ){
+        if(item.name != "..."){
+            eventBus.$emit("select-annotation", { annotation : item, wcid : this.wcid});
+            eventBus.$emit("update-breackcrumbs", { item : item , level : _level -1 , wcid : this.wcid});
+        }
+      }else{
+        eventBus.$emit("mobile-expanse", { item : item, wcid : this.wcid});
+      }
+    },
+    mobileSelection(item){
+        eventBus.$emit("mobile-expanse", { item : item, wcid : this.wcid});
+    },
+    amIselected(ann) { //todo: check if this is legacy
       this.selectedElement() === ann;
     },
     detailItem(ann) {
-      eventBus.$emit("select-annotation", { annotation : ann, wcid : this.wcid});
-      //  eventBus.$emit("set-visible",{ annotations : annotations, wcid : this.wcid})
-      //   eventBus.$emit("select-annotation", { annotation : ann, wcid : this.wcid});
-
-
+      eventBus.$emit("select-annotation", {annotation: ann, wcid: this.wcid});
     },
     selectedAnnotation: function (ann) {
-      if(typeof ann != 'undefined' && ann != null){
+      if (typeof ann != 'undefined' && ann != null) {
         setTimeout(() => {
-          if(typeof this.$refs[ann.index] != 'undefined') {
+          if (typeof this.$refs[ann.index] != 'undefined' && typeof this.$refs[ann.index][0] != 'undefined') {
             this.$refs[ann.index][0].scrollIntoView({
               behavior: 'smooth',
               block: "nearest",
@@ -84,21 +127,28 @@ export default {
             });
           }
         }, 100);
-
       }
     },
     setAltImg(event) {
-      event.target.src = "https://vows.sbolstandard.org/glyph/SO:0000313/png";
+      event.target.src = `${settings.svg_prefix}/SO_0000110.svg`;  //SO_0000110
     },
-    setWideth(){
-      return `width:${graphwidth}px`
+    setWideth() {
+      return `width:${this.graphwidth}px`
     }
   },
   watch: {
+    breadcrumbs: {
+      immediate: true,
+      handler: function (n, o) {
+        if (n != null) {
+          //this.showSubComponent = this.breadcrumbs[this.level + 1] === this.item;
+        }
+      }
+    },
     selected: {
       immediate: true,
-      handler: function(n, o) {
-        if(n != null){
+      handler: function (n, o) {
+        if (n != null) {
           this.selectedAnnotation(n);
         }
       }
@@ -109,37 +159,63 @@ export default {
 
 <style scoped>
 .sbolChart {
-  height:142px;
-  padding: 1em;
+  height: 142px;
+  padding: 2em 0 0 0;
   white-space: nowrap;
-  overflow-x: scroll;
-  overflow-y: hidden;
-  border: 1px solid rgba(0, 0, 0, 0.15);
+  /*border: 1px solid rgba(0, 0, 0, 0.15);*/
+  background-color: #fff;
   border-radius: 5px 5px 0 0;
+  position: relative;
+}
+
+.mobileHandler {
+  text-align: center;
+  font-size: 0.72em;
+  margin-top: -25px;
+}
+
+.mobileHandler span,.blue {
+  color: #0078b6
+}
+
+.mobileHandler div {
+}
+
+.scrollable {
+  padding: 0 20px;
+  height: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.breadcrumbs span {
+  padding: 0 5px 0 0;
+  font-size: 16px;
 }
 
 div.glyphs {
   position: relative;
 }
+
 .glyphs {
   /* border: 1px solid red; */
   width: 75px;
   height: 75px;
 }
+
 img {
   width: 75px;
+  /* border: 1px solid #202832; */
   /* border-bottom: 2px solid green; */
-  position: absolute;
-  bottom: 0;
 }
 
-.RV img{
+.RV img {
   /*transform: scaleX(-1);*/
   transform: rotate(180deg);
 }
 
 .glyphs .selected {
-  background: #dee5ea;
+  background: #b1b1b124;
   width: 75px;
   height: 9em;
   position: absolute;
@@ -169,7 +245,6 @@ img {
   border: solid 1px #e5e5e5;
   position: absolute;
   z-index: 1;
-
   word-wrap: break-word;
   font-size: 0.8em;
 }
@@ -179,10 +254,31 @@ img {
   transition: opacity 0.5s;
 }
 
+.wrapGlyph {
+  margin: 20px auto auto;
+  width: fit-content;
+}
+/*
+  background-image: url("data:image/svg+xml;utf8, <svg  xmlns='http://www.w3.org/2000/svg' height="45" width="300"><g transform="translate(0,0)"><g transform="translate(0, 22.5)"><path class="ruler" d="M0,0 L300,0" opacity="1" style="fill: none; stroke-width: 3.25;"></path></g></g><g transform="translate(65.5,0)"><g transform="translate(6.5, 3)"><line x1="0" y1="0" x2="16.25" y2="0" class="popoverslot" data-toggle="popover" data-placement="top" data-html="true" data-boundary="window" data-content="Upstream integration pad" stroke-width="5" style="pointer-events: none;"></line></g></g></svg> ");
+*/
+
+
+.breadcrumbs {
+  position: absolute;
+  top: 0;
+  left: 10px;
+  padding: 5px 10px;
+
+  z-index: 1;
+  background: #ffffff66;
+  border-radius: 20px;
+}
+
 .BW {
   -webkit-transform: scaleX(-1);
   transform: scaleX(-1);
 }
+/*
 .SO_0000699 img,
 .SO_0001236 img,
 .SO_0001237 img,
@@ -210,17 +306,20 @@ img {
 .SO_0000110 img {
   bottom: 10px;
 }
+
 .SO_0001691 img,
 .SO_0000830 img,
 .SO_0002211 img {
   bottom: calc(-35%);
 }
+
 .SO_0000553 img,
 .SO_0000316 img,
 .SO_0001975 img,
 .SO_0001976 img {
   bottom: calc(-18%);
 }
+
 .SO_0000316 img,
 .SO_0000188 img,
 .SO_0000296 img,
@@ -228,15 +327,19 @@ img {
 .SO_0000839 img {
   bottom: calc(-15%);
 }
+
 .SO_0005850 img {
   bottom: calc(-50% + 25px);
 }
+
 .SO_0000057 img,
 .SO_0000409 img,
 .SO_0000299 img {
   bottom: -11px;
 }
+
 .SO_0000139 img {
   bottom: -7px;
 }
+*/
 </style>

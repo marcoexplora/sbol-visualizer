@@ -14,123 +14,46 @@
     <b>We're sorry but sbolviewer doesn't work properly without JavaScript enabled. Please enable it to continue.</b>
   </noscript>
 
-  <div class="p3">
-    <sbol-viewer dropafile="true">
+
+
+  <sbol-viewer dropafile="true">
+  </sbol-viewer>
+
+
+  <!--
+
+
+  <div class="">
+    <sbol-viewer  source="/SBOL_examples/References/visbolXML.xml">
       </sbol-viewer>
   </div>
 
 
-<div  class="p3">
-    ./SBOL_examples/BBa_K1080006.xml
-    <sbol-viewer source="./SBOL_examples/BBa_K1080006.xml"></sbol-viewer>
-</div>
 
-  <div  class="p3">
-      <sbol-viewer source="./SBOL_examples/References/BBa_K498000.xml"></sbol-viewer>
+    <sbol-viewer dropafile="true">
+  </sbol-viewer>
+
+  <div style="width:400px;padding:10px 0" class="">
+      <h2>Drop a file</h2>
+      <sbol-viewer dropafile="true">
+      </sbol-viewer>
   </div>
 
 
-    BBa_K1080006_reversed.xml
 
-    <div  class="p3">
-        <sbol-viewer source="./SBOL_examples/References/BBa_K1807015.xml"></sbol-viewer>
-    </div>
-
-  <!--
-
-  <section>
-    <h2>Load data inline </h2>
-    <pre>
-      < sbol-viewer format="json" data='{  Json data }'></ sbol-viewer>
-    </pre>
-    <sbol-viewer format="json" data='{
-      "pk": 3911,
-      "friendly_id": "M3GC5GR",
-      "num_collaborators": null,
-      "name": "LacZalpha-pUC18-IIs sites up (SEVA# - - 3X)",
-      "sequence":"GAAGCGGAAGAGCGCCCAATACGCAAACCGCCTCTCCCCGCGCGTTGGCCGATTCATTAATGCAGCTGGCACGACAGGTTTCCCGACTGGAAAGCGGGCAGTGAGCGCAACGCAATTAATGTGAGTTAGCTCACTCATTAGGCACCCCAGGCTTTACACTTTATGCTTCCGGCTCGTATGTTGTGTGGAATTGTGAGCGGATAACAATTTCACACAGGAAACAGCTATGACCATGATTACGAATTCGAGCTCGGTACCCGGTCTCAACCCACCTGCGATGACCCGTCTCTACCCGAAGACTTACCCGATATCGCGATTGTCTTCGCGACGAGACGCGACATCGCAGGTGCGACGAGACCAAGGGGATCCTCTAGAGTCGACCTGCAGGCATGCAAGCTTGGCACTGGCCGTCGTTTTACAACGTCGTGACTGGGAAAACCCTGGCGTTACCCAACTTAATCGCCTTGCAGCACATCCCCCTTTCGCCAGCTGGCGTAATAGCGAAGAGGCCCGCACCGATCGCCCTTCCCAACAGTTGCGCAGCCTGAATGGCGAATGGCGCCTGATGCGGTATTTTCTCCTTACGCATCTGTGCGGTATTTCACACCGCATATGATGCACTCTCAGTACAATCTGCTCTGATGCCGCATAGTTAAGCCAGCCCCGACACCCGCCAACACCCGCTGA",
-      "public": true,
-      "obsolete": false,
-      "annotations":[
-          {"pk":22354,"start":195,"end":219,"direction":0,"name":"F24 primer bind 1","notes":"","role_id":29, "SBOL": "SO:0000031"},
-          {"pk":31032,"start":226,"end":259,"direction":1,"name":"lacZa*_18_interval_1 2","notes":"","role_id":37, "SBOL": "SO:0001688"},
-          {"pk":31034,"start":259,"end":306,"direction":1,"name":"MIIs B2 (accc) 3","notes":"","role_id":27, "SBOL": "SO:0001727"},
-          {"pk":31036,"start":361,"end":652,"direction":1,"name":"lacZa*_18_interval_2 4","notes":"","role_id":37, "SBOL": "SO:0001729"},
-          {"pk":31037,"start":613,"end":616,"direction":1,"name":"Premature STOP 5","notes":"","role_id":14, "SBOL": "SO:0001737"},
-          {"pk":31038,"start":422,"end":446,"direction":2,"name":"R24 primer bind 6","notes":"","role_id":29, "SBOL": "SO:0001727"},
-          {"pk":31039,"start":312,"end":361,"direction":1,"name":"MIIs C1 (gcga) 7","notes":"Insertion","role_id":27, "SBOL": "SO:0001729"}
-      ]}'>
-  </section>
-  -->
- <div class="p3 ">
-      <h2>Load XML external file (test_from_synbioks_org_canvas)</h2>
-
-        <sbol-viewer>
-        </sbol-viewer>
- </div>
-<!--
-  <div class="p3">
-
-              <sbol-viewer format="json" data='{
-        "pk": 3911,
-        "friendly_id": "M3GC5GR",
-        "num_collaborators": null,
-        "name": "LacZalpha-pUC18-IIs sites up (SEVA# - - 3X)",
-        "sequence":"GAAGCGGAAGAGCGCCCAATACGCAAACCGCCTCTCCCCGCGCGTTGGCCGATTCATTAATGCAGCTGGCACGACAGGTTTCCCGACTGGAAAGCGGGCAGTGAGCGCAACGCAATTAATGTGAGTTAGCTCACTCATTAGGCACCCCAGGCTTTACACTTTATGCTTCCGGCTCGTATGTTGTGTGGAATTGTGAGCGGATAACAATTTCACACAGGAAACAGCTATGACCATGATTACGAATTCGAGCTCGGTACCCGGTCTCAACCCACCTGCGATGACCCGTCTCTACCCGAAGACTTACCCGATATCGCGATTGTCTTCGCGACGAGACGCGACATCGCAGGTGCGACGAGACCAAGGGGATCCTCTAGAGTCGACCTGCAGGCATGCAAGCTTGGCACTGGCCGTCGTTTTACAACGTCGTGACTGGGAAAACCCTGGCGTTACCCAACTTAATCGCCTTGCAGCACATCCCCCTTTCGCCAGCTGGCGTAATAGCGAAGAGGCCCGCACCGATCGCCCTTCCCAACAGTTGCGCAGCCTGAATGGCGAATGGCGCCTGATGCGGTATTTTCTCCTTACGCATCTGTGCGGTATTTCACACCGCATATGATGCACTCTCAGTACAATCTGCTCTGATGCCGCATAGTTAAGCCAGCCCCGACACCCGCCAACACCCGCTGA",
-        "public": true,
-        "obsolete": false,
-        "annotations":[
-            {"pk":22354,"start":195,"end":219,"direction":0,"name":"F24 primer bind 1","notes":"","role_id":29, "SBOL": "SO:0000031"},
-            {"pk":31032,"start":226,"end":259,"direction":1,"name":"lacZa*_18_interval_1 2","notes":"","role_id":37, "SBOL": "SO:0001688"},
-            {"pk":31034,"start":259,"end":306,"direction":1,"name":"MIIs B2 (accc) 3","notes":"","role_id":27, "SBOL": "SO:0001727"},
-            {"pk":31036,"start":361,"end":652,"direction":1,"name":"lacZa*_18_interval_2 4","notes":"","role_id":37, "SBOL": "SO:0001729"},
-            {"pk":31037,"start":613,"end":616,"direction":1,"name":"Premature STOP 5","notes":"","role_id":14, "SBOL": "SO:0001737"},
-            {"pk":31038,"start":422,"end":446,"direction":2,"name":"R24 primer bind 6","notes":"","role_id":29, "SBOL": "SO:0001727"},
-            {"pk":31039,"start":312,"end":361,"direction":1,"name":"MIIs C1 (gcga) 7","notes":"Insertion","role_id":27, "SBOL": "SO:0001729"}
-        ]}'></sbol-viewer>
-    </div>
+  <div style="width:400px;padding:10px 0" class="">
+      <h2>Fix width</h2>
+      <sbol-viewer source="/SBOL_examples/References/BBa_C0510.xml">
+      </sbol-viewer>
+  </div>
 -->
-  <div class="p3">
-          <h2>BBa_K1080006.xml</h2>
-      <sbol-viewer source="./SBOL_examples/BBa_K1080006.xml"></sbol-viewer>
-  </div>
 
-  <div class="p3">
-          <h2>BBa_K1080012</h2>
-      <sbol-viewer source="./SBOL_examples/BBa_K1080012.xml"></sbol-viewer>
-  </div>
-
-
-
-  <div class="p3">
-  <h2>Complexity level medium-high: https://synbiohub.org/public/igem/BBa_K1807015/1</h2>
-      <sbol-viewer source="./SBOL_examples/References/BBa_K1807015.xml"></sbol-viewer>
-  </div>
-
-  <div class="p3">
-          <h2>Complexity level medium: https://synbiohub.org/public/igem/BBa_K1807000/1</h2>
-          <sbol-viewer source="./SBOL_examples/References/BBa_K1807000.xml"></sbol-viewer>
-  </div>
-
-  <div class="p3">
-          <h2>Complexity level very high: https://synbiohub.org/public/igem/BBa_C0510/1</h2>
-          <sbol-viewer source="./SBOL_examples/References/BBa_K1807015.xml"></sbol-viewer>
-  </div>
-
-
-  <div class="p3">
-          <h2>Complexity level low: https://synbiohub.org/public/igem/BBa_I20282/1</h2>
-
-      <sbol-viewer source="./SBOL_examples/References/BBa_I20282.xml"></sbol-viewer>
-
-  </div>-->
-          <!-- <h2>Complexity level low: https://synbiohub.org/public/igem/BBa_I10500/1</h2>
-
-          <sbol-viewer source="./SBOL_examples/References/BBa_I20282.xml"></sbol-viewer> -->
-
-    <style>
+  <style>
         .p3{
             padding: 30px 10px;
+        }
+        body {
+            background: #4d4d4c;
         }
     </style>
 

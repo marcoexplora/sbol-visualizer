@@ -4,8 +4,11 @@ import getDisplayList from "./getDisplayList"
 
 const xmlHandler = {
     pupulateHeader: (doc)=> {
+
+        //remove this before go to production
+        window.sboljs_output = doc;
+
         const mainComponetDefinition = doc.componentDefinitions[0];
-        const annotations =  mainComponetDefinition._annotations
         return {
             partID: mainComponetDefinition._displayId,
             name: mainComponetDefinition._name,
@@ -36,21 +39,6 @@ const xmlHandler = {
             return  visbolDisplayListElements.map(
                 (component, index) => {
 
-                    /*
-                            id: "https://synbiohub.org/public/igem/BBa_I20282/annotation1962295/1"
-                            name: "BBa_B0034"
-                            propriety:
-                            Description: "RBS (Elowitz 1999) -- defines RBS efficiency"
-                            Identifier: "BBa_B0034"
-                            Name: "BBa_B0034"
-                            Orientation: "inline"
-                            Role: "ribosome_entry_site"
-                            element: "Component"
-                            end: 12
-                            iGEM Part Type: "RBS"
-                            sequenceOntology: "SO:0000139"
-                            start: 1
-                     */
 
                     return {
                         log: "1a",
@@ -60,27 +48,10 @@ const xmlHandler = {
                         pk: `${index}`,
                         sbolDescription: component.Description,
                         mutableDescription: '',
-                       // components: component.propriety.components
                     };
                 }
             )
         }
-
-        /*
-            const dataLayerSingleComponent = {
-                SBOL: xmlHandler.extractSO(role),
-                direction: direction,
-                start: xmlHandler.xmlFind(component, "sbol:start"),
-                end: xmlHandler.xmlFind(component, "sbol:end"),
-                index: xmlHandler.extractIndexVal(sbolIndex),
-                name: sbolTitle,
-                notes: "",
-                pk: xmlHandler.extractIndexVal(sbolIndex),
-                role_id: 0,
-                sbolDescription :sbolDescription,
-                mutableDescription : mutableDescription
-            };
-        */
 
     },
     convertXml: (xml) => {
@@ -88,10 +59,19 @@ const xmlHandler = {
             {
                 const sbolDataLayer = {}
                 SBOLDocument.loadRDF(xml, function (err, doc) {
-                    doc.serializeJSON();
-                    sbolDataLayer.header = xmlHandler.pupulateHeader(doc);
-                    sbolDataLayer.annotations = [];
-                    sbolDataLayer.annotations = xmlHandler.populateAnnotations(doc);
+
+                    try{
+                        sbolDataLayer.header = xmlHandler.pupulateHeader(doc);
+                        sbolDataLayer.annotations = [];
+                        sbolDataLayer.annotations = xmlHandler.populateAnnotations(doc);
+
+                    }catch (error){
+                        console.log(error)
+                        reject("SbolJ has triggered and error")
+                    }
+
+
+
 
                     // todo: remove this
                     window.sbolDataLayer = sbolDataLayer
