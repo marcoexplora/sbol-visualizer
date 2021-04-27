@@ -1,0 +1,15 @@
+dist/sbol-viewer.js*
+dist/*.html
+src
+tests
+.idea
+public/SBOL_examples
+node_moduels
+public/*.png
+public/*.png
+public/*.html
+.eslintrc.json
+babel.config.js
+package-lock.json
+vue.config.js
+sbolviewer-v*.tgz

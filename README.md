@@ -1,77 +1,23 @@
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![MIT License][license-shield]][license-url]
+<h1>SBOL Web Viewer</h1>
+
+Doulix’s SBOL viewer is a [SBOL 2.0](https://sbolstandard.org) interactive visualizer.
+It can be directly embedded in your webpage to display SBOL file and allow your visitors to navigate and interact with your latest piece of research. It’s a perfect addon for your blog, wiki or website.
+
+Technically speaking this a web component that gives the possibility to include and visualize a Synthetic Biology Open Language (SBOL) sequence in any webpage using the modern web component approach.
+
+Once you add the necessary script to your page you could use Sbol Visualizer as a normal HTML node.
 
 
-<!-- PROJECT LOGO -->
-<br />
-<p align="center">
-  <a href="https://github.com/doulix/sbol-web-visualizer">
-    <img src="public/logo.png" alt="Logo" width="140" height="130">
-  </a>
+[Explore the docs »](https://www.npmjs.com/package/sbolviewer)
 
-<h3 align="center">SBOL Web Viewer</h3>
+## Table of Contents
+1. [Built Wit](#built-with)
+2. [Getting Started](#getting-started)
+3. [Installation for Dev](#installation-for-dev)
+4. [License](#license)
+5. [Acknowledgements](#acknowledgements)
 
-  <p align="center">
-   Doulix’s SBOL viewer is a <a href="https://sbolstandard.org">SBOL 2.0</a> interactive visualizer.
-   It can be directly embedded in your webpage to display SBOL file and allow your visitors to navigate and interact with your latest piece of research. It’s a perfect addon for your blog, wiki or website. 
-
-Technically speaking this a web component that gives the possibility to include and visualise a Synthetic Biology Open Language (SBOL) sequence in any webpage using the modern web component approach.
-
-Once you add the necessary script to your page you will call Sbol Visualizer as a normal HTML node.
-</p>
- <br/>
-
-<a href="https://github.com/doulix/sbol-web-visualizer"><strong>Explore the docs »</strong></a>
-<br />
-<br />
-<a href="https://getstarted.doulix.com/sbol-viewer-lets-get-visual/">View Demo</a>
-·
-<a href="https://github.com/doulix/sbol-web-visualizer/issues">Report Bug</a>
-·
-<a href="https://github.com/doulix/sbol-web-visualizer/issues">Request Feature</a>
-  </p>
-</p>
-
-
-
-<!-- TABLE OF CONTENTS -->
-<details open="open">
-  <summary><h2 style="display: inline-block">Table of Contents</h2></summary>
-  <ol>
-    <li>
-      <a href="#about-the-project">About The Project</a>
-      <ul>
-        <li><a href="#built-with">Built With</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
-    </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgements">Acknowledgements</a></li>
-  </ol>
-</details>
-
-
-
-<!-- ABOUT THE PROJECT -->
-## About The Project
-
-<div style="text-align:center;padding-top:3em">
- <img src="public/sbol_viewer_demo.gif" alt="screenshot" width="90%">
-</div>
-
-
-### Built With
+## Built With
 
 * [VueJS](https://vuejs.org)
 * [SbolJS](https://github.com/doulix/sbol-web-visualizer)
@@ -79,127 +25,74 @@ Once you add the necessary script to your page you will call Sbol Visualizer as 
 <!-- GETTING STARTED -->
 ## Getting Started
 
-To get a local copy up and running follow these simple steps.
+- Register the web component by adding the follow script tag on your HTML header element:
 
-### Prerequisites
+  ```
+  <script src="https://cdn.jsdelivr.net/npm/sbolviewer@0.0.11-b/dist/sbol-	viewer.min.js"></script>
+  ```
+  in your web page.
+
+- Add in your HTML page with the web component installed:
+
+  ```
+  <sbol-viewer dropafile="true"></sbol-viewer>  
+  ```
+- Sbol Web viewer  will show in your page and you will be able to interact, drop a file and review
+
+  ```
+  <sbol-viewer  source="/BBa_C0510.xml"></sbol-viewer>  
+  ```
+Sbol Web viewer will try to load the file hosted in the "/BBa_C0510.xml" and display it
+
+## Installation for Dev
+
+#### Prerequisites
 
 - [Node](https://nodejs.org/en/)
 
-
-### Installation
-
-1. Clone the repo
-```sh
-git clone https://github.com/doulix/sbol-web-visualizer.git
-```
-2. Install NPM packages
-```sh
-cd sbol-web-visualizer
-npm install
-```
-
-<!-- USAGE EXAMPLES -->
-## Usage
-
-1. Run in developer mode
-
-  ```sh
-   npm run serve
-   ```
-and visit the page suggested by your console (i.e. http://localhost:8080/ )
-
-2. Add in your HTML page with the web component installed :
-
+Install sbolviewer as library:
 
 ```
-<sbol-viewer dropafile="true"></sbol-viewer>  
+npm install sbolviewer 
 ```
-Sbol Web viewer  will show in your page and you will be able to interact, drop a file and rewiew
-
-
-```
-<sbol-viewer  source="/BBa_C0510.xml"></sbol-viewer>  
-```
-Sbol Web viewer will try to load the file in the "/BBa_C0510.xml" and display it
-
-## Compile Web Component
-
-1. Run in developer mode
-
-  ```sh
-   npm run build-wc
-   ```
-
-This will create a javascript file that will allow you to use the Web component in
-
-  ```sh
-   cd dist
-   ls
-   ```
-
-   ```sh
-   sbol-viewer.js.map	sbol-viewer.min.js.map
-	sbol-viewer.js		sbol-viewer.min.js
-   ```
-
-Now include this files in your web project for example :
-
-**Note the script tag**
-
- ```xml
-    <html>
-    <header>
-    	...
-    <script src="./sbol-viewer.min.js"></script> 
-    </header>	
-    ...
-    </html>
- ```
-
-_For more examples, please refer to the [Documentation](https://example.com)_
-
-
-
-<!-- ROADMAP -->
-## Roadmap
-
-See the [open issues](https://github.com/doulix/sbol-web-visualizer/issues) for a list of proposed features (and known issues).
-
-
-
-<!-- CONTRIBUTING -->
-## Contributing
-
-Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
-
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
 
 
 <!-- LICENSE -->
 ## License
 
-Distributed under the BSD License. See `LICENSE` for more information.
+Copyright 2021 Explora Biotech SRL. All rights reserved.
 
+Redistribution and use in source and binary forms, with or without modification,
+are permitted provided that the following conditions are met:
 
+1. Redistributions of source code must retain the above copyright notice, this list
+   of conditions and the following disclaimer.
 
-<!-- CONTACT -->
-## Contact
+2. Redistributions in binary form must reproduce the above copyright notice,
+   this list of conditions and the following disclaimer in the documentation and/or
+   other materials provided with the distribution.
 
-Project Link: [https://github.com/doulix/sbol-web-visualizer](https://github.com/doulix/sbol-web-visualizer)
+3. Neither the name of the copyright holder nor the names of its contributors may
+   be used to endorse or promote products derived from this software without specific
+   prior written permission.
 
-
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
+INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY
+OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 <!-- ACKNOWLEDGEMENTS -->
 ## Acknowledgements
 
 As we use to say at Doulix, there is no fun without funding. DDL was partially supported by Bioroboost (Grant Agreement no 814650), MA was partially funded by the EU project SYNBIO4FLAV (Grant Agreement no 814650) and SKF and AF was supported by MIAMI (Grant Agreement 814645).
 
-We are immensely thankful to James McLaughlin for visbol-js importer that we slighly adapted from: https://github.com/udp/visbol-js.
+We are immensely thankful to James McLaughlin for visbol-js importer that we slightly  adapted from: https://github.com/udp/visbol-js.
 
 We would like to thank Prof. Chris J. Myers (University of Utah & Synbiohub) and Jacob Beal (Raytheon BBN Technologies & SBOL Industrial consortium) for help and support.
 
@@ -208,21 +101,4 @@ Also
 * [SBOL Comunity](https://sbolstandard.org)
 * [Symbiohub](https://synbiohub.org/)
 
-
-
-
-
-<!-- MARKDOWN LINKS & IMAGES -->
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/doulix/sbol-web-visualizer.svg?style=for-the-badge
-[contributors-url]: https://github.com/doulix/sbol-web-visualizer/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/doulix/sbol-web-visualizer.svg?style=for-the-badge
-[forks-url]: https://github.com/doulix/sbol-web-visualizer/network/members
-[stars-shield]: https://img.shields.io/github/stars/doulix/sbol-web-visualizer.svg?style=for-the-badge
-[stars-url]: https://github.com/doulix/sbol-web-visualizer/stargazers
-[issues-shield]: https://img.shields.io/github/issues/doulix/sbol-web-visualizer.svg?style=for-the-badge
-[issues-url]: https://github.com/doulix/sbol-web-visualizer/issues
-[license-shield]: https://img.shields.io/github/license/doulix/sbol-web-visualizer.svg?style=for-the-badge
-[license-url]: https://github.com/doulix/sbol-web-visualizer/master/LICENSE.txt
-[product-screenshot]: images/screenshot.png
 
