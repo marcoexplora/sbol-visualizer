@@ -3,7 +3,7 @@
 .idea
 node_modules/
 /public
-
+dist
 # local settings
 package-lock.json
 
