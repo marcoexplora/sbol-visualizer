@@ -1,7 +1,6 @@
 {
   "name": "sbolviewer",
   "version": "0.0.12",
-  "private": true,
   "license" : "BSD-3-Clause",
   "contributors": [
     {
