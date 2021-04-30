@@ -13,3 +13,6 @@ babel.config.js
 package-lock.json
 vue.config.js
 sbolviewer-v*.tgz
+public/demo.json
+public/favicon.ico
+public/sbol_viewer_demo.gif
