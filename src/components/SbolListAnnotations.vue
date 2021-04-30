@@ -90,8 +90,6 @@ export default {
   methods: {
     tagMe(){
       return this.annotations.filter( (e) => {
-        console.log( e.propriety.tag )
-        console.log( typeof(e.propriety.tag) != 'undefined')
         return typeof(e.propriety.tag) !== 'undefined' && e.propriety.tag !== "" } ).length > 0
     },
     accordionUpdate(){

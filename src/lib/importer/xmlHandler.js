@@ -66,15 +66,8 @@ const xmlHandler = {
                         sbolDataLayer.annotations = xmlHandler.populateAnnotations(doc);
 
                     }catch (error){
-                        console.log(error)
                         reject("SbolJ has triggered and error")
                     }
-
-
-
-
-                    // todo: remove this
-                    window.sbolDataLayer = sbolDataLayer
 
                     resolve(sbolDataLayer)
                 });

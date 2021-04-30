@@ -194,14 +194,6 @@ export default {
           this.loadXml(data);
         }
 
-        //todo: remove before production
-        //this.sbolDataLayer.__anns = this.sbolDataLayer.annotations;
-        //console.log('created sbolDataLayer list as debug variables')
-        window.sbolDataLayer = this.sbolDataLayer
-        window.list = this.$refs
-        window.search = this.Search
-        window.cleanSearch = this.cleanTag
-
       } catch (error) {
 
         this.errors = true;
@@ -331,7 +323,6 @@ export default {
 
     eventBus.$on("search", (_event) => {
       if (_event.wcid === this.id) {
-        //console.log(`this.updateRender ${this.updateRender}`)
         this.cleanTag(this.sbolDataLayer.annotations);
 
         if (/^\d+$/.test(_event.searchString)) {
@@ -475,7 +466,6 @@ export default {
 .SBOLcontainer {
   display: grid;
   grid-template-columns: 1fr 2fr;
-  /* grid-template-rows: auto 1fr;*/
   height: 680px;
 }
 
@@ -522,12 +512,10 @@ nav {
     text-decoration: none;
   }
 
-  /* super */
   .va-super {
     vertical-align: super;
   }
 
-  /* spacing */
   .p1, .p-1 {
     padding: 5px
   }
