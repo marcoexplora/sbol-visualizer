@@ -28,7 +28,7 @@ Once you add the necessary script to your page you could use Sbol Visualizer as 
 - Register the web component by adding the follow script tag on your HTML header element:
 
   ```
-  <script src="https://cdn.jsdelivr.net/npm/sbolviewer@0.0.11-b/dist/sbol-	viewer.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sbolviewer@0.0.12/dist/sbol-viewer.min.js"></script>
   ```
   in your web page.
 
