@@ -25,7 +25,5 @@ module.exports = {
         return options
       })
   },
-  css: {
-    requireModuleExtension: false,
-  }
+
 }
