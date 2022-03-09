@@ -219,13 +219,15 @@ function getDisplayListSegment(componentDefinition, config, share) {
                     if (component.definition.components) propriety['components'] = getDisplayListSegment(component.definition).sequence
                     //if (component.definition.sequences) propriety['Sequences'] = component.definition.sequences
                 } else {
-                    uri = component.definition.toString()
+                    if(typeof component.definition != 'undefined'){ // patch  component.definition is not defined
+                        uri = component.definition.toString()
 
-                    if (config && uri.startsWith(config.get('databasePrefix'))) {
-                        if (uri.startsWith(config.get('databasePrefix') + 'user/') && share) {
-                            uri = '/' + uri.replace(config.get('databasePrefix'), '') + '/' + sha1('synbiohub_' + sha1(uri) + config.get('shareLinkSalt')) + '/share'
-                        } else {
-                            uri = '/' + uri.replace(config.get('databasePrefix'), '')
+                        if (config && uri.startsWith(config.get('databasePrefix'))) {
+                            if (uri.startsWith(config.get('databasePrefix') + 'user/') && share) {
+                                uri = '/' + uri.replace(config.get('databasePrefix'), '') + '/' + sha1('synbiohub_' + sha1(uri) + config.get('shareLinkSalt')) + '/share'
+                            } else {
+                                uri = '/' + uri.replace(config.get('databasePrefix'), '')
+                            }
                         }
                     }
                 }
