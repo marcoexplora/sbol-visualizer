@@ -40,7 +40,6 @@ export default {
   },
   methods: {},
   mounted: function() {
-
     this.title = settings.messages.error_page.title;
     this.message = settings.messages.error_page.message;
   }

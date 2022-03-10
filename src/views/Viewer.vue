@@ -59,7 +59,8 @@
               :wcid="id"
               :flavourMini="flavourMini"
           />
-          <sbol-detail v-if="!flavourMini" :annotation="selected" v-bind:tags="this.tags"/>
+          <sbol-detail v-if="!flavourMini" :annotation="selected" :sequence="this.sbolDataLayer.sequence" v-bind:tags="this.tags"/>
+          <sbol-sequence v-if="!flavourMini" :sequence="this.sbolDataLayer.sequence"  :selected="selected" ></sbol-sequence>
         </div>
 
       </div>
@@ -80,6 +81,7 @@ import SbolListAnnotations from "@/components/SbolListAnnotations";
 import SbolChart from "@/components/SbolChart";
 import SbolDetail from "@/components/SbolDetail";
 import SbolFooter from "@/components/SbolFooter";
+import SbolSequence from "@/components/SbolSequence";
 
 import CloseIcon from "@/components/SbolIconX"
 
@@ -101,6 +103,7 @@ export default {
       sbolDataLayer: {
         header: {},
         annotations: [],
+        sequence : "",
       },
       visible: {
         breadcrumbs: []
@@ -300,6 +303,7 @@ export default {
 
   },
   components: {
+    SbolSequence,
     SbolBoxArrowUp,
     SbolChart,
     SbolDetail,

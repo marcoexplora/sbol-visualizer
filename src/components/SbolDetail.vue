@@ -47,8 +47,11 @@
           <li v-if="this.detail.mutableDescription">
             <p class="m0"><span class="bold">Mutable Description: </span> {{ this.detail.mutableDescription }}</p>
           </li>
-
-
+<!--          {{this.detail.propriety.start}}
+          {{this.detail.propriety.end}}
+          <div class="sequence">
+          {{this.sequence}}
+          </div>-->
           <!--
           <li class="comingsoon">
             <h2>Where is my sequence?</h2>
@@ -66,7 +69,7 @@
 import SbolDetailInitialPage from "@/components/SbolDetailInitialPage";
 
 export default {
-  props: ["annotation","tags"],
+  props: ["annotation","tags","sequence"],
   data() {
     return {
       detail: {}
@@ -95,10 +98,16 @@ export default {
   border-radius: 5px;
   text-align: center;
 }
+.sequence{
+  word-break: break-word;
+  text-transform: uppercase;
+  line-height: 2em;
+  padding: 2em 0;
+}
 .detailAnnotation {
   margin-top: 5px;
   background-color: #fff;
-  height: 490px;
+  height: 290px;
   border: 1px solid rgba(0, 0, 0, 0.15);
   border-radius: 5px;
   word-break: normal;
