@@ -1,7 +1,7 @@
 <template>
-  <div class="sbolSequence" :ref="'sequence'" >
+  <div class="sbolSequence" :ref="'sequence'">
     <div class="scrollable" :start="this.getStart()" :end="this.getEnd()">
-      <div class="sequence" v-html="this.showSelection(sequence,this.getStart(),this.getEnd())" ></div>
+      <div class="sequence" v-html="this.showSelection(sequence,this.getStart(),this.getEnd())"></div>
     </div>
   </div>
 </template>
@@ -17,19 +17,35 @@ export default {
   },
   methods: {
     getStart() {
-      if(this.selected.propriety){
+      if (this.selected.propriety) {
         return parseInt(this.selected.propriety.start)
       }
       return 0
     },
     getEnd() {
-      if(this.selected.propriety) {
+      if (this.selected.propriety) {
         return parseInt(this.selected.propriety.end)
       }
       return 0
     },
-    showSelection(sequence, start, end){
-      return `${sequence.slice(0,start -1)}<span style="background: #b1b1b124;color:red">${sequence.slice(start,end)}</span>${sequence.slice(end)}`
+    showSelection(sequence, start, end) {
+
+      setTimeout(() => {
+        this.$refs.sequence.querySelector('#seqSelection').scrollIntoView({
+          behavior: 'smooth',
+          block: "nearest",
+          inline: "center",
+        });
+      }, 100);
+
+      if(start === end && start > 0){
+        start = start-1;
+      }
+      console.log(`
+      start ${start}
+      end ${end}
+      `)
+      return `${sequence.slice(0, start - 1)}<span id="seqSelection" style="background: #b1b1b124;color:red">${sequence.slice(start, end)}</span>${sequence.slice(end)}`
     }
   },
 };
@@ -41,10 +57,11 @@ export default {
   background-color: #fff;
   border-radius: 5px 5px 0 0;
   position: relative;
-  margin: 1px 0px;
+  margin: 1px 0;
 
 }
-.sequence{
+
+.sequence {
   word-break: break-word;
   text-transform: uppercase;
   line-height: 2em;
@@ -53,7 +70,7 @@ export default {
   font-size: 16px;
 }
 
-.scrollable{
+.scrollable {
   overflow-y: scroll;
   height: 200px;
 }
