@@ -29,6 +29,9 @@ export default {
       return 0
     },
     showSelection(sequence, start, end) {
+      if (typeof sequence === 'undefined' || sequence == ''){
+        return `<span class="no_sequence">No sequence</span>`
+      }
 
       setTimeout(() => {
         this.$refs.sequence.querySelector('#seqSelection').scrollIntoView({
@@ -41,10 +44,11 @@ export default {
       if(start === end && start > 0){
         start = start-1;
       }
-      console.log(`
-      start ${start}
-      end ${end}
-      `)
+      console.log({
+        "start" : start,
+        "end" : end,
+        "sequence" : sequence
+      })
       return `${sequence.slice(0, start - 1)}<span id="seqSelection" style="background: #b1b1b124;color:red">${sequence.slice(start, end)}</span>${sequence.slice(end)}`
     }
   },
