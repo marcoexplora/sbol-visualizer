@@ -15,8 +15,7 @@
     "build-wc": "vue-cli-service build  --target wc --inline-vue --name sbol-viewer ./src/views/Viewer.vue",
     "eslint": "eslint 'src/**/*.{js,vue}'",
     "test:unit": "vue-cli-service test:unit",
-    "test:loop": "vue-cli-service test:unit --watch  --verbose false",
-    "temp": "./tests/xml_simple.js"
+    "test:loop": "vue-cli-service test:unit --watch  --verbose false"
   },
   "dependencies": {
     "axios": "^0.21.1",
@@ -24,11 +23,14 @@
     "core-js": "^3.9.0",
     "rdf-ext-sboljs": "^0.3.0",
     "rdf-graph-array-sboljs": "^0.3.1",
+    "sass": "^1.49.9",
+    "sass-loader": "^12.6.0",
     "sboljs": "^1.8.1",
     "sha1": "^1.1.1",
     "urijs": "^1.19.6",
     "vue": "^2.6.12",
-    "vue-axios": "^3.2.4"
+    "vue-axios": "^3.2.4",
+    "webpack": "^4.46.0"
   },
   "devDependencies": {
     "@babel/core": "^7.13.1",
@@ -41,12 +43,7 @@
     "babel-preset-vue": "^2.0.2",
     "eslint": "^7.20.0",
     "eslint-plugin-vue": "^7.6.0",
-    "postcss": "^8.2.6",
-    "sass": "^1.32.8",
-    "sass-loader": "^10.1.1",
-    "sass-resources-loader": "^2.1.1",
-    "vue-template-compiler": "^2.6.12",
-    "webpack": "^4.42.0"
+    "vue-template-compiler": "^2.6.12"
   },
   "browserslist": [
     "> 1%",

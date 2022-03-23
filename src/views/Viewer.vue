@@ -480,10 +480,9 @@ nav {
 
 </style>
 
-<style lang="scss">
+<style>
 
 
-.SbolWvWrap {
   header *, section *, footer *, .detailAnnotation *, .txt {
     font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
     Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji,
@@ -547,5 +546,5 @@ nav {
   .pointer {
     cursor: pointer;
   }
-}
+
 </style>

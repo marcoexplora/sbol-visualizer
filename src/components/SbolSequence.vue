@@ -49,7 +49,27 @@ export default {
         "end" : end,
         "sequence" : sequence
       })
-      return `${sequence.slice(0, start - 1)}<span id="seqSelection" style="background: #b1b1b124;color:red">${sequence.slice(start, end)}</span>${sequence.slice(end)}`
+
+
+      start = start -1;
+      end = end;
+
+      if(end > sequence.length){
+        end = sequence.length;
+      }
+
+      if(start < 0 ){
+        start = 0;
+      }
+
+      const left = sequence.slice(0, start);
+      const middle = sequence.slice(start, end );
+      const right = sequence.slice(end);
+      console.log(`${left + middle + right}\n${sequence}\n${left} # ${middle} # ${right}`)
+      console.log(left + middle + right == sequence)
+      return `${left}<span id="seqSelection" style="background: #b1b1b124;color:red">${middle}</span>${right}`
+
+
     }
   },
 };
