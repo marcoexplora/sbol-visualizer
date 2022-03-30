@@ -165,8 +165,8 @@ li,pre{
 }
 .initial img{
   max-width: 70%;
-  max-height: 300px;
+  max-height: 212px;
   margin: auto;
-
+  border-radius: 200px;
 }
 </style>

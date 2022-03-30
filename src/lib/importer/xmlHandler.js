@@ -2,6 +2,7 @@ import SBOLDocument from 'sboljs';
 import getDisplayList from "./getDisplayList"
 
 
+
 const xmlHandler = {
     pupulateHeader: (doc)=> {
 
@@ -65,6 +66,7 @@ const xmlHandler = {
                         sbolDataLayer.annotations = [];
                         sbolDataLayer.annotations = xmlHandler.populateAnnotations(doc);
                         sbolDataLayer.sequence =  xmlHandler.extractSequence(doc);
+                        window.sbolDataLayer = sbolDataLayer
                     }catch (error){
                         console.error(error)
                         reject("SbolJ has triggered and error")

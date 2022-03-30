@@ -1,6 +1,6 @@
 <template>
   <div class="sbolSequence" :ref="'sequence'">
-    <div class="scrollable" :start="this.getStart()" :end="this.getEnd()">
+    <div class="scrollable">
       <div class="sequence" v-html="this.showSelection(sequence,this.getStart(),this.getEnd())"></div>
     </div>
   </div>
@@ -29,7 +29,7 @@ export default {
       return 0
     },
     showSelection(sequence, start, end) {
-      if (typeof sequence === 'undefined' || sequence == ''){
+      if (typeof sequence === 'undefined' || sequence === ''){
         return `<span class="no_sequence">No sequence</span>`
       }
 
@@ -41,18 +41,13 @@ export default {
         });
       }, 100);
 
-      if(start === end && start > 0){
-        start = start-1;
-      }
       console.log({
         "start" : start,
         "end" : end,
         "sequence" : sequence
       })
 
-
       start = start -1;
-      end = end;
 
       if(end > sequence.length){
         end = sequence.length;
@@ -65,11 +60,8 @@ export default {
       const left = sequence.slice(0, start);
       const middle = sequence.slice(start, end );
       const right = sequence.slice(end);
-      console.log(`${left + middle + right}\n${sequence}\n${left} # ${middle} # ${right}`)
-      console.log(left + middle + right == sequence)
+
       return `${left}<span id="seqSelection" style="background: #b1b1b124;color:red">${middle}</span>${right}`
-
-
     }
   },
 };
