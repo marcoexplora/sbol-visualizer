@@ -1,5 +1,5 @@
 <template>
-  <section class="blue-container">
+  <section class="blue-container leftUpcorner">
     <div>
       <main>
         <h1 style="font-size: 20px;color:#B8EF67;font-weight: bold">
@@ -67,5 +67,9 @@ main{
   position: absolute;
   right: 10px;
   bottom: 10px;
+}
+.leftUpcorner{
+  border-radius: 0 5px 5px 5px;
+  background-color: #0078b6;
 }
 </style>

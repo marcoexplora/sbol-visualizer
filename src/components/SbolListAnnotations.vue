@@ -51,9 +51,9 @@
 <script>
 
 import SbolTreeList from "@/components/SbolTreeList";
-import SbolIconGlasses from "@/components/SbolIconGlasses";
-import SbolIconCheck from "@/components/SbolIconCheck"
-import SbolIconOpenCollapseList from "@/components/SbolIconOpenCollapseList";
+import SbolIconGlasses from "@/components/icons/SbolIconGlasses";
+import SbolIconCheck from "@/components/icons/SbolIconCheck"
+import SbolIconOpenCollapseList from "@/components/icons/SbolIconOpenCollapseList";
 
 import eventBus from "@/lib/eventBus";
 
