@@ -2,73 +2,74 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <link rel="icon" href="<%= BASE_URL %>favicon.ico">
-  <title>sbolviewer</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+    <title>sbolviewer</title>
 </head>
 
 <body>
-  <noscript>
+<noscript>
     <b>We're sorry but sbolviewer doesn't work properly without JavaScript enabled. Please enable it to continue.</b>
-  </noscript>
+</noscript>
 
 
-  <div  style="margin: 100px;">
-      <sbol-viewer dropafile="true">
-      </sbol-viewer>
-  </div>
-
-  <br/><br/>
-    <div  style="margin: 100px;">
-      <sbol-viewer  source="/SBOL_examples/BBa_K1080006.xml" >
-      </sbol-viewer>
-    </div>
-
-
-  <div style="width: 400px;margin: 100px auto;">
-      <sbol-viewer  source="/SBOL_examples/BBa_K1080006.xml" >
-      </sbol-viewer>
-  </div>
-
-
-  <!--
-
-
-  <div class="">
-    <sbol-viewer  source="/SBOL_examples/References/visbolXML.xml">
-      </sbol-viewer>
-  </div>
-
-
-
+<div style="margin: 100px;">
     <sbol-viewer dropafile="true">
-  </sbol-viewer>
+    </sbol-viewer>
+</div>
 
-  <div style="width:400px;padding:10px 0" class="">
-      <h2>Drop a file</h2>
-      <sbol-viewer dropafile="true">
-      </sbol-viewer>
-  </div>
+<br/><br/>
+<div style="margin: 100px;">
+    <sbol-viewer source="/SBOL_examples/BBa_K1080006.xml">
+    </sbol-viewer>
+</div>
+
+
+<div style="width: 400px;margin: 100px auto;">
+    <sbol-viewer source="/SBOL_examples/BBa_K1080006.xml">
+    </sbol-viewer>
+</div>
+
+
+<!--
+
+
+<div class="">
+  <sbol-viewer  source="/SBOL_examples/References/visbolXML.xml">
+    </sbol-viewer>
+</div>
 
 
 
-  <div style="width:400px;padding:10px 0" class="">
-      <h2>Fix width</h2>
-      <sbol-viewer source="/SBOL_examples/References/BBa_C0510.xml">
-      </sbol-viewer>
-  </div>
+  <sbol-viewer dropafile="true">
+</sbol-viewer>
+
+<div style="width:400px;padding:10px 0" class="">
+    <h2>Drop a file</h2>
+    <sbol-viewer dropafile="true">
+    </sbol-viewer>
+</div>
+
+
+
+<div style="width:400px;padding:10px 0" class="">
+    <h2>Fix width</h2>
+    <sbol-viewer source="/SBOL_examples/References/BBa_C0510.xml">
+    </sbol-viewer>
+</div>
 -->
 
-  <style>
-        .p3{
-            padding: 30px 10px;
-        }
-        body {
-            background: #4d4d4c;
-        }
-    </style>
+<style>
+    .p3 {
+        padding: 30px 10px;
+    }
+
+    body {
+        background: #4d4d4c;
+    }
+</style>
 
 
 </body>

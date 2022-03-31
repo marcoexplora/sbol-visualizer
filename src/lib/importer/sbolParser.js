@@ -44,17 +44,17 @@ const sbolParser = {
 
         let result = {}
 
-        if(typeof sbolDataLayer.header.name != 'undefined'){
+        if (typeof sbolDataLayer.header.name != 'undefined') {
             result.name = sbolDataLayer.header.name;
         }
 
-        if(typeof sbolDataLayer.sequence  != 'undefined' && sbolDataLayer.sequence !='' ){
+        if (typeof sbolDataLayer.sequence != 'undefined' && sbolDataLayer.sequence != '') {
             result.sequence = sbolDataLayer.sequence;
             result.size = result.sequence.length;
             result.cicular = 'false';
         }
 
-        if(typeof sbolDataLayer.header.partID  != 'undefined' ){
+        if (typeof sbolDataLayer.header.partID != 'undefined') {
             result.partID = sbolDataLayer.header.partID;
         }
 

@@ -2,10 +2,10 @@ import SBOLDocument from 'sboljs';
 import getDisplayList from "./getDisplayList";
 import sbolParser from './sbolParser';
 //import bioParser from 'bio-parsers';
-import { jsonToFasta } from "bio-parsers"
+import {jsonToFasta} from "bio-parsers"
 
 const xmlHandler = {
-    pupulateHeader: (doc)=> {
+    pupulateHeader: (doc) => {
 
         //remove this before go to production
         window.sboljs_output = doc;
@@ -16,13 +16,13 @@ const xmlHandler = {
             name: mainComponetDefinition._name,
             alternativeName: "",
             version: mainComponetDefinition._version,
-            creator: xmlHandler.queryAnnotation(mainComponetDefinition._annotations,'http://purl.org/dc/elements/1.1/creator'),
+            creator: xmlHandler.queryAnnotation(mainComponetDefinition._annotations, 'http://purl.org/dc/elements/1.1/creator'),
             parentSequence: "sbh:mutableProvenance",
             persistentIdentity: mainComponetDefinition._persistentIdentity,
             wasDerivedFrom: "",
             wasGeneratedBy: "rdf:resource",
-            mutableDescription: xmlHandler.queryAnnotation(mainComponetDefinition._annotations,'http://wiki.synbiohub.org/wiki/Terms/synbiohub#mutableDescription'),
-            ComponentSequences : mainComponetDefinition.sequences ? mainComponetDefinition.sequences : ""
+            mutableDescription: xmlHandler.queryAnnotation(mainComponetDefinition._annotations, 'http://wiki.synbiohub.org/wiki/Terms/synbiohub#mutableDescription'),
+            ComponentSequences: mainComponetDefinition.sequences ? mainComponetDefinition.sequences : ""
         }
     },
     populateAnnotations: (doc) => {
@@ -33,19 +33,19 @@ const xmlHandler = {
             segments: []
         }
 
-        doc.componentDefinitions.forEach(function(componentDefinition) {
+        doc.componentDefinitions.forEach(function (componentDefinition) {
             component.segments = component.segments.concat(getDisplayList(componentDefinition).components[0].segments[0])
         })
 
-        if (visbolDisplayListElements.length > 0){
-            return  visbolDisplayListElements.map(
+        if (visbolDisplayListElements.length > 0) {
+            return visbolDisplayListElements.map(
                 (component, index) => {
 
 
                     return {
                         log: "1a",
                         name: component.name,
-                        propriety : component.propriety,
+                        propriety: component.propriety,
                         SBOL: component.propriety.sequenceOntology,
                         pk: `${index}`,
                         sbolDescription: component.Description,
@@ -56,24 +56,24 @@ const xmlHandler = {
         }
 
     },
-    convertXml : (xml) => {
+    convertXml: (xml) => {
         return new Promise((resolve, reject) => {
             {
                 const sbolDataLayer = {}
                 SBOLDocument.loadRDF(xml, function (err, doc) {
 
-                    try{
+                    try {
                         sbolDataLayer.header = xmlHandler.pupulateHeader(doc);
                         sbolDataLayer.annotations = [];
                         sbolDataLayer.annotations = xmlHandler.populateAnnotations(doc);
-                        sbolDataLayer.sequence =  xmlHandler.extractSequence(doc);
-                        sbolDataLayer.json =  sbolParser.exportToJson(sbolDataLayer);
+                        sbolDataLayer.sequence = xmlHandler.extractSequence(doc);
+                        sbolDataLayer.json = sbolParser.exportToJson(sbolDataLayer);
 
                         window.sbolDataLayer = sbolDataLayer
                         window.sbolJSON = sbolParser.exportToJson(sbolDataLayer)
                         window.fasta = jsonToFasta(window.sbolJSON)
 
-                    }catch (error){
+                    } catch (error) {
                         console.error(error)
                         reject("SbolJ has triggered and error")
                     }
@@ -86,9 +86,9 @@ const xmlHandler = {
     },
     findEncodedSequence: sbolParser.findEncodedSequence,
     extractSequence: sbolParser.extractSequence,
-    exportToJson :  sbolParser.exportToJson,
-    queryAnnotation : (Annontations,filter) => {
-        const candidate = Annontations.filter( (annotation) => {
+    exportToJson: sbolParser.exportToJson,
+    queryAnnotation: (Annontations, filter) => {
+        const candidate = Annontations.filter((annotation) => {
             return annotation.name.indexOf(filter) !== -1
         })
         return candidate.length > 0 ? candidate[0].value : ""

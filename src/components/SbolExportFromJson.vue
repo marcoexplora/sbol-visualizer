@@ -2,9 +2,9 @@
     <span v-if="canIexport()">
           <a class="va-super py1 exportFormatWrap" v-on:click="convert()">
             <sbol-icon-download/>
-            <ul class='exportFormat'  v-if="toogleDrop">
+            <ul class='exportFormat' v-if="toogleDrop">
              <li v-for="exp in exported" :key="exp.title">
-               <a :href='exp.href' :download='exp.download'>{{exp.title}}</a>
+               <a :href='exp.href' :download='exp.download'>{{ exp.title }}</a>
               </li>
             </ul>
           </a>
@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import { jsonToFasta } from "bio-parsers"
+import {jsonToFasta} from "bio-parsers"
 
 import SbolIconDownload from "@/components/icons/SbolIconDownload";
 
@@ -23,12 +23,12 @@ export default {
   data() {
     return {
       exported: [],
-      toogleDrop : false,
+      toogleDrop: false,
     };
   },
   methods: {
     convert() {
-      if( this.exported.length == 0 ){
+      if (this.exported.length == 0) {
         this.exported = [];
 
         const fasta = jsonToFasta(this.json);
@@ -42,7 +42,7 @@ export default {
       this.toogleDrop = !this.toogleDrop
     },
     canIexport() {
-      return typeof this.json.sequence  !== 'undefined' && this.json.sequence != ''
+      return typeof this.json.sequence !== 'undefined' && this.json.sequence != ''
     },
   },
   components: {
@@ -62,15 +62,17 @@ export default {
 
 <style scoped>
 
-ul{
+ul {
   list-style: none;
 }
-li a{
+
+li a {
   font-weight: 500;
   font-size: 14px;
   text-decoration: none;
   color: #CCCCCC;
 }
+
 ul li span {
   text-align: right;
   font-weight: 400;

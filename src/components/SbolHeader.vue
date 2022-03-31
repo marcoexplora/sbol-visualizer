@@ -56,7 +56,7 @@ export default {
   data() {
     return {
       description: false,
-      exported : []
+      exported: []
     };
   },
   methods: {
@@ -164,11 +164,11 @@ ul li span {
   font-weight: 400;
 }
 
-.exportFormatWrap{
+.exportFormatWrap {
   position: relative;
 }
 
-.exportFormat{
+.exportFormat {
   position: absolute;
   top: 1.3em;
   padding: 0px 10px;

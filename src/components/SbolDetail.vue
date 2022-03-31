@@ -14,30 +14,31 @@
         <ul class="listDetail p0">
 
           <li class="h1 bold p0">
-            {{this.detail.name}}
+            {{ this.detail.name }}
           </li>
 
-          <li  v-if="this.detail.partID" >
+          <li v-if="this.detail.partID">
             <span class="bold">Part ID:</span>
-            {{this.detail.partID}}
+            {{ this.detail.partID }}
           </li>
 
-          <li  v-if="this.detail.persistentIdentity" >
+          <li v-if="this.detail.persistentIdentity">
             <span class="bold">Persistent Identity:</span>
             <a :href="this.detail.persistentIdentity" target="_blank">
-              {{this.detail.persistentIdentity}}
+              {{ this.detail.persistentIdentity }}
             </a>
           </li>
 
           <li v-if="this.detail.SBOL">
             <span class="bold">Sequence Ontology:</span>
             <a :href="this.detail.href" target="_blank">
-                {{this.detail.SBOL}}
+              {{ this.detail.SBOL }}
             </a>
           </li>
 
           <li v-if="this.detail.propriety && this.detail.propriety.Direction">
-            <span class="bold">Direction: </span> <span> {{ this.detail.propriety.Direction }}</span>     <span v-if="this.detail.end > 0">( {{ this.detail.start }}..{{ this.detail.end }} )</span>
+            <span class="bold">Direction: </span> <span> {{ this.detail.propriety.Direction }}</span> <span
+              v-if="this.detail.end > 0">( {{ this.detail.start }}..{{ this.detail.end }} )</span>
           </li>
 
           <li v-if="this.detail.propriety && this.detail.propriety.Description">
@@ -47,11 +48,11 @@
           <li v-if="this.detail.mutableDescription">
             <p class="m0"><span class="bold">Mutable Description: </span> {{ this.detail.mutableDescription }}</p>
           </li>
-<!--          {{this.detail.propriety.start}}
-          {{this.detail.propriety.end}}
-          <div class="sequence">
-          {{this.sequence}}
-          </div>-->
+          <!--          {{this.detail.propriety.start}}
+                    {{this.detail.propriety.end}}
+                    <div class="sequence">
+                    {{this.sequence}}
+                    </div>-->
           <!--
           <li class="comingsoon">
             <h2>Where is my sequence?</h2>
@@ -69,7 +70,7 @@
 import SbolDetailInitialPage from "@/components/SbolDetailInitialPage";
 
 export default {
-  props: ["annotation","tags","sequence"],
+  props: ["annotation", "tags", "sequence"],
   data() {
     return {
       detail: {}
@@ -81,7 +82,7 @@ export default {
   },
   watch: {
     annotation: function (data) {
-      if (typeof data !== "undefined" && data !== null ) {
+      if (typeof data !== "undefined" && data !== null) {
         this.detail = this.annotation;
         this.detail.href = `http://identifiers.org/so/${this.detail.SBOL}`;
       }
@@ -90,7 +91,7 @@ export default {
 };
 </script>
 <style scoped>
-.comingsoon{
+.comingsoon {
   padding: 2em 1em;
   background: #f0f2f5;
   margin: 3em auto;
@@ -98,12 +99,14 @@ export default {
   border-radius: 5px;
   text-align: center;
 }
-.sequence{
+
+.sequence {
   word-break: break-word;
   text-transform: uppercase;
   line-height: 2em;
   padding: 2em 0;
 }
+
 .detailAnnotation {
   margin-top: 5px;
   background-color: #fff;
@@ -114,6 +117,7 @@ export default {
   width: 100%;
   color: #4d4d4c;
 }
+
 .card-header {
   background-color: #f1f2f5;
   border-radius: 5px;
@@ -130,6 +134,7 @@ export default {
   padding: 0;
   margin: 0;
 }
+
 .card-body > ul {
   margin: 0;
   padding: 1em;
@@ -138,33 +143,37 @@ export default {
 .card-body > div {
   padding: 0 1em 0 1em;
 }
+
 .card-body > div h2 {
   font-size: 1.2em;
   font-weight: bold;
 }
 
-li,pre{
+li, pre {
   width: 100%;
   overflow: auto;
   padding-top: 10px;
   word-break: break-word;
 }
-.bold{
+
+.bold {
   font-weight: bold;
 }
-.p0{
-  padding:0
+
+.p0 {
+  padding: 0
 }
 
-.m0{
-  margin:0
+.m0 {
+  margin: 0
 }
 
-.initial h2{
+.initial h2 {
   font-size: 20px;
   margin: 5px;
 }
-.initial img{
+
+.initial img {
   max-width: 70%;
   max-height: 234px;
   margin: auto;
