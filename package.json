@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "axios": "^0.21.1",
+    "bio-parsers": "^8.3.26",
     "cache-loader": "^4.1.0",
     "core-js": "^3.9.0",
     "rdf-ext-sboljs": "^0.3.0",
