@@ -1,6 +1,6 @@
 <template>
   <div @dragover="dragover" @dragleave="dragleave" @drop="drop" class="SbolWvWrap" ref="wrapper">
-    <div v-if="enabledropfile" style="padding:0;height: 1.55em">
+    <div v-if="enabledropfile" style="padding:0;height: 1.2em">
       <div style="width: 100%">
 
         <div style="float:right;font-size:1.2em">
@@ -9,7 +9,7 @@
           </a>
         </div>
 
-        <label class="txt pointer" for="assetsFieldHandle">
+        <label class="txt pointer whiteBg" for="assetsFieldHandle">
           <sbol-box-arrow-up/>
           Choose a file to view</label>
         <input
@@ -38,7 +38,7 @@
         <nav
             v-if="!flavourMini"
             ref="navContainer">
-          <sbol-header :header="sbolDataLayer.header"/>
+          <sbol-header :header="sbolDataLayer.header" :json="sbolDataLayer.json"/>
           <sbol-list-annotations
               :root="sbolDataLayer.header"
               :annotations="sbolDataLayer.annotations"
@@ -83,7 +83,7 @@ import SbolDetail from "@/components/SbolDetail";
 import SbolFooter from "@/components/SbolFooter";
 import SbolSequence from "@/components/SbolSequence";
 
-import CloseIcon from "@/components/SbolIconX"
+import CloseIcon from "@/components/icons/SbolIconX"
 
 import jsonHandler from "@/lib/importer/jsonHandler";
 import xmlHandler from "@/lib/importer/xmlHandler";
@@ -546,5 +546,10 @@ nav {
   .pointer {
     cursor: pointer;
   }
-
+  .whiteBg{
+    padding: 5px 15px 0 5px;
+    height: 1.55em;
+    background: #FFF;
+    border-radius: 4px 4px 0 0;
+  }
 </style>

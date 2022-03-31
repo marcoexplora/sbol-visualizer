@@ -26,6 +26,7 @@
                 <sbol-icon-arrow-in-down/>
               </a>
             </span>
+        <export-from-json :json='json'/>
         <a style="cursor:pointer" v-on:click="toogleDescription()" class="va-super py1">
           <sbol-icon-info/>
         </a>
@@ -38,31 +39,37 @@
   </header>
 </template>
 <script>
-import SbolLink from "@/components/SbolLinkText";
 
-import SbolIconInfo from "@/components/SbolIconInfo";
-import SbolIconArrowInDown from "@/components/SbolIconArrowInDown";
-import SbolIconArrowUpRight from "@/components/SbolIconArrowUpRight";
-import CloseIcon from "@/components/SbolIconX"
+import ExportFromJson from "@/components/SbolExportFromJson";
+
+import SbolIconInfo from "@/components/icons/SbolIconInfo";
+import SbolIconArrowInDown from "@/components/icons/SbolIconArrowInDown";
+import SbolIconArrowUpRight from "@/components/icons/SbolIconArrowUpRight";
+import CloseIcon from "@/components/icons/SbolIconX"
+
 
 export default {
-  props: ["header"],
+  props: {
+    header: {type: Object},
+    json: {type: Object},
+  },
   data() {
     return {
-      description: false
+      description: false,
+      exported : []
     };
   },
   methods: {
     toogleDescription() {
       this.description = !this.description;
-    }
+    },
   },
   components: {
+    ExportFromJson,
     SbolIconArrowUpRight,
     SbolIconArrowInDown,
-    SbolLink,
     SbolIconInfo,
-    CloseIcon
+    CloseIcon,
   },
   filters: {
     truncate: function (text, length, suffix) {
@@ -157,5 +164,16 @@ ul li span {
   font-weight: 400;
 }
 
+.exportFormatWrap{
+  position: relative;
+}
+
+.exportFormat{
+  position: absolute;
+  top: 1.3em;
+  padding: 0px 10px;
+  border: 2px solid #CCCCCC;
+  left: -3em;
+}
 
 </style>

@@ -1,7 +1,8 @@
 import SBOLDocument from 'sboljs';
-import getDisplayList from "./getDisplayList"
-
-
+import getDisplayList from "./getDisplayList";
+import sbolParser from './sbolParser';
+//import bioParser from 'bio-parsers';
+import { jsonToFasta } from "bio-parsers"
 
 const xmlHandler = {
     pupulateHeader: (doc)=> {
@@ -55,7 +56,7 @@ const xmlHandler = {
         }
 
     },
-    convertXml: (xml) => {
+    convertXml : (xml) => {
         return new Promise((resolve, reject) => {
             {
                 const sbolDataLayer = {}
@@ -66,7 +67,12 @@ const xmlHandler = {
                         sbolDataLayer.annotations = [];
                         sbolDataLayer.annotations = xmlHandler.populateAnnotations(doc);
                         sbolDataLayer.sequence =  xmlHandler.extractSequence(doc);
+                        sbolDataLayer.json =  sbolParser.exportToJson(sbolDataLayer);
+
                         window.sbolDataLayer = sbolDataLayer
+                        window.sbolJSON = sbolParser.exportToJson(sbolDataLayer)
+                        window.fasta = jsonToFasta(window.sbolJSON)
+
                     }catch (error){
                         console.error(error)
                         reject("SbolJ has triggered and error")
@@ -78,42 +84,9 @@ const xmlHandler = {
             }
         });
     },
-    /**
-     * Returns DNA sequence if in the list of sequences povided 'undefined' otherwise
-     * @param {Array.<Object>} sequences from sbolJS obj
-     * @returns {string} sequence or empty string if no DNA sequence is present
-     */
-    findEncodedSequence: (sequences) => {
-        const sequence = sequences.find((seq) => {
-            return seq._encoding._parts.path === '/iubmb/misc/naseq.html';
-        });
-        if (typeof sequence !== 'undefined') {
-            return sequence._elements;
-        }
-        return '';
-    },
-    /**
-     * return DNA sequence from a sbolJS object, or empty string if no DNA sequence is present
-     * @param {<Object>}  doc sbolJS obj
-     * @returns {string} sequence or empty string
-     */
-    extractSequence: (doc) => {
-        let DNAsequence = '';
-        if (doc._componentDefinitions.length > 0 && doc._componentDefinitions["0"]._sequences.length > 0) {
-            // Search in TopLevel component a sequence with encoding DNA
-            const mainComponentSequences = doc._componentDefinitions["0"]._sequences
-            DNAsequence = xmlHandler.findEncodedSequence(mainComponentSequences);
-        }
-        if (doc._sequences.length > 0 && DNAsequence === '') {
-            //  Search in sequences the sequence with encoding DNA
-            DNAsequence = xmlHandler.findEncodedSequence(doc._sequences);
-        }
-        if (typeof DNAsequence !== 'undefined' && DNAsequence !== '') {
-            return DNAsequence;
-        } else {
-            return '';
-        }
-    },
+    findEncodedSequence: sbolParser.findEncodedSequence,
+    extractSequence: sbolParser.extractSequence,
+    exportToJson :  sbolParser.exportToJson,
     queryAnnotation : (Annontations,filter) => {
         const candidate = Annontations.filter( (annotation) => {
             return annotation.name.indexOf(filter) !== -1
