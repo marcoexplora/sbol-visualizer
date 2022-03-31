@@ -162,11 +162,12 @@ li,pre{
 
 .initial h2{
   font-size: 20px;
+  margin: 5px;
 }
 .initial img{
   max-width: 70%;
-  max-height: 212px;
+  max-height: 234px;
   margin: auto;
-  border-radius: 200px;
+  border-radius: 300px;
 }
 </style>
