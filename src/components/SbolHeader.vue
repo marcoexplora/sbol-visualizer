@@ -27,6 +27,7 @@
               </a>
             </span>
         <export-from-json :json='json'/>
+
         <a style="cursor:pointer" v-on:click="toogleDescription()" class="va-super py1">
           <sbol-icon-info/>
         </a>

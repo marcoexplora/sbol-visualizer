@@ -20,7 +20,7 @@
 
 <script>
 
-import BoxArrowUp from "../components/SbolBoxArrowUp";
+import BoxArrowUp from "./icons/SbolBoxArrowUp";
 
 import settings from "../settings"
 

@@ -87,7 +87,7 @@ import CloseIcon from "@/components/icons/SbolIconX"
 
 import jsonHandler from "@/lib/importer/jsonHandler";
 import xmlHandler from "@/lib/importer/xmlHandler";
-import SbolBoxArrowUp from "@/components/SbolBoxArrowUp";
+import SbolBoxArrowUp from "@/components/icons/SbolBoxArrowUp";
 
 export default {
   props: {

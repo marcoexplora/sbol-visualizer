@@ -1,6 +1,6 @@
 <template>
-    <span v-if="canIexport()">
-          <a class="va-super py1 exportFormatWrap" v-on:click="convert()">
+
+          <a class="va-super py1 exportFormatWrap" v-if="canIexport()" v-on:click="convert()">
             <sbol-icon-download/>
             <ul class='exportFormat' v-if="toogleDrop">
              <li v-for="exp in exported" :key="exp.title">
@@ -8,7 +8,7 @@
               </li>
             </ul>
           </a>
-    </span>
+
 </template>
 
 <script>
