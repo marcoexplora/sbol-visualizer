@@ -271,7 +271,7 @@ export default {
           this.$nextTick(function () {
             if (typeof this.$refs.navContainer !== 'undefined') {
               const navWidth = this.$refs.navContainer.clientWidth
-              this.chartsWidth = widthContainer - navWidth - 3; //17 padding and border of chart + NAV 2 + 15
+              this.chartsWidth = widthContainer - navWidth //- 3; //17 padding and border of chart + NAV 2 + 15
               this.$refs.chartsContainer.style.width = `{this.chartsWidth}px`
             }
           });
@@ -470,7 +470,7 @@ export default {
 .SBOLcontainer {
   display: grid;
   grid-template-columns: 1fr 2fr;
-  height: 680px;
+  height: 675px;
 }
 
 nav {
