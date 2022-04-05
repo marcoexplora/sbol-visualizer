@@ -44,11 +44,12 @@ li, pre {
 
 .initial h2 {
   font-size: 20px;
+  margin: 0.3em;
 }
 
 .initial img {
   max-width: 70%;
-  max-height: 300px;
+  max-height: 216px;
   margin: auto;
 
 }
