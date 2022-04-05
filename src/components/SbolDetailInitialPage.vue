@@ -51,6 +51,5 @@ li, pre {
   max-width: 70%;
   max-height: 216px;
   margin: auto;
-
 }
 </style>
