@@ -61,7 +61,7 @@ export default {
       const middle = sequence.slice(start, end );
       const right = sequence.slice(end);
 
-      return `${left}<span id="seqSelection" style="background: #b1b1b124;color:red">${middle}</span>${right}`
+      return `${left}<span id="seqSelection" style="background: #31a0ff24;color:#3578b6">${middle}</span>${right}`
     }
   },
 };

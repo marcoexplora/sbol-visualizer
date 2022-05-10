@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import {jsonToFasta} from "bio-parsers"
+import {jsonToFasta,jsonToGenbank} from "bio-parsers"
 
 import SbolIconDownload from "@/components/icons/SbolIconDownload";
 
@@ -37,6 +37,16 @@ export default {
           title: 'Fasta',
           href: 'data:text/plain;charset=utf-8,' + encodeURIComponent(fasta),
           download: `${encodeURIComponent(this.json.partID.trim())}.fasta`
+        })
+
+
+
+        const genbank = jsonToGenbank(this.json);
+
+        this.exported.push({
+          title: 'GanBank',
+          href: 'data:text/plain;charset=utf-8,' + encodeURIComponent(genbank),
+          download: `${encodeURIComponent(this.json.partID.trim())}.gb`
         })
       }
       this.toogleDrop = !this.toogleDrop

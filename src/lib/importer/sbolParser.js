@@ -1,3 +1,6 @@
+import soToGlyphType from './soToGlyphType'
+import soToGenBankName from './soToGenBankName'
+
 const sbolParser = {
     /**
      * Returns DNA sequence if in the list of sequences povided 'undefined' otherwise
@@ -36,28 +39,88 @@ const sbolParser = {
         }
     },
     /**
-     * return a JSON compatibel with bio-parser
-     * @param {<Object>}  sbolDataLayer obj
+     * return a JSON compatible with bio-parser
+     * @param {Object}  sbolDataLayer obj
      * @returns {Object} Json compatible with bio-parsers
      */
     exportToJson: (sbolDataLayer) => {
-
+        console.log('sbolDataLayer');
+        console.log(sbolDataLayer);
         let result = {}
 
-        if (typeof sbolDataLayer.header.name != 'undefined') {
+        if (typeof sbolDataLayer.header.name !== 'undefined') {
             result.name = sbolDataLayer.header.name;
         }
 
-        if (typeof sbolDataLayer.sequence != 'undefined' && sbolDataLayer.sequence != '') {
+        if (typeof sbolDataLayer.sequence !== 'undefined' && sbolDataLayer.sequence != '') {
             result.sequence = sbolDataLayer.sequence;
             result.size = result.sequence.length;
             result.cicular = 'false';
         }
 
-        if (typeof sbolDataLayer.header.partID != 'undefined') {
+        if (typeof sbolDataLayer.header.partID !== 'undefined') {
             result.partID = sbolDataLayer.header.partID;
         }
 
+        if (typeof sbolDataLayer.header.mutableDescription !== 'undefined' && sbolDataLayer.header.mutableDescription !== '') {
+            result.description = sbolDataLayer.header.mutableDescription;
+        }
+
+        const featuresExtract = (elementList, parent) => {
+            let visit = [{
+                id: `seq_${sbolDataLayer.header.partID}`,
+                name: 'source',
+                type: 'source',
+                start: 0,
+                end: result.sequence.length -1
+            }];
+            if (typeof parent == 'undefined') {
+                parent = 'root';
+            }
+
+            for (let idx = 0; idx < elementList.length; idx++) {
+                const el = elementList[idx];
+
+                let index = el['index'];
+                if (typeof index === 'undefined') {
+                    index = `${idx}_${parent}_${el.name}_(${el.propriety.start | 0}..${el.propriety.end | 0})`
+                }
+
+                let strand = 1;
+                if (el.propriety.Direction !== 'FW') {
+                    strand = -1;
+                }
+
+                visit.push({
+                    id: index,
+                    name: el.name,
+                    description: soToGlyphType(el.SBOL),
+                    type: soToGenBankName(el.SBOL),
+                    strand: strand,
+                    start: el.propriety.start -1 | 0,
+                    end: el.propriety.end -1 | 0
+                })
+
+                if (el.propriety.hasOwnProperty('components') && el.propriety.components.length > 0) {
+                    const childVisit = featuresExtract(el.propriety.components, el.name);
+                    childVisit.forEach((el) => {
+                        visit.push(el)
+                    })
+                }
+
+
+            }
+
+            console.log('visit')
+            console.log(visit)
+            return visit
+        }
+        if (typeof sbolDataLayer.annotations !== 'undefined' && sbolDataLayer.annotations !== '') {
+            result.features = featuresExtract(sbolDataLayer.annotations)
+        }
+
+        console.log('result sbol');
+        console.log(result);
         return result
     }
 
