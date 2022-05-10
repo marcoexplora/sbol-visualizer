@@ -98,6 +98,9 @@ ul li span {
   padding: 0px 10px;
   border: 2px solid #CCCCCC;
   left: -1em;
+  line-height: 2em;
+  border-radius: 6px;
+  background: #4d4d4c;
 }
 
 </style>
