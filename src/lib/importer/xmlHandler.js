@@ -1,5 +1,5 @@
 import SBOLDocument from 'sboljs';
-import getDisplayList from "./getDisplayList";
+import getDisplayList from "../../../../react/sbol-visualizer-2/src/lib/parser/visbol-js/getDisplayList";
 import sbolParser from './sbolParser';
 //import bioParser from 'bio-parsers';
 import {jsonToFasta} from "bio-parsers"
