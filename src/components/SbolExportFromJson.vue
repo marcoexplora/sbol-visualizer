@@ -4,7 +4,7 @@
             <sbol-icon-download/>
             <ul class='exportFormat' v-if="toogleDrop">
              <li v-for="exp in exported" :key="exp.title">
-               <a :href='exp.href' :download='exp.download'>{{ exp.title }}</a>
+               <a :href='exp.href' :download='exp.download' :alt='"Download " + exp.download'>{{ exp.title }}</a>
               </li>
             </ul>
           </a>
@@ -28,7 +28,7 @@ export default {
   },
   methods: {
     convert() {
-      if (this.exported.length == 0) {
+      if (this.exported.length === 0) {
         this.exported = [];
 
         const fasta = jsonToFasta(this.json);
@@ -52,7 +52,7 @@ export default {
       this.toogleDrop = !this.toogleDrop
     },
     canIexport() {
-      return typeof this.json.sequence !== 'undefined' && this.json.sequence != ''
+      return typeof this.json.sequence !== 'undefined' && this.json.sequence !== ''
     },
   },
   components: {
@@ -95,7 +95,7 @@ ul li span {
 .exportFormat {
   position: absolute;
   top: 0;
-  padding: 0px 10px;
+  padding: 0 10px;
   border: 2px solid #CCCCCC;
   left: -1em;
   line-height: 2em;
