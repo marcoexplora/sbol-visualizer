@@ -97,7 +97,7 @@ header {
   position: absolute;
   top: 5px;
   right: 5px;
-  background: #3579b6;
+  background: #0078b6;
   border-radius: 5px;
 }
 
