@@ -1,4 +1,5 @@
 <template>
+  <!-- Info icon-->
   <svg
     width="1em"
     height="1em"
