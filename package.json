@@ -18,7 +18,11 @@
     "test:loop": "vue-cli-service test:unit --watch  --verbose false"
   },
   "dependencies": {
+    "@vue/cli-plugin-babel": "^5.0.4",
+    "@vue/cli-plugin-unit-jest": "^5.0.4",
+    "@vue/vue2-jest": "^27.0.0",
     "axios": "^0.21.1",
+    "babel-runtime": "^6.26.0",
     "bio-parsers": "^8.3.26",
     "cache-loader": "^4.1.0",
     "core-js": "^3.9.0",
@@ -36,9 +40,8 @@
   "devDependencies": {
     "@babel/core": "^7.13.1",
     "@vue/babel-preset-app": "^4.5.15",
-    "@vue/cli-plugin-unit-jest": "^3.12.1",
     "@vue/cli-service": "^3.12.1",
-    "@vue/test-utils": "1.1.3",
+    "@vue/test-utils": "^1.3.0",
     "autoprefixer": "^10.2.4",
     "babel-loader": "^8.2.2",
     "babel-preset-vue": "^2.0.2",

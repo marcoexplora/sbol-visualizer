@@ -1,6 +1,6 @@
 import { shallowMount } from '@vue/test-utils'
 
-import SbolHeader from "@/components/SbolHeader.vue";
+import SbolHeader from "../../src/components/SbolHeader.vue";
 
 describe('SbolHeader.vue', () => {
 
