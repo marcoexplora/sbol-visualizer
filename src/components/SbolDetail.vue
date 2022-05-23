@@ -38,7 +38,7 @@
 
           <li v-if="this.detail.propriety && this.detail.propriety.Direction">
             <span class="bold">Direction: </span> <span> {{ this.detail.propriety.Direction }}</span> <span
-              v-if="this.detail.end > 0">( {{ this.detail.start }}..{{ this.detail.end }} )</span>
+              v-if="this.detail.Location.end > 0">( {{ this.detail.Location.start }}..{{ this.detail.Location.end }} )</span>
           </li>
 
           <li v-if="this.detail.propriety && this.detail.propriety.Description">

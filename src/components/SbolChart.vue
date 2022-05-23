@@ -30,7 +30,7 @@
           <div v-if="selected == item && !flavourMini" class="selected"></div>
 
           <img :src="item.path" :id="item.index" v-bind:ref="item.index" class="pointer"
-               :alt="item.propriety.sequenceOntology"
+               :alt="item.propriety.SO"
                @error="setAltImg"/>
         </div>
       </div>
@@ -73,8 +73,10 @@ export default {
     },
     computedGlyphAnnotations() {
       if (this.annotations) {
+        console.log("this.annotations")
+        console.log(this.annotations)
         this.annotations.map((key, index) => {
-          let sbol = this.annotations[index].propriety.sequenceOntology;
+          let sbol = this.annotations[index].propriety.SO;
 
           this.annotations[
               index

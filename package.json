@@ -33,6 +33,7 @@
     "sboljs": "^1.8.1",
     "sha1": "^1.1.1",
     "urijs": "^1.19.6",
+    "visbol": "github:linediconsine/visbol-js",
     "vue": "^2.6.12",
     "vue-axios": "^3.2.4",
     "webpack": "^4.46.0"

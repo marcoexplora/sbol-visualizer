@@ -18,13 +18,13 @@ export default {
   methods: {
     getStart() {
       if (this.selected.propriety) {
-        return parseInt(this.selected.propriety.start)
+        return parseInt(this.selected.propriety.Feature.Location.start)
       }
       return 0
     },
     getEnd() {
       if (this.selected.propriety) {
-        return parseInt(this.selected.propriety.end)
+        return parseInt(this.selected.propriety.Feature.Location.end)
       }
       return 0
     },

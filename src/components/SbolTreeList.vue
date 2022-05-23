@@ -22,8 +22,8 @@
 
       <div class="text-muted-black h2"  @click="selectByClickingOnName(item)">
         <span>Direction: </span>
-        <span>{{ item.propriety.Direction }}</span>
-        <span v-if="item.propriety.end > 0">({{item.propriety.start}}..{{ item.propriety.end }})</span>
+        <span>{{ item.propriety.Feature.Orientation }}</span>
+        <span v-if="item.propriety.Feature.Location.end > 0">({{item.propriety.Feature.Location.start}}..{{ item.propriety.Feature.Location.end }})</span>
       </div>
 
       </div>

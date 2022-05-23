@@ -1,11 +1,12 @@
 import SBOLDocument from 'sboljs';
-import getDisplayList from "../parser/visbol-js/getDisplayList";
-
+//import getDisplayList from "../parser/visbol-js/getDisplayList";
+import {getDisplayListJson} from "visbol";
 import sbolParser from './sbolParser';
 //import bioParser from 'bio-parsers';
 import {jsonToFasta} from "bio-parsers"
 
 const xmlHandler = {
+
     pupulateHeader: (doc) => {
 
         //remove this before go to production
@@ -28,26 +29,24 @@ const xmlHandler = {
     },
     populateAnnotations: (doc) => {
 
-        const visbolDisplayListElements = getDisplayList(doc.componentDefinitions[0]).components[0].segments[0].sequence;
+        const visbolDisplayListElements = getDisplayListJson.getDisplayListJson(doc.componentDefinitions[0]).components[0].segments[0].sequence;
 
         const component = {
             segments: []
         }
 
         doc.componentDefinitions.forEach(function (componentDefinition) {
-            component.segments = component.segments.concat(getDisplayList(componentDefinition).components[0].segments[0])
+            component.segments = component.segments.concat(getDisplayListJson.getDisplayListJson(componentDefinition).components[0].segments[0])
         })
 
         if (visbolDisplayListElements.length > 0) {
             return visbolDisplayListElements.map(
                 (component, index) => {
-
-
                     return {
                         log: "1a",
                         name: component.name,
                         propriety: component.propriety,
-                        SBOL: component.propriety.sequenceOntology,
+                        SBOL: component.propriety.SO,
                         pk: `${index}`,
                         sbolDescription: component.Description,
                         mutableDescription: '',
