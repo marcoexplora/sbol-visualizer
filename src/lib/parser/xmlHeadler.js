@@ -1,8 +1,6 @@
 import SBOLDocument from 'sboljs';
-import getDisplayList from "../parser/visbol-js/getDisplayList";
-
+import getDisplayList from "./visbol-js/getDisplayList";
 import sbolParser from './sbolParser';
-//import bioParser from 'bio-parsers';
 import {jsonToFasta} from "bio-parsers"
 
 const xmlHandler = {
@@ -69,6 +67,10 @@ const xmlHandler = {
                         sbolDataLayer.annotations = xmlHandler.populateAnnotations(doc);
                         sbolDataLayer.sequence = xmlHandler.extractSequence(doc);
                         sbolDataLayer.json = sbolParser.exportToJson(sbolDataLayer);
+
+                        window.sbolDataLayer = sbolDataLayer
+                        window.sbolJSON = sbolParser.exportToJson(sbolDataLayer)
+                        window.fasta = jsonToFasta(window.sbolJSON)
 
                     } catch (error) {
                         console.error(error)

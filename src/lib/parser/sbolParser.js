@@ -1,20 +1,46 @@
 import soToGlyphType from './soToGlyphType'
-import soToGenBankName from './soToGenBankName'
-import SBOLDocument from "sboljs";
+import SBOLDocument from 'sboljs'
+import {sbolXmlToJson, anyToJson} from 'bio-parsers'
 
 const sbolParser = {
     /**
-     * Returns SbolJs Javascript Obj parsed from file
-     * @param {string} local SBOL.xml file
+     * Returns SbolJs Javascript Obj parsed string
+     * @param {string}
      * @returns {object} SbolJs parsed file
      */
-    loadFile: (filePath) => {
-        //loadRDF
+    loadSBOLdoc: (string) => {
         return new Promise((resolve, reject) => {
-            SBOLDocument.loadRDFFile(filePath, function (err, doc) {
+            SBOLDocument.loadRDF(string, function (err, doc) {
                 resolve(doc)
             })
         });
+    },
+    /**
+     * Manage fileObj sbol-visualizer Json/Xml type and return content if possible
+     * @param {<Object>} fileObj
+     * @returns {string} Content of the file of Error
+     */
+    getContentFileObj: (fileObj, fallback) => {
+
+        const read = new FileReader();
+        if (fileObj != null && fileObj.size > 0) {
+            read.readAsText(fileObj);
+            read.onload = (function (theFile, _that) {
+                return function (el) {
+                    const droppedFile = {
+                        name: theFile.name,
+                        type: theFile.type,
+                        data: el.target.result
+                    }
+
+                    /*  console.log(`dataFormat ${droppedFile}`);
+                      console.log(`data ${droppedFile.data}`);*/
+
+
+                    fallback(droppedFile.data);
+                };
+            })(fileObj, this);
+        }
     },
     /**
      * Returns DNA sequence if in the list of sequences povided 'undefined' otherwise
@@ -54,40 +80,33 @@ const sbolParser = {
     },
     /**
      * return a JSON compatible with bio-parser
-     * @param {Object}  sbolDataLayer obj
+     * @param {<Object>}  sbolDataLayer obj
      * @returns {Object} Json compatible with bio-parsers
      */
     exportToJson: (sbolDataLayer) => {
-        console.log('sbolDataLayer');
-        console.log(sbolDataLayer);
+
         let result = {}
 
-        if (typeof sbolDataLayer.header.name !== 'undefined') {
+        if (typeof sbolDataLayer.header.name != 'undefined') {
             result.name = sbolDataLayer.header.name;
         }
 
-        if (typeof sbolDataLayer.sequence !== 'undefined' && sbolDataLayer.sequence != '') {
+        if (typeof sbolDataLayer.sequence != 'undefined' && sbolDataLayer.sequence != '') {
             result.sequence = sbolDataLayer.sequence;
             result.size = result.sequence.length;
             result.cicular = 'false';
         }
 
-        if (typeof sbolDataLayer.header.partID !== 'undefined') {
+        if (typeof sbolDataLayer.header.partID != 'undefined') {
             result.partID = sbolDataLayer.header.partID;
         }
 
-        if (typeof sbolDataLayer.header.mutableDescription !== 'undefined' && sbolDataLayer.header.mutableDescription !== '') {
+        if (typeof sbolDataLayer.header.mutableDescription != 'undefined' && sbolDataLayer.header.mutableDescription != '') {
             result.description = sbolDataLayer.header.mutableDescription;
         }
 
         const featuresExtract = (elementList, parent) => {
-            let visit = [{
-                id: `seq_${sbolDataLayer.header.partID}`,
-                name: 'source',
-                type: 'source',
-                start: 0,
-                end: result.sequence.length -1
-            }];
+            let visit = [];
             if (typeof parent == 'undefined') {
                 parent = 'root';
             }
@@ -101,7 +120,7 @@ const sbolParser = {
                 }
 
                 let strand = 1;
-                if (el.propriety.Direction !== 'FW') {
+                if (el.propriety.Direction != 'FW') {
                     strand = -1;
                 }
 
@@ -109,10 +128,10 @@ const sbolParser = {
                     id: index,
                     name: el.name,
                     description: soToGlyphType(el.SBOL),
-                    type: soToGenBankName(el.SBOL),
+                    type: soToGlyphType(el.SBOL),
                     strand: strand,
-                    start: el.propriety.start -1 | 0,
-                    end: el.propriety.end -1 | 0
+                    start: el.propriety.start,
+                    end: el.propriety.end
                 })
 
                 if (el.propriety.hasOwnProperty('components') && el.propriety.components.length > 0) {
@@ -125,16 +144,14 @@ const sbolParser = {
 
             }
 
-            console.log('visit')
-            console.log(visit)
+
             return visit
         }
-        if (typeof sbolDataLayer.annotations !== 'undefined' && sbolDataLayer.annotations !== '') {
+        if (typeof sbolDataLayer.annotations != 'undefined' && sbolDataLayer.annotations != '') {
             result.features = featuresExtract(sbolDataLayer.annotations)
         }
 
-        console.log('result sbol');
-        console.log(result);
+
         return result
     }
 
