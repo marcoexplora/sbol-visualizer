@@ -1,16 +1,12 @@
 import SBOLDocument from 'sboljs';
-//import getDisplayList from "../parser/visbol-js/getDisplayList";
+
 import {getDisplayListJson} from "visbol";
 import sbolParser from './sbolParser';
-//import bioParser from 'bio-parsers';
-import {jsonToFasta} from "bio-parsers"
+
 
 const xmlHandler = {
 
     pupulateHeader: (doc) => {
-
-        //remove this before go to production
-        window.sboljs_output = doc;
 
         const mainComponetDefinition = doc.componentDefinitions[0];
         return {
