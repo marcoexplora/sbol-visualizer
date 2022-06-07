@@ -46,6 +46,7 @@ const xmlHandler = {
                         pk: `${index}`,
                         sbolDescription: component.Description,
                         mutableDescription: '',
+                        isComposite: component.isComposite,
                     };
                 }
             )
