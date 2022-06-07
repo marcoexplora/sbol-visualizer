@@ -17,12 +17,18 @@ export default {
   },
   methods: {
     getStart() {
+      if(!this.selected.isComposite) {
+        return 0
+      }
       if (this.selected.propriety) {
         return parseInt(this.selected.propriety.Feature.Location.start)
       }
       return 0
     },
     getEnd() {
+      if(!this.selected.isComposite) {
+        return 0
+      }
       if (this.selected.propriety) {
         return parseInt(this.selected.propriety.Feature.Location.end)
       }

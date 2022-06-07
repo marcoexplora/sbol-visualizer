@@ -1,8 +1,7 @@
   <template>
     <div>
       <div  v-bind:class="[item === selected ? 'selected' : '',showSubComponent ? 'highlighed' : '']">
-      <div class="h1">
-
+      <div v-if="item.propriety" class="h1">
         <span v-if="item.propriety.components"
               v-bind:class="[ showSubComponent ? 'open' : 'close']"
               @click="accordionUpdate(item)"
@@ -20,7 +19,7 @@
 
       </div>
 
-      <div class="text-muted-black h2"  @click="selectByClickingOnName(item)">
+      <div v-if="item.propriety.Feature" class="text-muted-black h2"  @click="selectByClickingOnName(item)">
         <span>Direction: </span>
         <span>{{ item.propriety.Feature.Orientation }}</span>
         <span v-if="item.propriety.Feature.Location.end > 0">({{item.propriety.Feature.Location.start}}..{{ item.propriety.Feature.Location.end }})</span>
@@ -28,7 +27,7 @@
 
       </div>
 
-      <div v-bind:class="[showSubComponent ? 'show' : 'hide', item.propriety.components == visible ? 'visible':'' ]" class="components_list">
+      <div v-if="item.propriety" v-bind:class="[showSubComponent ? 'show' : 'hide', item.propriety.components == visible ? 'visible':'' ]" class="components_list">
         <ul v-if="item.propriety.components" :id="item.name  + 'sub' + level" >
           <li v-for="(sub, index) in item.propriety.components" :key="index" class="item">
                 <sbol-tree-list
