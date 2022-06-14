@@ -91,7 +91,8 @@ const sbolParser = {
             if (typeof parent == 'undefined') {
                 parent = 'root';
             }
-
+            console.log("elementList")
+            console.log(elementList)
             for (let idx = 0; idx < elementList.length; idx++) {
                 const el = elementList[idx];
 
@@ -101,7 +102,7 @@ const sbolParser = {
                 }
 
                 let strand = 1;
-                if (el.propriety.Direction !== 'FW') {
+                if (el.propriety.Feature.Orientation !== 'inline') {
                     strand = -1;
                 }
 
@@ -111,8 +112,8 @@ const sbolParser = {
                     description: soToGlyphType(el.SBOL),
                     type: soToGenBankName(el.SBOL),
                     strand: strand,
-                    start: el.propriety.start -1 | 0,
-                    end: el.propriety.end -1 | 0
+                    start: el.propriety.Feature.Location.start -1 | 0,
+                    end: el.propriety.Feature.Location.end -1 | 0
                 })
 
                 if (el.propriety.hasOwnProperty('components') && el.propriety.components.length > 0) {
