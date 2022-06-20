@@ -102,18 +102,21 @@ const sbolParser = {
                 }
 
                 let strand = 1;
-                if (el.propriety.Feature.Orientation !== 'inline') {
+                // support modules
+                if (typeof el.propriety.Feature != 'undefined' && el.propriety.Feature.Orientation !== 'inline') {
                     strand = -1;
                 }
-
+                // support modules
+                const _start = typeof  el.propriety.Feature != 'undefined' ? el.propriety.Feature.Location.start -1 | 0 : 0
+                const _end = typeof  el.propriety.Feature != 'undefined' ? el.propriety.Feature.Location.end -1 | 0 : 0
                 visit.push({
                     id: index,
                     name: el.name,
                     description: soToGlyphType(el.SBOL),
                     type: soToGenBankName(el.SBOL),
                     strand: strand,
-                    start: el.propriety.Feature.Location.start -1 | 0,
-                    end: el.propriety.Feature.Location.end -1 | 0
+                    start: _start,
+                    end: _end
                 })
 
                 if (el.propriety.hasOwnProperty('components') && el.propriety.components.length > 0) {
