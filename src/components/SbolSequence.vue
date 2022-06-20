@@ -17,13 +17,17 @@ export default {
   },
   methods: {
     getStart() {
-      if (typeof this.selected.propriety != 'undefined' && this.selected.propriety) {
+      if (typeof this.selected.propriety != 'undefined' &&
+          typeof this.selected.propriety.Feature != 'undefined' &&
+          this.selected.propriety) {
         return parseInt(this.selected.propriety.Feature.Location.start)
       }
       return 0
     },
     getEnd() {
-      if (typeof this.selected.propriety != 'undefined' && this.selected.propriety) {
+      if (typeof this.selected.propriety != 'undefined' &&
+          typeof this.selected.propriety.Feature != 'undefined' &&
+          this.selected.propriety) {
         return parseInt(this.selected.propriety.Feature.Location.end)
       }
       return 0
