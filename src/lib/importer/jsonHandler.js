@@ -1,4 +1,9 @@
 const jsonHandler = {
+    /**
+     * return a JSON compatible with bio-parser
+     * @param {Object}  sbolDataLayer obj
+     * @returns {Object} Json compatible with bio-parsers
+     */
     convertJson: (json) => {
 
         const sbolDataLayer = {}

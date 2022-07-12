@@ -58,12 +58,11 @@ const sbolParser = {
      * @returns {Object} Json compatible with bio-parsers
      */
     exportToJson: (sbolDataLayer) => {
-        console.log('sbolDataLayer');
-        console.log(sbolDataLayer);
+
         let result = {}
 
         if (typeof sbolDataLayer.header.name !== 'undefined') {
-            result.name = sbolDataLayer.header.name;
+            result.name = sbolDataLayer.header.partID;
         }
 
         if (typeof sbolDataLayer.sequence !== 'undefined' && sbolDataLayer.sequence != '') {
@@ -91,8 +90,7 @@ const sbolParser = {
             if (typeof parent == 'undefined') {
                 parent = 'root';
             }
-            console.log("elementList")
-            console.log(elementList)
+
             for (let idx = 0; idx < elementList.length; idx++) {
                 const el = elementList[idx];
 
@@ -129,16 +127,12 @@ const sbolParser = {
 
             }
 
-            console.log('visit')
-            console.log(visit)
             return visit
         }
         if (typeof sbolDataLayer.annotations !== 'undefined' && sbolDataLayer.annotations !== '') {
             result.features = featuresExtract(sbolDataLayer.annotations)
         }
 
-        console.log('result sbol');
-        console.log(result);
         return result
     }
 

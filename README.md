@@ -20,7 +20,9 @@ Once you add the necessary script to your page you could use Sbol Visualizer as 
 ## Built With
 
 * [VueJS](https://vuejs.org)
+* [Bio Parsers](https://github.com/TeselaGen/ve-sequence-parsers)
 * [SbolJS](https://github.com/doulix/sbol-web-visualizer)
+* [Visbol-js](https://github.com/VisBOL/visbol-js)
 
 <!-- GETTING STARTED -->
 ## Getting Started

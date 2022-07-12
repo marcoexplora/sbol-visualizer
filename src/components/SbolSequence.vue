@@ -1,7 +1,7 @@
 <template>
   <div class="sbolSequence" :ref="'sequence'">
-    <div class="scrollable">
-      <div class="sequence" v-html="this.showSelection(sequence,this.getStart(),this.getEnd())"></div>
+    <div class="scrollable" :ref="'seqContainer'">
+      <div class="sequence"  v-html="this.showSelection(sequence,this.getStart(),this.getEnd())"></div>
     </div>
   </div>
 </template>
@@ -33,6 +33,7 @@ export default {
       return 0
     },
     showSelection(sequence, start, end) {
+
       if (typeof sequence === 'undefined' || sequence === ''){
         return `<span class="no_sequence">No sequence</span>`
       }
@@ -51,6 +52,7 @@ export default {
         "sequence" : sequence
       })
 
+
       start = start -1;
 
       if(end > sequence.length){
@@ -61,17 +63,33 @@ export default {
         start = 0;
       }
 
-      const left = sequence.slice(0, start);
-      const middle = sequence.slice(start, end );
-      const right = sequence.slice(end);
+      const colorN = (sequence) =>{
+        return sequence.split("").map( (n)=>{
+          return `<span class="${n.toUpperCase()}">${n}</span>`
+        }).join("")
+      }
 
-      return `${left}<span id="seqSelection" style="background: #31a0ff24;color:#3578b6">${middle}</span>${right}`
+      const left = colorN(sequence.slice(0, start));
+      const middle = colorN(sequence.slice(start, end ));
+      const right = colorN(sequence.slice(end));
+
+
+      return `${left}<span id="seqSelection" style="background:#31a0ff47">${middle}</span>${right}`
     }
   },
 };
 </script>
+<style>
 
+.A{color:green}
+.T{color:red}
+.G{color:orange}
+.C{color:blue}
+
+</style>
 <style scoped>
+
+
 .sbolSequence {
   height: 200px;
   background-color: #fff;
@@ -94,4 +112,6 @@ export default {
   overflow-y: scroll;
   height: 200px;
 }
+
+
 </style>
